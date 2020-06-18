@@ -28,12 +28,11 @@ from com.alipay.ams.api.response.pay.alipay_refund_response import AlipayRefundR
 
 
 MERCHANT_PRIVATE_KEY = ""
-
 ALIPAY_PUBLICK_KEY = ""
-
+CLIENT_ID = ""
 
 def pay():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_request = AlipayPayRequest()
     alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
@@ -95,7 +94,7 @@ def pay():
 
 
 def pay_consult():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
     pay_consult_request = AlipayPayConsultRequest()
     pay_consult_request.path = "/ams/sandbox/api/v1/payments/consult"
     pay_consult_request.product_code = ProductCodeType.CASHIER_PAYMENT
@@ -122,7 +121,7 @@ def pay_consult():
 
 def pay_cancel():
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_cancel_request = AlipayPayCancelRequest()
     alipay_pay_cancel_request.path = "/ams/sandbox/api/v1/payments/cancel"
@@ -140,7 +139,7 @@ def pay_cancel():
 
 def pay_query():
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_query_request = AlipayPayQueryRequest()
     alipay_pay_query_request.path = "/ams/sandbox/api/v1/payments/inquiryPayment"
@@ -157,7 +156,7 @@ def pay_query():
 
 
 def capture():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY,
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLICK_KEY)
 
     alipay_capture_request = AlipayCaptureRequest()
@@ -181,7 +180,7 @@ def capture():
 
 
 def refund():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY,
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLICK_KEY)
 
     alipay_refund_request = AlipayRefundRequest()

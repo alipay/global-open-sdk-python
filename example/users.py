@@ -15,12 +15,11 @@ from com.alipay.ams.api.model.user_identity_type import UserIdentityType
 
 
 MERCHANT_PRIVATE_KEY = ""
-
 ALIPAY_PUBLICK_KEY = ""
-
+CLIENT_ID = ""
 
 def user_query_info():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_user_query_info_request = AlipayUserQueryInfoRequest()
     alipay_user_query_info_request.path = "/ams/sandbox/api/v1/users/inquiryUserInfo"
@@ -37,7 +36,7 @@ def user_query_info():
 
 
 def init_authentication():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
     alipay_init_authentication_request = AlipayInitAuthenticationRequest()
     alipay_init_authentication_request.path = "/ams/sandbox/api/v1/users/initAuthentication"
     alipay_init_authentication_request.authentication_channel_type = AuthenticationChannelType.SMS
@@ -57,7 +56,7 @@ def init_authentication():
 
 
 def verify_authentication():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
     alipay_verify_authentication_request = AlipayVerifyAuthenticationRequest()
     alipay_verify_authentication_request.path = "/ams/sandbox/api/v1/users/verifyAuthentication"
     alipay_verify_authentication_request.authentication_request_id = "test_1"

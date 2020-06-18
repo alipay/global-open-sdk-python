@@ -18,12 +18,11 @@ from com.alipay.ams.api.response.auth.alipay_auth_revoke_token_response import A
 
 
 MERCHANT_PRIVATE_KEY = ""
-
 ALIPAY_PUBLICK_KEY = ""
-
+CLIENT_ID = ""
 
 def apply_token():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
     # 申请token
     alipay_auth_apply_token_request = AlipayAuthApplyTokenRequest()
 
@@ -44,7 +43,7 @@ def apply_token():
 
 def query_token():
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
         # 查询token
     alipay_auth_query_token_request = AlipayAuthQueryTokenRequest()
@@ -63,7 +62,7 @@ def query_token():
 
 def auth_consult():
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_auth_consult_request = AlipayAuthConsultRequest()
     alipay_auth_consult_request.path = "/ams/sandbox/api/v1/authorizations/consult"
@@ -90,7 +89,7 @@ def auth_consult():
 
 
 def revoke_token():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", "T_111222333", MERCHANT_PRIVATE_KEY,
+    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLICK_KEY)
     alipay_revoke_token_request = AlipayAuthRevokeTokenRequest()
     alipay_revoke_token_request.path = "/ams/sandbox/api/v1/authorizations/revoke"
