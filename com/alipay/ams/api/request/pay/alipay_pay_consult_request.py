@@ -1,0 +1,128 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import json
+
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
+
+class AlipayPayConsultRequest(AlipayRequest):
+
+    def __init__(self):
+        super(AlipayPayConsultRequest, self).__init__()
+        self.__product_code = None
+        self.__payment_amount = None
+        self.__allowed_payment_methods = None
+        self.__blocked_payment_methods = None
+        self.__region = None
+        self.__customer_id = None
+        self.__reference_user_id = None
+        self.__env = None
+        self.__extend_info = None
+
+    @property
+    def product_code(self):
+        return self.__product_code
+
+    @product_code.setter
+    def product_code(self, value):
+        self.__product_code = value
+
+    @property
+    def payment_amount(self):
+        return self.__payment_amount
+
+    @payment_amount.setter
+    def payment_amount(self, value):
+        self.__payment_amount = value
+
+    @property
+    def allowed_payment_methods(self):
+        return self.__allowed_payment_methods
+
+    @allowed_payment_methods.setter
+    def allowed_payment_methods(self, value):
+        self.__allowed_payment_methods = value
+
+    @property
+    def blocked_payment_methods(self):
+        return self.__blocked_payment_methods
+
+    @blocked_payment_methods.setter
+    def blocked_payment_methods(self, value):
+        self.__blocked_payment_methods = value
+
+    @property
+    def region(self):
+        return self.__region
+
+    @region.setter
+    def region(self, value):
+        self.__region = value
+
+    @property
+    def customer_id(self):
+        return self.__customer_id
+
+    @customer_id.setter
+    def customer_id(self, value):
+        self.__customer_id = value
+
+    @property
+    def reference_user_id(self):
+        return self.__reference_user_id
+
+    @reference_user_id.setter
+    def reference_user_id(self, value):
+        self.__reference_user_id = value
+
+    @property
+    def env(self):
+        return self.__env
+
+    @env.setter
+    def env(self, value):
+        self.__env = value
+
+    @property
+    def extend_info(self):
+        return self.__extend_info
+
+    @extend_info.setter
+    def extend_info(self, value):
+        self.__extend_info = value
+
+    def to_ams_json(self):
+        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        return json_str
+
+    def __to_ams_dict(self):
+        params = dict()
+        if hasattr(self, "product_code") and self.product_code:
+            params['productCode'] = self.product_code
+
+        if hasattr(self, "payment_amount") and self.payment_amount:
+            params['paymentAmount'] = self.payment_amount
+
+        if hasattr(self, "allowed_payment_methods") and self.allowed_payment_methods:
+            params['allowedPaymentMethods'] = self.allowed_payment_methods
+
+        if hasattr(self, "blocked_payment_methods") and self.blocked_payment_methods:
+            params['blockedPaymentMethods'] = self.blocked_payment_methods
+
+        if hasattr(self, "region") and self.region:
+            params['region'] = self.region
+
+        if hasattr(self, "customer_id") and self.customer_id:
+            params['customerId'] = self.customer_id
+
+        if hasattr(self, "reference_user_id") and self.reference_user_id:
+            params['referenceUserId'] = self.reference_user_id
+
+        if hasattr(self, "env") and self.env:
+            params['env'] = self.env
+
+        if hasattr(self, "extend_info") and self.extend_info:
+            params['extendInfo'] = self.extend_info
+
+        return params
