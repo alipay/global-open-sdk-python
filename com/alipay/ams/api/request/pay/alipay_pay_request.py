@@ -22,7 +22,6 @@ class AlipayPayRequest(AlipayRequest):
         self.__is_authorization = None
         self.__payment_verification_data = None
         self.__payment_factor = None
-        self.__env = None
         self.__settlement_strategy = None
         self.__extend_info = None
 
@@ -123,14 +122,6 @@ class AlipayPayRequest(AlipayRequest):
         self.__payment_factor = value
 
     @property
-    def env(self):
-        return self.__env
-
-    @env.setter
-    def env(self, value):
-        self.__env = value
-
-    @property
     def settlement_strategy(self):
         return self.__settlement_strategy
 
@@ -187,9 +178,6 @@ class AlipayPayRequest(AlipayRequest):
 
         if hasattr(self, "payment_factor") and self.payment_factor:
             params['paymentFactor'] = self.payment_factor
-
-        if hasattr(self, "env") and self.env:
-            params['env'] = self.env
 
         if hasattr(self, "settlement_strategy") and self.settlement_strategy:
             params['settlementStrategy'] = self.settlement_strategy
