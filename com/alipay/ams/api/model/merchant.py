@@ -10,6 +10,7 @@ class Merchant(object):
         self.__merchant_display_name = None
         self.__merchant_address = None
         self.__merchant_register_date = None
+        self.__merchant_type = None
         self.__store = None
 
     @property
@@ -61,6 +62,14 @@ class Merchant(object):
         self.__merchant_register_date = value
 
     @property
+    def merchant_type(self):
+        return self.__merchant_type
+
+    @merchant_type.setter
+    def merchant_type(self, value):
+        self.__merchant_type = value
+
+    @property
     def store(self):
         return self.__store
 
@@ -87,6 +96,9 @@ class Merchant(object):
 
         if hasattr(self, "merchant_register_date") and self.merchant_register_date:
             params['merchantRegisterDate'] = self.merchant_register_date
+
+        if hasattr(self, "merchant_type") and self.merchant_type:
+            params['merchantType'] = self.merchant_type
 
         if hasattr(self, "store") and self.store:
             params['store'] = self.store

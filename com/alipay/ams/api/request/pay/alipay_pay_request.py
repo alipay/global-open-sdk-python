@@ -24,6 +24,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__payment_factor = None
         self.__settlement_strategy = None
         self.__extend_info = None
+        self.__env = None
 
     @property
     def product_code(self):
@@ -137,6 +138,14 @@ class AlipayPayRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def env(self):
+        return self.__env
+
+    @env.setter
+    def env(self, value):
+        self.__env = value;
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -184,5 +193,8 @@ class AlipayPayRequest(AlipayRequest):
 
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+
+        if hasattr(self, "env") and self.env:
+            params['env'] = self.env
 
         return params
