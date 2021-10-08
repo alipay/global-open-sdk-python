@@ -19,6 +19,11 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__reference_user_id = None
         self.__env = None
         self.__extend_info = None
+        self.__user_region = None
+        self.__payment_factor = None
+        self.__settlement_strategy = None
+        self.__merchant = None
+        self.__allowed_psp_regions = None
 
     @property
     def product_code(self):
@@ -92,6 +97,46 @@ class AlipayPayConsultRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def user_region(self):
+        return self.__user_region
+
+    @user_region.setter
+    def user_region(self, value):
+        self.__user_region = value;
+
+    @property
+    def payment_factor(self):
+        return self.__payment_factor
+
+    @payment_factor.setter
+    def payment_factor(self, value):
+        self.__payment_factor = value
+
+    @property
+    def settlement_strategy(self):
+        return self.__settlement_strategy
+
+    @settlement_strategy.setter
+    def settlement_strategy(self, value):
+        self.__settlement_strategy = value
+
+    @property
+    def merchant(self):
+        return self.__merchant
+
+    @merchant.setter
+    def merchant(self, value):
+        self.__merchant = value
+
+    @property
+    def allowed_psp_regions(self):
+        return self.__allowed_psp_regions
+
+    @allowed_psp_regions.setter
+    def allowed_psp_regions(self, value):
+        self.__allowed_psp_regions = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -124,5 +169,20 @@ class AlipayPayConsultRequest(AlipayRequest):
 
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+
+        if hasattr(self, "user_region") and self.user_region:
+            params['userRegion'] = self.user_region
+
+        if hasattr(self, "payment_factor") and self.payment_factor:
+            params['paymentFactor'] = self.payment_factor
+
+        if hasattr(self, "settlement_strategy") and self.settlement_strategy:
+            params['settlementStrategy'] = self.settlement_strategy
+
+        if hasattr(self, "merchant") and self.merchant:
+            params['merchant'] = self.merchant
+
+        if hasattr(self, "allowed_psp_regions") and self.allowed_psp_regions:
+            params['allowedPspRegions'] = self.allowed_psp_regions
 
         return params

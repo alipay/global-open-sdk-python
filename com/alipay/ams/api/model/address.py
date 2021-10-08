@@ -12,6 +12,7 @@ class Address(object):
         self.__address1 = None
         self.__address2 = None
         self.__zip_code = None
+        self.__label = None
 
     @property
     def region(self):
@@ -61,6 +62,14 @@ class Address(object):
     def zip_code(self, value):
         self.__zip_code = value
 
+    @property
+    def label(self):
+        return self.__label
+
+    @label.setter
+    def label(self, value):
+        self.__label = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "region") and self.region:
@@ -81,7 +90,10 @@ class Address(object):
         if hasattr(self, "zip_code") and self.zip_code:
             params['zipCode'] = self.zip_code
 
-        return
+        if hasattr(self, "label") and self.label:
+            params['label'] = self.label
+
+        return params
 
     def parse_rsp_body(self, address_body):
         if type(address_body) == str:
@@ -104,3 +116,6 @@ class Address(object):
 
         if 'zipCode' in address_body:
             self.__zip_code = address_body['zipCode']
+
+        if 'label' in address_body:
+            self.__label = address_body['label']
