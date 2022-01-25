@@ -7,7 +7,7 @@ setup module for core.
 Created on 5/20/2020
 @author: songlin.xiesl、guangling.zgl
 '''
-NAME = "global-open-sdk-python"
+NAME = "global_open_sdk_python"
 DESCRIPTION = "The global alipay gateway SDK for Python."
 AUTHOR = "songlin.xiesl"
 AUTHOR_EMAIL = "songlin.xiesl@alibaba-inc.com"
