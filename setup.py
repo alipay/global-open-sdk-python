@@ -7,11 +7,11 @@ setup module for core.
 Created on 5/20/2020
 @author: songlin.xiesl、guangling.zgl
 '''
-NAME = "global-alipay-sdk-python"
+NAME = "global-open-sdk-python"
 DESCRIPTION = "The global alipay gateway SDK for Python."
 AUTHOR = "songlin.xiesl"
 AUTHOR_EMAIL = "songlin.xiesl@alibaba-inc.com"
-URL = "https://github.com/alipay/global-alipay-sdk-python"
+URL = "https://github.com/alipay/global-open-sdk-python"
 VERSION = "1.0.0"
 '''
 only python2 need enum34、pytz
