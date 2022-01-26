@@ -27,7 +27,10 @@ setup(
     license="MIT",
     url=URL,
     keywords=["global", "alipay", "sdk"],
-    packages=['com'],
+    packages=find_packages(where='com'),
+    package_dir={
+        '':'com',
+    },
     include_package_data=True,
     platforms='any',
     install_requires=requires,
