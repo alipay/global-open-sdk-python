@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
+from pathlib import Path
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+
 '''
 setup module for core.
 Created on 5/20/2020
@@ -20,12 +20,15 @@ only python2 need enum34、pytz
 '''
 requires = ["enum34", "pytz", "pycryptodome", "rsa"]
 
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license="MIT",
