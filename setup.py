@@ -2,6 +2,8 @@
 
 from setuptools import setup, find_packages
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 '''
 setup module for core.
 Created on 5/20/2020
@@ -22,15 +24,14 @@ setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license="MIT",
     url=URL,
     keywords=["global", "alipay", "sdk"],
-    packages=find_packages(where='com'),
-    package_dir={
-        '':'com',
-    },
+    packages=find_packages(where='*'),
     include_package_data=True,
     platforms='any',
     install_requires=requires,
