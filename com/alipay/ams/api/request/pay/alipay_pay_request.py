@@ -25,6 +25,24 @@ class AlipayPayRequest(AlipayRequest):
         self.__settlement_strategy = None
         self.__extend_info = None
         self.__env = None
+        self.__merchant_region = None
+        self.__app_id = None
+
+    @property
+    def merchant_region(self):
+        return self.__merchant_region
+
+    @merchant_region.setter
+    def merchant_region(self, value):
+        self.__merchant_region = value
+
+    @property
+    def app_id(self):
+        return self.__app_id
+
+    @app_id.setter
+    def app_id(self, value):
+        self.__app_id = value
 
     @property
     def product_code(self):
@@ -196,5 +214,11 @@ class AlipayPayRequest(AlipayRequest):
 
         if hasattr(self, "env") and self.env:
             params['env'] = self.env
+
+        if hasattr(self, "merchant_region") and self.merchant_region:
+            params['merchantRegion'] = self.merchant_region
+
+        if hasattr(self, "app_id") and self.app_id:
+            params['appId'] = self.app_id
 
         return params

@@ -29,7 +29,17 @@ class AlipayPayResponse(AlipayResponse):
         self.__redirect_action_form = None
         self.__order_code_form = None
         self.__extend_info = None
+        self.__gross_settlement_amount = None
+        self.__settlement_quote = None
         self.__parse_rsp_body(rsp_body)
+
+    @property
+    def gross_settlement_amount(self):
+        return self.__gross_settlement_amount
+
+    @property
+    def settlement_quote(self):
+        return self.__settlement_quote
 
     @property
     def payment_request_id(self):
@@ -137,3 +147,11 @@ class AlipayPayResponse(AlipayResponse):
             self.__order_code_form = order_code_form
         if 'extendInfo' in response:
             self.__extend_info = response['extendInfo']
+        if 'grossSettlementAmount' in response:
+            gross_settlement_amount = Amount()
+            gross_settlement_amount.parse_rsp_body(response['grossSettlementAmount'])
+            self.__gross_settlement_amount = gross_settlement_amount
+        if 'settlementQuote' in response:
+            settlement_quote = Quote()
+            settlement_quote.parse_rsp_body(response['settlementQuote'])
+            self.__settlement_quote = settlement_quote
