@@ -31,7 +31,22 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__redirect_action_form = None
         self.__extend_info = None
         self.__transactions = None
+        self.__customs_declaration_amount = None
+        self.__gross_settlement_amount = None
+        self.__settlement_quote = None
         self.__parse_rsp_body(rsp_body)
+
+    @property
+    def customs_declaration_amount(self):
+        return self.__customs_declaration_amount
+
+    @property
+    def gross_settlement_amount(self):
+        return self.__gross_settlement_amount
+
+    @property
+    def settlement_quote(self):
+        return self.__settlement_quote
 
     @property
     def payment_status(self):
@@ -176,3 +191,18 @@ class AlipayPayQueryResponse(AlipayResponse):
                 transaction.parse_rsp_body(transaction_body)
                 transactions.append(transaction)
             self.__transactions = transactions
+
+        if 'customsDeclarationAmount' in response:
+            customs_declaration_amount = Amount()
+            customs_declaration_amount.parse_rsp_body(response['customsDeclarationAmount'])
+            self.__customs_declaration_amount = customs_declaration_amount
+
+        if 'grossSettlementAmount' in response:
+            gross_settlement_amount = Amount()
+            gross_settlement_amount.parse_rsp_body(response['grossSettlementAmount'])
+            self.__gross_settlement_amount = gross_settlement_amount
+
+        if 'settlementQuote' in response:
+            settlement_quote = Quote()
+            settlement_quote.parse_rsp_body(response['settlementQuote'])
+            self.__settlement_quote = settlement_quote

@@ -14,6 +14,15 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
         self.__auth_code = None
         self.__refresh_token = None
         self.__extend_info = None
+        self.__merchant_region = None
+
+    @property
+    def merchant_region(self):
+        return self.__merchant_region
+
+    @merchant_region.setter
+    def merchant_region(self, value):
+        self.__merchant_region = value
 
     @property
     def grant_type(self):
@@ -71,5 +80,7 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
             params['refreshToken'] = self.refresh_token
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+        if hasattr(self, "merchant_region") and self.merchant_region:
+            params['merchantRegion'] = self.merchant_region
         return params
 

@@ -19,6 +19,15 @@ class AlipayAuthConsultRequest(AlipayRequest):
         self.__os_type = None
         self.__os_version = None
         self.__extend_info = None
+        self.__merchant_region = None
+
+    @property
+    def merchant_region(self):
+        return self.__merchant_region
+
+    @merchant_region.setter
+    def merchant_region(self, value):
+        self.__merchant_region = value
 
     @property
     def customer_belongs_to(self):
@@ -117,4 +126,6 @@ class AlipayAuthConsultRequest(AlipayRequest):
             params['osVersion'] = self.os_version
         if hasattr(self, "extendInfo") and self.extend_info:
             params['extendInfo'] = self.extend_info
+        if hasattr(self, "merchant_region") and self.merchant_region:
+            params['merchantRegion'] = self.merchant_region
         return params
