@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
+from com.alipay.ams.api.model.promotion_result import PromotionResult
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
 from com.alipay.ams.api.model.amount import Amount
@@ -34,6 +35,9 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__customs_declaration_amount = None
         self.__gross_settlement_amount = None
         self.__settlement_quote = None
+        self.__acquirer_reference_no = None
+        self.__payment_result_info = None #type: PaymentResultInfo
+        self.__promotion_result = None #type: PromotionResult
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -115,6 +119,18 @@ class AlipayPayQueryResponse(AlipayResponse):
     @property
     def transactions(self):
         return self.__transactions
+
+    @property
+    def acquirer_reference_no(self):
+        return self.__acquirer_reference_no
+
+    @property
+    def payment_result_info(self):
+        return self.__payment_result_info
+
+    @property
+    def promotion_result(self):
+        return self.__promotion_result
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayPayQueryResponse, self).parse_rsp_body(rsp_body)
@@ -206,3 +222,16 @@ class AlipayPayQueryResponse(AlipayResponse):
             settlement_quote = Quote()
             settlement_quote.parse_rsp_body(response['settlementQuote'])
             self.__settlement_quote = settlement_quote
+
+        if 'acquirerReferenceNo' in response:
+            self.__acquirer_reference_no = response['acquirerReferenceNo']
+
+        if 'paymentResultInfo' in response:
+            payment_result_info = PaymentResultInfo()
+            payment_result_info.parse_rsp_body(response['paymentResultInfo'])
+            self.__payment_result_info = payment_result_info
+
+        if 'promotionResult' in response:
+            promotion_result = PromotionResult()
+            promotion_result.parse_rsp_body(response['promotionResult'])
+            self.__promotion_result = promotion_result

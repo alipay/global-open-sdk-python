@@ -12,6 +12,7 @@ class AlipayAuthApplyTokenResponse(AlipayResponse):
         self.__access_token_expiry_time = None
         self.__refresh_token = None
         self.__refresh_token_expiry_time = None
+        self.__user_login_id = None
         self.__extend_info = None
         self.__parse_rsp_body(rsp_body)
 
@@ -35,6 +36,10 @@ class AlipayAuthApplyTokenResponse(AlipayResponse):
     def extend_info(self):
         return self.__extend_info
 
+    @property
+    def user_login_id(self):
+        return self.__user_login_id
+
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayAuthApplyTokenResponse, self).parse_rsp_body(rsp_body)
         if 'accessToken' in response:
@@ -47,3 +52,6 @@ class AlipayAuthApplyTokenResponse(AlipayResponse):
             self.__refresh_token_expiry_time = response['refreshTokenExpiryTime']
         if 'extendInfo' in response:
             self.__extend_info = response['extendInfo']
+
+        if 'userLoginId' in response:
+            self.__user_login_id = response['userLoginId']

@@ -1,24 +1,20 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
-from com.alipay.ams.api.model.amount import Amount
 
 
-class AlipayRefundResponse(AlipayResponse):
-
+class AlipayRefundQueryResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayRefundResponse, self).__init__()
+        super(AlipayRefundQueryResponse, self).__init__()
         self.__refund_request_id = None
         self.__refund_id = None
-        self.__payment_id = None
         self.__refund_amount = None
         self.__refund_time = None
-        self.__refund_non_guarantee_coupon_amount = None
-        self.__acquirer_reference_no = None
-        self.__gross_settlement_amount = None #type: Amount
-        self.__settlement_quote = None #type: Quote
+        self.__refund_status = None
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
         self.__parse_rsp_body(rsp_body)
+
 
     @property
     def refund_request_id(self):
@@ -29,10 +25,6 @@ class AlipayRefundResponse(AlipayResponse):
         return self.__refund_id
 
     @property
-    def payment_id(self):
-        return self.__payment_id
-
-    @property
     def refund_amount(self):
         return self.__refund_amount
 
@@ -41,12 +33,8 @@ class AlipayRefundResponse(AlipayResponse):
         return self.__refund_time
 
     @property
-    def refund_non_guarantee_coupon_amount(self):
-        return self.__refund_non_guarantee_coupon_amount
-
-    @property
-    def acquirer_reference_no(self):
-        return self.__acquirer_reference_no
+    def refund_status(self):
+        return self.__refund_status
 
     @property
     def gross_settlement_amount(self):
@@ -56,13 +44,10 @@ class AlipayRefundResponse(AlipayResponse):
     def settlement_quote(self):
         return self.__settlement_quote
 
-
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayRefundResponse, self).parse_rsp_body(rsp_body)
+        response = super(AlipayRefundQueryResponse, self).parse_rsp_body(rsp_body)
         if 'refundRequestId' in response:
             self.__refund_request_id = response['refundRequestId']
-        if 'paymentId' in response:
-            self.__payment_id = response['paymentId']
         if 'refundId' in response:
             self.__refund_id = response['refundId']
         if 'refundAmount' in response:
@@ -71,20 +56,14 @@ class AlipayRefundResponse(AlipayResponse):
             self.__refund_amount = refund_amount
         if 'refundTime' in response:
             self.__refund_time = response['refundTime']
-        if 'refundNonGuaranteeCouponAmount' in response:
-            refund_non_guarantee_coupon_amount = Amount()
-            refund_non_guarantee_coupon_amount.parse_rsp_body(response['refundNonGuaranteeCouponAmount'])
-            self.__refund_non_guarantee_coupon_amount = refund_non_guarantee_coupon_amount
-
-        if 'acquirerReferenceNo' in response:
-            self.__acquirer_reference_no = response['acquirerReferenceNo']
-
+        if 'refundStatus' in response:
+            self.__refund_status = response['refundStatus']
         if 'grossSettlementAmount' in response:
             gross_settlement_amount = Amount()
             gross_settlement_amount.parse_rsp_body(response['grossSettlementAmount'])
             self.__gross_settlement_amount = gross_settlement_amount
-
         if 'settlementQuote' in response:
             settlement_quote = Quote()
             settlement_quote.parse_rsp_body(response['settlementQuote'])
             self.__settlement_quote = settlement_quote
+

@@ -12,6 +12,7 @@ class AlipayPayQueryRequest(AlipayRequest):
         super(AlipayPayQueryRequest, self).__init__()
         self.__payment_id = None
         self.__payment_request_id = None
+        self.__merchant_account_id = None
 
     @property
     def payment_id(self):
@@ -29,6 +30,14 @@ class AlipayPayQueryRequest(AlipayRequest):
     def payment_request_id(self, value):
         self.__payment_request_id = value
 
+    @property
+    def merchant_account_id(self):
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), indent=3)
         return json_str
@@ -40,6 +49,9 @@ class AlipayPayQueryRequest(AlipayRequest):
 
         if hasattr(self, "payment_request_id") and self.payment_request_id:
             params['paymentRequestId'] = self.payment_request_id
+
+        if hasattr(self, "merchant_account_id") and self.merchant_account_id:
+            params['merchantAccountId'] = self.merchant_account_id
 
         return params
 

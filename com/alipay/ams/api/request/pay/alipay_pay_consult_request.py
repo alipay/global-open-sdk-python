@@ -24,6 +24,11 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__settlement_strategy = None
         self.__merchant = None
         self.__allowed_psp_regions = None
+        self.__merchant_region = None
+        self.__merchant_account_id = None
+        self.__allowed_payment_method_regions = None
+        self.__buyer = None
+
 
     @property
     def product_code(self):
@@ -137,6 +142,38 @@ class AlipayPayConsultRequest(AlipayRequest):
     def allowed_psp_regions(self, value):
         self.__allowed_psp_regions = value
 
+    @property
+    def merchant_region(self):
+        return self.__merchant_region
+
+    @merchant_region.setter
+    def merchant_region(self, value):
+        self.__merchant_region = value
+
+    @property
+    def merchant_account_id(self):
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
+
+    @property
+    def allowed_payment_method_regions(self):
+        return self.__allowed_payment_method_regions
+
+    @allowed_payment_method_regions.setter
+    def allowed_payment_method_regions(self, value):
+        self.__allowed_payment_method_regions = value
+
+    @property
+    def buyer(self):
+        return self.__buyer
+
+    @buyer.setter
+    def buyer(self, value):
+        self.__buyer = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -184,5 +221,17 @@ class AlipayPayConsultRequest(AlipayRequest):
 
         if hasattr(self, "allowed_psp_regions") and self.allowed_psp_regions:
             params['allowedPspRegions'] = self.allowed_psp_regions
+
+        if hasattr(self, "merchant_region") and self.merchant_region:
+            params['merchantRegion'] = self.merchant_region
+
+        if hasattr(self, "merchant_account_id") and self.merchant_account_id:
+            params['merchantAccountId'] = self.merchant_account_id
+
+        if hasattr(self, "allowed_payment_method_regions") and self.allowed_payment_method_regions:
+            params['allowedPaymentMethodRegions'] = self.allowed_payment_method_regions
+
+        if hasattr(self, "buyer") and self.buyer:
+            params['buyer'] = self.buyer
 
         return params

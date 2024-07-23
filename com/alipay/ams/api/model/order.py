@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.buyer import Buyer
+from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.gaming import Gaming
+from com.alipay.ams.api.model.goods import Goods
+from com.alipay.ams.api.model.lodging import Lodging
+from com.alipay.ams.api.model.merchant import Merchant
+from com.alipay.ams.api.model.shipping import Shipping
+from com.alipay.ams.api.model.transit import Transit
 
 
 class Order(object):
@@ -8,12 +16,15 @@ class Order(object):
         self.__reference_order_id = None
         self.__order_description = None
         self.__order_amount = None
-        self.__merchant = None
-        self.__goods = None
-        self.__shipping = None
-        self.__buyer = None
-        self.__env = None
+        self.__merchant = None #type: Merchant
+        self.__goods = None    #type: list:Goods
+        self.__shipping = None #type: Shipping
+        self.__buyer = None    #type: Buyer
+        self.__env = None      #type: Env
         self.__extend_info = None
+        self.__transit = None #type: Transit
+        self.lodging = None   #type: Lodging
+        self.__gaming = None  #type: Gaming
 
     @property
     def reference_order_id(self):
@@ -87,6 +98,31 @@ class Order(object):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def transit(self):
+        return self.__transit
+
+    @transit.setter
+    def transit(self, value):
+        self.__transit = value
+
+    @property
+    def lodging(self):
+        return self.__lodging
+
+    @lodging.setter
+    def lodging(self, value):
+        self.__lodging = value
+
+    @property
+    def gaming(self):
+        return self.__gaming
+
+    @gaming.setter
+    def gaming(self, value):
+        self.__gaming = value
+
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_order_id") and self.reference_order_id:
@@ -115,6 +151,15 @@ class Order(object):
 
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+
+        if hasattr(self, "transit") and self.transit:
+            params['transit'] = self.transit
+
+        if hasattr(self, "lodging") and self.lodging:
+            params['lodging'] = self.lodging
+
+        if hasattr(self, "gaming") and self.gaming:
+            params['gaming'] = self.gaming
 
         return params
 

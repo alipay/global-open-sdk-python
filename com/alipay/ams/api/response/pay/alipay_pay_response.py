@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.quote import Quote
@@ -31,6 +31,13 @@ class AlipayPayResponse(AlipayResponse):
         self.__extend_info = None
         self.__gross_settlement_amount = None
         self.__settlement_quote = None
+        self.__payment_data = None
+        self.__app_identifier = None
+        self.__app_link_url = None
+        self.__normal_url = None
+        self.__scheme_url = None
+        self.__payment_result_info = None #type: PaymentResultInfo
+        self.__promotion_result = None
         self.__parse_rsp_body(rsp_body)
 
     @property
