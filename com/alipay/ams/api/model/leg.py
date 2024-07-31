@@ -7,7 +7,7 @@ class Leg(object):
         self.__arrival_address = None
         self.__carrier_name = None
         self.__carrier_no = None
-        self.__classs_type = None
+        self.__class_type = None
 
     @property
     def departure_time(self):

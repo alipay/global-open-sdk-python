@@ -9,9 +9,9 @@ from com.alipay.ams.api.model.display_type import DisplayType
 
 class CodeDetail(object):
     def __init__(self):
-        self.__code_value_type = None
+        self.__code_value_type = None #type:CodeValueType
         self.__code_value = None
-        self.__display_type = None
+        self.__display_type = None #type:DisplayType
 
     @property
     def code_value_type(self):

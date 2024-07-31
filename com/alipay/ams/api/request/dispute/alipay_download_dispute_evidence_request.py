@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.dispute_evidence_type import DisputeEvidenceType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -7,7 +8,7 @@ class AlipayDownloadDisputeEvidenceRequest(AlipayRequest):
     def __init__(self):
         super(AlipayDownloadDisputeEvidenceRequest, self).__init__()
         self.__dispute_id = None
-        self.__dispute_evidence_type = None
+        self.__dispute_evidence_type = None  #type:DisputeEvidenceType
 
     @property
     def dispute_id(self):

@@ -1,3 +1,5 @@
+from com.alipay.ams.api.model.clearing_channel import ClearingChannel
+from com.alipay.ams.api.model.identity_check_result import IdentityCheckResult
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
@@ -6,8 +8,8 @@ class AlipayCustomsDeclareResponse(AlipayResponse):
         super(AlipayCustomsDeclareResponse, self).__init__()
         self.__customs_payment_id = None
         self.__customs_order_id = None
-        self.__identity_check_result = None
-        self.__clearing_channel = None
+        self.__identity_check_result = None #type: IdentityCheckResult
+        self.__clearing_channel = None #type: ClearingChannel
         self.__clearing_transaction_id = None
         self.__customs_provider_registration_id = None
         self.__parse_rsp_body(rsp_body)

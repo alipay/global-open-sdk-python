@@ -15,7 +15,7 @@ class AlipayPayQueryResponse(AlipayResponse):
 
     def __init__(self, rsp_body):
         super(AlipayPayQueryResponse, self).__init__()
-        self.__payment_status = None
+        self.__payment_status = None #type: TransactionStatusType
         self.__payment_result_code = None
         self.__payment_result_message = None
         self.__payment_request_id = None
@@ -23,13 +23,13 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__auth_payment_id = None
         self.__payment_amount = None
         self.__actual_payment_amount = None
-        self.__payment_quote = None
+        self.__payment_quote = None #type: Quote
         self.__auth_expiry_time = None
         self.__payment_create_time = None
         self.__payment_time = None
         self.__non_guarantee_coupon_amount = None
-        self.__psp_customer_info = None
-        self.__redirect_action_form = None
+        self.__psp_customer_info = None #type: PspCustomerInfo
+        self.__redirect_action_form = None #type: RedirectActionForm
         self.__extend_info = None
         self.__transactions = None
         self.__customs_declaration_amount = None

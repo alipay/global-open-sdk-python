@@ -1,6 +1,7 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.certificate import Certificate
 from com.alipay.ams.api.model.customs_info import CustomsInfo
 from com.alipay.ams.api.model.merchant_customs_info import MerchantCustomsInfo
 from com.alipay.ams.api.request.alipay_request import AlipayRequest

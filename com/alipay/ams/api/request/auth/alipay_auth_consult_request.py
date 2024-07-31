@@ -3,6 +3,8 @@
 
 import json
 
+from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
+from com.alipay.ams.api.model.scope_type import ScopeType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -10,12 +12,12 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayAuthConsultRequest, self).__init__()
-        self.__customer_belongs_to = None
+        self.__customer_belongs_to = None #type:CustomerBelongsTo
         self.__auth_client_id = None
         self.__auth_redirect_url = None
-        self.__scopes = None
+        self.__scopes = None #type:ScopeType
         self.__auth_state = None
-        self.__terminal_type = None
+        self.__terminal_type = None #type:TerminalType
         self.__os_type = None
         self.__os_version = None
         self.__extend_info = None

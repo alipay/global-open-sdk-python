@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import json
 
+from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
+from com.alipay.ams.api.model.grant_type import GrantType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -9,8 +11,8 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayAuthApplyTokenRequest, self).__init__()
-        self.__grant_type = None
-        self.__customer_belongs_to = None
+        self.__grant_type = None #type:GrantType
+        self.__customer_belongs_to = None #type:CustomerBelongsTo
         self.__auth_code = None
         self.__refresh_token = None
         self.__extend_info = None

@@ -7,6 +7,11 @@ from enum import Enum, unique
 class PaymentMethodCategoryType(Enum):
     WALLET = "WALLET"
     CARD = "CARD"
+    ALIPAY_PLUS = "ALIPAY_PLUS"
+    BANK_TRANSFER = "BANK_TRANSFER"
+    MOBILE_BANKING_APP = "MOBILE_BANKING_APP"
+    ONLINE_BANKING = "ONLINE_BANKING"
+    OTC = "OTC"
 
     def to_ams_dict(self):
         return self.name
@@ -22,4 +27,3 @@ class PaymentMethodCategoryType(Enum):
             return PaymentMethodCategoryType.CARD
         else:
             return None
-

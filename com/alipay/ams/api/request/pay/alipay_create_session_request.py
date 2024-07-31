@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -7,7 +8,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayCreateSessionRequest, self).__init__()
-        self.__product_code = None
+        self.__product_code = None  #type:ProductCodeType
         self.__payment_request_id = None
         self.__order = None
         self.__payment_amount = None

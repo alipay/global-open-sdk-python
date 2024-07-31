@@ -4,10 +4,13 @@
 import json
 
 
+from com.alipay.ams.api.model.MethodType import MethodType
+
+
 class RedirectActionForm(object):
 
     def __init__(self):
-        self.__method = None
+        self.__method = None #type:MethodType
         self.__parameters = None
         self.__redirect_url = None
 

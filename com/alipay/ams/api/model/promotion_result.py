@@ -1,12 +1,13 @@
 import json
 
 from com.alipay.ams.api.model.discount import Discount
+from com.alipay.ams.api.model.promotion_type import PromotionType
 
 
 class PromotionResult(object):
 
     def __init__(self):
-        self.__promotion_type = None
+        self.__promotion_type = None #type:PromotionType
         self.__discount = None
 
 

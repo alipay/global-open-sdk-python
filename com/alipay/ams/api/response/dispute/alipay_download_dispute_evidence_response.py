@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.dispute_evidence_format_type import DisputeEvidenceFormatType
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
@@ -8,7 +9,7 @@ class AlipayDownloadDisputeEvidenceResponse(AlipayResponse):
     def __init__(self, rsp_body):
         super(AlipayDownloadDisputeEvidenceResponse, self).__init__()
         self.__dispute_evidence = None
-        self.__dispute_evidence_format = None
+        self.__dispute_evidence_format = None #type:DisputeEvidenceFormatType
         self.parse_rsp_body(rsp_body)
 
     @property

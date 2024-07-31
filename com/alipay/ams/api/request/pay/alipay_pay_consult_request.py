@@ -3,6 +3,7 @@
 
 import json
 
+from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -10,7 +11,7 @@ class AlipayPayConsultRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayPayConsultRequest, self).__init__()
-        self.__product_code = None
+        self.__product_code = None #type:ProductCodeType
         self.__payment_amount = None
         self.__allowed_payment_methods = None
         self.__blocked_payment_methods = None

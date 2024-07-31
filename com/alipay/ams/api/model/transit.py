@@ -1,7 +1,10 @@
+from com.alipay.ams.api.model.transit_type import TransitType
+
+
 class Transit:
 
     def __init__(self):
-        self.__transit_type = None
+        self.__transit_type = None # type: TransitType
         self.__legs = None
         self.__passengers = None
 

@@ -1,5 +1,6 @@
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.quote import Quote
+from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
@@ -10,7 +11,7 @@ class AlipayRefundQueryResponse(AlipayResponse):
         self.__refund_id = None
         self.__refund_amount = None
         self.__refund_time = None
-        self.__refund_status = None
+        self.__refund_status = None #type:TransactionStatusType
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
         self.__parse_rsp_body(rsp_body)

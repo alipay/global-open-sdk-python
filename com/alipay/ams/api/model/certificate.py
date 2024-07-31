@@ -1,9 +1,10 @@
+from com.alipay.ams.api.model.certificate_type import CertificateType
 from com.alipay.ams.api.model.user_name import UserName
 
 
 class Certificate(object):
     def __init__(self):
-        self.__certificate_type = None
+        self.__certificate_type = None #type: CertificateType
         self.__certificate_no = None
         self.__holder_name = None #type: UserName
         self.__file_keys = None

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from com.alipay.ams.api.model.auth_code_form import AuthCodeForm
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
