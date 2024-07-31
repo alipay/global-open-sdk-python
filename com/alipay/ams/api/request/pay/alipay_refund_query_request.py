@@ -1,3 +1,5 @@
+import json
+
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -36,8 +38,12 @@ class AlipayRefundQueryRequest(AlipayRequest):
          self.__merchant_account_id = value
 
 
+    def to_ams_json(self):
+        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        return json_str
 
-    def to_ams_dict(self):
+
+    def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "refund_request_id") and self.refund_request_id:
             params['refundRequestId'] = self.refund_request_id

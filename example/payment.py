@@ -14,7 +14,10 @@ from com.alipay.ams.api.model.terminal_type import TerminalType
 from com.alipay.ams.api.model.os_type import OsType
 from com.alipay.ams.api.model.result_status_type import ResultStatusType
 from com.alipay.ams.api.default_alipay_client import DefaultAlipayClient
+from com.alipay.ams.api.request.pay.alipay_create_session_request import AlipayCreateSessionRequest
 from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
+from com.alipay.ams.api.request.pay.alipay_refund_query_request import AlipayRefundQueryRequest
+from com.alipay.ams.api.response.pay.alipay_create_session_response import AlipayCreateSessionResponse
 from com.alipay.ams.api.response.pay.alipay_pay_response import AlipayPayResponse
 from com.alipay.ams.api.request.pay.alipay_pay_consult_request import AlipayPayConsultRequest
 from com.alipay.ams.api.response.pay.alipay_pay_consult_response import AlipayPayConsultResponse
@@ -25,6 +28,7 @@ from com.alipay.ams.api.response.pay.alipay_pay_cancel_response import AlipayPay
 from com.alipay.ams.api.request.pay.alipay_capture_request import AlipayCaptureRequest
 from com.alipay.ams.api.response.pay.alipay_capture_response import AlipayCaptureResponse
 from com.alipay.ams.api.request.pay.alipay_refund_request import AlipayRefundRequest
+from com.alipay.ams.api.response.pay.alipay_refund_query_response import AlipayRefundQueryResponse
 from com.alipay.ams.api.response.pay.alipay_refund_response import AlipayRefundResponse
 
 
@@ -44,18 +48,18 @@ def pay():
     alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.taobao.com"
     alipay_pay_request.payment_redirect_url = "https://www.taobao.com?param1=sl"
-    alipay_pay_request.payment_request_id = "pay_python_test_10"
+    alipay_pay_request.payment_request_id = "pay_python_test_13"
 
     payment_method = PaymentMethod()
     payment_method.payment_method_type = "ALIPAY_CN"
-    payment_method.payment_method_id = "20200404095550158596535057751669161222"
+    payment_method.payment_method_id = "20200404095501585965350751669161222"
     alipay_pay_request.payment_method = payment_method
 
     amount = Amount("CNY", "10000")
     alipay_pay_request.payment_amount = amount
 
     order = Order()
-    order.reference_order_id = "1027757656756121"
+    order.reference_order_id = "102775765656121"
     order.order_description = "Mi Band 3 Wrist Strap Metal Screwless Stainless Steel For Xiaomi Mi Band 3"
     order.order_amount = amount
 
@@ -73,7 +77,7 @@ def pay():
 
     merchant = Merchant()
     merchant.merchant_mcc = "merchantMcc"
-    merchant.reference_merchant_id = "1234678901322221121"
+    merchant.reference_merchant_id = "12346789022221121"
 
     order.merchant = merchant
     alipay_pay_request.order = order
@@ -87,9 +91,9 @@ def pay():
     alipay_pay_request.env = env
 
 
-    paymentFactor = PaymentFactor()
-    paymentFactor.is_authorization = True
-    alipay_pay_request.payment_factor = paymentFactor
+    # paymentFactor = PaymentFactor()
+    # paymentFactor.is_authorization = True
+    # alipay_pay_request.payment_factor = paymentFactor
 
     print(alipay_pay_request.to_ams_json())
 
@@ -214,7 +218,7 @@ def refund(paymentId):
 
     alipay_refund_request = AlipayRefundRequest()
     alipay_refund_request.path = "/ams/sandbox/api/v1/payments/refund"
-    alipay_refund_request.refund_request_id = "python_test_refund_01"
+    alipay_refund_request.refund_request_id = "python_test_refund_1212"
     alipay_refund_request.payment_id = paymentId
 
     refund_amount = Amount("CNY", "100")
@@ -231,6 +235,59 @@ def refund(paymentId):
     else:
         print(alipay_refund_response.result.result_message)
 
+def inqueryRefund(paymentRefundRequestId):
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
+                                                ALIPAY_PUBLICK_KEY)
 
-capture("202407301940108001001881I0208228642")
+    alipay_inquery_refund_request = AlipayRefundQueryRequest()
+    alipay_inquery_refund_request.path = "/ams/sandbox/api/v1/payments/inquiryRefund"
+    alipay_inquery_refund_request.refund_request_id = paymentRefundRequestId
 
+
+    rsp_body = default_alipay_client.execute(alipay_inquery_refund_request)
+
+    alipay_inquery_refund_response = AlipayRefundQueryResponse(rsp_body)
+
+    if alipay_inquery_refund_response.result.result_status.name != ResultStatusType.F.name:
+        print(alipay_inquery_refund_response.refund_amount)
+    else:
+        print(alipay_inquery_refund_response.result.result_message)
+
+def createPaymentSession():
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
+                                                ALIPAY_PUBLICK_KEY)
+
+    alipay_create_session_request = AlipayCreateSessionRequest()
+    alipay_create_session_request.path = "/ams/sandbox/api/v1/payments/createPaymentSession"
+    alipay_create_session_request.payment_request_id = "python_test_payment_request_id_1212"
+    alipay_create_session_request.payment_amount = Amount("SGD", "4200")
+    alipay_create_session_request.product_code = ProductCodeType.CASHIER_PAYMENT
+    paymentMethod = PaymentMethod()
+    paymentMethod.payment_method_type = "SHOPEEPAY_SG"
+    alipay_create_session_request.payment_method = paymentMethod
+
+    buyer = Buyer()
+    buyer.reference_buyer_id = "123456"
+
+    order = Order()
+    order.reference_order_id = "123456"
+    order.order_description = "test"
+    order.buyer = buyer
+    alipay_create_session_request.order = order
+
+    alipay_create_session_request.payment_redirect_url = "https://www.alipay.com"
+    alipay_create_session_request.payment_notify_url = "https://www.alipay.com"
+
+    rsp_body = default_alipay_client.execute(alipay_create_session_request)
+
+    alipay_create_session_response = AlipayCreateSessionResponse(rsp_body)
+
+    if alipay_create_session_response.result.result_status.name != ResultStatusType.F.name:
+        print(alipay_create_session_response.payment_session_id)
+    else:
+        print(alipay_create_session_response.result.result_message)
+
+
+# refund("202407311940108001001882A0209648393")
+# pay()
+createPaymentSession()

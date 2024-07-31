@@ -1,3 +1,5 @@
+import json
+
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -133,6 +135,9 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def enable_installment_collection(self, value):
         self.__enable_installment_collection = value;
 
+    def to_ams_json(self):
+        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        return json_str
 
     def __to_ams_dict(self):
         params = dict()
@@ -141,11 +146,11 @@ class AlipayCreateSessionRequest(AlipayRequest):
         if hasattr(self, "payment_request_id") and self.payment_request_id:
             params['paymentRequestId'] = self.payment_request_id
         if hasattr(self, "order") and self.order:
-            params['order'] = self.order.__to_ams_dict()
+            params['order'] = self.order
         if hasattr(self, "payment_amount") and self.payment_amount:
-            params['paymentAmount'] = self.payment_amount.__to_ams_dict()
+            params['paymentAmount'] = self.payment_amount
         if hasattr(self, "payment_method") and self.payment_method:
-            params['paymentMethod'] = self.payment_method.__to_ams_dict()
+            params['paymentMethod'] = self.payment_method
         if hasattr(self, "payment_session_expiry_time") and self.payment_session_expiry_time:
             params['paymentSessionExpiryTime'] = self.payment_session_expiry_time
         if hasattr(self, "payment_redirect_url") and self.payment_redirect_url:
@@ -153,15 +158,15 @@ class AlipayCreateSessionRequest(AlipayRequest):
         if hasattr(self, "payment_notify_url") and self.payment_notify_url:
             params['paymentNotifyUrl'] = self.payment_notify_url
         if hasattr(self, "payment_factor") and self.payment_factor:
-            params['paymentFactor'] = self.payment_factor.__to_ams_dict()
+            params['paymentFactor'] = self.payment_factor
         if hasattr(self, "settlement_strategy") and self.settlement_strategy:
-            params['settlementStrategy'] = self.settlement_strategy.__to_ams_dict()
+            params['settlementStrategy'] = self.settlement_strategy
         if hasattr(self, "env") and self.env:
-            params['env'] = self.env.__to_ams_dict()
+            params['env'] = self.env
         if hasattr(self, "merchant_region") and self.merchant_region:
             params['merchantRegion'] = self.merchant_region
         if hasattr(self, "credit_pay_plan") and self.credit_pay_plan:
-            params['creditPayPlan'] = self.credit_pay_plan.__to_ams_dict()
+            params['creditPayPlan'] = self.credit_pay_plan
         if hasattr(self, "enable_installment_collection") and self.enable_installment_collection:
             params['enableInstallmentCollection'] = self.enable_installment_collection
 
