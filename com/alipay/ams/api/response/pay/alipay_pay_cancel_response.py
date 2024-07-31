@@ -22,7 +22,7 @@ class AlipayPayCancelResponse(AlipayResponse):
 
     @property
     def cancel_time(self):
-        return self.__pcancel_time
+        return self.__cancel_time
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayPayCancelResponse, self).parse_rsp_body(rsp_body)

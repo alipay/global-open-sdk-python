@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from com.alipay.ams.api.model.buyer import Buyer
 from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
@@ -30,30 +31,38 @@ from com.alipay.ams.api.response.pay.alipay_refund_response import AlipayRefundR
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLICK_KEY = ""
 CLIENT_ID = ""
+GATEWAY_HOST = ""
 
 def pay():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST,
+                                                CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_request = AlipayPayRequest()
     alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
 
-    alipay_pay_request.product_code = ProductCodeType.AGREEMENT_PAYMENT
+
+    alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.taobao.com"
     alipay_pay_request.payment_redirect_url = "https://www.taobao.com?param1=sl"
-    alipay_pay_request.payment_request_id = "pay_python_test_06"
+    alipay_pay_request.payment_request_id = "pay_python_test_10"
 
     payment_method = PaymentMethod()
-    payment_method.payment_method_type = "GCASH"
-    payment_method.payment_method_id = "20200404095550158596535057754730166962669640ZMvNAaATop"
+    payment_method.payment_method_type = "ALIPAY_CN"
+    payment_method.payment_method_id = "20200404095550158596535057751669161222"
     alipay_pay_request.payment_method = payment_method
 
-    amount = Amount("PHP", "10000")
+    amount = Amount("CNY", "10000")
     alipay_pay_request.payment_amount = amount
 
     order = Order()
-    order.reference_order_id = "102775765675669"
+    order.reference_order_id = "1027757656756121"
     order.order_description = "Mi Band 3 Wrist Strap Metal Screwless Stainless Steel For Xiaomi Mi Band 3"
     order.order_amount = amount
+
+    buyer = Buyer()
+    buyer.buyer_email = "test@alipay.com"
+    buyer.reference_buyer_id = "12345679"
+    order.buyer = buyer
 
     goods_arr = []
     good = Goods()
@@ -64,7 +73,7 @@ def pay():
 
     merchant = Merchant()
     merchant.merchant_mcc = "merchantMcc"
-    merchant.reference_merchant_id = "referenceMerchantId"
+    merchant.reference_merchant_id = "1234678901322221121"
 
     order.merchant = merchant
     alipay_pay_request.order = order
@@ -74,11 +83,13 @@ def pay():
     alipay_pay_request.settlement_strategy = settlement_strategy
 
     env = Env()
-    env.terminal_type = TerminalType.APP
-    env.os_type = OsType.IOS
+    env.terminal_type = TerminalType.WEB
     alipay_pay_request.env = env
 
-    # alipay_pay_request.is_authorization = "true"
+
+    paymentFactor = PaymentFactor()
+    paymentFactor.is_authorization = True
+    alipay_pay_request.payment_factor = paymentFactor
 
     print(alipay_pay_request.to_ams_json())
 
@@ -89,43 +100,58 @@ def pay():
     if alipay_pay_response.result.result_status.name != ResultStatusType.F.name:
         print(alipay_pay_response.payment_id)
         print(alipay_pay_response.payment_create_time)
+        print(alipay_pay_response.normal_url)
     else:
         print(alipay_pay_response.result.result_message)
 
 
 def pay_consult():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
     pay_consult_request = AlipayPayConsultRequest()
     pay_consult_request.path = "/ams/sandbox/api/v1/payments/consult"
     pay_consult_request.product_code = ProductCodeType.CASHIER_PAYMENT
-    pay_consult_request.customer_id = "aac_123445566"
+    # pay_consult_request.customer_id = "123441"
+    pay_consult_request.user_region = "SG"
 
-    payment_amount = Amount("PHP", "30000")
+
+    payment_amount = Amount("USD", "1000")
     pay_consult_request.payment_amount = payment_amount
 
     env = Env()
     env.terminal_type = TerminalType.APP
-    env.os_types = OsType.IOS
-    env.device_token_id = "60e62513a925bf5575111cad5976835b"
-    env.client_ip = "127.0.0.1"
+    env.os_type = OsType.IOS
+    # env.device_token_id = "60e62513a925bf5575111cad5976835b"
+    # env.client_ip = "127.0.0.1"
     pay_consult_request.env = env
+
+    settlementStrategy = SettlementStrategy()
+    settlementStrategy.settlement_currency = "USD"
+    pay_consult_request.settlement_strategy = settlementStrategy
+
+    pay_consult_request.allowed_payment_method_regions = ["HK", "US","CN"]
+
+    paymentFactor = PaymentFactor()
+    paymentFactor.presentment_mode="BUNDLE"
+    pay_consult_request.payment_factor = paymentFactor
+
+
 
     rsp_body = default_alipay_client.execute(pay_consult_request)
 
     pay_consult_response = AlipayPayConsultResponse(rsp_body)
     if pay_consult_response.result.result_status.name != ResultStatusType.F.name:
-        print(pay_consult_response.payment_method_infos)
+        print(pay_consult_response.payment_options)
     else:
         print(pay_consult_response.result.result_message)
 
 
-def pay_cancel():
+def pay_cancel(paymentId):
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_cancel_request = AlipayPayCancelRequest()
     alipay_pay_cancel_request.path = "/ams/sandbox/api/v1/payments/cancel"
-    alipay_pay_cancel_request.payment_id = "080314159117139490377916696018735674lFdfeTMZmW202006010001926017"
+    alipay_pay_cancel_request.payment_id = paymentId
 
     rsp_body = default_alipay_client.execute(alipay_pay_cancel_request)
 
@@ -137,13 +163,14 @@ def pay_cancel():
         print(alipay_pay_cancel_response.result.result_message)
 
 
-def pay_query():
+def pay_query(paymenId):
 
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
 
     alipay_pay_query_request = AlipayPayQueryRequest()
     alipay_pay_query_request.path = "/ams/sandbox/api/v1/payments/inquiryPayment"
-    alipay_pay_query_request.payment_id = "908151415881481145864730154037503460TDoUNGArzf202004290001696669"
+    alipay_pay_query_request.payment_id = paymenId
+
 
     rsp_body = default_alipay_client.execute(alipay_pay_query_request)
 
@@ -151,20 +178,22 @@ def pay_query():
 
     if alipay_pay_query_response.result.result_status.name != ResultStatusType.F.name:
         print(alipay_pay_query_response.payment_id)
+        print(alipay_pay_query_response.payment_status)
     else:
         print(alipay_pay_query_response.result.result_message)
 
 
-def capture():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
+def capture(paymentId):
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLICK_KEY)
 
     alipay_capture_request = AlipayCaptureRequest()
     alipay_capture_request.path = "/ams/sandbox/api/v1/payments/capture"
-    alipay_capture_request.payment_id = "035622159167498257460439798959626996HSfvJALvrw202006080001969186"
-    alipay_capture_request.capture_request_id = "python_test_03"
+    alipay_capture_request.payment_id = paymentId
+    alipay_capture_request.capture_request_id = "python_capture_test_01"
+    alipay_capture_request.is_last_capture = "true"
 
-    capture_amount = Amount("PHP", "10000")
+    capture_amount = Amount("USD", "100")
     alipay_capture_request.capture_amount = capture_amount
 
     print(alipay_capture_request.to_ams_json())
@@ -179,16 +208,16 @@ def capture():
         print(alipay_capture_response.result.result_message)
 
 
-def refund():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
+def refund(paymentId):
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLICK_KEY)
 
     alipay_refund_request = AlipayRefundRequest()
     alipay_refund_request.path = "/ams/sandbox/api/v1/payments/refund"
     alipay_refund_request.refund_request_id = "python_test_refund_01"
-    alipay_refund_request.payment_id = "060511159168271108778369768472747804ykDUtomosY202006080001966591"
+    alipay_refund_request.payment_id = paymentId
 
-    refund_amount = Amount("PHP", "9000")
+    refund_amount = Amount("CNY", "100")
     alipay_refund_request.refund_amount = refund_amount
 
     print(alipay_refund_request.to_ams_json())
@@ -203,5 +232,5 @@ def refund():
         print(alipay_refund_response.result.result_message)
 
 
-refund()
+capture("202407301940108001001881I0208228642")
 
