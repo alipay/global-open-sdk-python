@@ -19,7 +19,7 @@ class AlipayAcceptDisputeResponse(AlipayResponse):
         return self.__dispute_resolution_time
 
     def parse_rsp_body(self, rsp_body):
-        rsp_dict = json.loads(rsp_body)
+        rsp_dict = super(AlipayAcceptDisputeResponse, self).parse_rsp_body(rsp_body)
         if 'disputeId' in rsp_dict:
             self.__dispute_id = rsp_dict['disputeId']
         if 'disputeResolutionTime' in rsp_dict:

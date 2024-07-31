@@ -94,15 +94,15 @@ class AlipayCustomsDeclareRequest(AlipayRequest):
         if hasattr(self, "payment_id") and self.payment_id:
             params['paymentId'] = self.payment_id
         if hasattr(self, "declaration_amount") and self.declaration_amount:
-            params['declarationAmount'] = self.declaration_amount.to_ams_dict()
+            params['declarationAmount'] = self.declaration_amount
         if hasattr(self, "customs") and self.customs:
-            params['customs'] = self.customs.to_ams_dict()
+            params['customs'] = self.customs
         if hasattr(self, "merchant_customs_info") and self.merchant_customs_info:
-            params['merchantCustomsInfo'] = self.merchant_customs_info.to_ams_dict()
+            params['merchantCustomsInfo'] = self.merchant_customs_info
         if hasattr(self, "split_order") and self.split_order:
             params['splitOrder'] = self.split_order
         if hasattr(self, "suborder_id") and self.suborder_id:
             params['suborderId'] = self.suborder_id
         if hasattr(self, "buyer_certificate") and self.buyer_certificate:
-            params['buyerCertificate'] = self.buyer_certificate.to_ams_dict()
+            params['buyerCertificate'] = self.buyer_certificate
         return params

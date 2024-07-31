@@ -6,10 +6,10 @@ from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayCustomsQueryResponse(AlipayResponse):
 
-    def __init__(self,rsp_body):
+    def __init__(self, rsp_body):
         super(AlipayCustomsQueryResponse, self).__init__()
-        self.__declaration_requests_not_found = None #type: list:str
-        self.__declaration_records = None #type: list:DeclarationRecord
+        self.__declaration_requests_not_found = None  # type: list:str
+        self.__declaration_records = None  # type: list:DeclarationRecord
         self.parse_rsp_body(rsp_body)
 
     @property
@@ -21,7 +21,7 @@ class AlipayCustomsQueryResponse(AlipayResponse):
         return self.__declaration_records
 
     def parse_rsp_body(self, rsp_body):
-        rsp_dict = json.loads(rsp_body)
+        rsp_dict = super(AlipayCustomsQueryResponse, self).parse_rsp_body(rsp_body)
         if 'declarationRequestsNotFound' in rsp_dict:
             self.__declaration_requests_not_found = rsp_dict['declarationRequestsNotFound']
         if 'declarationRecords' in rsp_dict:

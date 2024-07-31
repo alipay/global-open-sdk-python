@@ -21,7 +21,7 @@ class AlipayDownloadDisputeEvidenceResponse(AlipayResponse):
 
 
     def parse_rsp_body(self, rsp_body):
-        rsp_dict = json.loads(rsp_body)
+        rsp_dict = super(AlipayDownloadDisputeEvidenceResponse, self).parse_rsp_body(rsp_body)
         if 'disputeEvidence' in rsp_dict:
             self.__dispute_evidence = rsp_dict['disputeEvidence']
         if 'disputeEvidenceFormat' in rsp_dict:
