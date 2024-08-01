@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from com.alipay.ams.api.model.quote import Quote
+from com.alipay.ams.api.model.refund_detail import RefundDetail
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.amount import Amount
 
@@ -18,6 +19,8 @@ class AlipayRefundResponse(AlipayResponse):
         self.__acquirer_reference_no = None
         self.__gross_settlement_amount = None #type: Amount
         self.__settlement_quote = None #type: Quote
+        self.__refund_details = None #type:list:RefundDetail
+        self.__refund_source_account_no = None
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -56,6 +59,14 @@ class AlipayRefundResponse(AlipayResponse):
     def settlement_quote(self):
         return self.__settlement_quote
 
+    @property
+    def refund_details(self):
+        return self.__refund_details
+
+    @property
+    def refund_source_account_no(self):
+        return self.__refund_source_account_no
+
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayRefundResponse, self).parse_rsp_body(rsp_body)
@@ -88,3 +99,14 @@ class AlipayRefundResponse(AlipayResponse):
             settlement_quote = Quote()
             settlement_quote.parse_rsp_body(response['settlementQuote'])
             self.__settlement_quote = settlement_quote
+
+        if 'refundDetails' in response:
+            refund_details = []
+            for refund_detail in response['refundDetails']:
+                refund_detail_obj = RefundDetail()
+                refund_detail_obj.parse_rsp_body(refund_detail)
+                refund_details.append(refund_detail_obj)
+            self.__refund_details = refund_details
+
+        if 'refundSourceAccountNo' in response:
+            self.__refund_source_account_no = response['refundSourceAccountNo']

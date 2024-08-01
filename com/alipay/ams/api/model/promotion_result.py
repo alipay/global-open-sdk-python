@@ -8,7 +8,7 @@ class PromotionResult(object):
 
     def __init__(self):
         self.__promotion_type = None #type:PromotionType
-        self.__discount = None
+        self.__discount = None #type:Discount
 
 
     @property

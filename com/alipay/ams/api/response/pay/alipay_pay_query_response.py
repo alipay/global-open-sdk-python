@@ -38,6 +38,7 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__acquirer_reference_no = None
         self.__payment_result_info = None #type: PaymentResultInfo
         self.__promotion_result = None #type: PromotionResult
+        self.__earliest_settlement_time = None
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -131,6 +132,10 @@ class AlipayPayQueryResponse(AlipayResponse):
     @property
     def promotion_result(self):
         return self.__promotion_result
+
+    @property
+    def earliest_settlement_time(self):
+        return self.__earliest_settlement_time
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayPayQueryResponse, self).parse_rsp_body(rsp_body)
@@ -235,3 +240,6 @@ class AlipayPayQueryResponse(AlipayResponse):
             promotion_result = PromotionResult()
             promotion_result.parse_rsp_body(response['promotionResult'])
             self.__promotion_result = promotion_result
+
+        if 'earliestSettlementTime' in response:
+            self.__earliest_settlement_time = response['earliestSettlementTime']
