@@ -6,6 +6,7 @@ import json
 from com.alipay.ams.api.model.DisableReasonType import DisableReasonType
 from com.alipay.ams.api.model.payment_method_category_type import PaymentMethodCategoryType
 from com.alipay.ams.api.model.amount_limit_info import AmountLimitInfo
+from com.alipay.ams.api.model.promotion_info import PromotionInfo
 
 
 class PaymentOption(object):
@@ -23,6 +24,7 @@ class PaymentOption(object):
         self.__logo = None
         self.__promo_names = None
         self.__installment = None
+        self.__promotion_infos = None #type: list:PromotionInfo
 
     @property
     def payment_method_type(self):
@@ -72,6 +74,10 @@ class PaymentOption(object):
     def installment(self):
         return self.__installment
 
+    @property
+    def promotion_infos(self):
+        return self.__promotion_infos
+
     def parse_rsp_body(self, payment_option_body):
         if type(payment_option_body) == str:
             payment_option_body = json.loads(payment_option_body)
@@ -117,3 +123,11 @@ class PaymentOption(object):
 
         if 'installment' in payment_option_body:
             self.__installment = payment_option_body['installment']
+
+        if 'promotionInfos' in payment_option_body:
+            promotion_infos = list()
+            for promotion_info_body in payment_option_body['promotionInfos']:
+                promotion_info = PromotionInfo()
+                promotion_info.parse_rsp_body(promotion_info_body)
+                promotion_infos.append(promotion_info)
+            self.__promotion_infos = promotion_infos
