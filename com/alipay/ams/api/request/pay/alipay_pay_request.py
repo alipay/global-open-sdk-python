@@ -3,7 +3,14 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
+from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.order import Order
+from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -13,24 +20,24 @@ class AlipayPayRequest(AlipayRequest):
         super(AlipayPayRequest, self).__init__()
         self.__product_code = None  # type: ProductCodeType
         self.__payment_request_id = None
-        self.__order = None
-        self.__payment_amount = None
-        self.__pay_to_method = None
-        self.__payment_method = None
+        self.__order = None # type: Order
+        self.__payment_amount = None # type: Amount
+        self.__pay_to_method = None # type: PaymentMethod
+        self.__payment_method = None # type: PaymentMethod
         self.__payment_expiry_time = None
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
         self.__is_authorization = None
         self.__payment_verification_data = None
-        self.__payment_factor = None
-        self.__settlement_strategy = None
+        self.__payment_factor = None # type: PaymentFactor
+        self.__settlement_strategy = None # type: SettlementStrategy
         self.__extend_info = None
-        self.__env = None
+        self.__env = None # type: Env
         self.__merchant_region = None
         self.__app_id = None
         self.__merchant_account_id = None
         self.__user_region = None
-        self.__credit_pay_plan = None
+        self.__credit_pay_plan = None # type: CreditPayPlan
 
     @property
     def merchant_region(self):

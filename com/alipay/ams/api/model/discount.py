@@ -34,14 +34,14 @@ class Discount(object):
             params['savingsAmount'] = self.savingsAmount.to_ams_dict()
         return params
 
-    def parse_rsp_body(self, amount_body):
-        if type(amount_body) == str:
-            amount_body = json.loads(amount_body)
+    def parse_rsp_body(self, discount_body):
+        if type(discount_body) == str:
+            discount_body = json.loads(discount_body)
 
-        if 'discountName' in amount_body:
-            self.discountName = amount_body['discountName']
+        if 'discountName' in discount_body:
+            self.discountName = discount_body['discountName']
 
-        if 'savingsAmount' in amount_body:
+        if 'savingsAmount' in discount_body:
             payment_amount = Amount()
-            payment_amount.parse_rsp_body(amount_body['savingsAmount'])
+            payment_amount.parse_rsp_body(discount_body['savingsAmount'])
             self.__savingsAmount = payment_amount

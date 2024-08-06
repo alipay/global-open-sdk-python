@@ -7,7 +7,7 @@ class InterestFree(object):
     def __init__(self):
         self.__provider = None
         self.__expireTime = None
-        self.__installment_free_nums = None  # type:list
+        self.__installment_free_nums = None  # type:list[str]
         self.__min_payment_amount = None  # type:Amount
         self.__max_payment_amount = None  # type:Amount
         self.__free_percentage = None

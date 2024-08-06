@@ -1,6 +1,7 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.refund_from_type import RefundFromType
 
 
 class RefundDetail(object):

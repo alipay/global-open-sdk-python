@@ -3,7 +3,7 @@ from com.alipay.ams.api.model.code_detail import CodeDetail
 
 class AuthCodeForm(object):
     def __init__(self):
-        self.codeDetails = None  # type: list: CodeDetail
+        self.codeDetails = None  # type: list[CodeDetail]
 
     @property
     def code_details(self):

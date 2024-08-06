@@ -3,6 +3,7 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -13,7 +14,7 @@ class AlipayRefundRequest(AlipayRequest):
         self.__refund_request_id = None
         self.__reference_refund_id = None
         self.__payment_id = None
-        self.__refund_amount = None
+        self.__refund_amount = None # type: Amount
         self.__refund_reason = None
         self.__is_async_refund = None
         self.__refund_notify_url = None

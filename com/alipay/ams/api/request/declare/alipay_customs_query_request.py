@@ -6,7 +6,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 class AlipayCustomsQueryRequest(AlipayRequest):
     def __init__(self):
         super(AlipayCustomsQueryRequest, self).__init__()
-        self.__declaration_request_ids = None  # type: list:str
+        self.__declaration_request_ids = None  # type: list[str]
 
     @property
     def declaration_request_ids(self):

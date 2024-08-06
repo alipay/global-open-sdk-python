@@ -13,7 +13,7 @@ class PaymentResultInfo(object):
         self.__issuing_country = None
         self.__funding = None
         self.__payment_method_region = None
-        self.__three_dS_result = None
+        self.__three_dS_result = None #type: ThreeDSResult
         self.__credit_pay_plan = None
 
     @property
@@ -131,29 +131,29 @@ class PaymentResultInfo(object):
 
         return param
 
-    def parse_rsp_body(self, amount_body):
-        if type(amount_body) == str:
-            amount_body = json.loads(amount_body)
+    def parse_rsp_body(self, payment_result_info_body):
+        if type(payment_result_info_body) == str:
+            payment_result_info_body = json.loads(payment_result_info_body)
 
-        if 'avsResultRaw' in amount_body:
-            self.avs_result_raw = amount_body['avsResultRaw']
-        if 'cvvResultRaw' in amount_body:
-            self.cvv_result_raw = amount_body['cvvResultRaw']
-        if 'networkTransactionId' in amount_body:
-            self.network_transaction_id = amount_body['networkTransactionId']
-        if 'cardNo' in amount_body:
-            self.card_no = amount_body['cardNo']
-        if 'cardBrand' in amount_body:
-            self.card_brand = amount_body['cardBrand']
-        if 'cardToken' in amount_body:
-            self.card_token = amount_body['cardToken']
-        if 'issuingCountry' in amount_body:
-            self.issuing_country = amount_body['issuingCountry']
-        if 'funding' in amount_body:
-            self.funding = amount_body['funding']
-        if 'paymentMethodRegion' in amount_body:
-            self.payment_method_region = amount_body['paymentMethodRegion']
-        if 'threeDSResult' in amount_body:
-            self.three_dS_result = amount_body['threeDSResult']
-        if 'creditPayPlan' in amount_body:
-            self.credit_pay_plan = amount_body['creditPayPlan']
+        if 'avsResultRaw' in payment_result_info_body:
+            self.avs_result_raw = payment_result_info_body['avsResultRaw']
+        if 'cvvResultRaw' in payment_result_info_body:
+            self.cvv_result_raw = payment_result_info_body['cvvResultRaw']
+        if 'networkTransactionId' in payment_result_info_body:
+            self.network_transaction_id = payment_result_info_body['networkTransactionId']
+        if 'cardNo' in payment_result_info_body:
+            self.card_no = payment_result_info_body['cardNo']
+        if 'cardBrand' in payment_result_info_body:
+            self.card_brand = payment_result_info_body['cardBrand']
+        if 'cardToken' in payment_result_info_body:
+            self.card_token = payment_result_info_body['cardToken']
+        if 'issuingCountry' in payment_result_info_body:
+            self.issuing_country = payment_result_info_body['issuingCountry']
+        if 'funding' in payment_result_info_body:
+            self.funding = payment_result_info_body['funding']
+        if 'paymentMethodRegion' in payment_result_info_body:
+            self.payment_method_region = payment_result_info_body['paymentMethodRegion']
+        if 'threeDSResult' in payment_result_info_body:
+            self.three_dS_result = payment_result_info_body['threeDSResult']
+        if 'creditPayPlan' in payment_result_info_body:
+            self.credit_pay_plan = payment_result_info_body['creditPayPlan']

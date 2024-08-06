@@ -1,13 +1,14 @@
 from com.alipay.ams.api.model.funding_type import FundingType
+from com.alipay.ams.api.model.support_bank import SupportBank
 from com.alipay.ams.api.model.support_card_brand import SupportCardBrand
 
 
 class PaymentOptionDetail(object):
 
     def __init__(self):
-        self.__support_card_brands = None  # type:list:SupportCardBrand
-        self.__funding = None  # type:list:FundingType
-        self.__support_banks = None
+        self.__support_card_brands = None  # type:list[SupportCardBrand]
+        self.__funding = None  # type:list[FundingType]
+        self.__support_banks = None # type:list[SupportBank]
 
     @property
     def support_card_brands(self):

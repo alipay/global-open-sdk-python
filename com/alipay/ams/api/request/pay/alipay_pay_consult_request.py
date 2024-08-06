@@ -6,6 +6,7 @@ import json
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.buyer import Buyer
 from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
@@ -28,7 +29,7 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__user_region = None
         self.__payment_factor = None  # type:PaymentFactor
         self.__settlement_strategy = None  # type:SettlementStrategy
-        self.__merchant = None
+        self.__merchant = None # type:Merchant
         self.__allowed_psp_regions = None
         self.__merchant_region = None
         self.__merchant_account_id = None

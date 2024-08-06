@@ -145,34 +145,34 @@ class DeclarationRecord(object):
             params['customsDeclarationReturnTime'] = self.customs_declaration_return_time
         return params
 
-    def parse_rsp_body(self, amount_body):
-        if type(amount_body) == str:
-            amount_body = json.loads(amount_body)
+    def parse_rsp_body(self, declaration_record_body):
+        if type(declaration_record_body) == str:
+            declaration_record_body = json.loads(declaration_record_body)
 
-        if 'declarationRequestId' in amount_body:
-            self.declaration_request_id = amount_body['declarationRequestId']
-        if 'customsPaymentId' in amount_body:
-            self.customs_payment_id = amount_body['customsPaymentId']
-        if 'customsOrderId' in amount_body:
-            self.customs_order_id = amount_body['customsOrderId']
-        if 'customs' in amount_body:
+        if 'declarationRequestId' in declaration_record_body:
+            self.declaration_request_id = declaration_record_body['declarationRequestId']
+        if 'customsPaymentId' in declaration_record_body:
+            self.customs_payment_id = declaration_record_body['customsPaymentId']
+        if 'customsOrderId' in declaration_record_body:
+            self.customs_order_id = declaration_record_body['customsOrderId']
+        if 'customs' in declaration_record_body:
             self.customs = CustomsInfo()
-            self.customs.parse_rsp_body(amount_body['customs'])
-        if 'merchantCustomsInfo' in amount_body:
+            self.customs.parse_rsp_body(declaration_record_body['customs'])
+        if 'merchantCustomsInfo' in declaration_record_body:
             self.merchant_customs_info = MerchantCustomsInfo()
-            self.merchant_customs_info.parse_rsp_body(amount_body['merchantCustomsInfo'])
-        if 'declarationAmount' in amount_body:
+            self.merchant_customs_info.parse_rsp_body(declaration_record_body['merchantCustomsInfo'])
+        if 'declarationAmount' in declaration_record_body:
             self.declaration_amount = Amount()
-            self.declaration_amount.parse_rsp_body(amount_body['declarationAmount'])
-        if 'splitOrder' in amount_body:
-            self.split_order = amount_body['splitOrder']
-        if 'declarationRequestStatus' in amount_body:
-            self.declaration_request_status = amount_body['declarationRequestStatus']
-        if 'lastModifiedTime' in amount_body:
-            self.last_modified_time = amount_body['lastModifiedTime']
-        if 'customsDeclarationResultCode' in amount_body:
-            self.customs_declaration_result_code = amount_body['customsDeclarationResultCode']
-        if 'customsDeclarationResultDesc' in amount_body:
-            self.customs_declaration_result_desc = amount_body['customsDeclarationResultDesc']
-        if 'customsDeclarationReturnTime' in amount_body:
-            self.customs_declaration_return_time = amount_body['customsDeclarationReturnTime']
+            self.declaration_amount.parse_rsp_body(declaration_record_body['declarationAmount'])
+        if 'splitOrder' in declaration_record_body:
+            self.split_order = declaration_record_body['splitOrder']
+        if 'declarationRequestStatus' in declaration_record_body:
+            self.declaration_request_status = declaration_record_body['declarationRequestStatus']
+        if 'lastModifiedTime' in declaration_record_body:
+            self.last_modified_time = declaration_record_body['lastModifiedTime']
+        if 'customsDeclarationResultCode' in declaration_record_body:
+            self.customs_declaration_result_code = declaration_record_body['customsDeclarationResultCode']
+        if 'customsDeclarationResultDesc' in declaration_record_body:
+            self.customs_declaration_result_desc = declaration_record_body['customsDeclarationResultDesc']
+        if 'customsDeclarationReturnTime' in declaration_record_body:
+            self.customs_declaration_return_time = declaration_record_body['customsDeclarationReturnTime']

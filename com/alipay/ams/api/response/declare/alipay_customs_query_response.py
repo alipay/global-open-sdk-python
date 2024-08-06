@@ -8,8 +8,8 @@ class AlipayCustomsQueryResponse(AlipayResponse):
 
     def __init__(self, rsp_body):
         super(AlipayCustomsQueryResponse, self).__init__()
-        self.__declaration_requests_not_found = None  # type: list:str
-        self.__declaration_records = None  # type: list:DeclarationRecord
+        self.__declaration_requests_not_found = None  # type: list[str]
+        self.__declaration_records = None  # type: list[DeclarationRecord]
         self.parse_rsp_body(rsp_body)
 
     @property

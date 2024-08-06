@@ -17,7 +17,7 @@ class Order(object):
         self.__order_description = None
         self.__order_amount = None
         self.__merchant = None  # type: Merchant
-        self.__goods = None  # type: list:Goods
+        self.__goods = None  # type: list[Goods]
         self.__shipping = None  # type: Shipping
         self.__buyer = None  # type: Buyer
         self.__env = None  # type: Env

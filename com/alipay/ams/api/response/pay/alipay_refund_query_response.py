@@ -9,7 +9,7 @@ class AlipayRefundQueryResponse(AlipayResponse):
         super(AlipayRefundQueryResponse, self).__init__()
         self.__refund_request_id = None
         self.__refund_id = None
-        self.__refund_amount = None
+        self.__refund_amount = None # type: Amount
         self.__refund_time = None
         self.__refund_status = None  # type:TransactionStatusType
         self.__gross_settlement_amount = None  # type: Amount

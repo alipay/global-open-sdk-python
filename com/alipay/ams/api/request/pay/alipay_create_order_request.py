@@ -3,6 +3,8 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -11,8 +13,8 @@ class AlipayCreateOrderRequest(AlipayRequest):
         super(AlipayCreateOrderRequest, self).__init__()
         self.__product_code = None
         self.__payment_request_id = None
-        self.__order = None
-        self.__payment_amount = None
+        self.__order = None # type: Order
+        self.__payment_amount = None # type: Amount
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
 

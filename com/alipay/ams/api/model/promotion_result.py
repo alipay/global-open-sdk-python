@@ -36,14 +36,14 @@ class PromotionResult(object):
 
         return params
 
-    def parse_rsp_body(self, amount_body):
-        if type(amount_body) == str:
-            amount_body = json.loads(amount_body)
+    def parse_rsp_body(self, promotion_result_body):
+        if type(promotion_result_body) == str:
+            promotion_result_body = json.loads(promotion_result_body)
 
-        if 'promotionType' in amount_body:
-            self.promotion_type = amount_body['promotionType']
+        if 'promotionType' in promotion_result_body:
+            self.promotion_type = promotion_result_body['promotionType']
 
-        if 'discount' in amount_body:
+        if 'discount' in promotion_result_body:
             discount_result = Discount()
-            discount_result.parse_rsp_body(amount_body['discount'])
+            discount_result.parse_rsp_body(promotion_result_body['discount'])
             self.__promotion_result = discount_result

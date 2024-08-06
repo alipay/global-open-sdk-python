@@ -11,7 +11,7 @@ class Lodging(object):
         self.__check_out_date = None
         self.__number_of_nights = None
         self.__number_of_rooms = None
-        self.__guest_names = None  # type: list:username
+        self.__guest_names = None  # type: list[username]
 
     @property
     def hotel_name(self):

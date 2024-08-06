@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from com.alipay.ams.api.model.capture_mode import CaptureMode
+from com.alipay.ams.api.model.in_store_payment_scenario import InStorePaymentScenario
 from com.alipay.ams.api.model.presentment_mode import PresentmentMode
 
 
 class PaymentFactor(object):
     def __init__(self):
         self.__is_payment_evaluation = None
-        self.__in_store_payment_scenario = None
+        self.__in_store_payment_scenario = None # type: InStorePaymentScenario
         self.__presentment_mode = None  # type: PresentmentMode
         self.__capture_mode = None  # type: CaptureMode
         self.__is_authorization = None

@@ -3,7 +3,7 @@
 
 import json
 
-from com.alipay.ams.api.model.MethodType import MethodType
+from com.alipay.ams.api.model.method_type import MethodType
 
 
 class RedirectActionForm(object):

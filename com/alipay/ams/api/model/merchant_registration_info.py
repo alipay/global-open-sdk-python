@@ -1,12 +1,18 @@
+from com.alipay.ams.api.model.address import Address
+from com.alipay.ams.api.model.logo import Logo
+from com.alipay.ams.api.model.registration_detail import RegistrationDetail
+from com.alipay.ams.api.model.web_site import WebSite
+
+
 class MerchantRegistrationInfo(object):
     def __init__(self):
         self.__reference_merchant_id = None
         self.__merchant_display_name = None
         self.__merchant_mcc = None
-        self.__logo = None
-        self.__websites = None
-        self.__merchant_address = None
-        self.__registration_detail = None
+        self.__logo = None #type: Logo
+        self.__websites = None #type: list[WebSite]
+        self.__merchant_address = None #type: Address
+        self.__registration_detail = None #type: RegistrationDetail
 
     @property
     def reference_merchant_id(self):

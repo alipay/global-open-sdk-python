@@ -12,7 +12,7 @@ class AlipayCaptureResponse(AlipayResponse):
         self.__capture_request_id = None
         self.__capture_id = None
         self.__payment_id = None
-        self.__capture_amount = None
+        self.__capture_amount = None #type: Amount
         self.__capture_time = None
         self.__acquirer_reference_no = None
         self.__parse_rsp_body(rsp_body)

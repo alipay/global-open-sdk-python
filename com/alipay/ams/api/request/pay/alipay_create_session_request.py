@@ -1,6 +1,12 @@
 import json
 
+from com.alipay.ams.api.model.agreement_info import AgreementInfo
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.order import Order
+from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -10,18 +16,20 @@ class AlipayCreateSessionRequest(AlipayRequest):
         super(AlipayCreateSessionRequest, self).__init__()
         self.__product_code = None  # type:ProductCodeType
         self.__payment_request_id = None
-        self.__order = None
-        self.__payment_amount = None
-        self.__payment_method = None
+        self.__order = None # type:Order
+        self.__payment_amount = None # type:Amount
+        self.__payment_method = None # type:PaymentMethod
         self.__payment_session_expiry_time = None
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
         self.__payment_factor = None
-        self.__settlement_strategy = None
-        self.__env = None
+        self.__settlement_strategy = None # type:SettlementStrategy
+        self.__env = None # type:Env
         self.__merchant_region = None
         self.__credit_pay_plan = None
         self.__enable_installment_collection = None
+        self.__agreement_info = None # type:AgreementInfo
+        self.__product_scene = None
 
     @property
     def product_code(self):
@@ -135,6 +143,22 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def enable_installment_collection(self, value):
         self.__enable_installment_collection = value
 
+    @property
+    def agreement_info(self):
+        return self.__agreement_info
+
+    @agreement_info.setter
+    def agreement_info(self, value):
+        self.__agreement_info = value
+
+    @property
+    def product_scene(self):
+        return self.__product_scene
+
+    @product_scene.setter
+    def product_scene(self, value):
+        self.__product_scene = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -169,5 +193,9 @@ class AlipayCreateSessionRequest(AlipayRequest):
             params['creditPayPlan'] = self.credit_pay_plan
         if hasattr(self, "enable_installment_collection") and self.enable_installment_collection:
             params['enableInstallmentCollection'] = self.enable_installment_collection
+        if hasattr(self, "agreement_info") and self.agreement_info:
+            params['agreementInfo'] = self.agreement_info
+        if hasattr(self, "product_scene") and self.product_scene:
+            params['productScene'] = self.product_scene
 
         return params
