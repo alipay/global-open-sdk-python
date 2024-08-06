@@ -1,17 +1,16 @@
-import username
-
-from com.alipay.ams.api.model import address
+from com.alipay.ams.api.model.address import Address
+from com.alipay.ams.api.model.user_name import UserName
 
 
 class Lodging(object):
     def __init__(self):
         self.__hotel_name = None
-        self.__hotel_address = None  # type: address
+        self.__hotel_address = None  # type: Address
         self.__check_in_date = None
         self.__check_out_date = None
         self.__number_of_nights = None
         self.__number_of_rooms = None
-        self.__guest_names = None  # type: list[username]
+        self.__guest_names = None  # type: list[UserName]
 
     @property
     def hotel_name(self):
