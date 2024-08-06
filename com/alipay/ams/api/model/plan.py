@@ -6,8 +6,8 @@ from com.alipay.ams.api.model.amount import Amount
 class Plan(object):
     def __init__(self):
         self.__interest_rate = None
-        self.__min_installment_amount = None #type: Amount
-        self.__max_installment_amount = None #type: Amount
+        self.__min_installment_amount = None  # type: Amount
+        self.__max_installment_amount = None  # type: Amount
         self.__installment_num = None
         self.__interval = None
         self.__enabled = None
@@ -55,9 +55,11 @@ class Plan(object):
     @property
     def enabled(self):
         return self.__enabled
+
     @enabled.setter
     def enabled(self, value):
         self.__enabled = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "interest_rate") and self.interest_rate:
@@ -78,7 +80,6 @@ class Plan(object):
         if hasattr(self, "enabled") and self.enabled:
             params['enabled'] = self.enabled
         return params
-
 
     def parse_rsp_body(self, plan_body):
         if type(plan_body) == str:

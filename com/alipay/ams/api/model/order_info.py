@@ -2,7 +2,7 @@ import json
 
 
 class OrderInfo(object):
-    def __int__(self):
+    def __init__(self):
         self.__order_amount = None
 
     @property

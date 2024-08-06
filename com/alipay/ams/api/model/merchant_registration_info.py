@@ -9,10 +9,10 @@ class MerchantRegistrationInfo(object):
         self.__reference_merchant_id = None
         self.__merchant_display_name = None
         self.__merchant_mcc = None
-        self.__logo = None #type: Logo
-        self.__websites = None #type: list[WebSite]
-        self.__merchant_address = None #type: Address
-        self.__registration_detail = None #type: RegistrationDetail
+        self.__logo = None  # type: Logo
+        self.__websites = None  # type: list[WebSite]
+        self.__merchant_address = None  # type: Address
+        self.__registration_detail = None  # type: RegistrationDetail
 
     @property
     def reference_merchant_id(self):

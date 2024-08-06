@@ -2,10 +2,9 @@ import json
 
 
 class PeriodRule(object):
-    def __int__(self):
+    def __init__(self):
         self.__period_type = None
         self.__period_count = None
-
 
     @property
     def period_type(self):

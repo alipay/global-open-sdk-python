@@ -6,11 +6,11 @@ from com.alipay.ams.api.model.contact_info import ContactInfo
 class RegistrationDetail(object):
     def __init__(self):
         self.__legal_name = None
-        self.__attachments = None #type: list[Attachment]
-        self.__contact_info = None #type: ContactInfo
+        self.__attachments = None  # type: list[Attachment]
+        self.__contact_info = None  # type: ContactInfo
         self.__registration_type = None
         self.__registration_no = None
-        self.__registration_address = None #type: Address
+        self.__registration_address = None  # type: Address
         self.__business_type = None
         self.__registration_effective_date = None
         self.__registration_expire_date = None

@@ -22,13 +22,13 @@ class PaymentOption(object):
         self.__disable_reason = None  # type: DisableReasonType
         self.__amount_limit_info_map = None
         self.__supported_currencies = None
-        self.__payment_option_detail = None # type: PaymentOptionDetail
+        self.__payment_option_detail = None  # type: PaymentOptionDetail
         self.__extend_info = None
-        self.__logo = None # type: Logo
+        self.__logo = None  # type: Logo
         self.__promo_names = None
-        self.__installment = None # type: Installment
+        self.__installment = None  # type: Installment
         self.__promotion_infos = None  # type: list[PromotionInfo]
-        self.__payment_method_region = None # type: list[str]
+        self.__payment_method_region = None  # type: list[str]
 
     @property
     def payment_method_type(self):

@@ -16,10 +16,10 @@ class CardPaymentMethodDetail(object):
         self.__brand = None
         self.__card_issuer = None
         self.__country_issue = None
-        self.__inst_user_name = None #type: UserName
+        self.__inst_user_name = None  # type: UserName
         self.__expiry_year = None
         self.__expiry_month = None
-        self.__billing_address = None #type: Address
+        self.__billing_address = None  # type: Address
         self.__mask = None
         self.__last4 = None
         self.__payment_method_detail_metadata = None

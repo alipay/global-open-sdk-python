@@ -13,7 +13,7 @@ class AlipayCaptureRequest(AlipayRequest):
         super(AlipayCaptureRequest, self).__init__()
         self.__capture_request_id = None
         self.__payment_id = None
-        self.__capture_amount = None #type: Amount
+        self.__capture_amount = None  # type: Amount
         self.__is_last_capture = None
 
     @property

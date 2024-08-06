@@ -16,7 +16,7 @@ class Transaction(object):
         self.__transaction_id = None
         self.__transaction_type = None  # type:TransactionType
         self.__transaction_status = None  # type:TransactionStatusType
-        self.__transaction_amount = None # type:Amount
+        self.__transaction_amount = None  # type:Amount
         self.__transaction_request_id = None
         self.__transaction_time = None
 

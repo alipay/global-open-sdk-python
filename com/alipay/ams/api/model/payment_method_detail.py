@@ -13,11 +13,11 @@ from com.alipay.ams.api.model.payment_method_detail_type import PaymentMethodDet
 class PaymentMethodDetail(object):
 
     def __init__(self):
-        self.__payment_method_detail_type = None #type: PaymentMethodDetailType
-        self.__card = None #type: CardPaymentMethodDetail
-        self.__external_account = None #type: ExternalPaymentMethodDetail
-        self.__discount = None #type: DiscountPaymentMethodDetail
-        self.__coupon = None #type: CouponPaymentMethodDetail
+        self.__payment_method_detail_type = None  # type: PaymentMethodDetailType
+        self.__card = None  # type: CardPaymentMethodDetail
+        self.__external_account = None  # type: ExternalPaymentMethodDetail
+        self.__discount = None  # type: DiscountPaymentMethodDetail
+        self.__coupon = None  # type: CouponPaymentMethodDetail
         self.__extend_info = None
 
     @property

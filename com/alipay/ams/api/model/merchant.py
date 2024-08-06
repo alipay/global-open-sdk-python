@@ -9,7 +9,7 @@ class Merchant(object):
         self.__merchant_mcc = None
         self.__merchant_name = None
         self.__merchant_display_name = None
-        self.__merchant_address = None # type: Address
+        self.__merchant_address = None  # type: Address
         self.__merchant_register_date = None
         self.__merchant_type = None  # type: MerchantType
         self.__store = None

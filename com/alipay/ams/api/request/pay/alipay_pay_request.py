@@ -20,24 +20,24 @@ class AlipayPayRequest(AlipayRequest):
         super(AlipayPayRequest, self).__init__()
         self.__product_code = None  # type: ProductCodeType
         self.__payment_request_id = None
-        self.__order = None # type: Order
-        self.__payment_amount = None # type: Amount
-        self.__pay_to_method = None # type: PaymentMethod
-        self.__payment_method = None # type: PaymentMethod
+        self.__order = None  # type: Order
+        self.__payment_amount = None  # type: Amount
+        self.__pay_to_method = None  # type: PaymentMethod
+        self.__payment_method = None  # type: PaymentMethod
         self.__payment_expiry_time = None
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
         self.__is_authorization = None
         self.__payment_verification_data = None
-        self.__payment_factor = None # type: PaymentFactor
-        self.__settlement_strategy = None # type: SettlementStrategy
+        self.__payment_factor = None  # type: PaymentFactor
+        self.__settlement_strategy = None  # type: SettlementStrategy
         self.__extend_info = None
-        self.__env = None # type: Env
+        self.__env = None  # type: Env
         self.__merchant_region = None
         self.__app_id = None
         self.__merchant_account_id = None
         self.__user_region = None
-        self.__credit_pay_plan = None # type: CreditPayPlan
+        self.__credit_pay_plan = None  # type: CreditPayPlan
 
     @property
     def merchant_region(self):

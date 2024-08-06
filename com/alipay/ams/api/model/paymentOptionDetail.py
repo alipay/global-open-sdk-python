@@ -8,7 +8,7 @@ class PaymentOptionDetail(object):
     def __init__(self):
         self.__support_card_brands = None  # type:list[SupportCardBrand]
         self.__funding = None  # type:list[FundingType]
-        self.__support_banks = None # type:list[SupportBank]
+        self.__support_banks = None  # type:list[SupportBank]
 
     @property
     def support_card_brands(self):

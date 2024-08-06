@@ -7,8 +7,8 @@ from com.alipay.ams.api.model.user_name import UserName
 class Shipping(object):
 
     def __init__(self):
-        self.__shipping_name = None #type:UserName
-        self.__shipping_address = None #type:Address
+        self.__shipping_name = None  # type:UserName
+        self.__shipping_address = None  # type:Address
         self.__shipping_carrier = None
         self.__shipping_phone_no = None
 

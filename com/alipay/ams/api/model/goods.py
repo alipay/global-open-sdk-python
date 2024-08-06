@@ -10,7 +10,7 @@ class Goods(object):
         self.__goods_name = None
         self.__goods_category = None
         self.__goods_brand = None
-        self.__goods_unit_amount = None # type:Amount
+        self.__goods_unit_amount = None  # type:Amount
         self.__goods_quantity = None
         self.__goods_sku_name = None
         self.__delivery_method_type = None  # type:DeliveryMethodType

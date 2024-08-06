@@ -13,7 +13,7 @@ class AlipayRefundResponse(AlipayResponse):
         self.__refund_request_id = None
         self.__refund_id = None
         self.__payment_id = None
-        self.__refund_amount = None # type: Amount
+        self.__refund_amount = None  # type: Amount
         self.__refund_time = None
         self.__refund_non_guarantee_coupon_amount = None
         self.__acquirer_reference_no = None

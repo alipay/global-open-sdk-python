@@ -6,8 +6,8 @@ from com.alipay.ams.api.model.support_card_brand import SupportCardBrand
 
 class Installment(object):
     def __init__(self):
-        self.__support_card_brands = None #type: list[SupportCardBrand]
-        self.__plans = None #type: list[Plan]
+        self.__support_card_brands = None  # type: list[SupportCardBrand]
+        self.__plans = None  # type: list[Plan]
 
     @property
     def support_card_brands(self):
@@ -39,4 +39,3 @@ class Installment(object):
             for plan in self.plans:
                 plan.parse_rsp_body(plan)
                 self.plans = plan
-

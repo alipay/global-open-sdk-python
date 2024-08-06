@@ -29,7 +29,7 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__user_region = None
         self.__payment_factor = None  # type:PaymentFactor
         self.__settlement_strategy = None  # type:SettlementStrategy
-        self.__merchant = None # type:Merchant
+        self.__merchant = None  # type:Merchant
         self.__allowed_psp_regions = None
         self.__merchant_region = None
         self.__merchant_account_id = None

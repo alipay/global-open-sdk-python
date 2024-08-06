@@ -13,7 +13,7 @@ class PaymentResultInfo(object):
         self.__issuing_country = None
         self.__funding = None
         self.__payment_method_region = None
-        self.__three_dS_result = None #type: ThreeDSResult
+        self.__three_dS_result = None  # type: ThreeDSResult
         self.__credit_pay_plan = None
 
     @property

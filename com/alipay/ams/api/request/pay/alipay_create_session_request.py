@@ -16,19 +16,19 @@ class AlipayCreateSessionRequest(AlipayRequest):
         super(AlipayCreateSessionRequest, self).__init__()
         self.__product_code = None  # type:ProductCodeType
         self.__payment_request_id = None
-        self.__order = None # type:Order
-        self.__payment_amount = None # type:Amount
-        self.__payment_method = None # type:PaymentMethod
+        self.__order = None  # type:Order
+        self.__payment_amount = None  # type:Amount
+        self.__payment_method = None  # type:PaymentMethod
         self.__payment_session_expiry_time = None
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
         self.__payment_factor = None
-        self.__settlement_strategy = None # type:SettlementStrategy
-        self.__env = None # type:Env
+        self.__settlement_strategy = None  # type:SettlementStrategy
+        self.__env = None  # type:Env
         self.__merchant_region = None
         self.__credit_pay_plan = None
         self.__enable_installment_collection = None
-        self.__agreement_info = None # type:AgreementInfo
+        self.__agreement_info = None  # type:AgreementInfo
         self.__product_scene = None
 
     @property

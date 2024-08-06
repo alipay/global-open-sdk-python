@@ -11,7 +11,7 @@ class Store(object):
         self.__store_display_name = None
         self.__store_terminal_id = None
         self.__store_operator_id = None
-        self.__store_address = None #type: Address
+        self.__store_address = None  # type: Address
         self.__store_phone_no = None
 
     @property

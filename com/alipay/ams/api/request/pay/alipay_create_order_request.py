@@ -13,8 +13,8 @@ class AlipayCreateOrderRequest(AlipayRequest):
         super(AlipayCreateOrderRequest, self).__init__()
         self.__product_code = None
         self.__payment_request_id = None
-        self.__order = None # type: Order
-        self.__payment_amount = None # type: Amount
+        self.__order = None  # type: Order
+        self.__payment_amount = None  # type: Amount
         self.__payment_redirect_url = None
         self.__payment_notify_url = None
 

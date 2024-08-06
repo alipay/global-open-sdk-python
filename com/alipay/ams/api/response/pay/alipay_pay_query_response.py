@@ -21,7 +21,7 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__payment_request_id = None
         self.__payment_id = None
         self.__auth_payment_id = None
-        self.__payment_amount = None # type: Amount
+        self.__payment_amount = None  # type: Amount
         self.__actual_payment_amount = None
         self.__payment_quote = None  # type: Quote
         self.__auth_expiry_time = None
@@ -31,10 +31,10 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__psp_customer_info = None  # type: PspCustomerInfo
         self.__redirect_action_form = None  # type: RedirectActionForm
         self.__extend_info = None
-        self.__transactions = None # type: list[Transaction]
-        self.__customs_declaration_amount = None # type: Amount
-        self.__gross_settlement_amount = None # type: Amount
-        self.__settlement_quote = None # type: Quote
+        self.__transactions = None  # type: list[Transaction]
+        self.__customs_declaration_amount = None  # type: Amount
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
         self.__acquirer_reference_no = None
         self.__payment_result_info = None  # type: PaymentResultInfo
         self.__promotion_result = None  # type: PromotionResult

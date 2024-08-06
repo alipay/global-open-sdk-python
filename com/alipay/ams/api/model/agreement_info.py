@@ -2,7 +2,7 @@ import json
 
 
 class AgreementInfo(object):
-    def __int__(self):
+    def __init__(self):
         self.__auth_state = None
         self.__user_login_id = None
 

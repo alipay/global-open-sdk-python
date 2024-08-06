@@ -9,7 +9,7 @@ class AlipaySubscriptionCancelRequest(AlipayRequest):
         super(AlipaySubscriptionCancelRequest, self).__init__()
         self.__subscription_id = None
         self.__subscription_request_id = None
-        self.__cancellation_type = None #type:CancellationType
+        self.__cancellation_type = None  # type:CancellationType
 
     @property
     def subscription_id(self):

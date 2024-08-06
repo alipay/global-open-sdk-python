@@ -13,7 +13,7 @@ class AlipayCreateOrderResponse(AlipayResponse):
         self.__payment_request_id = None
         self.__payment_id = None
         self.__client_payment_token = None
-        self.__payment_amount = None #type: Amount
+        self.__payment_amount = None  # type: Amount
         self.__redirect_action_form = None
         self.__parse_rsp_body(rsp_body)
 

@@ -10,7 +10,7 @@ class OrderCodeForm(object):
     def __init__(self):
         self.__payment_method_type = None
         self.__expire_time = None
-        self.__code_details = None #type: list[CodeDetail]
+        self.__code_details = None  # type: list[CodeDetail]
         self.__extend_info = None
 
     @property

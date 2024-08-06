@@ -16,7 +16,7 @@ class Env(object):
         self.__store_terminal_id = None
         self.__store_terminal_request_time = None
         self.__extend_info = None
-        self.__browser_info = None # type: BrowserInfo
+        self.__browser_info = None  # type: BrowserInfo
         self.__color_depth = None
         self.__screen_height = None
         self.__screen_width = None
