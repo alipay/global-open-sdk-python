@@ -11,19 +11,18 @@ from com.alipay.ams.api.response.declare.alipay_customs_declare_response import 
 from com.alipay.ams.api.response.declare.alipay_customs_query_response import AlipayCustomsQueryResponse
 
 MERCHANT_PRIVATE_KEY = ""
-ALIPAY_PUBLICK_KEY = ""
+ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
 GATEWAY_HOST = ""
 
 
-
 def declare(paymentId):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
-    alipayCustomsDeclareRequest =  AlipayCustomsDeclareRequest()
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    alipayCustomsDeclareRequest = AlipayCustomsDeclareRequest()
     alipayCustomsDeclareRequest.path = "/ams/sandbox/api/v1/customs/declare"
     alipayCustomsDeclareRequest.declaration_request_id = "declaration_test_00001"
     alipayCustomsDeclareRequest.payment_id = paymentId
-    alipayCustomsDeclareRequest.declaration_amount = Amount("CNY",100)
+    alipayCustomsDeclareRequest.declaration_amount = Amount("CNY", 100)
     merchantCustomsInfo = MerchantCustomsInfo()
     merchantCustomsInfo.merchant_customs_code = "amsdemoskr"
     merchantCustomsInfo.merchant_customs_name = "amsdemo"
@@ -52,20 +51,22 @@ def declare(paymentId):
     else:
         print(alipayCustomsDeclareResponse.result.result_message)
 
+
 def inquiryDeclaration(declarationRequestIds):
-        default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                    ALIPAY_PUBLICK_KEY)
-        alipayCustomsQueryRequest = AlipayCustomsQueryRequest()
-        alipayCustomsQueryRequest.path = "/ams/sandbox/api/v1/customs/inquiryDeclarationRequests"
-        alipayCustomsQueryRequest.declaration_request_ids = declarationRequestIds
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
+                                                ALIPAY_PUBLIC_KEY)
+    alipayCustomsQueryRequest = AlipayCustomsQueryRequest()
+    alipayCustomsQueryRequest.path = "/ams/sandbox/api/v1/customs/inquiryDeclarationRequests"
+    alipayCustomsQueryRequest.declaration_request_ids = declarationRequestIds
 
-        rsp_body = default_alipay_client.execute(alipayCustomsQueryRequest)
+    rsp_body = default_alipay_client.execute(alipayCustomsQueryRequest)
 
-        alipayCustomsQueryResponse = AlipayCustomsQueryResponse(rsp_body)
-        if alipayCustomsQueryResponse.result.result_status.name == ResultStatusType.S.name:
-            print(alipayCustomsQueryResponse.result.result_status)
-        else:
-            print(alipayCustomsQueryResponse.result.result_message)
+    alipayCustomsQueryResponse = AlipayCustomsQueryResponse(rsp_body)
+    if alipayCustomsQueryResponse.result.result_status.name == ResultStatusType.S.name:
+        print(alipayCustomsQueryResponse.result.result_status)
+    else:
+        print(alipayCustomsQueryResponse.result.result_message)
+
 
 declare("202407311940108001001887A0209760494")
 # inquiryDeclaration(["declaration_test_00001"])

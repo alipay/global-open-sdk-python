@@ -20,13 +20,13 @@ from com.alipay.ams.api.response.merchant.alipay_merchant_registration_status_qu
     AlipayMerchantRegistrationStatusQueryResponse
 
 MERCHANT_PRIVATE_KEY = ""
-ALIPAY_PUBLICK_KEY = ""
+ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
 
 
 def register():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
 
     alipay_merchant_registration_request = AlipayMerchantRegistrationRequest()
     alipay_merchant_registration_request.registration_request_id = "reqId107336691327831097346773_test_111"
@@ -120,7 +120,7 @@ def register():
 
 def query_info():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
     alipay_merchant_registration_info_query_request = AlipayMerchantRegistrationInfoQueryRequest()
     alipay_merchant_registration_info_query_request.path = "/ams/sandbox/api/v1/merchants/inquiryRegistrationInfo"
 
@@ -139,7 +139,7 @@ def query_info():
 
 def query_registration_status():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID,
-                                                MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+                                                MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     alipay_merchant_registration_status_query_request = AlipayMerchantRegistrationStatusQueryRequest()
     alipay_merchant_registration_status_query_request.path = "/ams/sandbox/api/v1/merchants/inquiryRegistrationStatus"
 
