@@ -31,19 +31,17 @@ from com.alipay.ams.api.request.pay.alipay_refund_request import AlipayRefundReq
 from com.alipay.ams.api.response.pay.alipay_refund_query_response import AlipayRefundQueryResponse
 from com.alipay.ams.api.response.pay.alipay_refund_response import AlipayRefundResponse
 
-
 MERCHANT_PRIVATE_KEY = ""
-ALIPAY_PUBLICK_KEY = ""
+ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
 GATEWAY_HOST = ""
 
+
 def pay():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST,
-                                                CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_request = AlipayPayRequest()
     alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
-
 
     alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.taobao.com"
@@ -90,7 +88,6 @@ def pay():
     env.terminal_type = TerminalType.WEB
     alipay_pay_request.env = env
 
-
     # paymentFactor = PaymentFactor()
     # paymentFactor.is_authorization = True
     # alipay_pay_request.payment_factor = paymentFactor
@@ -110,13 +107,12 @@ def pay():
 
 
 def pay_consult():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     pay_consult_request = AlipayPayConsultRequest()
     pay_consult_request.path = "/ams/sandbox/api/v1/payments/consult"
     pay_consult_request.product_code = ProductCodeType.CASHIER_PAYMENT
     # pay_consult_request.customer_id = "123441"
     pay_consult_request.user_region = "SG"
-
 
     payment_amount = Amount("USD", "1000")
     pay_consult_request.payment_amount = payment_amount
@@ -132,13 +128,11 @@ def pay_consult():
     settlementStrategy.settlement_currency = "USD"
     pay_consult_request.settlement_strategy = settlementStrategy
 
-    pay_consult_request.allowed_payment_method_regions = ["HK", "US","CN"]
+    pay_consult_request.allowed_payment_method_regions = ["HK", "US", "CN"]
 
     paymentFactor = PaymentFactor()
-    paymentFactor.presentment_mode="BUNDLE"
+    paymentFactor.presentment_mode = "BUNDLE"
     pay_consult_request.payment_factor = paymentFactor
-
-
 
     rsp_body = default_alipay_client.execute(pay_consult_request)
 
@@ -150,8 +144,7 @@ def pay_consult():
 
 
 def pay_cancel(paymentId):
-
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_cancel_request = AlipayPayCancelRequest()
     alipay_pay_cancel_request.path = "/ams/sandbox/api/v1/payments/cancel"
@@ -168,13 +161,11 @@ def pay_cancel(paymentId):
 
 
 def pay_query(paymenId):
-
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_query_request = AlipayPayQueryRequest()
     alipay_pay_query_request.path = "/ams/sandbox/api/v1/payments/inquiryPayment"
     alipay_pay_query_request.payment_id = paymenId
-
 
     rsp_body = default_alipay_client.execute(alipay_pay_query_request)
 
@@ -189,7 +180,7 @@ def pay_query(paymenId):
 
 def capture(paymentId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
 
     alipay_capture_request = AlipayCaptureRequest()
     alipay_capture_request.path = "/ams/sandbox/api/v1/payments/capture"
@@ -214,7 +205,7 @@ def capture(paymentId):
 
 def refund(paymentId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
 
     alipay_refund_request = AlipayRefundRequest()
     alipay_refund_request.path = "/ams/sandbox/api/v1/payments/refund"
@@ -235,14 +226,14 @@ def refund(paymentId):
     else:
         print(alipay_refund_response.result.result_message)
 
+
 def inqueryRefund(paymentRefundRequestId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
 
     alipay_inquery_refund_request = AlipayRefundQueryRequest()
     alipay_inquery_refund_request.path = "/ams/sandbox/api/v1/payments/inquiryRefund"
     alipay_inquery_refund_request.refund_request_id = paymentRefundRequestId
-
 
     rsp_body = default_alipay_client.execute(alipay_inquery_refund_request)
 
@@ -253,9 +244,10 @@ def inqueryRefund(paymentRefundRequestId):
     else:
         print(alipay_inquery_refund_response.result.result_message)
 
+
 def createPaymentSession():
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
 
     alipay_create_session_request = AlipayCreateSessionRequest()
     alipay_create_session_request.path = "/ams/sandbox/api/v1/payments/createPaymentSession"

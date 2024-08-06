@@ -16,14 +16,14 @@ from com.alipay.ams.api.response.auth.alipay_auth_consult_response import Alipay
 from com.alipay.ams.api.request.auth.alipay_auth_revoke_token_request import AlipayAuthRevokeTokenRequest
 from com.alipay.ams.api.response.auth.alipay_auth_revoke_token_response import AlipayAuthRevokeTokenResponse
 
-
 MERCHANT_PRIVATE_KEY = ""
-ALIPAY_PUBLICK_KEY = ""
+ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
 GATEWAY_HOST = ""
 
+
 def apply_token(authCode):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     # 申请token
     alipay_auth_apply_token_request = AlipayAuthApplyTokenRequest()
 
@@ -44,7 +44,7 @@ def apply_token(authCode):
 
 
 def query_token():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     # 查询token
     alipay_auth_query_token_request = AlipayAuthQueryTokenRequest()
@@ -62,7 +62,7 @@ def query_token():
 
 
 def auth_consult():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLICK_KEY)
+    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_auth_consult_request = AlipayAuthConsultRequest()
     alipay_auth_consult_request.path = "/ams/sandbox/api/v1/authorizations/consult"
@@ -92,7 +92,7 @@ def auth_consult():
 
 def revoke_token(accessToken):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLICK_KEY)
+                                                ALIPAY_PUBLIC_KEY)
     alipay_revoke_token_request = AlipayAuthRevokeTokenRequest()
     alipay_revoke_token_request.path = "/ams/sandbox/api/v1/authorizations/revoke"
     alipay_revoke_token_request.access_token = accessToken
@@ -105,9 +105,6 @@ def revoke_token(accessToken):
         print(alipay_auth_revoke_token_response.extend_info)
     else:
         print(alipay_auth_revoke_token_response.result.result_message)
-
-
-
 
 
 # auth_consult()
