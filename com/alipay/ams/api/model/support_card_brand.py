@@ -4,9 +4,8 @@ from com.alipay.ams.api.model.logo import Logo
 
 class SupportCardBrand(object):
     def __init__(self):
-        self.__card_brand = None #type: CardBrandType
-        self.__logo  = None #type: Logo
-
+        self.__card_brand = None  # type: CardBrandType
+        self.__logo = None  # type: Logo
 
     @property
     def card_brand(self):
@@ -24,7 +23,6 @@ class SupportCardBrand(object):
     def logo(self, value):
         self.__logo = value
 
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "card_brand") and self.card_brand:
@@ -39,6 +37,3 @@ class SupportCardBrand(object):
         if support_card_brand_body.get('logo'):
             self.logo = Logo()
             self.logo.to_ams_dict()
-
-
-

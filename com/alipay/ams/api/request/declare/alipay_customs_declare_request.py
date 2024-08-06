@@ -12,12 +12,12 @@ class AlipayCustomsDeclareRequest(AlipayRequest):
         super(AlipayCustomsDeclareRequest, self).__init__()
         self.__declaration_request_id = None
         self.__payment_id = None
-        self.__declaration_amount = None #type:Amount
-        self.__customs = None #type:CustomsInfo
-        self.__merchant_customs_info = None #type:MerchantCustomsInfo
+        self.__declaration_amount = None  # type:Amount
+        self.__customs = None  # type:CustomsInfo
+        self.__merchant_customs_info = None  # type:MerchantCustomsInfo
         self.__split_order = None
         self.__suborder_id = None
-        self.__buyer_certificate = None #type:Certificate
+        self.__buyer_certificate = None  # type:Certificate
 
     @property
     def declaration_request_id(self):
@@ -56,7 +56,7 @@ class AlipayCustomsDeclareRequest(AlipayRequest):
         return self.__merchant_customs_info
 
     @merchant_customs_info.setter
-    def merchant_customs_info(self,value):
+    def merchant_customs_info(self, value):
         self.__merchant_customs_info = value
 
     @property
@@ -82,7 +82,6 @@ class AlipayCustomsDeclareRequest(AlipayRequest):
     @buyer_certificate.setter
     def buyer_certificate(self, value):
         self.__buyer_certificate = value
-
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)

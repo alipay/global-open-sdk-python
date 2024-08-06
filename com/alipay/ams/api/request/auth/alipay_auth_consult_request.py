@@ -12,16 +12,17 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayAuthConsultRequest, self).__init__()
-        self.__customer_belongs_to = None #type:CustomerBelongsTo
+        self.__customer_belongs_to = None  # type:CustomerBelongsTo
         self.__auth_client_id = None
         self.__auth_redirect_url = None
-        self.__scopes = None #type:ScopeType
+        self.__scopes = None  # type:ScopeType
         self.__auth_state = None
-        self.__terminal_type = None #type:TerminalType
+        self.__terminal_type = None  # type:TerminalType
         self.__os_type = None
         self.__os_version = None
         self.__extend_info = None
         self.__merchant_region = None
+        self.__recurring_payment = None
 
     @property
     def merchant_region(self):
@@ -103,6 +104,14 @@ class AlipayAuthConsultRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def recurring_payment(self):
+        return self.recurring_payment
+
+    @recurring_payment.setter
+    def recurring_payment(self, value):
+        self.__recurring_payment = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -130,4 +139,6 @@ class AlipayAuthConsultRequest(AlipayRequest):
             params['extendInfo'] = self.extend_info
         if hasattr(self, "merchant_region") and self.merchant_region:
             params['merchantRegion'] = self.merchant_region
+        if hasattr(self, "recurring_payment") and self.recurring_payment:
+            params['recurringPayment'] = self.recurring_payment
         return params

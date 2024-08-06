@@ -12,7 +12,7 @@ class Goods(object):
         self.__goods_unit_amount = None
         self.__goods_quantity = None
         self.__goods_sku_name = None
-        self.__delivery_method_type = None #type:DeliveryMethodType
+        self.__delivery_method_type = None  # type:DeliveryMethodType
 
     @property
     def reference_goods_id(self):

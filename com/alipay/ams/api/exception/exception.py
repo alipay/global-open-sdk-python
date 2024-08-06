@@ -4,4 +4,3 @@
 
 class AlipayApiException(ValueError):
     pass
-

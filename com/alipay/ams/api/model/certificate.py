@@ -4,12 +4,11 @@ from com.alipay.ams.api.model.user_name import UserName
 
 class Certificate(object):
     def __init__(self):
-        self.__certificate_type = None #type: CertificateType
+        self.__certificate_type = None  # type: CertificateType
         self.__certificate_no = None
-        self.__holder_name = None #type: UserName
+        self.__holder_name = None  # type: UserName
         self.__file_keys = None
         self.__certificate_authority = None
-
 
     @property
     def certificate_type(self):
@@ -50,7 +49,6 @@ class Certificate(object):
     @certificate_authority.setter
     def certificate_authority(self, certificate_authority):
         self.__certificate_authority = certificate_authority
-
 
     def to_ams_dict(self):
         params = dict()

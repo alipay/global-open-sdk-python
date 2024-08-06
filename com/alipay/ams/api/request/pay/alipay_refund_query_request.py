@@ -11,37 +11,33 @@ class AlipayRefundQueryRequest(AlipayRequest):
         self.__refund_id = None
         self.__merchant_account_id = None
 
-
-
     @property
     def refund_request_id(self):
-         return self.__refund_request_id
+        return self.__refund_request_id
 
     @refund_request_id.setter
     def refund_request_id(self, value):
-         self.__refund_request_id = value
+        self.__refund_request_id = value
 
     @property
     def refund_id(self):
-         return self.__refund_id
+        return self.__refund_id
 
     @refund_id.setter
     def refund_id(self, value):
-         self.__refund_id = value
+        self.__refund_id = value
 
     @property
     def merchant_account_id(self):
-         return self.__merchant_account_id
+        return self.__merchant_account_id
 
     @merchant_account_id.setter
     def merchant_account_id(self, value):
-         self.__merchant_account_id = value
-
+        self.__merchant_account_id = value
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
-
 
     def __to_ams_dict(self):
         params = dict()

@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 
 
 class EntryCodePaymentRequest(AlipayPayRequest):
 
-    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_notify_url = None, payment_redirect_url = None, payment_expiry_time = None):
+    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_notify_url=None,
+                 payment_redirect_url=None, payment_expiry_time=None):
         super(AlipayPayRequest, self).__init__()
         self.path = '/ams/api/v1/payments/pay'
 
@@ -28,8 +29,8 @@ class EntryCodePaymentRequest(AlipayPayRequest):
         self.payment_notify_url = payment_notify_url
         self.payment_expiry_time = payment_expiry_time
         self.payment_redirect_url = payment_redirect_url
-    
-    def to_ams_json(self): 
+
+    def to_ams_json(self):
         self._validate_()
         return super(EntryCodePaymentRequest, self).to_ams_json()
 
@@ -47,5 +48,3 @@ class EntryCodePaymentRequest(AlipayPayRequest):
         assert self.order.merchant.store.store_mcc, "order.merchant.store.store_mcc required."
         assert self.order.env, "order.env required."
         assert self.order.env.user_agent, "order.env.user_agent required."
-
-

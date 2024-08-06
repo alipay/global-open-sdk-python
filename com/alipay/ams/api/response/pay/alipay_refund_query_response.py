@@ -11,11 +11,10 @@ class AlipayRefundQueryResponse(AlipayResponse):
         self.__refund_id = None
         self.__refund_amount = None
         self.__refund_time = None
-        self.__refund_status = None #type:TransactionStatusType
+        self.__refund_status = None  # type:TransactionStatusType
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
         self.__parse_rsp_body(rsp_body)
-
 
     @property
     def refund_request_id(self):
@@ -67,4 +66,3 @@ class AlipayRefundQueryResponse(AlipayResponse):
             settlement_quote = Quote()
             settlement_quote.parse_rsp_body(response['settlementQuote'])
             self.__settlement_quote = settlement_quote
-

@@ -9,9 +9,9 @@ from com.alipay.ams.api.model.display_type import DisplayType
 
 class CodeDetail(object):
     def __init__(self):
-        self.__code_value_type = None #type:CodeValueType
+        self.__code_value_type = None  # type:CodeValueType
         self.__code_value = None
-        self.__display_type = None #type:DisplayType
+        self.__display_type = None  # type:DisplayType
 
     @property
     def code_value_type(self):
@@ -51,5 +51,3 @@ class CodeDetail(object):
         if 'displayType' in code_detail_body:
             display_type = DisplayType.value_of(code_detail_body['displayType'])
             self.__display_type = display_type
-
-

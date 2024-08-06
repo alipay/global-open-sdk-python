@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
-from com.alipay.ams.api.model.payment_method import PaymentMethod
-from com.alipay.ams.api.model.payment_factor import PaymentFactor
-from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.payment_method import PaymentMethod
+from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 
 
 class UserPresentedCodePaymentRequest(AlipayPayRequest):
 
-    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_code, payment_notify_url = None, payment_expiry_time = None):
+    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_code, payment_notify_url=None,
+                 payment_expiry_time=None):
         super(AlipayPayRequest, self).__init__()
         self.path = '/ams/api/v1/payments/pay'
 
@@ -28,8 +29,8 @@ class UserPresentedCodePaymentRequest(AlipayPayRequest):
         self.order = order
         self.payment_notify_url = payment_notify_url
         self.payment_expiry_time = payment_expiry_time
-    
-    def to_ams_json(self): 
+
+    def to_ams_json(self):
         self._validate_()
         return super(UserPresentedCodePaymentRequest, self).to_ams_json()
 
@@ -48,5 +49,3 @@ class UserPresentedCodePaymentRequest(AlipayPayRequest):
         assert self.order.env, "order.env required."
         assert self.order.env.store_terminal_id, "order.env.store_terminal_id required."
         assert self.order.env.store_terminal_request_time, "order.env.store_terminal_request_time required."
-
-

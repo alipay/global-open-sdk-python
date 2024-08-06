@@ -8,14 +8,13 @@ class PaymentResultInfo(object):
         self.__cvv_result_raw = None
         self.__network_transaction_id = None
         self.__card_no = None
-        self.__card_brand=None
+        self.__card_brand = None
         self.__card_token = None
         self.__issuing_country = None
         self.__funding = None
         self.__payment_method_region = None
         self.__three_dS_result = None
         self.__credit_pay_plan = None
-
 
     @property
     def avs_result_raw(self):
@@ -158,6 +157,3 @@ class PaymentResultInfo(object):
             self.three_dS_result = amount_body['threeDSResult']
         if 'creditPayPlan' in amount_body:
             self.credit_pay_plan = amount_body['creditPayPlan']
-
-
-

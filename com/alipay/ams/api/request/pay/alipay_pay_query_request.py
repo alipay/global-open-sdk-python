@@ -54,4 +54,3 @@ class AlipayPayQueryRequest(AlipayRequest):
             params['merchantAccountId'] = self.merchant_account_id
 
         return params
-

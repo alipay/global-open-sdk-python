@@ -3,13 +3,11 @@ from com.alipay.ams.api.model.china_extra_trans_info import ChinaExtraTransInfo
 
 class ExtendInfo(object):
     def __init__(self):
-        self.__china_extra_trans_info = None #type:ChinaExtraTransInfo
-
+        self.__china_extra_trans_info = None  # type:ChinaExtraTransInfo
 
     @property
     def china_extra_trans_info(self):
         return self.__china_extra_trans_info
-
 
     @china_extra_trans_info.setter
     def china_extra_trans_info(self, value):
@@ -21,4 +19,3 @@ class ExtendInfo(object):
             params['chinaExtraTransInfo'] = self.china_extra_trans_info
 
         return params
-

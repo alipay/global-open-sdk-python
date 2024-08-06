@@ -1,6 +1,9 @@
 from enum import Enum
 
-class IdentityCheckResult(Enum):
-    CHECK_PASSED = "1"
-    CHECK_NOT_PASSED = "2"
 
+class IdentityCheckResult(Enum):
+    CHECK_PASSED = "CHECK_PASSED"
+    CHECK_NOT_PASSED = "CHECK_NOT_PASSED"
+
+    def to_ams_dict(self):
+        return self.name

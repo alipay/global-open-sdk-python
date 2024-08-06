@@ -8,7 +8,6 @@ class AlipayAcceptDisputeRequest(AlipayRequest):
         super(AlipayAcceptDisputeRequest, self).__init__()
         self.__dispute_id = None
 
-
     @property
     def dispute_id(self):
         return self.__dispute_id
@@ -16,7 +15,6 @@ class AlipayAcceptDisputeRequest(AlipayRequest):
     @dispute_id.setter
     def dispute_id(self, value):
         self.__dispute_id = value
-
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)

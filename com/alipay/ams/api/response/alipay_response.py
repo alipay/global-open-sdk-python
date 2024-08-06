@@ -20,4 +20,3 @@ class AlipayResponse(object):
             result.parse_rsp_body(response['result'])
             self.__result = result
         return response
-

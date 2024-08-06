@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.refund_detail import RefundDetail
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
-from com.alipay.ams.api.model.amount import Amount
 
 
 class AlipayRefundResponse(AlipayResponse):
@@ -17,9 +17,9 @@ class AlipayRefundResponse(AlipayResponse):
         self.__refund_time = None
         self.__refund_non_guarantee_coupon_amount = None
         self.__acquirer_reference_no = None
-        self.__gross_settlement_amount = None #type: Amount
-        self.__settlement_quote = None #type: Quote
-        self.__refund_details = None #type:list:RefundDetail
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
+        self.__refund_details = None  # type:list:RefundDetail
         self.__refund_source_account_no = None
         self.__parse_rsp_body(rsp_body)
 
@@ -66,7 +66,6 @@ class AlipayRefundResponse(AlipayResponse):
     @property
     def refund_source_account_no(self):
         return self.__refund_source_account_no
-
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayRefundResponse, self).parse_rsp_body(rsp_body)

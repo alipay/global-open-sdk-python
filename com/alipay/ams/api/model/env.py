@@ -6,8 +6,8 @@ from com.alipay.ams.api.model.terminal_type import TerminalType
 
 class Env(object):
     def __init__(self):
-        self.__terminal_type = None #type: TerminalType
-        self.__os_type = None #type: OsType
+        self.__terminal_type = None  # type: TerminalType
+        self.__os_type = None  # type: OsType
         self.__user_agent = None
         self.__device_token_id = None
         self.__client_ip = None
@@ -136,7 +136,6 @@ class Env(object):
     @time_zone_offset.setter
     def time_zone_offset(self, value):
         self.__time_zone_offset = value
-
 
     @property
     def device_brand(self):

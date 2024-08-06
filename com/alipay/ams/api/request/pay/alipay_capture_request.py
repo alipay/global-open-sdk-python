@@ -66,7 +66,3 @@ class AlipayCaptureRequest(AlipayRequest):
             params['isLastCapture'] = self.is_last_capture
 
         return params
-
-
-
-

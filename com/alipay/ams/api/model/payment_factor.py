@@ -8,8 +8,8 @@ class PaymentFactor(object):
     def __init__(self):
         self.__is_payment_evaluation = None
         self.__in_store_payment_scenario = None
-        self.__presentment_mode = None #type: PresentmentMode
-        self.__capture_mode = None #type: CaptureMode
+        self.__presentment_mode = None  # type: PresentmentMode
+        self.__capture_mode = None  # type: CaptureMode
         self.__is_authorization = None
 
     @property

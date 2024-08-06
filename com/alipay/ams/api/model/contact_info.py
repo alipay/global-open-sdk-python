@@ -17,7 +17,7 @@ class ContactInfo(object):
 
     @contact_type.setter
     def contact_type(self, value):
-         self.__contact_type = value
+        self.__contact_type = value
 
     def to_ams_dict(self):
         params = dict()

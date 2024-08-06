@@ -5,26 +5,24 @@ from com.alipay.ams.api.model.amount import Amount
 
 class RefundDetail(object):
     def __init__(self):
-        self.__refund_amount = None #type:Amount
-        self.__refund_from = None #type:RefundFromType
-
+        self.__refund_amount = None  # type:Amount
+        self.__refund_from = None  # type:RefundFromType
 
     @property
     def refund_amount(self):
-         return self.__refund_amount
+        return self.__refund_amount
 
     @refund_amount.setter
     def refund_amount(self, value):
-         self.__refund_amount = value
+        self.__refund_amount = value
 
     @property
     def refund_from(self):
-         return self.__refund_from
+        return self.__refund_from
 
     @refund_from.setter
-    def refund_from(self , value):
-         self.__refund_from = value
-
+    def refund_from(self, value):
+        self.__refund_from = value
 
     def parse_rsp_body(self, quote_body):
         if type(quote_body) == str:

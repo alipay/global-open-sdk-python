@@ -9,9 +9,9 @@ from com.alipay.ams.api.model.challenge_type import ChallengeType
 
 class ChallengeActionForm(object):
     def __init__(self):
-        self.__challenge_type = None #type:ChallengeType
+        self.__challenge_type = None  # type:ChallengeType
         self.__challenge_render_value = None
-        self.__trigger_source = None #type:ChallengeTriggerSourceType
+        self.__trigger_source = None  # type:ChallengeTriggerSourceType
         self.__extend_info = None
 
     @property

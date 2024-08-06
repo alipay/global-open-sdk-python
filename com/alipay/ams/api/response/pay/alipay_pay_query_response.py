@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.model.promotion_result import PromotionResult
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
-from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
-from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.psp_customer_info import PspCustomerInfo
+from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.redirect_action_form import RedirectActionForm
 from com.alipay.ams.api.model.transaction import Transaction
+from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayPayQueryResponse(AlipayResponse):
 
     def __init__(self, rsp_body):
         super(AlipayPayQueryResponse, self).__init__()
-        self.__payment_status = None #type: TransactionStatusType
+        self.__payment_status = None  # type: TransactionStatusType
         self.__payment_result_code = None
         self.__payment_result_message = None
         self.__payment_request_id = None
@@ -23,21 +23,21 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__auth_payment_id = None
         self.__payment_amount = None
         self.__actual_payment_amount = None
-        self.__payment_quote = None #type: Quote
+        self.__payment_quote = None  # type: Quote
         self.__auth_expiry_time = None
         self.__payment_create_time = None
         self.__payment_time = None
         self.__non_guarantee_coupon_amount = None
-        self.__psp_customer_info = None #type: PspCustomerInfo
-        self.__redirect_action_form = None #type: RedirectActionForm
+        self.__psp_customer_info = None  # type: PspCustomerInfo
+        self.__redirect_action_form = None  # type: RedirectActionForm
         self.__extend_info = None
         self.__transactions = None
         self.__customs_declaration_amount = None
         self.__gross_settlement_amount = None
         self.__settlement_quote = None
         self.__acquirer_reference_no = None
-        self.__payment_result_info = None #type: PaymentResultInfo
-        self.__promotion_result = None #type: PromotionResult
+        self.__payment_result_info = None  # type: PaymentResultInfo
+        self.__promotion_result = None  # type: PromotionResult
         self.__earliest_settlement_time = None
         self.__parse_rsp_body(rsp_body)
 
@@ -145,13 +145,13 @@ class AlipayPayQueryResponse(AlipayResponse):
             self.__payment_status = payment_status
 
         if 'paymentRequestId' in response:
-                self.__payment_request_id = response['paymentRequestId']
+            self.__payment_request_id = response['paymentRequestId']
 
         if 'paymentResultCode' in response:
             self.__payment_result_code = response['paymentResultCode']
 
         if 'paymentResultMessage' in response:
-                self.__payment_result_message = response['paymentResultMessage']
+            self.__payment_result_message = response['paymentResultMessage']
 
         if 'paymentId' in response:
             self.__payment_id = response['paymentId']

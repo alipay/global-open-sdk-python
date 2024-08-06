@@ -8,7 +8,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayCreateSessionRequest, self).__init__()
-        self.__product_code = None  #type:ProductCodeType
+        self.__product_code = None  # type:ProductCodeType
         self.__payment_request_id = None
         self.__order = None
         self.__payment_amount = None
@@ -22,7 +22,6 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__merchant_region = None
         self.__credit_pay_plan = None
         self.__enable_installment_collection = None
-
 
     @property
     def product_code(self):

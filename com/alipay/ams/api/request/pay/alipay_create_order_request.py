@@ -81,7 +81,7 @@ class AlipayCreateOrderRequest(AlipayRequest):
 
         if hasattr(self, "payment_amount") and self.payment_amount:
             params['paymentAmount'] = self.payment_amount
-            
+
         if hasattr(self, "payment_redirect_url") and self.payment_redirect_url:
             params['paymentRedirectUrl'] = self.payment_redirect_url
 

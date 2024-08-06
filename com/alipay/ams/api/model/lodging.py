@@ -6,13 +6,12 @@ from com.alipay.ams.api.model import address
 class Lodging(object):
     def __init__(self):
         self.__hotel_name = None
-        self.__hotel_address = None #type: address
+        self.__hotel_address = None  # type: address
         self.__check_in_date = None
         self.__check_out_date = None
         self.__number_of_nights = None
         self.__number_of_rooms = None
-        self.__guest_names = None #type: list:username
-
+        self.__guest_names = None  # type: list:username
 
     @property
     def hotel_name(self):
@@ -52,23 +51,23 @@ class Lodging(object):
 
     @number_of_nights.setter
     def number_of_nights(self, value):
-      self.__number_of_nights = value
+        self.__number_of_nights = value
 
     @property
     def number_of_rooms(self):
-      return self.__number_of_rooms
+        return self.__number_of_rooms
 
     @number_of_rooms.setter
     def number_of_rooms(self, value):
-      self.__number_of_rooms = value
+        self.__number_of_rooms = value
 
     @property
     def guest_names(self):
-      return self.__guest_names
+        return self.__guest_names
 
     @guest_names.setter
     def guest_names(self, value):
-      self.__guest_names = value
+        self.__guest_names = value
 
     def to_ams_dict(self):
         params = dict()

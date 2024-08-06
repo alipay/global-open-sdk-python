@@ -17,6 +17,7 @@ class DefaultAlipayClient(object):
     """
     内部方法，生成请求签名
     """
+
     def __gen_sign(self, http_method, path, client_id, req_time, req_body):
         try:
             sign_value = sign(http_method, path, client_id, req_time, req_body, self.__merchant_private_key)
@@ -27,9 +28,11 @@ class DefaultAlipayClient(object):
     """
     内部方法，生成请求签名
     """
+
     def __verify_sign(self, http_method, path, client_id, rsp_time, rsp_body, rsp_signature):
         try:
-            is_verify = verify(http_method, path, client_id, rsp_time, rsp_body, rsp_signature, self.__alipay_public_key)
+            is_verify = verify(http_method, path, client_id, rsp_time, rsp_body, rsp_signature,
+                               self.__alipay_public_key)
         except Exception as e:
             raise AlipayApiException("response verify failed. " + str(e))
         return is_verify

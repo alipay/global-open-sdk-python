@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.risk_score_result import RiskScoreResult
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class InquiryRiskScoreResponse(AlipayResponse):
@@ -40,4 +40,3 @@ class InquiryRiskScoreResponse(AlipayResponse):
                 risk_score_result = RiskScoreResult()
                 risk_score_result.parse_rsp_body(entry)
                 self.__risk_score_results.append(risk_score_result)
-

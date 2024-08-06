@@ -3,7 +3,12 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.buyer import Buyer
+from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -11,25 +16,24 @@ class AlipayPayConsultRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayPayConsultRequest, self).__init__()
-        self.__product_code = None #type:ProductCodeType
-        self.__payment_amount = None
+        self.__product_code = None  # type:ProductCodeType
+        self.__payment_amount = None  # type:Amount
         self.__allowed_payment_methods = None
         self.__blocked_payment_methods = None
         self.__region = None
         self.__customer_id = None
         self.__reference_user_id = None
-        self.__env = None
+        self.__env = None  # type:Env
         self.__extend_info = None
         self.__user_region = None
-        self.__payment_factor = None
-        self.__settlement_strategy = None
+        self.__payment_factor = None  # type:PaymentFactor
+        self.__settlement_strategy = None  # type:SettlementStrategy
         self.__merchant = None
         self.__allowed_psp_regions = None
         self.__merchant_region = None
         self.__merchant_account_id = None
         self.__allowed_payment_method_regions = None
-        self.__buyer = None
-
+        self.__buyer = None  # type:Buyer
 
     @property
     def product_code(self):

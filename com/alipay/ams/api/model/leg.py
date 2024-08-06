@@ -48,6 +48,7 @@ class Leg(object):
     @carrier_name.setter
     def carrier_name(self, value):
         self.__carrier_name = value
+
     @property
     def carrier_no(self):
         return self.__carrier_no

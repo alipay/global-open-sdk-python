@@ -4,8 +4,8 @@
 import json
 
 from com.alipay.ams.api.model.DisableReasonType import DisableReasonType
-from com.alipay.ams.api.model.payment_method_category_type import PaymentMethodCategoryType
 from com.alipay.ams.api.model.amount_limit_info import AmountLimitInfo
+from com.alipay.ams.api.model.payment_method_category_type import PaymentMethodCategoryType
 from com.alipay.ams.api.model.promotion_info import PromotionInfo
 
 
@@ -13,10 +13,10 @@ class PaymentOption(object):
 
     def __init__(self):
         self.__payment_method_type = None
-        self.__payment_method_category = None #type: PaymentMethodCategoryType
+        self.__payment_method_category = None  # type: PaymentMethodCategoryType
         self.__enabled = None
         self.__preferred = None
-        self.__disable_reason = None #type: DisableReasonType
+        self.__disable_reason = None  # type: DisableReasonType
         self.__amount_limit_info_map = None
         self.__supported_currencies = None
         self.__payment_option_detail = None
@@ -24,7 +24,7 @@ class PaymentOption(object):
         self.__logo = None
         self.__promo_names = None
         self.__installment = None
-        self.__promotion_infos = None #type: list:PromotionInfo
+        self.__promotion_infos = None  # type: list:PromotionInfo
 
     @property
     def payment_method_type(self):

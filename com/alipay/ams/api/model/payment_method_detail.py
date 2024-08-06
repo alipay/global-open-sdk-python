@@ -3,11 +3,11 @@
 
 import json
 
-from com.alipay.ams.api.model.payment_method_detail_type import PaymentMethodDetailType
 from com.alipay.ams.api.model.card_payment_method_detail import CardPaymentMethodDetail
-from com.alipay.ams.api.model.external_payment_method_detail import ExternalPaymentMethodDetail
-from com.alipay.ams.api.model.discount_payment_method_detail import DiscountPaymentMethodDetail
 from com.alipay.ams.api.model.coupon_payment_method_detail import CouponPaymentMethodDetail
+from com.alipay.ams.api.model.discount_payment_method_detail import DiscountPaymentMethodDetail
+from com.alipay.ams.api.model.external_payment_method_detail import ExternalPaymentMethodDetail
+from com.alipay.ams.api.model.payment_method_detail_type import PaymentMethodDetailType
 
 
 class PaymentMethodDetail(object):
@@ -49,7 +49,8 @@ class PaymentMethodDetail(object):
             external_payment_method_detail_body = json.loads(external_payment_method_detail_body)
 
         if 'paymentMethodDetailType' in external_payment_method_detail_body:
-            payment_method_detail_type = PaymentMethodDetailType.value_of(external_payment_method_detail_body['paymentMethodDetailType'])
+            payment_method_detail_type = PaymentMethodDetailType.value_of(
+                external_payment_method_detail_body['paymentMethodDetailType'])
             self.__payment_method_detail_type = payment_method_detail_type
 
         if 'card' in external_payment_method_detail_body:
@@ -74,4 +75,3 @@ class PaymentMethodDetail(object):
 
         if 'extendInfo' in external_payment_method_detail_body:
             self.__extend_info = external_payment_method_detail_body['extendInfo']
-

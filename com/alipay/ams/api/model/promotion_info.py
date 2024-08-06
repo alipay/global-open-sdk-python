@@ -7,29 +7,30 @@ from com.alipay.ams.api.model.promotion_type import PromotionType
 
 class PromotionInfo(object):
     def __init__(self):
-        self.__promotion_type = None #type:PromotionType
-        self.__discount = None #type:Discount
-        self.__interest_free = None #type:InterestFree
+        self.__promotion_type = None  # type:PromotionType
+        self.__discount = None  # type:Discount
+        self.__interest_free = None  # type:InterestFree
 
     @property
     def promotion_type(self):
         return self.__promotion_type
+
     @promotion_type.setter
     def promotion_type(self, value):
         self.__promotion_type = value
 
-
     @property
     def discount(self):
         return self.__discount
+
     @discount.setter
     def discount(self, value):
         self.__discount = value
 
-
     @property
     def interest_free(self):
         return self.__interest_free
+
     @interest_free.setter
     def interest_free(self, value):
         self.__interest_free = value

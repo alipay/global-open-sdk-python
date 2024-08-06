@@ -8,8 +8,7 @@ class Discount(object):
 
     def __init__(self):
         self.discountName = None
-        self.savingsAmount = None #type: amount
-
+        self.savingsAmount = None  # type: amount
 
     @property
     def discountName(self):
@@ -26,7 +25,6 @@ class Discount(object):
     @savingsAmount.setter
     def savingsAmount(self, value):
         self.__savingsAmount = value
-
 
     def to_ams_dict(self):
         params = dict()

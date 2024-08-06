@@ -56,4 +56,3 @@ def do_post(url, headers=None, req_body=None, charset=DEFAULT_CHARSET):
         raise AlipayApiException('close failed. ' + str(e))
 
     return headers, result
-

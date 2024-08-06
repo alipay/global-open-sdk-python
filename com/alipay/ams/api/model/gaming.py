@@ -1,5 +1,3 @@
-
-
 class Gaming(object):
 
     def __init__(self):
@@ -7,7 +5,6 @@ class Gaming(object):
         self.__topped_up_user = None
         self.__topped_up_email = None
         self.__topped_up_phone_no = None
-
 
     @property
     def game_name(self):
@@ -40,7 +37,6 @@ class Gaming(object):
     @topped_up_phone_no.setter
     def topped_up_phone_no(self, value):
         self.__topped_up_phone_no = value
-
 
     def to_ams_dict(self):
         params = dict()

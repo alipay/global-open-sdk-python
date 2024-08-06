@@ -75,5 +75,3 @@ class UserName(object):
 
         if 'fullName' in user_name_body:
             self.__full_name = user_name_body['fullName']
-
-

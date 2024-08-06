@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.redirect_action_form import RedirectActionForm
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayCreateOrderResponse(AlipayResponse):
@@ -53,4 +53,3 @@ class AlipayCreateOrderResponse(AlipayResponse):
             redirect_action_form = RedirectActionForm()
             redirect_action_form.parse_rsp_body(response['redirectActionForm'])
             self.__redirect_action_form = redirect_action_form
-

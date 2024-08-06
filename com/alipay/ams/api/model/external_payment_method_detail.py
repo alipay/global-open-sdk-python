@@ -43,5 +43,3 @@ class ExternalPaymentMethodDetail(object):
 
         if 'paymentMethodDetailMetadata' in external_payment_method_detail_body:
             self.__payment_method_detail_metadata = external_payment_method_detail_body['paymentMethodDetailMetadata']
-
-

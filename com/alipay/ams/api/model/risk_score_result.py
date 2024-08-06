@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+
 from com.alipay.ams.api.model.risk_score_detail import RiskScoreDetail
 from com.alipay.ams.api.model.risk_score_type import RiskScoreType
 

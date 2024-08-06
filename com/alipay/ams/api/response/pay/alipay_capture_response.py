@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayCaptureResponse(AlipayResponse):
@@ -57,4 +57,3 @@ class AlipayCaptureResponse(AlipayResponse):
             self.__capture_time = response['captureTime']
         if 'acquirerReferenceNo' in response:
             self.__acquirer__reference__no = response['acquirerReferenceNo']
-

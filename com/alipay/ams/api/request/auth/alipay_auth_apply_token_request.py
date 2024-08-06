@@ -11,8 +11,8 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayAuthApplyTokenRequest, self).__init__()
-        self.__grant_type = None #type:GrantType
-        self.__customer_belongs_to = None #type:CustomerBelongsTo
+        self.__grant_type = None  # type:GrantType
+        self.__customer_belongs_to = None  # type:CustomerBelongsTo
         self.__auth_code = None
         self.__refresh_token = None
         self.__extend_info = None
@@ -85,4 +85,3 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
         if hasattr(self, "merchant_region") and self.merchant_region:
             params['merchantRegion'] = self.merchant_region
         return params
-

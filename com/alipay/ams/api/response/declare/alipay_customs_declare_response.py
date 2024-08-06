@@ -4,12 +4,12 @@ from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayCustomsDeclareResponse(AlipayResponse):
-    def __init__(self,rsp_body):
+    def __init__(self, rsp_body):
         super(AlipayCustomsDeclareResponse, self).__init__()
         self.__customs_payment_id = None
         self.__customs_order_id = None
-        self.__identity_check_result = None #type: IdentityCheckResult
-        self.__clearing_channel = None #type: ClearingChannel
+        self.__identity_check_result = None  # type: IdentityCheckResult
+        self.__clearing_channel = None  # type: ClearingChannel
         self.__clearing_transaction_id = None
         self.__customs_provider_registration_id = None
         self.__parse_rsp_body(rsp_body)
@@ -37,7 +37,6 @@ class AlipayCustomsDeclareResponse(AlipayResponse):
     @property
     def customs_provider_registration_id(self):
         return self.__customs_provider_registration_id
-
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayCustomsDeclareResponse, self).parse_rsp_body(rsp_body)

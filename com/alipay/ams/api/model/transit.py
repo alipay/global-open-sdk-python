@@ -4,7 +4,7 @@ from com.alipay.ams.api.model.transit_type import TransitType
 class Transit:
 
     def __init__(self):
-        self.__transit_type = None # type: TransitType
+        self.__transit_type = None  # type: TransitType
         self.__legs = None
         self.__passengers = None
 
@@ -42,6 +42,5 @@ class Transit:
 
         if hasattr(self, "passengers") and self.passengers:
             params['passengers'] = self.passengers
-
 
         return params

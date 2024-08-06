@@ -14,7 +14,7 @@ class AlipayAuthConsultResponse(AlipayResponse):
         self.__applink_url = None
         self.__appIdentifier = None
         self.__normal_url = None
-        self.__auth_code_form = None #type: AuthCodeForm
+        self.__auth_code_form = None  # type: AuthCodeForm
         self.__parse_rsp_body(rsp_body)
 
     @property

@@ -3,7 +3,6 @@
 
 
 class BusinessType(object):
-
     HOTEL = "1"
     AIR_FLIGHT = "2"
     STUDAY_ABROAD = "3"

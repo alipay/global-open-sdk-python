@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.challenge_action_form import ChallengeActionForm
+from com.alipay.ams.api.model.order_code_form import OrderCodeForm
 from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.model.promotion_result import PromotionResult
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
-from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.psp_customer_info import PspCustomerInfo
-from com.alipay.ams.api.model.challenge_action_form import ChallengeActionForm
+from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.redirect_action_form import RedirectActionForm
-from com.alipay.ams.api.model.order_code_form import OrderCodeForm
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayPayResponse(AlipayResponse):
@@ -37,8 +37,8 @@ class AlipayPayResponse(AlipayResponse):
         self.__app_link_url = None
         self.__normal_url = None
         self.__scheme_url = None
-        self.__payment_result_info = None #type: PaymentResultInfo
-        self.__promotion_result = None #type: PromotionResult
+        self.__payment_result_info = None  # type: PaymentResultInfo
+        self.__promotion_result = None  # type: PromotionResult
         self.__parse_rsp_body(rsp_body)
 
     @property

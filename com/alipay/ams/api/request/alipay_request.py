@@ -34,9 +34,3 @@ class AlipayRequest(object):
     @http_method.setter
     def http_method(self, value):
         self.__http_method = value
-
-
-
-
-
-

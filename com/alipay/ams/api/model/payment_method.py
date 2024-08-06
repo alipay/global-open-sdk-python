@@ -23,7 +23,7 @@ class PaymentMethod(object):
         return self.__payment_method_id
 
     @payment_method_id.setter
-    def payment_method_id(self , value):
+    def payment_method_id(self, value):
         self.__payment_method_id = value
 
     @property

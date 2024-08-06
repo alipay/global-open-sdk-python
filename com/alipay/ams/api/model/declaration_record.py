@@ -11,9 +11,9 @@ class DeclarationRecord(object):
         self.__declaration_request_id = None
         self.__customs_payment_id = None
         self.__customs_order_id = None
-        self.__customs = None #type: CustomsInfo
-        self.__merchant_customs_info = None #type: MerchantCustomsInfo
-        self.__declaration_amount = None #type: Amount
+        self.__customs = None  # type: CustomsInfo
+        self.__merchant_customs_info = None  # type: MerchantCustomsInfo
+        self.__declaration_amount = None  # type: Amount
         self.__split_order = None
         self.__declaration_request_status = None
         self.__last_modified_time = None
@@ -60,7 +60,6 @@ class DeclarationRecord(object):
     @merchant_customs_info.setter
     def merchant_customs_info(self, value):
         self.__merchant_customs = value
-
 
     @property
     def declaration_amount(self):
@@ -117,8 +116,6 @@ class DeclarationRecord(object):
     @customs_declaration_return_time.setter
     def customs_declaration_return_time(self, value):
         self.__customs_declaration_return_time = value
-
-
 
     def to_ams_dict(self):
         params = dict()

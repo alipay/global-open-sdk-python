@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.payment_method_info import PaymentMethodInfo
 from com.alipay.ams.api.model.payment_option import PaymentOption
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayPayConsultResponse(AlipayResponse):
 
     def __init__(self, rsp_body):
         super(AlipayPayConsultResponse, self).__init__()
-        self.__payment_options = None
+        self.__payment_options = None  # type:PaymentOption
         self.__payment_method_infos = None
         self.__extend_info = None
         self.__parse_rsp_body(rsp_body)

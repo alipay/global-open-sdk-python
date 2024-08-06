@@ -3,9 +3,9 @@
 
 import json
 
+from com.alipay.ams.api.model.address import Address
 from com.alipay.ams.api.model.card_brand import CardBrand
 from com.alipay.ams.api.model.user_name import UserName
-from com.alipay.ams.api.model.address import Address
 
 
 class CardPaymentMethodDetail(object):
@@ -116,4 +116,3 @@ class CardPaymentMethodDetail(object):
 
         if 'paymentMethodDetailMetadata' in card_payment_method_detail_body:
             self.__payment_method_detail_metadata = card_payment_method_detail_body['paymentMethodDetailMetadata']
-

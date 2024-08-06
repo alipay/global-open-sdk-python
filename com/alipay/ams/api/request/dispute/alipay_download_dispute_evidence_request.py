@@ -8,7 +8,7 @@ class AlipayDownloadDisputeEvidenceRequest(AlipayRequest):
     def __init__(self):
         super(AlipayDownloadDisputeEvidenceRequest, self).__init__()
         self.__dispute_id = None
-        self.__dispute_evidence_type = None  #type:DisputeEvidenceType
+        self.__dispute_evidence_type = None  # type:DisputeEvidenceType
 
     @property
     def dispute_id(self):
@@ -25,7 +25,6 @@ class AlipayDownloadDisputeEvidenceRequest(AlipayRequest):
     @dispute_evidence_type.setter
     def dispute_evidence_type(self, value):
         self.__dispute_evidence_type = value
-
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)

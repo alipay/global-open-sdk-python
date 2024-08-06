@@ -7,9 +7,8 @@ from com.alipay.ams.api.model.promotion_type import PromotionType
 class PromotionResult(object):
 
     def __init__(self):
-        self.__promotion_type = None #type:PromotionType
-        self.__discount = None #type:Discount
-
+        self.__promotion_type = None  # type:PromotionType
+        self.__discount = None  # type:Discount
 
     @property
     def promotion_type(self):
@@ -26,7 +25,6 @@ class PromotionResult(object):
     @discount.setter
     def discount(self, discount):
         self.__discount = discount
-
 
     def to_ams_dict(self):
         params = dict()
@@ -49,5 +47,3 @@ class PromotionResult(object):
             discount_result = Discount()
             discount_result.parse_rsp_body(amount_body['discount'])
             self.__promotion_result = discount_result
-
-

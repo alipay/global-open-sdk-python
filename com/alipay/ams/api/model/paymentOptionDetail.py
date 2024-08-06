@@ -5,8 +5,8 @@ from com.alipay.ams.api.model.support_card_brand import SupportCardBrand
 class PaymentOptionDetail(object):
 
     def __init__(self):
-        self.__support_card_brands = None #type:list:SupportCardBrand
-        self.__funding = None #type:list:FundingType
+        self.__support_card_brands = None  # type:list:SupportCardBrand
+        self.__funding = None  # type:list:FundingType
         self.__support_banks = None
 
     @property
@@ -40,5 +40,3 @@ class PaymentOptionDetail(object):
             self.funding = payment_option_detail_body["funding"]
         if payment_option_detail_body.has_key("supportBanks "):
             self.support_banks = payment_option_detail_body["supportBanks"]
-
-

@@ -11,7 +11,7 @@ class AlipayPayRequest(AlipayRequest):
 
     def __init__(self):
         super(AlipayPayRequest, self).__init__()
-        self.__product_code = None #type: ProductCodeType
+        self.__product_code = None  # type: ProductCodeType
         self.__payment_request_id = None
         self.__order = None
         self.__payment_amount = None

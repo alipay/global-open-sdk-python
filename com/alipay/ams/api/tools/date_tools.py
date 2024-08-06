@@ -28,4 +28,3 @@ def get_cur_iso8601_time():
         return datetime.fromtimestamp(int(time.time()), tz=pytz.timezone('UTC')).isoformat()
     else:
         return datetime.fromtimestamp(int(time.time()), tz=timezone.utc).isoformat()
-

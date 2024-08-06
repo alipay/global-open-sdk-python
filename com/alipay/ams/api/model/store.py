@@ -34,7 +34,7 @@ class Store(object):
         return self.__store_mcc
 
     @store_mcc.setter
-    def store_mcc (self, value):
+    def store_mcc(self, value):
         self.__store_mcc = value
 
     @property

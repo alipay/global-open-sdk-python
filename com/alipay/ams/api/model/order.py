@@ -16,15 +16,15 @@ class Order(object):
         self.__reference_order_id = None
         self.__order_description = None
         self.__order_amount = None
-        self.__merchant = None #type: Merchant
-        self.__goods = None    #type: list:Goods
-        self.__shipping = None #type: Shipping
-        self.__buyer = None    #type: Buyer
-        self.__env = None      #type: Env
+        self.__merchant = None  # type: Merchant
+        self.__goods = None  # type: list:Goods
+        self.__shipping = None  # type: Shipping
+        self.__buyer = None  # type: Buyer
+        self.__env = None  # type: Env
         self.__extend_info = None
-        self.__transit = None #type: Transit
-        self.lodging = None   #type: Lodging
-        self.__gaming = None  #type: Gaming
+        self.__transit = None  # type: Transit
+        self.lodging = None  # type: Lodging
+        self.__gaming = None  # type: Gaming
 
     @property
     def reference_order_id(self):
@@ -122,7 +122,6 @@ class Order(object):
     def gaming(self, value):
         self.__gaming = value
 
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_order_id") and self.reference_order_id:
@@ -162,4 +161,3 @@ class Order(object):
             params['gaming'] = self.gaming
 
         return params
-

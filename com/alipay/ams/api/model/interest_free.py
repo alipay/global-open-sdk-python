@@ -7,9 +7,9 @@ class InterestFree(object):
     def __init__(self):
         self.__provider = None
         self.__expireTime = None
-        self.__installment_free_nums = None #type:list
-        self.__min_payment_amount = None#type:Amount
-        self.__max_payment_amount = None #type:Amount
+        self.__installment_free_nums = None  # type:list
+        self.__min_payment_amount = None  # type:Amount
+        self.__max_payment_amount = None  # type:Amount
         self.__free_percentage = None
 
     @property
@@ -50,7 +50,7 @@ class InterestFree(object):
 
     @max_payment_amount.setter
     def max_payment_amount(self, value):
-      self.__max_payment_amount = value
+        self.__max_payment_amount = value
 
     @property
     def free_percentage(self):

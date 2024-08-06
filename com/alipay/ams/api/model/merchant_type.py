@@ -1,5 +1,6 @@
 from enum import Enum, unique
 
+
 @unique
 class MerchantType(Enum):
     INDIVIDUAL = "INDIVIDUAL"
