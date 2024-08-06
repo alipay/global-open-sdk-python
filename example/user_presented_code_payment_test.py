@@ -16,79 +16,82 @@ from com.alipay.ams.api.response.pay.alipay_pay_response import AlipayPayRespons
 from com.alipay.ams.api.default_alipay_client import DefaultAlipayClient
 from com.alipay.ams.api.tools.date_tools import *
 
+
 class UserPresentedCodePaymentRequestTest(unittest.TestCase):
-		
-	def test_upcp(self):
-		
-		TEST_CLIENT_ID = 'T_385XSM502Y108602A'
-		script_dir = os.path.dirname(__file__)
-		with io.open(os.path.join(script_dir, '../private-pkcs1.pem'), encoding = 'utf-8') as pri, io.open(os.path.join(script_dir, '../public.pem'), encoding = 'utf-8') as pub:
-			PRIVATE_KEY = pri.read()
-			alipay_public_key = pub.read()
 
-		order = Order()
-		order.order_description = 'This is an order.'
-		order.order_amount = Amount('USD', 1231)
+    def test_upcp(self):
+        TEST_CLIENT_ID = 'T_385XSM502Y108602A'
+        script_dir = os.path.dirname(__file__)
+        with io.open(os.path.join(script_dir, '../private-pkcs1.pem'), encoding='utf-8') as pri, io.open(
+                os.path.join(script_dir, '../public.pem'), encoding='utf-8') as pub:
+            PRIVATE_KEY = pri.read()
+            alipay_public_key = pub.read()
 
-		merchant = Merchant()
-		merchant.reference_merchant_id = 'seller2322174590000'
-		merchant.merchant_mcc = '7011'
-		merchant.merchant_name = 'Some_Mer'
+        order = Order()
+        order.order_description = 'This is an order.'
+        order.order_amount = Amount('USD', 1231)
 
-		store = Store()
-		store.store_mcc = '7011'
-		store.store_name = 'Some_Store'
-		store.reference_store_id = 'store232217459000011'
+        merchant = Merchant()
+        merchant.reference_merchant_id = 'seller2322174590000'
+        merchant.merchant_mcc = '7011'
+        merchant.merchant_name = 'Some_Mer'
 
-		merchant.store = store
-		order.merchant = merchant
+        store = Store()
+        store.store_mcc = '7011'
+        store.store_name = 'Some_Store'
+        store.reference_store_id = 'store232217459000011'
 
-		order.env = Env()
-		order.env.store_terminal_id = 'some_store_terminal_id'
-		order.env.store_terminal_request_time = get_cur_iso8601_time()
+        merchant.store = store
+        order.merchant = merchant
 
-		upcpReq = UserPresentedCodePaymentRequest(payment_request_id=int(time.time()), order=order, currency="USD", amount_in_cents=1231, payment_code='28888888888888888888', payment_notify_url='http://alipay.com/test')
+        order.env = Env()
+        order.env.store_terminal_id = 'some_store_terminal_id'
+        order.env.store_terminal_request_time = get_cur_iso8601_time()
 
-		body = upcpReq.to_ams_json()
-		#print(body)
-		#print('-' * 120)
-		#
-		#DATA = body.encode('utf-8')
-		#requestTime = get_cur_iso8601_time()
-		#
-		#req = urllib.request.Request(url='https://open-na.alipay.com/ams/api/v1/payments/pay', data=DATA,method='POST')
-		#req.add_header("content-type","application/json; charset=UTF-8")
-		#req.add_header("client-id",TEST_CLIENT_ID)
-		#req.add_header("request-time",requestTime)
-		#req.add_header("signature","algorithm=RSA256,keyVersion=1,signature=" + sign(upcpReq.http_method.value, upcpReq.path, TEST_CLIENT_ID, requestTime, body, PRIVATE_KEY))
-		#
-		#with urllib.request.urlopen(req) as f:
-		#	#print(f.status)
-		#	print(f.read().decode('utf-8'))
-		#	print(f.headers)
+        upcpReq = UserPresentedCodePaymentRequest(payment_request_id=int(time.time()), order=order, currency="USD",
+                                                  amount_in_cents=1231, payment_code='28888888888888888888',
+                                                  payment_notify_url='http://alipay.com/test')
 
-		default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", TEST_CLIENT_ID, PRIVATE_KEY, alipay_public_key)
+        body = upcpReq.to_ams_json()
+        # print(body)
+        # print('-' * 120)
+        #
+        # DATA = body.encode('utf-8')
+        # requestTime = get_cur_iso8601_time()
+        #
+        # req = urllib.request.Request(url='https://open-na.alipay.com/ams/api/v1/payments/pay', data=DATA,method='POST')
+        # req.add_header("content-type","application/json; charset=UTF-8")
+        # req.add_header("client-id",TEST_CLIENT_ID)
+        # req.add_header("request-time",requestTime)
+        # req.add_header("signature","algorithm=RSA256,keyVersion=1,signature=" + sign(upcpReq.http_method.value, upcpReq.path, TEST_CLIENT_ID, requestTime, body, PRIVATE_KEY))
+        #
+        # with urllib.request.urlopen(req) as f:
+        #	#print(f.status)
+        #	print(f.read().decode('utf-8'))
+        #	print(f.headers)
 
-		rsp_body = default_alipay_client.execute(upcpReq)
+        default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", TEST_CLIENT_ID, PRIVATE_KEY,
+                                                    alipay_public_key)
 
-		response = AlipayPayResponse(rsp_body)
+        rsp_body = default_alipay_client.execute(upcpReq)
 
-		#print(rsp_body)
-		#print('-' * 120)
+        response = AlipayPayResponse(rsp_body)
 
-		def onF(response):
-			print('onF: ' + response.result.result_code)
+        # print(rsp_body)
+        # print('-' * 120)
 
-		def onU(response):
-			print('onU: ' + response.result.result_code)
+        def onF(response):
+            print('onF: ' + response.result.result_code)
 
-		def onS(response):
-			print("%s, %s" % (response.payment_id, response.payment_time))
-			self.assertIsNotNone(response.payment_time)
+        def onU(response):
+            print('onU: ' + response.result.result_code)
 
-		{
-			'F': onF,
-			'U': onU,
-			'S': onS
-		}.get(response.result.result_status.value)(response)
+        def onS(response):
+            print("%s, %s" % (response.payment_id, response.payment_time))
+            self.assertIsNotNone(response.payment_time)
 
+        {
+            'F': onF,
+            'U': onU,
+            'S': onS
+        }.get(response.result.result_status.value)(response)

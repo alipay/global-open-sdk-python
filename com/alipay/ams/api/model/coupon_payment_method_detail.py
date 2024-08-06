@@ -10,7 +10,7 @@ class CouponPaymentMethodDetail(object):
 
     def __init__(self):
         self.__coupon_id = None
-        self.__available_amount = None
+        self.__available_amount = None  # type: Amount
         self.__coupon_name = None
         self.__coupon_description = None
         self.__coupon_expire_time = None

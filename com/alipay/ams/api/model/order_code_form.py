@@ -5,11 +5,12 @@ import json
 
 from com.alipay.ams.api.model.code_detail import CodeDetail
 
+
 class OrderCodeForm(object):
     def __init__(self):
         self.__payment_method_type = None
         self.__expire_time = None
-        self.__code_details = None
+        self.__code_details = None  # type: list[CodeDetail]
         self.__extend_info = None
 
     @property

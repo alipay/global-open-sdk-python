@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+
 from com.alipay.ams.api.model.risk_score_detail import RiskScoreDetail
 from com.alipay.ams.api.model.risk_score_type import RiskScoreType
 
@@ -9,9 +10,9 @@ from com.alipay.ams.api.model.risk_score_type import RiskScoreType
 class RiskScoreResult(object):
 
     def __init__(self):
-        self.__risk_score_type = None
+        self.__risk_score_type = None  # type: RiskScoreType
         self.__risk_score = None
-        self.__risk_score_details = None
+        self.__risk_score_details = None  # type: list[RiskScoreDetail]
 
     @property
     def risk_score_type(self):

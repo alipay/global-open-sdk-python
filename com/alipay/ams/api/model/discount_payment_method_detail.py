@@ -10,7 +10,7 @@ class DiscountPaymentMethodDetail(object):
 
     def __init__(self):
         self.__discount_id = None
-        self.__available_amount = None
+        self.__available_amount = None  # type: Amount
         self.__discount_name = None
         self.__discount_description = None
         self.__payment_method_detail_metadata = None

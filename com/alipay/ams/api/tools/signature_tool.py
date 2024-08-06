@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import base64
+
 import rsa
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives.asymmetric import padding
 
 '''
 python2中是urllib，python3中是urllib.parse
@@ -32,7 +35,22 @@ def __fill_public_key_marker(public_key):
 def __sign_with_sha256rsa(private_key, sign_content, charset=DEFAULT_CHARSET):
     sign_content = sign_content.encode(charset)
     private_key = __fill_private_key_marker(private_key)
-    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+    '''
+    python2.7 以上 支持cryptography
+    '''
+    if IS_PYTHON_VERSION_cryptography:
+        private_key_pem = serialization.load_pem_private_key(
+            private_key.encode('utf-8'),
+            password=None,
+        )
+
+        signature = private_key_pem.sign(
+            sign_content,
+            padding.PKCS1v15(),
+            hashes.SHA256()
+        )
+    else:
+        signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
     sign_value = base64.b64encode(signature)
     '''
     python3 sign_value是二进制，需要转成str

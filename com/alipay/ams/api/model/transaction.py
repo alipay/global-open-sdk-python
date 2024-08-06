@@ -3,10 +3,10 @@
 
 import json
 
-from com.alipay.ams.api.model.result import Result
-from com.alipay.ams.api.model.transaction_type import TransactionType
-from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
+from com.alipay.ams.api.model.transaction_type import TransactionType
 
 
 class Transaction(object):
@@ -14,9 +14,9 @@ class Transaction(object):
     def __init__(self):
         self.__transaction_result = None
         self.__transaction_id = None
-        self.__transaction_type = None
-        self.__transaction_status = None
-        self.__transaction_amount = None
+        self.__transaction_type = None  # type:TransactionType
+        self.__transaction_status = None  # type:TransactionStatusType
+        self.__transaction_amount = None  # type:Amount
         self.__transaction_request_id = None
         self.__transaction_time = None
 

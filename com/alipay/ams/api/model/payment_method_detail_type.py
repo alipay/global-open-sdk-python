@@ -28,4 +28,3 @@ class PaymentMethodDetailType(Enum):
             return PaymentMethodDetailType.DISCOUNT
         else:
             return None
-

@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.browser_info import BrowserInfo
+from com.alipay.ams.api.model.os_type import OsType
+from com.alipay.ams.api.model.terminal_type import TerminalType
 
 
 class Env(object):
     def __init__(self):
-        self.__terminal_type = None
-        self.__os_type = None
+        self.__terminal_type = None  # type: TerminalType
+        self.__os_type = None  # type: OsType
         self.__user_agent = None
         self.__device_token_id = None
         self.__client_ip = None
@@ -13,6 +16,15 @@ class Env(object):
         self.__store_terminal_id = None
         self.__store_terminal_request_time = None
         self.__extend_info = None
+        self.__browser_info = None  # type: BrowserInfo
+        self.__color_depth = None
+        self.__screen_height = None
+        self.__screen_width = None
+        self.__time_zone_offset = None
+        self.__device_brand = None
+        self.__device_model = None
+        self.__device_language = None
+        self.__device_id = None
 
     @property
     def terminal_type(self):
@@ -86,6 +98,78 @@ class Env(object):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def browser_info(self):
+        return self.__browser_info
+
+    @browser_info.setter
+    def browser_info(self, value):
+        self.__browser_info = value
+
+    @property
+    def color_depth(self):
+        return self.__color_depth
+
+    @color_depth.setter
+    def color_depth(self, value):
+        self.__color_depth = value
+
+    @property
+    def screen_height(self):
+        return self.__screen_height
+
+    @screen_height.setter
+    def screen_height(self, value):
+        self.__screen_height = value
+
+    @property
+    def screen_width(self):
+        return self.__screen_width
+
+    @screen_width.setter
+    def screen_width(self, value):
+        self.__screen_width = value
+
+    @property
+    def time_zone_offset(self):
+        return self.__time_zone_offset
+
+    @time_zone_offset.setter
+    def time_zone_offset(self, value):
+        self.__time_zone_offset = value
+
+    @property
+    def device_brand(self):
+        return self.__device_brand
+
+    @device_brand.setter
+    def device_brand(self, value):
+        self.__device_brand = value
+
+    @property
+    def device_model(self):
+        return self.__device_model
+
+    @device_model.setter
+    def device_model(self, value):
+        self.__device_model = value
+
+    @property
+    def device_language(self):
+        return self.__device_language
+
+    @device_language.setter
+    def device_language(self, value):
+        self.__device_language = value
+
+    @property
+    def device_id(self):
+        return self.__device_id
+
+    @device_id.setter
+    def device_id(self, value):
+        self.__device_id = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "terminal_type") and self.terminal_type:
@@ -115,5 +199,31 @@ class Env(object):
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
 
-        return params
+        if hasattr(self, "browser_info") and self.browser_info:
+            params['browserInfo'] = self.browser_info
 
+        if hasattr(self, "color_depth") and self.color_depth:
+            params['colorDepth'] = self.color_depth
+
+        if hasattr(self, "screen_height") and self.screen_height:
+            params['screenHeight'] = self.screen_height
+
+        if hasattr(self, "screen_width") and self.screen_width:
+            params['screenWidth'] = self.screen_width
+
+        if hasattr(self, "time_zone_offset") and self.time_zone_offset:
+            params['timeZoneOffset'] = self.time_zone_offset
+
+        if hasattr(self, "device_brand") and self.device_brand:
+            params['deviceBrand'] = self.device_brand
+
+        if hasattr(self, "device_model") and self.device_model:
+            params['deviceModel'] = self.device_model
+
+        if hasattr(self, "device_language") and self.device_language:
+            params['deviceLanguage'] = self.device_language
+
+        if hasattr(self, "device_id") and self.device_id:
+            params['deviceId'] = self.device_id
+
+        return params

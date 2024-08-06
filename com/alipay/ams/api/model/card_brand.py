@@ -5,7 +5,6 @@ from enum import Enum, unique
 
 @unique
 class CardBrand(Enum):
-
     VISA = "VISA"
     MASTERCARD = "MASTERCARD"
     MAESTRO = "MAESTRO"
@@ -21,7 +20,7 @@ class CardBrand(Enum):
 
     def to_ams_dict(self):
         return self.name
-    
+
     @staticmethod
     def value_of(value):
         if not value:

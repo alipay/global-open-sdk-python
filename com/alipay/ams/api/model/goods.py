@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.delivery_method_type import DeliveryMethodType
 
 
 class Goods(object):
@@ -8,9 +10,10 @@ class Goods(object):
         self.__goods_name = None
         self.__goods_category = None
         self.__goods_brand = None
-        self.__goods_unit_amount = None
+        self.__goods_unit_amount = None  # type:Amount
         self.__goods_quantity = None
         self.__goods_sku_name = None
+        self.__delivery_method_type = None  # type:DeliveryMethodType
 
     @property
     def reference_goods_id(self):
@@ -68,6 +71,14 @@ class Goods(object):
     def goods_sku_name(self, value):
         self.__goods_sku_name = value
 
+    @property
+    def delivery_method_type(self):
+        return self.__delivery_method_type
+
+    @delivery_method_type.setter
+    def delivery_method_type(self, value):
+        self.__delivery_method_type = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_goods_id") and self.reference_goods_id:
@@ -90,5 +101,8 @@ class Goods(object):
 
         if hasattr(self, "goods_sku_name") and self.goods_sku_name:
             params['goodsSkuName'] = self.goods_sku_name
+
+        if hasattr(self, "delivery_method_type") and self.delivery_method_type:
+            params['deliveryMethodType'] = self.delivery_method_type
 
         return params

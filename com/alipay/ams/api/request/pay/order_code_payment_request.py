@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 
 
 class OrderCodePaymentRequest(AlipayPayRequest):
 
-    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_notify_url = None, payment_expiry_time = None):
+    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_notify_url=None,
+                 payment_expiry_time=None):
         super(AlipayPayRequest, self).__init__()
         self.path = '/ams/api/v1/payments/pay'
 
@@ -27,8 +28,8 @@ class OrderCodePaymentRequest(AlipayPayRequest):
         self.order = order
         self.payment_notify_url = payment_notify_url
         self.payment_expiry_time = payment_expiry_time
-    
-    def to_ams_json(self): 
+
+    def to_ams_json(self):
         self._validate_()
         return super(OrderCodePaymentRequest, self).to_ams_json()
 
@@ -44,5 +45,3 @@ class OrderCodePaymentRequest(AlipayPayRequest):
         assert self.order.merchant.store.reference_store_id, "order.merchant.store.reference_store_id required."
         assert self.order.merchant.store.store_name, "order.merchant.store.store_name required."
         assert self.order.merchant.store.store_mcc, "order.merchant.store.store_mcc required."
-
-

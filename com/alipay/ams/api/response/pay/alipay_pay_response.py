@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.quote import Quote
-from com.alipay.ams.api.model.psp_customer_info import PspCustomerInfo
 from com.alipay.ams.api.model.challenge_action_form import ChallengeActionForm
-from com.alipay.ams.api.model.redirect_action_form import RedirectActionForm
 from com.alipay.ams.api.model.order_code_form import OrderCodeForm
+from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
+from com.alipay.ams.api.model.promotion_result import PromotionResult
+from com.alipay.ams.api.model.psp_customer_info import PspCustomerInfo
+from com.alipay.ams.api.model.quote import Quote
+from com.alipay.ams.api.model.redirect_action_form import RedirectActionForm
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
 class AlipayPayResponse(AlipayResponse):
@@ -16,21 +17,28 @@ class AlipayPayResponse(AlipayResponse):
         super(AlipayPayResponse, self).__init__()
         self.__payment_request_id = None
         self.__payment_id = None
-        self.__payment_amount = None
-        self.__actual_payment_amount = None
-        self.__payment_quote = None
+        self.__payment_amount = None  # type: Amount
+        self.__actual_payment_amount = None  # type: Amount
+        self.__payment_quote = None  # type: Quote
         self.__payment_time = None
         self.__payment_create_time = None
         self.__auth_expiry_time = None
         self.__non_guarantee_coupon_value = None
         self.__payment_action_form = None
         self.__psp_customer_info = None
-        self.__challenge_action_form = None
-        self.__redirect_action_form = None
-        self.__order_code_form = None
+        self.__challenge_action_form = None  # type: ChallengeActionForm
+        self.__redirect_action_form = None  # type: RedirectActionForm
+        self.__order_code_form = None  # type: OrderCodeForm
         self.__extend_info = None
-        self.__gross_settlement_amount = None
-        self.__settlement_quote = None
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
+        self.__payment_data = None
+        self.__app_identifier = None
+        self.__app_link_url = None
+        self.__normal_url = None
+        self.__scheme_url = None
+        self.__payment_result_info = None  # type: PaymentResultInfo
+        self.__promotion_result = None  # type: PromotionResult
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -101,6 +109,34 @@ class AlipayPayResponse(AlipayResponse):
     def extend_info(self):
         return self.__extend_info
 
+    @property
+    def payment_data(self):
+        return self.__payment_data
+
+    @property
+    def app_identifier(self):
+        return self.__app_identifier
+
+    @property
+    def app_link_url(self):
+        return self.__app_link_url
+
+    @property
+    def normal_url(self):
+        return self.__normal_url
+
+    @property
+    def scheme_url(self):
+        return self.__scheme_url
+
+    @property
+    def payment_result_info(self):
+        return self.__payment_result_info
+
+    @property
+    def promotion_result(self):
+        return self.__promotion_result
+
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayPayResponse, self).parse_rsp_body(rsp_body)
         if 'paymentRequestId' in response:
@@ -155,3 +191,21 @@ class AlipayPayResponse(AlipayResponse):
             settlement_quote = Quote()
             settlement_quote.parse_rsp_body(response['settlementQuote'])
             self.__settlement_quote = settlement_quote
+        if 'paymentData' in response:
+            self.__payment_data = response['paymentData']
+        if 'appIdentifier' in response:
+            self.__app_identifier = response['appIdentifier']
+        if 'appLinkUrl' in response:
+            self.__app_link_url = response['appLinkUrl']
+        if 'normalUrl' in response:
+            self.__normal_url = response['normalUrl']
+        if 'schemeUrl' in response:
+            self.__scheme_url = response['schemeUrl']
+        if 'paymentResultInfo' in response:
+            payment_result_info = PaymentResultInfo()
+            payment_result_info.parse_rsp_body(response['paymentResultInfo'])
+            self.__payment_result_info = payment_result_info
+        if 'promotionResult' in response:
+            promotion_result = PromotionResult()
+            promotion_result.parse_rsp_body(response['promotionResult'])
+            self.__promotion_result = promotion_result

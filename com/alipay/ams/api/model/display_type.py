@@ -9,6 +9,7 @@ class DisplayType(Enum):
     MIDDLEIMAGE = "MIDDLEIMAGE"
     SMALLIMAGE = "SMALLIMAGE"
     BIGIMAGE = "BIGIMAGE"
+    IMAGE = "IMAGE"
 
     def to_ams_dict(self):
         return self.name
@@ -26,5 +27,7 @@ class DisplayType(Enum):
             return DisplayType.SMALLIMAGE
         elif DisplayType.BIGIMAGE.value == value:
             return DisplayType.BIGIMAGE
+        elif DisplayType.IMAGE.value == value:
+            return DisplayType.IMAGE
         else:
             return None

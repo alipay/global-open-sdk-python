@@ -3,6 +3,7 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -13,9 +14,10 @@ class AlipayRefundRequest(AlipayRequest):
         self.__refund_request_id = None
         self.__reference_refund_id = None
         self.__payment_id = None
-        self.__refund_amount = None
+        self.__refund_amount = None  # type: Amount
         self.__refund_reason = None
         self.__is_async_refund = None
+        self.__refund_notify_url = None
         self.__extend_info = None
 
     @property
@@ -74,6 +76,14 @@ class AlipayRefundRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def refund_notify_url(self):
+        return self.__refund_notify_url
+
+    @refund_notify_url.setter
+    def refund_notify_url(self, value):
+        self.__refund_notify_url = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -100,5 +110,8 @@ class AlipayRefundRequest(AlipayRequest):
 
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+
+        if hasattr(self, "refund_notify_url") and self.refund_notify_url:
+            params['refundNotifyUrl'] = self.refund_notify_url
 
         return params

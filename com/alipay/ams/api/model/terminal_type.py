@@ -11,4 +11,3 @@ class TerminalType(Enum):
 
     def to_ams_dict(self):
         return self.name
-
