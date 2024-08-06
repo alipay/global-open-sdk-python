@@ -1,6 +1,5 @@
 import json
 
-from com.alipay.ams.api.model import amount
 from com.alipay.ams.api.model.amount import Amount
 
 
@@ -8,7 +7,7 @@ class Discount(object):
 
     def __init__(self):
         self.discountName = None
-        self.savingsAmount = None  # type: amount
+        self.savingsAmount = None  # type: Amount
 
     @property
     def discountName(self):
