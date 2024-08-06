@@ -1,6 +1,6 @@
 ```
 Language：Python  
-Python version：2.6+  
+Python version：2.7+  
 Copyright：Ant financial services group  
 ```
 

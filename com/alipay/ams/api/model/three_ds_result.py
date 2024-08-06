@@ -3,19 +3,19 @@ import json
 
 class ThreeDSResult(object):
     def __init__(self):
-        self.__three_dS_version = None
+        self.__three_ds_version = None
         self.__eci = None
         self.__cavv = None
         self.__ds_transaction_id = None
         self.__xid = None
 
     @property
-    def three_dS_version(self):
-        return self.__three_dS_version
+    def three_ds_version(self):
+        return self.__three_ds_version
 
-    @three_dS_version.setter
-    def three_dS_version(self, value):
-        self.__three_dS_version = value
+    @three_ds_version.setter
+    def three_ds_version(self, value):
+        self.__three_ds_version = value
 
     @property
     def eci(self):
@@ -51,8 +51,8 @@ class ThreeDSResult(object):
 
     def to_ams_dict(self):
         param = dict()
-        if hasattr(self, 'three_dS_version') and self.three_dS_version:
-            param['threeDSVersion'] = self.three_dS_version
+        if hasattr(self, 'three_ds_version') and self.three_ds_version:
+            param['threeDSVersion'] = self.three_ds_version
         if hasattr(self, 'eci') and self.eci:
             param['eci'] = self.eci
         if hasattr(self, 'cavv') and self.cavv:
@@ -67,7 +67,7 @@ class ThreeDSResult(object):
         if type(three_dS_result_body) == str:
             three_dS_result_body = json.loads(three_dS_result_body)
         if 'threeDSVersion' in three_dS_result_body:
-            self.three_dS_version = three_dS_result_body['threeDSVersion']
+            self.three_ds_version = three_dS_result_body['threeDSVersion']
         if 'eci' in three_dS_result_body:
             self.eci = three_dS_result_body['eci']
         if 'cavv' in three_dS_result_body:
