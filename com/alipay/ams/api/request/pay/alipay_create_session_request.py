@@ -109,7 +109,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     @env.setter
     def env(self, value):
-        self.__env = value;
+        self.__env = value
 
     @property
     def merchant_region(self):
@@ -117,7 +117,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     @merchant_region.setter
     def merchant_region(self, value):
-        self.__merchant_region = value;
+        self.__merchant_region = value
 
     @property
     def credit_pay_plan(self):
@@ -125,7 +125,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     @credit_pay_plan.setter
     def credit_pay_plan(self, value):
-        self.__credit_pay_plan = value;
+        self.__credit_pay_plan = value
 
     @property
     def enable_installment_collection(self):
@@ -133,7 +133,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
 
     @enable_installment_collection.setter
     def enable_installment_collection(self, value):
-        self.__enable_installment_collection = value;
+        self.__enable_installment_collection = value
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)

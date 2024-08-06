@@ -9,6 +9,7 @@ class TransactionStatusType(Enum):
     FAIL = "FAIL"
     PROCESSING = "PROCESSING"
     CANCELLED = "CANCELLED"
+    PENDING = "PENDING"
 
     def to_ams_dict(self):
         return self.name
@@ -26,5 +27,7 @@ class TransactionStatusType(Enum):
             return TransactionStatusType.PROCESSING
         elif TransactionStatusType.CANCELLED.value == value:
             return TransactionStatusType.CANCELLED
+        elif TransactionStatusType.PENDING.value == value:
+            return TransactionStatusType.PENDING
         else:
             return None

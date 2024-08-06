@@ -14,7 +14,7 @@ class AlipayCaptureResponse(AlipayResponse):
         self.__payment_id = None
         self.__capture_amount = None
         self.__capture_time = None
-        self.__acquirer__reference__no = None
+        self.__acquirer_reference_no = None
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -39,7 +39,7 @@ class AlipayCaptureResponse(AlipayResponse):
 
     @property
     def acquirer__reference__no(self):
-        return self.__acquirer__reference__no
+        return self.__acquirer_reference_no
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayCaptureResponse, self).parse_rsp_body(rsp_body)
@@ -56,4 +56,4 @@ class AlipayCaptureResponse(AlipayResponse):
         if 'captureTime' in response:
             self.__capture_time = response['captureTime']
         if 'acquirerReferenceNo' in response:
-            self.__acquirer__reference__no = response['acquirerReferenceNo']
+            self.__acquirer_reference_no = response['acquirerReferenceNo']

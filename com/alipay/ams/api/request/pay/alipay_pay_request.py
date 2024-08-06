@@ -166,7 +166,7 @@ class AlipayPayRequest(AlipayRequest):
 
     @env.setter
     def env(self, value):
-        self.__env = value;
+        self.__env = value
 
     @property
     def merchant_account_id(self):

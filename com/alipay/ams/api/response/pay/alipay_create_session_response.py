@@ -15,8 +15,8 @@ class AlipayCreateSessionResponse(AlipayResponse):
         return self.__payment_session_data
 
     @property
-    def payment_session_expiry_Time(self):
-        return self.__payment_session_expiry_Time
+    def payment_session_expiry_time(self):
+        return self.__payment_session_expiry_time
 
     @property
     def payment_session_id(self):
@@ -27,6 +27,6 @@ class AlipayCreateSessionResponse(AlipayResponse):
         if 'paymentSessionData' in rsp_json:
             self.__payment_session_data = rsp_json['paymentSessionData']
         if 'paymentSessionExpiryTime' in rsp_json:
-            self.__payment_session_expiry_Time = rsp_json['paymentSessionExpiryTime']
+            self.__payment_session_expiry_time = rsp_json['paymentSessionExpiryTime']
         if 'paymentSessionId' in rsp_json:
             self.__payment_session_id = rsp_json['paymentSessionId']

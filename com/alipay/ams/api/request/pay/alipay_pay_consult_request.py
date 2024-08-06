@@ -113,7 +113,7 @@ class AlipayPayConsultRequest(AlipayRequest):
 
     @user_region.setter
     def user_region(self, value):
-        self.__user_region = value;
+        self.__user_region = value
 
     @property
     def payment_factor(self):
