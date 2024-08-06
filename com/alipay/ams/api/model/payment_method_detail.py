@@ -63,9 +63,9 @@ class PaymentMethodDetail(object):
             external_account.parse_rsp_body(external_payment_method_detail_body['externalAccount'])
             self.__external_account = external_account
 
-        if 'discount.py' in external_payment_method_detail_body:
+        if 'discount' in external_payment_method_detail_body:
             discount = DiscountPaymentMethodDetail()
-            discount.parse_rsp_body(external_payment_method_detail_body['discount.py'])
+            discount.parse_rsp_body(external_payment_method_detail_body['discount'])
             self.__discount = discount
 
         if 'coupon' in external_payment_method_detail_body:
