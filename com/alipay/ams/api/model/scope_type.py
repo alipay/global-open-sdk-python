@@ -11,6 +11,7 @@ class ScopeType(Enum):
     USER_LOGIN_ID = "USER_LOGIN_ID"
     HASH_LOGIN_ID = "HASH_LOGIN_ID"
     SEND_OTP = "SEND_OTP"
+    TAOBAO_REBIND = "TAOBAO_REBIND"
 
     def to_ams_dict(self):
         return self.name
