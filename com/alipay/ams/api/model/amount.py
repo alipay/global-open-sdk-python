@@ -36,3 +36,4 @@ class Amount(object):
 
         if 'value' in amount_body:
             self.__value = amount_body['value']
+
