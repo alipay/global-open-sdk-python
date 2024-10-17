@@ -13,6 +13,7 @@ class DefaultAlipayClient(object):
         self.__client_id = client_id
         self.__merchant_private_key = merchant_private_key
         self.__alipay_public_key = alipay_public_key
+        self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
 
     """
     内部方法，生成请求签名
@@ -65,6 +66,8 @@ class DefaultAlipayClient(object):
             raise AlipayApiException('invalid path')
 
         client_id = self.__client_id
+        self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
+        self.adjust_sandbox_url(request)
         http_method = request.http_method.value
         path = request.path
         req_time = get_cur_iso8601_time()
@@ -102,3 +105,10 @@ class DefaultAlipayClient(object):
             raise AlipayApiException("response signature verify failed.")
 
         return rsp_body
+
+    def adjust_sandbox_url(self, request):
+        if self.__is_sandbox_mode:
+            origin_path = request.path
+            new_path = origin_path.replace('/ams/api', '/ams/sandbox/api', 1)
+            request.path = new_path
+

@@ -1,7 +1,7 @@
 # Changelog
 
 
-## 1.3.3 - 2024-09-04
+## 1.3.3 - 2024-10-17
 * [#14](https://github.com/alipay/global-open-sdk-python/pull/14)  update-p2
    * add MARKETPLACE_demo
    * add MARKETPLACE
