@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
@@ -12,9 +13,7 @@ class EntryCodePaymentRequest(AlipayPayRequest):
 
     def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_notify_url=None,
                  payment_redirect_url=None, payment_expiry_time=None):
-        super(AlipayPayRequest, self).__init__()
-        self.path = '/ams/api/v1/payments/pay'
-
+        super(AlipayPayRequest, self).__init__(AntomPathConstants.PAYMENT_PATH)
         self.product_code = ProductCodeType.IN_STORE_PAYMENT
         self.payment_amount = Amount(currency, amount_in_cents)
 

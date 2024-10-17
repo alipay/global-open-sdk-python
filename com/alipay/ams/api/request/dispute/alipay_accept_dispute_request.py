@@ -1,11 +1,12 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayAcceptDisputeRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayAcceptDisputeRequest, self).__init__()
+        super(AlipayAcceptDisputeRequest, self).__init__(AntomPathConstants.ACCEPT_DISPUTE_PATH)
         self.__dispute_id = None
 
     @property

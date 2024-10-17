@@ -3,13 +3,14 @@
 
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayAuthRevokeTokenRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayAuthRevokeTokenRequest, self).__init__()
+        super(AlipayAuthRevokeTokenRequest, self).__init__(AntomPathConstants.AUTH_REVOKE_PATH)
         self.__access_token = None
         self.__extend_info = None
 

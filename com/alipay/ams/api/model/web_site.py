@@ -3,6 +3,7 @@ class WebSite(object):
         self.__name = None
         self.__url = None
         self.__desc = None
+        self.__type = None
 
     @property
     def name(self):
@@ -28,6 +29,14 @@ class WebSite(object):
     def desc(self, value):
         self.__desc = value
 
+    @property
+    def type(self):
+        return self.__type
+
+    @type.setter
+    def type(self, value):
+        self.__type = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "name") and self.name:
@@ -38,5 +47,8 @@ class WebSite(object):
 
         if hasattr(self, "desc") and self.desc:
             params['desc'] = self.desc
+
+        if hasattr(self, "type") and self.type:
+            params['type'] = self.type
 
         return params

@@ -1,7 +1,11 @@
 import json
 
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.order_info import OrderInfo
 from com.alipay.ams.api.model.payment_method import PaymentMethod
+from com.alipay.ams.api.model.period_rule import PeriodRule
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.trial import Trial
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
@@ -9,7 +13,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipaySubscriptionCreateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubscriptionCreateRequest, self).__init__()
+        super(AlipaySubscriptionCreateRequest, self).__init__(AntomPathConstants.SUBSCRIPTION_CREATE_PATH)
         self.__subscription_request_id = None
         self.__subscription_description = None
         self.__subscription_redirect_url = None
@@ -60,10 +64,10 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
         self.__subscription_start_time = value
 
     @property
-    def subscription(self):
+    def subscription_end_time(self):
         return self.__subscription_end_time
 
-    @subscription.end.time.setter
+    @subscription_end_time.setter
     def subscription_end_time(self, value):
         self.__subscription_end_time = value
 

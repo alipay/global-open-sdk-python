@@ -1,6 +1,7 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.order_info import OrderInfo
 from com.alipay.ams.api.model.period_rule import PeriodRule
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
@@ -8,7 +9,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipaySubscriptionChangeRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubscriptionChangeRequest, self).__init__()
+        super(AlipaySubscriptionChangeRequest, self).__init__(AntomPathConstants.SUBSCRIPTION_CHANGE_PATH)
         self.__subscription_change_request_id = None
         self.__subscription_id = None
         self.__subscription_description = None
@@ -98,7 +99,7 @@ class AlipaySubscriptionChangeRequest(AlipayRequest):
 
     @payment_amount_difference.setter
     def payment_amount_difference(self, value):
-        self.__subscription_expiry_time = value
+        self.__payment_amount_difference = value
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)

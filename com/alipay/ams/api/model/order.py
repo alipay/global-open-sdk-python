@@ -25,6 +25,7 @@ class Order(object):
         self.__transit = None  # type: Transit
         self.lodging = None  # type: Lodging
         self.__gaming = None  # type: Gaming
+        self.__order_created_time = None
 
     @property
     def reference_order_id(self):
@@ -122,6 +123,14 @@ class Order(object):
     def gaming(self, value):
         self.__gaming = value
 
+    @property
+    def order_created_time(self):
+        return self.__order_created_time
+
+    @order_created_time.setter
+    def order_created_time(self, value):
+        self.__order_created_time = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_order_id") and self.reference_order_id:
@@ -159,5 +168,8 @@ class Order(object):
 
         if hasattr(self, "gaming") and self.gaming:
             params['gaming'] = self.gaming
+
+        if hasattr(self, "order_created_time") and self.order_created_time:
+            params['orderCreatedTime'] = self.order_created_time
 
         return params
