@@ -238,7 +238,7 @@ def createPayout():
     transfer_to_detail.payment_method = payment_method1
     transfer_to_detail.transfer_to_currency = "BRL"
     transfer_to_detail.purpose_code = "GSD"
-    transfer_to_detail.transfer_notify_url = "http://www.yourNotifyUrl.com"
+    transfer_to_detail.transfer_notify_url = "https://www.yourNotifyUrl.com"
     alipay_create_payout_request.transfer_to_detail = transfer_to_detail
 
     rsp_body = default_alipay_client.execute(alipay_create_payout_request)
@@ -269,7 +269,7 @@ def createTransfer():
     transfer_to_detail.payment_method = payment_method1
     transfer_to_detail.transfer_to_currency = "BRL"
     transfer_to_detail.purpose_code = "GSD"
-    transfer_to_detail.transfer_notify_url = "http://www.yourNotifyUrl.com"
+    transfer_to_detail.transfer_notify_url = "https://www.yourNotifyUrl.com"
     alipay_create_transfer_request.transfer_to_detail = transfer_to_detail
 
     rsp_body = default_alipay_client.execute(alipay_create_transfer_request)

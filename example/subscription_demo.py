@@ -41,7 +41,7 @@ def subscriptionsCreate():
     alipay_subscription_create_request.payment_amount = Amount("HKD", "100")
     #replace with your notify url
     #or configur your notify url https://dashboard.alipay.com/global-payments/developers/iNotifyNotification
-    alipay_subscription_create_request.payment_notification_url = "http://www.yourNotifyUrl.com"
+    alipay_subscription_create_request.payment_notification_url = "https://www.yourNotifyUrl.com"
 
     period_rule = PeriodRule()
     period_rule.period_type = PeriodType.MONTH
@@ -56,7 +56,7 @@ def subscriptionsCreate():
     alipay_subscription_create_request.subscription_start_time = "2024-10-16T00:00:00+08:00"
     alipay_subscription_create_request.subscription_end_time = "2024-10-17T17:00:00+08:00"
     alipay_subscription_create_request.subscription_expiry_time = "2024-10-18T00:00:00+08:00"
-    alipay_subscription_create_request.subscription_notification_url = "http://www.yourNotifyUrl.com"
+    alipay_subscription_create_request.subscription_notification_url = "https://www.yourNotifyUrl.com"
 
     order_info = OrderInfo()
     order_info.order_amount = Amount("HKD", "100")
@@ -65,9 +65,9 @@ def subscriptionsCreate():
     payment_method.payment_method_type = CustomerBelongsTo.ALIPAY_HK
     alipay_subscription_create_request.payment_method = payment_method
 
-    alipay_subscription_create_request.subscription_redirect_url = "http://www.yourRedirectUrl.com"
-    alipay_subscription_create_request.payment_notification_url = "http://www.yourNotifyUrl.com"
-    alipay_subscription_create_request.subscription_notification_url = "http://www.yourNotifyUrl.com"
+    alipay_subscription_create_request.subscription_redirect_url = "https://www.yourRedirectUrl.com"
+    alipay_subscription_create_request.payment_notification_url = "https://www.yourNotifyUrl.com"
+    alipay_subscription_create_request.subscription_notification_url = "https://www.yourNotifyUrl.com"
 
     rsp_body = default_alipay_client.execute(alipay_subscription_create_request)
     response = AlipaySubscriptionCreateResponse(rsp_body)

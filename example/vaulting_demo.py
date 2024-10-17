@@ -28,8 +28,8 @@ def createVaultingSession():
     alipay_vaulting_session_request = AlipayVaultingSessionRequest()
     alipay_vaulting_session_request.vaulting_request_id = str(uuid.uuid4())
     alipay_vaulting_session_request.payment_method_type = "CARD"
-    alipay_vaulting_session_request.vaulting_notification_url = "http://www.yourNotifyUrl.com"
-    alipay_vaulting_session_request.redirect_url = "http://www.yourRedirectUrl.com"
+    alipay_vaulting_session_request.vaulting_notification_url = "https://www.yourNotifyUrl.com"
+    alipay_vaulting_session_request.redirect_url = "https://www.yourRedirectUrl.com"
 
     rsp_body = default_alipay_client.execute(alipay_vaulting_session_request)
     response = AlipayVaultingSessionResponse(rsp_body)
@@ -45,8 +45,8 @@ def createVaultingSession():
 def vaultPaymentMethod():
     alipayV_vaulting_payment_method_request = AlipayVaultingPaymentMethodRequest()
     alipayV_vaulting_payment_method_request.vaulting_request_id = str(uuid.uuid4())
-    alipayV_vaulting_payment_method_request.vaulting_notification_url = "http://www.yourNotifyUrl.com"
-    alipayV_vaulting_payment_method_request.redirect_url = "http://www.your_redirect_url.com"
+    alipayV_vaulting_payment_method_request.vaulting_notification_url = "https://www.yourNotifyUrl.com"
+    alipayV_vaulting_payment_method_request.redirect_url = "https://www.your_redirect_url.com"
     alipayV_vaulting_payment_method_request.merchant_region = "BR"
 
     paymentMethodDetail = PaymentMethodDetail()
