@@ -48,7 +48,7 @@ def pay():
 
     alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com"
-    alipay_pay_request.payment_redirect_url = "https://www.yourRedirectUrl.com?param1=sl"
+    alipay_pay_request.payment_redirect_url = "https://www.yourRedirectUrl.com"
     alipay_pay_request.payment_request_id = "pay_python_test" + str(uuid.uuid4())
     payment_method = PaymentMethod()
     payment_method.payment_method_type = "ALIPAY_CN"
