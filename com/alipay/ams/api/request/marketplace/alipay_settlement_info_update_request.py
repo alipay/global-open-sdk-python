@@ -1,12 +1,13 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.settlement_bank_account import SettlementBankAccount
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipaySettlementInfoUpdateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySettlementInfoUpdateRequest, self).__init__()
+        super(AlipaySettlementInfoUpdateRequest, self).__init__(AntomPathConstants.MARKETPLACE_SETTLEMENTINFO_UPDATE_PATH)
         self.__update_request_id = None
         self.__reference_merchant_id = None
         self.__settlement_currency = None

@@ -5,7 +5,7 @@ from com.alipay.ams.api.model.legal_entity_type import LegalEntityType
 
 
 class EntityAssociations:
-    def __int__(self):
+    def __init__(self):
         self.__association_type = None #type: AssociationType
         self.__legal_entity_type = None #type: LegalEntityType
         self.__company = None #type: Company

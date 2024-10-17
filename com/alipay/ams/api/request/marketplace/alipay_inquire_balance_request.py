@@ -1,11 +1,12 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayInquireBalanceRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireBalanceRequest, self).__init__()
+        super(AlipayInquireBalanceRequest, self).__init__(AntomPathConstants.MARKETPLACE_INQUIREBALANCE_PATH)
         self.__referenceMerchantId = None
 
     @property

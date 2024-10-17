@@ -1,12 +1,13 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayMerchantRegistrationStatusQueryRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayMerchantRegistrationStatusQueryRequest, self).__init__()
+        super(AlipayMerchantRegistrationStatusQueryRequest, self).__init__(AntomPathConstants.MERCHANTS_INQUIRY_REGISTRATION_STATUS_PATH)
         self.__registration_request_id = None
         self.__reference_merchant_id = None
 

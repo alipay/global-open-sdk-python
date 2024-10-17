@@ -1,6 +1,16 @@
 # Changelog
 
 
+## 1.3.3 - 2024-09-04
+* [#14](https://github.com/alipay/global-open-sdk-python/pull/14)  update-p2
+   * add MARKETPLACE_demo
+   * add MARKETPLACE
+   * add vaulting
+   * add Dispute
+   * add risk
+   * and add example
+   * add Notify
+
 ## 1.3.2 - 2024-09-04
 * [#13](https://github.com/alipay/global-open-sdk-python/pull/13)  add:ScopeType add TAOBAO_REBIND
    * Add TAOBAO_REBIND

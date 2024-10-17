@@ -3,7 +3,7 @@ from com.alipay.ams.api.model.settle_to_type import SettleToType
 
 
 class SettlementDetail:
-    def __int__(self):
+    def __init__(self):
         self.__settle_to = None #type: SettleToType
         self.__settlement_amount = None #type: Amount
 

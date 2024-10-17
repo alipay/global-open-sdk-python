@@ -2,7 +2,7 @@ from com.alipay.ams.api.model.settlement_bank_account import SettlementBankAccou
 
 
 class SettlementInfo:
-    def __int__(self):
+    def __init__(self):
         self.__settlement_currency = None
         self.__settlement_bank_account = None #type: SettlementBankAccount
 

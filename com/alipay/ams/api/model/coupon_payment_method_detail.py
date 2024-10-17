@@ -20,25 +20,67 @@ class CouponPaymentMethodDetail(object):
     def coupon_id(self):
         return self.__coupon_id
 
+
+    @coupon_id.setter
+    def coupon_id(self, value):
+        self.__coupon_id = value
+
     @property
     def available_amount(self):
         return self.__available_amount
+
+    @available_amount.setter
+    def available_amount(self, value):
+        self.__available_amount = value
 
     @property
     def coupon_name(self):
         return self.__coupon_name
 
+
+    @coupon_name.setter
+    def coupon_name(self, value):
+        self.__coupon_name = value
+
     @property
     def coupon_description(self):
         return self.__coupon_description
+
+
+    @coupon_description.setter
+    def coupon_description(self, value):
+        self.__coupon_description = value
 
     @property
     def coupon_expire_time(self):
         return self.__coupon_expire_time
 
+    @coupon_expire_time.setter
+    def coupon_expire_time(self, value):
+        self.__coupon_expire_time = value
+
     @property
     def payment_method_detail_metadata(self):
         return self.__payment_method_detail_metadata
+    @payment_method_detail_metadata.setter
+    def payment_method_detail_metadata(self, value):
+        self.__payment_method_detail_metadata = value
+
+    def to_ams_dict(self):
+        params = dict()
+        if self.__coupon_id:
+            params['couponId'] = self.__coupon_id
+        if self.__available_amount:
+            params['availableAmount'] = self.__available_amount.to_ams_dict()
+        if self.__coupon_name:
+            params['couponName'] = self.__coupon_name
+        if self.__coupon_description:
+            params['couponDescription'] = self.__coupon_description
+        if self.__coupon_expire_time:
+            params['couponExpireTime'] = self.__coupon_expire_time
+        if self.__payment_method_detail_metadata:
+            params['paymentMethodDetailMetadata'] = self.__payment_method_detail_metadata
+        return params
 
     def parse_rsp_body(self, coupon_payment_method_detail_body):
         if type(coupon_payment_method_detail_body) == str:

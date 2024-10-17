@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
 
 
 class PaymentMethod(object):
     def __init__(self):
         self.__payment_method_id = None
         self.__payment_method_type = None
-        self.__payment_method_meta_data = None
+        self.__payment_method_meta_data = None #type: map
         self.__customer_id = None
         self.__extend_info = None
 
@@ -68,3 +69,18 @@ class PaymentMethod(object):
             params['extendInfo'] = self.extend_info
 
         return params
+
+    def parse_rsp_body(self, response_body):
+        if type(response_body) == str:
+            response_body = json.loads(response_body)
+
+        if 'paymentMethodType' in response_body:
+            self.transfer_from_method = response_body['paymentMethodType']
+        if hasattr(self, "payment_method_meta_data") and self.payment_method_meta_data:
+            self.payment_method_meta_data = response_body['paymentMethodMetaData']
+        if 'customerId' in response_body:
+            self.customer_id = response_body['customerId']
+        if 'paymentMethodId' in response_body:
+            self.payment_method_id = response_body['paymentMethodId']
+        if 'extendInfo' in response_body:
+            self.extend_info = response_body['extendInfo']

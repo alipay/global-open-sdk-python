@@ -8,7 +8,7 @@ from com.alipay.ams.api.model.stock_info import StockInfo
 
 
 class Company:
-    def __int__(self):
+    def __init__(self):
         self.__legal_name = None
         self.__company_type = None #type:CompanyType
         self.__registered_address = None #type:Address

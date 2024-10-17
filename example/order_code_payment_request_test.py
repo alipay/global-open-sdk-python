@@ -42,7 +42,7 @@ class OrderCodePaymentRequestTest(unittest.TestCase):
         order.merchant = merchant
 
         orderCodeReq = OrderCodePaymentRequest(payment_request_id=int(time.time()), order=order, currency="USD",
-                                               amount_in_cents=1231, payment_notify_url='http://alipay.com/test')
+                                               amount_in_cents=1231, payment_notify_url='http://yourNotifyUrl.com/test')
 
         body = orderCodeReq.to_ams_json()
         # print(body)

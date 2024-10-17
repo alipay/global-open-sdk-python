@@ -4,13 +4,14 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayCreateOrderRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreateOrderRequest, self).__init__()
+        super(AlipayCreateOrderRequest, self).__init__(AntomPathConstants.CREATE_SESSION_PATH)
         self.__product_code = None
         self.__payment_request_id = None
         self.__order = None  # type: Order

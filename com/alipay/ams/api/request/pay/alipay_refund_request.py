@@ -4,13 +4,14 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayRefundRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayRefundRequest, self).__init__()
+        super(AlipayRefundRequest, self).__init__(AntomPathConstants.REFUND_PATH)
         self.__refund_request_id = None
         self.__reference_refund_id = None
         self.__payment_id = None

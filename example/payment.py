@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import uuid
+from random import random
+
 from com.alipay.ams.api.model.buyer import Buyer
 from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.amount import Amount
@@ -31,6 +34,7 @@ from com.alipay.ams.api.request.pay.alipay_refund_request import AlipayRefundReq
 from com.alipay.ams.api.response.pay.alipay_refund_query_response import AlipayRefundQueryResponse
 from com.alipay.ams.api.response.pay.alipay_refund_response import AlipayRefundResponse
 
+
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
@@ -41,23 +45,22 @@ def pay():
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_request = AlipayPayRequest()
-    alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
+    # alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
 
     alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
-    alipay_pay_request.payment_notify_url = "https://www.taobao.com"
-    alipay_pay_request.payment_redirect_url = "https://www.taobao.com?param1=sl"
-    alipay_pay_request.payment_request_id = "pay_python_test_13"
-
+    alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com"
+    alipay_pay_request.payment_redirect_url = "https://www.yourRedirectUrl.com?param1=sl"
+    alipay_pay_request.payment_request_id = "pay_python_test" + str(uuid.uuid4())
     payment_method = PaymentMethod()
     payment_method.payment_method_type = "ALIPAY_CN"
-    payment_method.payment_method_id = "20200404095501585965350751669161222"
+    payment_method.payment_method_id = str(uuid.uuid4())
     alipay_pay_request.payment_method = payment_method
 
     amount = Amount("CNY", "10000")
     alipay_pay_request.payment_amount = amount
 
     order = Order()
-    order.reference_order_id = "102775765656121"
+    order.reference_order_id = str(uuid.uuid4())
     order.order_description = "Mi Band 3 Wrist Strap Metal Screwless Stainless Steel For Xiaomi Mi Band 3"
     order.order_amount = amount
 
@@ -75,7 +78,7 @@ def pay():
 
     merchant = Merchant()
     merchant.merchant_mcc = "merchantMcc"
-    merchant.reference_merchant_id = "12346789022221121"
+    merchant.reference_merchant_id = str(uuid.uuid4())
 
     order.merchant = merchant
     alipay_pay_request.order = order
@@ -267,8 +270,8 @@ def createPaymentSession():
     order.buyer = buyer
     alipay_create_session_request.order = order
 
-    alipay_create_session_request.payment_redirect_url = "https://www.alipay.com"
-    alipay_create_session_request.payment_notify_url = "https://www.alipay.com"
+    alipay_create_session_request.payment_redirect_url = "https://www.yourRedirectUrl.com"
+    alipay_create_session_request.payment_notify_url = "https://www.yourNotifyUrl.com"
 
     rsp_body = default_alipay_client.execute(alipay_create_session_request)
 
@@ -281,5 +284,5 @@ def createPaymentSession():
 
 
 # refund("202407311940108001001882A0209648393")
-# pay()
-createPaymentSession()
+pay()
+# createPaymentSession()

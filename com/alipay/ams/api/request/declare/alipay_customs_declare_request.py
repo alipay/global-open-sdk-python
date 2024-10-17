@@ -1,6 +1,7 @@
 import json
 
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.certificate import Certificate
 from com.alipay.ams.api.model.customs_info import CustomsInfo
 from com.alipay.ams.api.model.merchant_customs_info import MerchantCustomsInfo
@@ -9,7 +10,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCustomsDeclareRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCustomsDeclareRequest, self).__init__()
+        super(AlipayCustomsDeclareRequest, self).__init__(AntomPathConstants.DECLARE_PATH)
         self.__declaration_request_id = None
         self.__payment_id = None
         self.__declaration_amount = None  # type:Amount

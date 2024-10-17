@@ -12,8 +12,8 @@ Copyright：Ant financial services group
     alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
 
     alipay_pay_request.product_code = ProductCodeType.AGREEMENT_PAYMENT
-    alipay_pay_request.payment_notify_url = "https://www.merchant.com/notify"
-    alipay_pay_request.payment_redirect_url = "https://www.merchant.com?param1=sl"
+    alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com/notify"
+    alipay_pay_request.payment_redirect_url = "https://www.yourRedirectUrl.com?param1=sl"
     alipay_pay_request.payment_request_id = "pay_python_test"
 
     payment_method = PaymentMethod()

@@ -5,7 +5,7 @@ from com.alipay.ams.api.model.legal_entity_type import LegalEntityType
 
 
 class MerchantInfo:
-    def __int__(self):
+    def __init__(self):
         self.__reference_merchant_id = None
         self.__login_id = None
         self.__legal_entity_type = None # type: LegalEntityType

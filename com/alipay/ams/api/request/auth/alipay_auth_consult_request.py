@@ -3,6 +3,7 @@
 
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
 from com.alipay.ams.api.model.scope_type import ScopeType
 from com.alipay.ams.api.model.terminal_type import TerminalType
@@ -12,7 +13,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 class AlipayAuthConsultRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayAuthConsultRequest, self).__init__()
+        super(AlipayAuthConsultRequest, self).__init__(AntomPathConstants.AUTH_CONSULT_PATH)
         self.__customer_belongs_to = None  # type:CustomerBelongsTo
         self.__auth_client_id = None
         self.__auth_redirect_url = None

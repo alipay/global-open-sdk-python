@@ -1,11 +1,12 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipayCustomsQueryRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCustomsQueryRequest, self).__init__()
+        super(AlipayCustomsQueryRequest, self).__init__(AntomPathConstants.INQUIRY_DECLARE_PATH)
         self.__declaration_request_ids = None  # type: list[str]
 
     @property

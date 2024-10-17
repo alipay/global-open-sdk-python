@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.merchant_info import MerchantInfo
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.settlement_info import SettlementInfo
@@ -8,7 +9,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayRegisterRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayRegisterRequest,self).__init__()
+        super(AlipayRegisterRequest,self).__init__(AntomPathConstants.MARKETPLACE_REGISTER_PATH)
         self.__registration_request_id = None
         self.__settlement_infos = None #type: list[SettlementInfo]
         self.__merchant_info = None #type: MerchantInfo

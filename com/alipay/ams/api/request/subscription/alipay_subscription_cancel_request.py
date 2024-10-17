@@ -1,12 +1,13 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.cancellation_type import CancellationType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipaySubscriptionCancelRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubscriptionCancelRequest, self).__init__()
+        super(AlipaySubscriptionCancelRequest, self).__init__(AntomPathConstants.SUBSCRIPTION_CANCEL_PATH)
         self.__subscription_id = None
         self.__subscription_request_id = None
         self.__cancellation_type = None  # type:CancellationType

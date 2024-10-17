@@ -5,11 +5,12 @@ from com.alipay.ams.api.model.user_name import UserName
 
 
 class Individual:
-    def __int__(self):
+
+    def __init__(self):
         self.__name = None #type: UserName
         self.__english_name = None #type: UserName
-        self.__dateOf_birth = None
-        self.__placeOf_birth = None #type: Address
+        self.__date_of_birth = None
+        self.__place_of_birth = None #type: Address
         self.__certificates = None #type: list[Certificate]
         self.__nationality = None
         self.__contacts = None #type: list[Contact]
@@ -31,20 +32,20 @@ class Individual:
         self.__english_name = value
 
     @property
-    def dateOf_birth(self):
-        return self.__dateOf_birth
+    def date_of_birth(self):
+        return self.__date_of_birth
 
-    @dateOf_birth.setter
-    def dateOf_birth(self, value):
-        self.__dateOf_birth = value
+    @date_of_birth.setter
+    def date_of_birth(self, value):
+        self.__date_of_birth = value
 
     @property
-    def placeOf_birth(self):
-        return self.__placeOf_birth
+    def place_of_birth(self):
+        return self.__place_of_birth
 
-    @placeOf_birth.setter
-    def placeOf_birth(self, value):
-        self.__placeOf_birth = value
+    @place_of_birth.setter
+    def place_of_birth(self, value):
+        self.__place_of_birth = value
 
     @property
     def certificates(self):
@@ -77,10 +78,10 @@ class Individual:
             params['name'] = self.name.to_ams_dict()
         if hasattr(self, 'english_name') and self.english_name:
             params['englishName'] = self.english_name.to_ams_dict()
-        if hasattr(self, 'dateOf_birth') and self.dateOf_birth:
-            params['dateOfBirth'] = self.dateOf_birth
-        if hasattr(self, 'placeOf_birth') and self.placeOf_birth:
-            params['placeOfBirth'] = self.placeOf_birth.to_ams_dict()
+        if hasattr(self, 'date_of_birth') and self.date_of_birth:
+            params['dateOfBirth'] = self.date_of_birth
+        if hasattr(self, 'place_of_birth') and self.place_of_birth:
+            params['placeOfBirth'] = self.place_of_birth.to_ams_dict()
         if hasattr(self, 'certificates') and self.certificates:
             certificates_list = list()
             for d in self.certificates:

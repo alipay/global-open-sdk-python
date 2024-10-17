@@ -1,3 +1,5 @@
+import json
+
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 
@@ -85,3 +87,22 @@ class TransferToDetail:
         if hasattr(self, "transfer_remark") and self.transfer_remark:
             params['transferRemark'] = self.transfer_remark
         return params
+
+    def parse_rsp_body(self, response_body):
+        if type(response_body) == str:
+            response_body = json.loads(response_body)
+
+        if 'transferToMethod' in response_body:
+            self.transfer_to_method.parse_rsp_body(response_body['transferToMethod'])
+        if 'transferToCurrency' in response_body:
+            self.transfer_to_currency = response_body['transferToCurrency']
+        if 'feeAmount' in response_body:
+            self.fee_Amount.parse_rsp_body(response_body['feeAmount'])
+        if 'actualTransferToAmount' in response_body:
+            self.actual_transfer_to_amount.parse_rsp_body(response_body['actualTransferToAmount'])
+        if 'purposeCode' in response_body:
+            self.purpose_code = response_body['purposeCode']
+        if 'transferNotifyUrl' in response_body:
+            self.transfer_notify_url = response_body['transferNotifyUrl']
+        if 'transferRemark' in response_body:
+            self.transfer_remark = response_body['transferRemark']

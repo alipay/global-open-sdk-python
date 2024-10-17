@@ -1,12 +1,13 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.attachment_type import AttachmentType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipaySubmitAttachmentRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubmitAttachmentRequest, self).__init__()
+        super(AlipaySubmitAttachmentRequest, self).__init__(AntomPathConstants.MARKETPLACE_SUBMITATTACHMENT_PATH)
         self.__submit_attachment_request_id = None
         self.__attachment_type = None #type: AttachmentType
         self.__file_sha_256 = None

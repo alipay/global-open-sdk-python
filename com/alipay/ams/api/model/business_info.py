@@ -2,7 +2,7 @@ from com.alipay.ams.api.model.web_site import WebSite
 
 
 class BusinessInfo:
-    def __int__(self):
+    def __init__(self):
         self.__mcc = None
         self.__websites = None #type: list[WebSite]
         self.__englishName = None

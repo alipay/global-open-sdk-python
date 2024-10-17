@@ -1,6 +1,6 @@
 
 class StockInfo:
-    def __int__(self):
+    def __init__(self):
         self.__listed_region = None
         self.__ticker_symbol = None
 

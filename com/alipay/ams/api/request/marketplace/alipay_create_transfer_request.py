@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.transfer_from_detail import TransferFromDetail
 from com.alipay.ams.api.model.transfer_to_detail import TransferToDetail
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
@@ -7,8 +8,8 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCreateTransferRequest(AlipayRequest):
 
-    def __int__(self):
-        super(AlipayCreateTransferRequest, self).__init__()
+    def __init__(self):
+        super(AlipayCreateTransferRequest, self).__init__(AntomPathConstants.MARKETPLACE_CREATETRANSFER_PATH)
         self.__transfer_request_id = None
         self.__transfer_from_detail = None  # type: TransferFromDetail
         self.__transfer_to_detail = None  # type: TransferToDetail

@@ -1,6 +1,6 @@
 
 class Contact:
-    def __int__(self):
+    def __init__(self):
         self.__type = None
         self.__info = None
 

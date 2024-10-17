@@ -4,7 +4,7 @@ from com.alipay.ams.api.model.address import Address
 
 
 class SettlementBankAccount:
-    def __int__(self):
+    def __init__(self):
         self.__bank_account_no = None
         self.__account_holder_name = None
         self.__swift_code = None

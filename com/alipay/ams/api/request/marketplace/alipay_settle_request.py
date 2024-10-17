@@ -1,12 +1,13 @@
 import json
 
+from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.settlement_detail import SettlementDetail
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
 class AlipaySettleRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySettleRequest, self).__init__()
+        super(AlipaySettleRequest, self).__init__(AntomPathConstants.MARKETPLACE_SETTLE_PATH)
         self.__settlement_request_id = None
         self.__payment_id = None
         self.__settlement_details = None #type: list[SettlementDetail]

@@ -6,10 +6,15 @@ from com.alipay.ams.api.model.http_method import HttpMethod
 
 class AlipayRequest(object):
 
-    def __init__(self):
-        self.__path = None
-        self.__key_version = None
-        self.__http_method = HttpMethod.POST
+    # def __init__(self, path):
+    #     self.__path = path
+    #     self.__key_version = None
+    #     self.__http_method = HttpMethod.POST
+
+    def __init__(self, *args, **kwargs):
+        self.__path = args[0].value if len(args) > 0 else None
+        self.__key_version = kwargs.get('key_version', None)
+        self.__http_method = kwargs.get('http_method', HttpMethod.POST)
 
     @property
     def path(self):

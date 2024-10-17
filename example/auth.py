@@ -66,7 +66,7 @@ def auth_consult():
 
     alipay_auth_consult_request = AlipayAuthConsultRequest()
     alipay_auth_consult_request.path = "/ams/sandbox/api/v1/authorizations/consult"
-    alipay_auth_consult_request.auth_redirect_url = "https://www.taobao.com/?param1=567&param2=123"
+    alipay_auth_consult_request.auth_redirect_url = "https://www.yourRedirectUrl.com/?param1=567&param2=123"
     alipay_auth_consult_request.auth_state = "663A8FA9-D836-56EE-8AA1-dd1F6F6811f989DC7"
     alipay_auth_consult_request.customer_belongs_to = CustomerBelongsTo.ALIPAY_CN
     alipay_auth_consult_request.auth_client_id = "SM_0001"

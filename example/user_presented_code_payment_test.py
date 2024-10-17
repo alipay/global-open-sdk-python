@@ -50,7 +50,7 @@ class UserPresentedCodePaymentRequestTest(unittest.TestCase):
 
         upcpReq = UserPresentedCodePaymentRequest(payment_request_id=int(time.time()), order=order, currency="USD",
                                                   amount_in_cents=1231, payment_code='28888888888888888888',
-                                                  payment_notify_url='http://alipay.com/test')
+                                                  payment_notify_url='http://yourNotifyUrl.com/test')
 
         body = upcpReq.to_ams_json()
         # print(body)
