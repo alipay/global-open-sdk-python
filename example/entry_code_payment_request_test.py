@@ -47,7 +47,7 @@ class EntryCodePaymentRequestTest(unittest.TestCase):
         order.env.user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15G77 NebulaSDK/1.8.100112 Nebula PSDType(1) AlipayDefined(nt:4G,ws:320|504|2.0) AliApp(AP/10.1.32.600) AlipayClient/10.1.32.600 Alipay Language/zh-Hans AlipayConnect"
 
         orderCodeReq = EntryCodePaymentRequest(payment_request_id=int(time.time()), order=order, currency="USD",
-                                               amount_in_cents=1231, payment_notify_url='http://yourNotifyUrl.com/test')
+                                               amount_in_cents=1231, payment_notify_url='http://yourNotifyUrl.com')
 
         body = orderCodeReq.to_ams_json()
         # print(body)

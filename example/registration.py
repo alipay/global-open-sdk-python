@@ -31,8 +31,7 @@ def register():
     alipay_merchant_registration_request = AlipayMerchantRegistrationRequest()
     alipay_merchant_registration_request.registration_request_id = "reqId107336691327831097346773_test_111"
     alipay_merchant_registration_request.pass_through_info = "{\"acquiringCurrency\":[\"HKD\"],\"settlementType\":\"DOMESTIC_SETTLEMENT\",\"legalRepresentativeName\":\"legalRepresentativeName\"}"
-    alipay_merchant_registration_request.registration_notify_url = "http://xmock.inc.alipay.net/api/Test/yibeiTest/testPayNotify1.htm"
-    alipay_merchant_registration_request.path = "/ams/api/v1/merchants/registration"
+    alipay_merchant_registration_request.registration_notify_url = "https://www.yourNotifyUrl.com"
     alipay_merchant_registration_request.product_codes = ["AGREEMENT_PAYMENT"]
 
     merchant_info = MerchantRegistrationInfo()
@@ -122,7 +121,6 @@ def query_info():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLIC_KEY)
     alipay_merchant_registration_info_query_request = AlipayMerchantRegistrationInfoQueryRequest()
-    alipay_merchant_registration_info_query_request.path = "/ams/api/v1/merchants/inquiryRegistrationInfo"
 
     alipay_merchant_registration_info_query_request.reference_merchant_id = "5188122826664900663130"
 
@@ -141,7 +139,6 @@ def query_registration_status():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID,
                                                 MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     alipay_merchant_registration_status_query_request = AlipayMerchantRegistrationStatusQueryRequest()
-    alipay_merchant_registration_status_query_request.path = "/ams/api/v1/merchants/inquiryRegistrationStatus"
 
     alipay_merchant_registration_status_query_request.reference_merchant_id = "5188122826664900663130"
 

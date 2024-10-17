@@ -23,7 +23,6 @@ def user_query_info():
                                                 ALIPAY_PUBLIC_KEY)
 
     alipay_user_query_info_request = AlipayUserQueryInfoRequest()
-    alipay_user_query_info_request.path = "/ams/api/v1/users/inquiryUserInfo"
     alipay_user_query_info_request.access_token = "2020060417341615912632560749423400649135650RJsliOKYQP"
 
     rsp_body = default_alipay_client.execute(alipay_user_query_info_request)
@@ -40,7 +39,6 @@ def init_authentication():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLIC_KEY)
     alipay_init_authentication_request = AlipayInitAuthenticationRequest()
-    alipay_init_authentication_request.path = "/ams/api/v1/users/initAuthentication"
     alipay_init_authentication_request.authentication_channel_type = AuthenticationChannelType.SMS
     alipay_init_authentication_request.authentication_request_id = "test_1"
     alipay_init_authentication_request.authentication_type = AuthenticationType.OTP
@@ -61,7 +59,6 @@ def verify_authentication():
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLIC_KEY)
     alipay_verify_authentication_request = AlipayVerifyAuthenticationRequest()
-    alipay_verify_authentication_request.path = "/ams/api/v1/users/verifyAuthentication"
     alipay_verify_authentication_request.authentication_request_id = "test_1"
     alipay_verify_authentication_request.authentication_type = AuthenticationType.OTP
     alipay_verify_authentication_request.authentication_value = "666"
