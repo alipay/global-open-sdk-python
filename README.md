@@ -9,7 +9,7 @@ Copyright：Ant financial services group
     default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", client_id, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_request = AlipayPayRequest()
-    alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
+    alipay_pay_request.path = "/ams/api/v1/payments/pay"
 
     alipay_pay_request.product_code = ProductCodeType.AGREEMENT_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com/notify"

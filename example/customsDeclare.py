@@ -19,7 +19,7 @@ GATEWAY_HOST = ""
 def declare(paymentId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     alipayCustomsDeclareRequest = AlipayCustomsDeclareRequest()
-    alipayCustomsDeclareRequest.path = "/ams/sandbox/api/v1/customs/declare"
+    alipayCustomsDeclareRequest.path = "/ams/api/v1/customs/declare"
     alipayCustomsDeclareRequest.declaration_request_id = "declaration_test_00001"
     alipayCustomsDeclareRequest.payment_id = paymentId
     alipayCustomsDeclareRequest.declaration_amount = Amount("CNY", 100)
@@ -56,7 +56,7 @@ def inquiryDeclaration(declarationRequestIds):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                                 ALIPAY_PUBLIC_KEY)
     alipayCustomsQueryRequest = AlipayCustomsQueryRequest()
-    alipayCustomsQueryRequest.path = "/ams/sandbox/api/v1/customs/inquiryDeclarationRequests"
+    alipayCustomsQueryRequest.path = "/ams/api/v1/customs/inquiryDeclarationRequests"
     alipayCustomsQueryRequest.declaration_request_ids = declarationRequestIds
 
     rsp_body = default_alipay_client.execute(alipayCustomsQueryRequest)

@@ -45,7 +45,7 @@ def pay():
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_request = AlipayPayRequest()
-    # alipay_pay_request.path = "/ams/sandbox/api/v1/payments/pay"
+    # alipay_pay_request.path = "/ams/api/v1/payments/pay"
 
     alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
     alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com"
@@ -112,7 +112,7 @@ def pay():
 def pay_consult():
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
     pay_consult_request = AlipayPayConsultRequest()
-    pay_consult_request.path = "/ams/sandbox/api/v1/payments/consult"
+    pay_consult_request.path = "/ams/api/v1/payments/consult"
     pay_consult_request.product_code = ProductCodeType.CASHIER_PAYMENT
     # pay_consult_request.customer_id = "123441"
     pay_consult_request.user_region = "SG"
@@ -150,7 +150,7 @@ def pay_cancel(paymentId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_cancel_request = AlipayPayCancelRequest()
-    alipay_pay_cancel_request.path = "/ams/sandbox/api/v1/payments/cancel"
+    alipay_pay_cancel_request.path = "/ams/api/v1/payments/cancel"
     alipay_pay_cancel_request.payment_id = paymentId
 
     rsp_body = default_alipay_client.execute(alipay_pay_cancel_request)
@@ -167,7 +167,7 @@ def pay_query(paymenId):
     default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
 
     alipay_pay_query_request = AlipayPayQueryRequest()
-    alipay_pay_query_request.path = "/ams/sandbox/api/v1/payments/inquiryPayment"
+    alipay_pay_query_request.path = "/ams/api/v1/payments/inquiryPayment"
     alipay_pay_query_request.payment_id = paymenId
 
     rsp_body = default_alipay_client.execute(alipay_pay_query_request)
@@ -186,7 +186,7 @@ def capture(paymentId):
                                                 ALIPAY_PUBLIC_KEY)
 
     alipay_capture_request = AlipayCaptureRequest()
-    alipay_capture_request.path = "/ams/sandbox/api/v1/payments/capture"
+    alipay_capture_request.path = "/ams/api/v1/payments/capture"
     alipay_capture_request.payment_id = paymentId
     alipay_capture_request.capture_request_id = "python_capture_test_01"
     alipay_capture_request.is_last_capture = "true"
@@ -211,7 +211,7 @@ def refund(paymentId):
                                                 ALIPAY_PUBLIC_KEY)
 
     alipay_refund_request = AlipayRefundRequest()
-    alipay_refund_request.path = "/ams/sandbox/api/v1/payments/refund"
+    alipay_refund_request.path = "/ams/api/v1/payments/refund"
     alipay_refund_request.refund_request_id = "python_test_refund_1212"
     alipay_refund_request.payment_id = paymentId
 
@@ -235,7 +235,7 @@ def inqueryRefund(paymentRefundRequestId):
                                                 ALIPAY_PUBLIC_KEY)
 
     alipay_inquery_refund_request = AlipayRefundQueryRequest()
-    alipay_inquery_refund_request.path = "/ams/sandbox/api/v1/payments/inquiryRefund"
+    alipay_inquery_refund_request.path = "/ams/api/v1/payments/inquiryRefund"
     alipay_inquery_refund_request.refund_request_id = paymentRefundRequestId
 
     rsp_body = default_alipay_client.execute(alipay_inquery_refund_request)
@@ -253,7 +253,7 @@ def createPaymentSession():
                                                 ALIPAY_PUBLIC_KEY)
 
     alipay_create_session_request = AlipayCreateSessionRequest()
-    alipay_create_session_request.path = "/ams/sandbox/api/v1/payments/createPaymentSession"
+    alipay_create_session_request.path = "/ams/api/v1/payments/createPaymentSession"
     alipay_create_session_request.payment_request_id = "python_test_payment_request_id_1212"
     alipay_create_session_request.payment_amount = Amount("SGD", "4200")
     alipay_create_session_request.product_code = ProductCodeType.CASHIER_PAYMENT
