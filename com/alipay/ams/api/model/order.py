@@ -26,6 +26,7 @@ class Order(object):
         self.lodging = None  # type: Lodging
         self.__gaming = None  # type: Gaming
         self.__order_created_time = None
+        self.__need_declaration = None
 
     @property
     def reference_order_id(self):
@@ -130,6 +131,13 @@ class Order(object):
     @order_created_time.setter
     def order_created_time(self, value):
         self.__order_created_time = value
+    @property
+    def need_declaration(self):
+        return self.__need_declaration
+
+    @need_declaration.setter
+    def need_declaration(self, value):
+        self.__need_declaration = value
 
     def to_ams_dict(self):
         params = dict()
@@ -171,5 +179,8 @@ class Order(object):
 
         if hasattr(self, "order_created_time") and self.order_created_time:
             params['orderCreatedTime'] = self.order_created_time
+
+        if hasattr(self, "need_declaration") and self.need_declaration:
+            params['needDeclaration'] = self.need_declaration
 
         return params

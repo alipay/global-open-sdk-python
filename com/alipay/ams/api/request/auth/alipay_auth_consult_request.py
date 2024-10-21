@@ -3,6 +3,7 @@
 
 import json
 
+from com.alipay.ams.api.model.auth_meta_data import AuthMetaData
 from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
 from com.alipay.ams.api.model.scope_type import ScopeType
@@ -25,6 +26,7 @@ class AlipayAuthConsultRequest(AlipayRequest):
         self.__extend_info = None
         self.__merchant_region = None
         self.__recurring_payment = None
+        self.__auth_meta_data = None #type: AuthMetaData
 
     @property
     def merchant_region(self):
@@ -114,6 +116,14 @@ class AlipayAuthConsultRequest(AlipayRequest):
     def recurring_payment(self, value):
         self.__recurring_payment = value
 
+    @property
+    def auth_meta_data(self):
+        return self.__auth_meta_data
+
+    @auth_meta_data.setter
+    def auth_meta_data(self, value):
+        self.__auth_meta_data = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -143,4 +153,8 @@ class AlipayAuthConsultRequest(AlipayRequest):
             params['merchantRegion'] = self.merchant_region
         if hasattr(self, "recurring_payment") and self.recurring_payment:
             params['recurringPayment'] = self.recurring_payment
+
+        if hasattr(self, "auth_meta_data") and self.auth_meta_data:
+            params['authMetaData'] = self.auth_meta_data
+
         return params

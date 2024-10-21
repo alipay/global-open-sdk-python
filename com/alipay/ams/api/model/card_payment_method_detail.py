@@ -41,6 +41,7 @@ class CardPaymentMethodDetail(object):
         self.__card_password_digest = None
         self.__cpf = None
         self.__payer_email = None
+        self.__network_transaction_id = None
 
     @property
     def card_token(self):
@@ -270,6 +271,14 @@ class CardPaymentMethodDetail(object):
     def payer_email(self, value):
         self.__payer_email = value
 
+    @property
+    def network_transaction_id(self):
+        return self.__network_transaction_id
+
+    @network_transaction_id.setter
+    def network_transaction_id(self, value):
+        self.__network_transaction_id = value
+
 
     def parse_rsp_body(self, card_payment_method_detail_body):
         if type(card_payment_method_detail_body) == str:
@@ -367,6 +376,8 @@ class CardPaymentMethodDetail(object):
 
         if 'payerEmail' in card_payment_method_detail_body:
             self.__payer_email = card_payment_method_detail_body['payerEmail']
+        if 'networkTransactionId' in card_payment_method_detail_body:
+            self.__network_transaction_id = card_payment_method_detail_body['networkTransactionId']
 
     def to_ams_dict(self):
         params = dict()
@@ -428,4 +439,6 @@ class CardPaymentMethodDetail(object):
             params['cpf'] = self.cpf
         if self.payer_email:
             params['payerEmail'] = self.payer_email
+        if self.network_transaction_id:
+            params['networkTransactionId'] = self.network_transaction_id
         return params
