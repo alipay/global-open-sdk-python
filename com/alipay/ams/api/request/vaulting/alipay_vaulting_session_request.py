@@ -12,6 +12,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__vaulting_notification_url = None
         self.__redirect_url = None
         self.__merchant_region = None
+        self.__is_3D_s_authentication = None
 
     @property
     def payment_method_type(self):
@@ -53,6 +54,14 @@ class AlipayVaultingSessionRequest(AlipayRequest):
     def merchant_region(self, value):
         self.__merchant_region = value
 
+    @property
+    def is_3D_s_authentication(self):
+        return self.__is_3D_s_authentication
+
+    @is_3D_s_authentication.setter
+    def is_3D_s_authentication(self, value):
+        self.__is_3D_s_authentication = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -69,5 +78,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
             params['redirectUrl'] = self.redirect_url
         if hasattr(self, "merchant_region") and self.merchant_region:
             params['merchantRegion'] = self.merchant_region
+        if hasattr(self, "is_3D_s_authentication") and self.is_3D_s_authentication:
+            params['is3DSAuthentication'] = self.is_3D_s_authentication
 
         return params
