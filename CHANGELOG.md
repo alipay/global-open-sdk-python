@@ -1,7 +1,7 @@
 # Changelog
 
 
-## 1.3.4 - 2024-10-29
+## 1.3.5 - 2024-10-29
 * [#16](https://github.com/alipay/global-open-sdk-python/pull/16)  feature-notify
   - add notify
 
