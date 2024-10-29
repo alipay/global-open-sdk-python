@@ -34,3 +34,15 @@ class PeriodRule(object):
 
         return params
 
+    def parse_rsp_body(self, result_body):
+        if type(result_body) == str:
+            result_body = json.loads(result_body)
+
+        if 'periodType' in result_body:
+            self.__period_type = result_body['periodType']
+        if 'periodCount' in result_body:
+            self.__period_count = result_body['periodCount']
+
+
+
+

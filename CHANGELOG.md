@@ -1,6 +1,10 @@
 # Changelog
 
 
+## 1.3.4 - 2024-10-29
+* [#16](https://github.com/alipay/global-open-sdk-python/pull/16)  feature-notify
+  - add notify
+
 ## 1.3.4 - 2024-10-21
 * [#15](https://github.com/alipay/global-open-sdk-python/pull/15)  feature-241022
   - add AlipayVaultingSessionRequest.is3DSAuthentication哈啰集成绑卡SDK
