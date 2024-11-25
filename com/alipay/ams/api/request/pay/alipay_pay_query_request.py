@@ -14,6 +14,7 @@ class AlipayPayQueryRequest(AlipayRequest):
         self.__payment_id = None
         self.__payment_request_id = None
         self.__merchant_account_id = None
+        self.__payment_method_type = None
 
     @property
     def payment_id(self):
@@ -39,6 +40,15 @@ class AlipayPayQueryRequest(AlipayRequest):
     def merchant_account_id(self, value):
         self.__merchant_account_id = value
 
+    @property
+    def payment_method_type(self):
+        return self.__payment_method_type
+
+    @payment_method_type.setter
+    def payment_method_type(self, value):
+        self.__payment_method_type = value
+
+    # 将对象转换为json字符串
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), indent=3)
         return json_str
@@ -53,5 +63,8 @@ class AlipayPayQueryRequest(AlipayRequest):
 
         if hasattr(self, "merchant_account_id") and self.merchant_account_id:
             params['merchantAccountId'] = self.merchant_account_id
+
+        if hasattr(self, "payment_method_type") and self.payment_method_type:
+            params['paymentMethodType'] = self.payment_method_type
 
         return params
