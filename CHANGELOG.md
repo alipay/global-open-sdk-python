@@ -1,6 +1,11 @@
 # Changelog
 
 ## 1.3.6 - 2024-11-26
+* [#18](https://github.com/alipay/global-open-sdk-python/pull/18)  feature-241126
+  - update AlipayPayResultNotify
+  - update AlipayPayQueryRequest
+
+## 1.3.6 - 2024-11-26
 * [#17](https://github.com/alipay/global-open-sdk-python/pull/17)  feature-241126
   - update Leg
   - update AlipayPayResultNotify
