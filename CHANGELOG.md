@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.6 - 2024-11-26
+* [#17](https://github.com/alipay/global-open-sdk-python/pull/17)  feature-241126
+  - update Leg
 
 ## 1.3.5 - 2024-10-29
 * [#16](https://github.com/alipay/global-open-sdk-python/pull/16)  feature-notify

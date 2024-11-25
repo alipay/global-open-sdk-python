@@ -8,6 +8,8 @@ class Leg(object):
         self.__carrier_name = None
         self.__carrier_no = None
         self.__class_type = None
+        self.__departure_airport_code = None
+        self.__arrival_airport_code = None
 
     @property
     def departure_time(self):
@@ -65,6 +67,23 @@ class Leg(object):
     def classs_type(self, value):
         self.__classs_type = value
 
+    @property
+    def departure_airport_code(self):
+        return self.__departure_airport_code
+
+    @departure_airport_code.setter
+    def departure_airport_code(self, value):
+        self.__departure_airport_code = value
+
+    @property
+    def arrival_airport_code(self):
+        return self.__arrival_airport_code
+
+    @arrival_airport_code.setter
+    def arrival_airport_code(self, value):
+        self.__arrival_airport_code = value
+
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "departure_time") and self.departure_time:
@@ -87,5 +106,11 @@ class Leg(object):
 
         if hasattr(self, "classs_type") and self.classs_type:
             params['classType'] = self.classs_type
+
+        if hasattr(self, "departure_airport_code") and self.departure_airport_code:
+            params['departureAirportCode'] = self.departure_airport_code
+
+        if hasattr(self, "arrival_airport_code") and self.arrival_airport_code:
+            params['arrivalAirportCode'] = self.arrival_airport_code
 
         return params
