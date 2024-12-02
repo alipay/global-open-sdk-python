@@ -21,6 +21,7 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__arn = None
         self.__dispute_accept_reason = None
         self.__dispute_accept_time = None
+        self.dispute_type = None
         self.__parse_notify_body(notify_body)
 
     @property
@@ -87,6 +88,10 @@ class AlipayDisputeNotify(AlipayNotify):
     def dispute_accept_time(self):
         return self.__dispute_accept_time
 
+    @property
+    def dispute_type(self):
+        return self.__dispute_type
+
     def __parse_notify_body(self, notify_body):
         notify =  super(AlipayDisputeNotify, self).parse_notify_body(notify_body)
 
@@ -122,3 +127,5 @@ class AlipayDisputeNotify(AlipayNotify):
             self.__dispute_accept_reason = notify['dispute_accept_reason']
         if 'dispute_accept_time' in notify:
             self.__dispute_accept_time = notify['dispute_accept_time']
+        if 'dispute_type' in notify:
+            self.__dispute_type = notify['dispute_type']
