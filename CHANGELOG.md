@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.7 - 2024-12-02
+* [#19](https://github.com/alipay/global-open-sdk-python/pull/19)  feature-241202
+  - update AlipayDisputeNotify
+  - update AlipayPayQueryResponse
+
 ## 1.3.6 - 2024-11-26
 * [#18](https://github.com/alipay/global-open-sdk-python/pull/18)  feature-241126
   - update AlipayPayResultNotify

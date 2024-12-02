@@ -39,6 +39,7 @@ class AlipayPayResponse(AlipayResponse):
         self.__scheme_url = None
         self.__payment_result_info = None  # type: PaymentResultInfo
         self.__promotion_result = None  # type: PromotionResult
+        self.__payment_method_type = None
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -137,6 +138,10 @@ class AlipayPayResponse(AlipayResponse):
     def promotion_result(self):
         return self.__promotion_result
 
+    @property
+    def payment_method_type(self):
+        return self.__payment_method_type
+
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayPayResponse, self).parse_rsp_body(rsp_body)
         if 'paymentRequestId' in response:
@@ -209,3 +214,5 @@ class AlipayPayResponse(AlipayResponse):
             promotion_result = PromotionResult()
             promotion_result.parse_rsp_body(response['promotionResult'])
             self.__promotion_result = promotion_result
+        if 'paymentMethodType' in response:
+            self.__payment_method_type = response['paymentMethodType']
