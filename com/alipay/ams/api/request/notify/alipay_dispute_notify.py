@@ -1,4 +1,10 @@
+from com.alipay.ams.api.model.dispute_accept_reason_type import DisputeAcceptReasonType
+from com.alipay.ams.api.model.dispute_notification_type import DisputeNotificationType
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
+
+
+class DisputeJudgedResult:
+    pass
 
 
 class AlipayDisputeNotify(AlipayNotify):
@@ -10,18 +16,19 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__payment_id = None
         self.__dispute_time = None
         self.__dispute_amount = None
-        self.__dispute_notification_type = None
+        self.__dispute_notification_type = None #type: DisputeNotificationType
         self.__dispute_reason_msg = None
         self.__dispute_judged_time = None
         self.__dispute_judged_amount = None
-        self.__dispute_judged_result = None
+        self.__dispute_judged_result = None #type: DisputeJudgedResult
         self.__defense_due_time = None
         self.__dispute_reason_code = None
         self.__dispute_source = None
         self.__arn = None
-        self.__dispute_accept_reason = None
+        self.__dispute_accept_reason = None #type: DisputeAcceptReasonType
         self.__dispute_accept_time = None
-        self.dispute_type = None
+        self.__dispute_type = None
+        self.__defendable = None
         self.__parse_notify_body(notify_body)
 
     @property
@@ -92,6 +99,10 @@ class AlipayDisputeNotify(AlipayNotify):
     def dispute_type(self):
         return self.__dispute_type
 
+    @property
+    def defendable(self):
+        return self.__defendable
+
     def __parse_notify_body(self, notify_body):
         notify =  super(AlipayDisputeNotify, self).parse_notify_body(notify_body)
 
@@ -129,3 +140,5 @@ class AlipayDisputeNotify(AlipayNotify):
             self.__dispute_accept_time = notify['dispute_accept_time']
         if 'dispute_type' in notify:
             self.__dispute_type = notify['dispute_type']
+        if 'defendable' in notify:
+            self.__defendable = notify['defendable']

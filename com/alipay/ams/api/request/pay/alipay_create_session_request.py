@@ -31,6 +31,8 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__enable_installment_collection = None
         self.__agreement_info = None  # type:AgreementInfo
         self.__product_scene = None
+        self.__saved_payment_methods = None # type: list[PaymentMethod]
+        self.__locale = None
 
     @property
     def product_code(self):
@@ -160,6 +162,22 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def product_scene(self, value):
         self.__product_scene = value
 
+    @property
+    def saved_payment_methods(self):
+        return self.__saved_payment_methods
+
+    @saved_payment_methods.setter
+    def saved_payment_methods(self, value):
+        self.__saved_payment_methods = value
+
+    @property
+    def locale(self):
+        return self.__locale
+
+    @locale.setter
+    def locale(self, value):
+        self.__locale = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -198,5 +216,8 @@ class AlipayCreateSessionRequest(AlipayRequest):
             params['agreementInfo'] = self.agreement_info
         if hasattr(self, "product_scene") and self.product_scene:
             params['productScene'] = self.product_scene
-
+        if hasattr(self, "saved_payment_methods") and self.saved_payment_methods:
+            params['savedPaymentMethods'] = self.saved_payment_methods
+        if hasattr(self, "locale") and self.locale:
+            params['locale'] = self.locale
         return params
