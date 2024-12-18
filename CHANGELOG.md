@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.9 - 2024-12-18
+* [#21](https://github.com/alipay/global-open-sdk-python/pull/21)  feature-update-version
+  - update version
+
 ## 1.3.8 - 2024-12-16
 * [#20](https://github.com/alipay/global-open-sdk-python/pull/20)  feature-241216
   - RDR拒付通知优化通用能力变更
