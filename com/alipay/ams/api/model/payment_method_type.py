@@ -8,5 +8,6 @@ class PaymentMethodType(Enum):
     INTEREST_FREE = "INTEREST_FREE"
     BALANCE_ACCOUNT = "BALANCE_ACCOUNT"
     SETTLEMENT_CARD = "SETTLEMENT_CARD"
+    APPLEPAY = "APPLEPAY"
     def to_ams_dict(self):
         return self.name

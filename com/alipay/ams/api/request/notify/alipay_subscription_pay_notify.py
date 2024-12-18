@@ -1,10 +1,11 @@
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
+from com.alipay.ams.api.request.notify.alipay_pay_result_notify import AlipayPayResultNotify
 
 
-class AlipaySubscriptionPayNotify(AlipayNotify):
+class AlipaySubscriptionPayNotify(AlipayPayResultNotify):
 
     def __init__(self, notify_body):
-        super(AlipaySubscriptionPayNotify, self).__init__()
+        super(AlipaySubscriptionPayNotify, self).__init__(notify_body)
         self.__subscription_request_id = None
         self.__subscription_id = None
         self.__period_start_time = None

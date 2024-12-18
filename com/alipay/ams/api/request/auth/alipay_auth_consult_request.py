@@ -110,7 +110,7 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     @property
     def recurring_payment(self):
-        return self.recurring_payment
+        return self.__recurring_payment
 
     @recurring_payment.setter
     def recurring_payment(self, value):
