@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.3.9 - 2024-12-18
-* [#21](https://github.com/alipay/global-open-sdk-python/pull/21)  feature-update-version
+* [#23](https://github.com/alipay/global-open-sdk-python/pull/23)  feature-update-version
   - update version
 
 ## 1.3.8 - 2024-12-16
