@@ -1,5 +1,6 @@
 import json
 
+from com.alipay.ams.api.model.available_payment_method import AvailablePaymentMethod
 from com.alipay.ams.api.model.agreement_info import AgreementInfo
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
@@ -33,6 +34,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__product_scene = None
         self.__saved_payment_methods = None # type: list[PaymentMethod]
         self.__locale = None
+        self.__available_payment_method = None # type: list[AvailablePaymentMethod]
 
     @property
     def product_code(self):

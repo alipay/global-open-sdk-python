@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0 - 2024-12-24
+* [#24](https://github.com/alipay/global-open-sdk-python/pull/24)  feature-241224
+  - CKP二期支持商户传入可选支付方式列表
+  - AMS独立绑卡支持MIT交易
+
 ## 1.3.9 - 2024-12-18
 * [#23](https://github.com/alipay/global-open-sdk-python/pull/23)  feature-update-version
   - update version

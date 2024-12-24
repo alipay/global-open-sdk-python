@@ -20,6 +20,7 @@ class PaymentMethodDetail(object):
         self.__coupon = None  # type: CouponPaymentMethodDetail
         self.__extend_info = None
         self.__payment_method_type = None
+        self.__is_3DS_authentication = None
 
     @property
     def payment_method_detail_type(self):
@@ -67,6 +68,14 @@ class PaymentMethodDetail(object):
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
+
+    @property
+    def is_3DS_authentication(self):
+        return self.__is_3DS_authentication
+
+    @is_3DS_authentication.setter
+    def is_3DS_authentication(self, value):
+        self.__is_3DS_authentication = value
 
 
 
@@ -122,5 +131,7 @@ class PaymentMethodDetail(object):
             params['extendInfo'] = self.extend_info
         if self.payment_method_type:
             params['paymentMethodType'] = self.payment_method_type
+        if self.is_3DS_authentication:
+            params['is3DSAuthentication'] = self.is_3DS_authentication
 
         return params
