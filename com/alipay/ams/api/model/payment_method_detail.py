@@ -21,6 +21,7 @@ class PaymentMethodDetail(object):
         self.__extend_info = None
         self.__payment_method_type = None
 
+
     @property
     def payment_method_detail_type(self):
         return self.__payment_method_detail_type
@@ -105,6 +106,7 @@ class PaymentMethodDetail(object):
         if 'paymentMethodType' in external_payment_method_detail_body:
             self.__payment_method_type = external_payment_method_detail_body['paymentMethodType']
 
+
     def to_ams_dict(self):
         params = dict()
         if self.payment_method_detail_type:
@@ -122,5 +124,6 @@ class PaymentMethodDetail(object):
             params['extendInfo'] = self.extend_info
         if self.payment_method_type:
             params['paymentMethodType'] = self.payment_method_type
+
 
         return params

@@ -42,6 +42,7 @@ class CardPaymentMethodDetail(object):
         self.__cpf = None
         self.__payer_email = None
         self.__network_transaction_id = None
+        self.__is_3DS_authentication = None
 
     @property
     def card_token(self):
@@ -279,6 +280,14 @@ class CardPaymentMethodDetail(object):
     def network_transaction_id(self, value):
         self.__network_transaction_id = value
 
+    @property
+    def is_3DS_authentication(self):
+        return self.__is_3DS_authentication
+
+    @is_3DS_authentication.setter
+    def is_3DS_authentication(self, value):
+        self.__is_3DS_authentication = value
+
 
     def parse_rsp_body(self, card_payment_method_detail_body):
         if type(card_payment_method_detail_body) == str:
@@ -378,6 +387,8 @@ class CardPaymentMethodDetail(object):
             self.__payer_email = card_payment_method_detail_body['payerEmail']
         if 'networkTransactionId' in card_payment_method_detail_body:
             self.__network_transaction_id = card_payment_method_detail_body['networkTransactionId']
+        if 'is3DSAuthentication' in card_payment_method_detail_body:
+            self.__is_3DS_authentication = card_payment_method_detail_body['is3DSAuthentication']
 
     def to_ams_dict(self):
         params = dict()
@@ -441,4 +452,6 @@ class CardPaymentMethodDetail(object):
             params['payerEmail'] = self.payer_email
         if self.network_transaction_id:
             params['networkTransactionId'] = self.network_transaction_id
+        if self.is_3DS_authentication:
+            params['is3DSAuthentication'] = self.is_3DS_authentication
         return params
