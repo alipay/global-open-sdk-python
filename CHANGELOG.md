@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 - 2024-01-06
+* [#25](https://github.com/alipay/global-open-sdk-python/pull/25)  feature-250105
+  - 订阅支付新增“更新接口”
+
 ## 1.4.0 - 2024-12-24
 * [#24](https://github.com/alipay/global-open-sdk-python/pull/24)  feature-241224
   - CKP二期支持商户传入可选支付方式列表
