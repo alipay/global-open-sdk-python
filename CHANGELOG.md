@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2 - 2024-01-22
+* [#26](https://github.com/alipay/global-open-sdk-python/pull/26)  feature-250122
+  - update promotionResults
+
 ## 1.4.1 - 2024-01-06
 * [#25](https://github.com/alipay/global-open-sdk-python/pull/25)  feature-250105
   - 订阅支付新增“更新接口”
