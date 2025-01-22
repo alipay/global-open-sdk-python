@@ -1,7 +1,7 @@
 ```
 Language：Python  
 Python version：2.7+  
-Releass ^1.4.1
+Releass ^1.4.2
 Copyright：Ant financial services group  
 ```
 

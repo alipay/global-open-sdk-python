@@ -37,7 +37,7 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__settlement_quote = None  # type: Quote
         self.__acquirer_reference_no = None
         self.__payment_result_info = None  # type: PaymentResultInfo
-        self.__promotion_result = None  # type: PromotionResult
+        self.__promotion_results = None  # type: PromotionResult
         self.__earliest_settlement_time = None
         self.__parse_rsp_body(rsp_body)
 
@@ -130,8 +130,8 @@ class AlipayPayQueryResponse(AlipayResponse):
         return self.__payment_result_info
 
     @property
-    def promotion_result(self):
-        return self.__promotion_result
+    def promotion_results(self):
+        return self.__promotion_results
 
     @property
     def earliest_settlement_time(self):
@@ -236,10 +236,10 @@ class AlipayPayQueryResponse(AlipayResponse):
             payment_result_info.parse_rsp_body(response['paymentResultInfo'])
             self.__payment_result_info = payment_result_info
 
-        if 'promotionResult' in response:
-            promotion_result = PromotionResult()
-            promotion_result.parse_rsp_body(response['promotionResult'])
-            self.__promotion_result = promotion_result
+        if 'promotionResults' in response:
+            promotion_results = PromotionResult()
+            promotion_results.parse_rsp_body(response['promotionResults'])
+            self.__promotion_results = promotion_results
 
         if 'earliestSettlementTime' in response:
             self.__earliest_settlement_time = response['earliestSettlementTime']
