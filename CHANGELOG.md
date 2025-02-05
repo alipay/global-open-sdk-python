@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3 - 2024-02-05
+* [#27](https://github.com/alipay/global-open-sdk-python/pull/27)  feature-250205
+  - 支付、查询、支付结果通知新增卡相关信息字段
+
 ## 1.4.2 - 2024-01-22
 * [#26](https://github.com/alipay/global-open-sdk-python/pull/26)  feature-250122
   - update promotionResults
