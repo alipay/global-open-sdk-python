@@ -14,6 +14,9 @@ class Goods(object):
         self.__goods_quantity = None
         self.__goods_sku_name = None
         self.__delivery_method_type = None  # type:DeliveryMethodType
+        self.__goods_url = None
+        self.__goods_image_url = None
+        self.__price_id = None
 
     @property
     def reference_goods_id(self):
@@ -79,6 +82,30 @@ class Goods(object):
     def delivery_method_type(self, value):
         self.__delivery_method_type = value
 
+    @property
+    def goods_url(self):
+        return self.__goods_url
+
+    @goods_url.setter
+    def goods_url(self, value):
+        self.__goods_url = value
+
+    @property
+    def goods_image_url(self):
+        return self.__goods_image_url
+
+    @goods_image_url.setter
+    def goods_image_url(self, value):
+        self.__goods_image_url = value
+
+    @property
+    def price_id(self):
+        return self.__price_id
+
+    @price_id.setter
+    def price_id(self, value):
+        self.__price_id = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_goods_id") and self.reference_goods_id:
@@ -104,5 +131,14 @@ class Goods(object):
 
         if hasattr(self, "delivery_method_type") and self.delivery_method_type:
             params['deliveryMethodType'] = self.delivery_method_type
+
+        if hasattr(self, "goods_url") and self.goods_url:
+            params['goodsUrl'] = self.goods_url
+
+        if hasattr(self, "goods_image_url") and self.goods_image_url:
+            params['goodsImageUrl'] = self.goods_image_url
+
+        if hasattr(self, "price_id") and self.price_id:
+            params['priceId'] = self.price_id
 
         return params
