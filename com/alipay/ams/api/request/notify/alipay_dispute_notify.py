@@ -2,11 +2,6 @@ from com.alipay.ams.api.model.dispute_accept_reason_type import DisputeAcceptRea
 from com.alipay.ams.api.model.dispute_notification_type import DisputeNotificationType
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
 
-
-class DisputeJudgedResult:
-    pass
-
-
 class AlipayDisputeNotify(AlipayNotify):
 
     def __init__(self, notify_body):

@@ -35,6 +35,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__saved_payment_methods = None # type: list[PaymentMethod]
         self.__locale = None
         self.__available_payment_method = None # type: list[AvailablePaymentMethod]
+        self.__allowed_payment_method_regions = None # type: list[str]
 
     @property
     def product_code(self):
