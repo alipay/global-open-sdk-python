@@ -15,6 +15,12 @@ class PaymentResultInfo(object):
         self.__payment_method_region = None
         self.__three_dS_result = None  # type: ThreeDSResult
         self.__credit_pay_plan = None
+        self.__cardholder_name = None
+        self.__cardB_bin = None
+        self.__last_four = None
+        self.__expiry_month = None
+        self.__expiry_year = None
+
 
     @property
     def avs_result_raw(self):
@@ -104,6 +110,46 @@ class PaymentResultInfo(object):
     def credit_pay_plan(self, value):
         self.__credit_pay_plan = value
 
+    @property
+    def cardholder_name(self):
+        return self.__cardholder_name
+
+    @cardholder_name.setter
+    def cardholder_name(self, value):
+        self.__cardholder_name = value
+
+    @property
+    def cardB_bin(self):
+        return self.__cardB_bin
+
+    @cardB_bin.setter
+    def cardB_bin(self, value):
+        self.__cardB_bin = value
+
+    @property
+    def last_four(self):
+        return self.__last_four
+
+    @last_four.setter
+    def last_four(self, value):
+        self.__last_four = value
+
+    @property
+    def expiry_month(self):
+        return self.__expiry_month
+
+    @expiry_month.setter
+    def expiry_month(self, value):
+        self.__expiry_month = value
+
+    @property
+    def expiry_year(self):
+        return self.__expiry_year
+
+    @expiry_year.setter
+    def expiry_year(self, value):
+        self.__expiry_year = value
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'avs_result_raw') and self.avs_result_raw:
@@ -128,6 +174,16 @@ class PaymentResultInfo(object):
             param['threeDSResult'] = self.three_dS_result
         if hasattr(self, 'credit_pay_plan') and self.credit_pay_plan:
             param['creditPayPlan'] = self.credit_pay_plan
+        if hasattr(self, 'cardholder_name') and self.cardholder_name:
+            param['cardholderName'] = self.cardholder_name
+        if hasattr(self, 'cardB_bin') and self.cardB_bin:
+            param['cardBin'] = self.cardB_bin
+        if hasattr(self, 'last_four') and self.last_four:
+            param['lastFour'] = self.last_four
+        if hasattr(self, 'expiry_month') and self.expiry_month:
+            param['expiryMonth'] = self.expiry_month
+        if hasattr(self, 'expiry_year') and self.expiry_year:
+            param['expiryYear'] = self.expiry_year
 
         return param
 
@@ -157,3 +213,13 @@ class PaymentResultInfo(object):
             self.three_dS_result = payment_result_info_body['threeDSResult']
         if 'creditPayPlan' in payment_result_info_body:
             self.credit_pay_plan = payment_result_info_body['creditPayPlan']
+        if 'cardholderName' in payment_result_info_body:
+            self.cardholder_name = payment_result_info_body['cardholderName']
+        if 'cardBin' in payment_result_info_body:
+            self.cardB_bin = payment_result_info_body['cardBin']
+        if 'lastFour' in payment_result_info_body:
+            self.last_four = payment_result_info_body['lastFour']
+        if 'expiryMonth' in payment_result_info_body:
+            self.expiry_month = payment_result_info_body['expiryMonth']
+        if 'expiryYear' in payment_result_info_body:
+            self.expiry_year = payment_result_info_body['expiryYear']
