@@ -1,19 +1,17 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
-
-
 @unique
 class PaymentMethodCategoryType(Enum):
-    WALLET = "WALLET"
-    CARD = "CARD"
+    """PaymentMethodCategoryType枚举类"""
+
     ALIPAY_PLUS = "ALIPAY_PLUS"
-    BANK_TRANSFER = "BANK_TRANSFER"
+    WALLET = "WALLET"
     MOBILE_BANKING_APP = "MOBILE_BANKING_APP"
+    BANK_TRANSFER = "BANK_TRANSFER"
     ONLINE_BANKING = "ONLINE_BANKING"
+    CARD = "CARD"
     OTC = "OTC"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -21,9 +19,18 @@ class PaymentMethodCategoryType(Enum):
         if not value:
             return None
 
+        if PaymentMethodCategoryType.ALIPAY_PLUS.value == value:
+            return PaymentMethodCategoryType.ALIPAY_PLUS
         if PaymentMethodCategoryType.WALLET.value == value:
             return PaymentMethodCategoryType.WALLET
-        elif PaymentMethodCategoryType.CARD.value == value:
+        if PaymentMethodCategoryType.MOBILE_BANKING_APP.value == value:
+            return PaymentMethodCategoryType.MOBILE_BANKING_APP
+        if PaymentMethodCategoryType.BANK_TRANSFER.value == value:
+            return PaymentMethodCategoryType.BANK_TRANSFER
+        if PaymentMethodCategoryType.ONLINE_BANKING.value == value:
+            return PaymentMethodCategoryType.ONLINE_BANKING
+        if PaymentMethodCategoryType.CARD.value == value:
             return PaymentMethodCategoryType.CARD
-        else:
-            return None
+        if PaymentMethodCategoryType.OTC.value == value:
+            return PaymentMethodCategoryType.OTC
+        return None
