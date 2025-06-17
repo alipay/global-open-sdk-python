@@ -1,0 +1,26 @@
+from enum import Enum, unique
+@unique
+class {{classname}}(Enum):
+    """{{#description}}{{description}}{{/description}}{{^description}}{{classname}}枚举类{{/description}}"""
+
+    {{#allowableValues}}
+    {{#enumVars}}
+    {{name}} = "{{name}}"
+    {{/enumVars}}
+    {{/allowableValues}}
+
+    def to_ams_dict(self) -> str:
+        return self.name
+
+    @staticmethod
+    def value_of(value):
+        if not value:
+            return None
+
+        {{#allowableValues}}
+        {{#enumVars}}
+        if {{classname}}.{{name}}.value == value:
+            return {{classname}}.{{name}}
+        {{/enumVars}}
+        {{/allowableValues}}
+        return None

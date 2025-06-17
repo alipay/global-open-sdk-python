@@ -1,0 +1,98 @@
+{{#models}}
+{{#model}}
+{{#isEnum}}
+{{>enum}}
+{{/isEnum}}
+{{^isEnum}}
+import json
+{{#vars}}
+{{#lambdas.PyImport}}{{name}}   {{dataType}}
+{{/lambdas.PyImport}}
+{{/vars}}
+
+
+
+{{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 1
+{{/lambdas.PyParent}}
+
+class {{classname}}{{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 2{{/lambdas.PyParent}}:
+    def __init__(self{{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 6{{/lambdas.PyParent}}):
+        {{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 3 {{/lambdas.PyParent}}
+        {{#vars}}
+        self.__{{name}} = {{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 8  {{name}}{{/lambdas.PyParent}}  # type: {{dataType}}
+        {{/vars}}
+        {{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 7 {{/lambdas.PyParent}}
+
+    {{#vars}}
+    @property
+    def {{name}}(self):
+        """{{^description}}Gets the {{name}} of this {{classname}}.{{/description}}
+        {{description}}
+        """
+        return self.__{{name}}
+
+    @{{name}}.setter
+    def {{name}}(self, value):
+        self.__{{name}} = value
+    {{/vars}}
+
+
+    {{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 4
+    {{/lambdas.PyParent}}
+
+
+    def to_ams_dict(self):
+        params = dict()
+        {{#vars}}
+        if hasattr(self, "{{name}}") and self.{{name}} is not None:
+            params['{{baseName}}'] = self.{{name}}
+        {{/vars}}
+        return params
+
+
+    def parse_rsp_body(self, response_body):
+        {{#lambdas.PyParent}}{{classname}}  {{serverUrl}} 5
+        {{/lambdas.PyParent}}
+        {{#vars}}
+        if '{{baseName}}' in response_body:
+            {{#isPrimitiveType}}
+            self.__{{name}} = response_body['{{baseName}}']
+            {{/isPrimitiveType}}
+            {{^isPrimitiveType}}
+            {{#isModel}}
+            self.__{{name}} = {{complexType}}()
+            self.__{{name}}.parse_rsp_body(response_body['{{baseName}}'])
+            {{/isModel}}
+            {{#isArray}}
+            self.__{{name}} = []
+            for item in response_body['{{baseName}}']:
+                {{#items.isModel}}
+                obj = {{items.complexType}}()
+                obj.parse_rsp_body(item)
+                self.__{{name}}.append(obj)
+                {{/items.isModel}}
+                {{^items.isModel}}
+                self.__{{name}}.append(item)
+                {{/items.isModel}}
+            {{/isArray}}
+            {{#isMap}}
+            self.__{{name}} = {}
+            for key, value in response_body['{{baseName}}'].items():
+                {{#items.isModel}}
+                obj = {{items.complexType}}()
+                obj.parse_rsp_body(value)
+                self.__{{name}}[key] = obj
+                {{/items.isModel}}
+                {{^items.isModel}}
+                self.__{{name}}[key] = value
+                {{/items.isModel}}
+            {{/isMap}}
+            {{#allowableValues}}
+            {{name}}_temp = {{dataType}}.value_of(response_body['{{baseName}}'])
+            self.__{{name}} = {{name}}_temp
+            {{/allowableValues}}
+            {{/isPrimitiveType}}
+        {{/vars}}
+{{/isEnum}}
+{{/model}}
+{{/models}}
