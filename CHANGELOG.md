@@ -1,5 +1,10 @@
 # Changelog
 
+
+## 1.4.4 - 2024-04-10
+  - pay/createPaymentSession支付接口支持订阅支付能力
+
+
 ## 1.4.4 - 2024-04-10
 * [#28](https://github.com/alipay/global-open-sdk-python/pull/28)  feature-250410
   - Antom 印度渠道接入AMS拒付相关接口的标准变更 

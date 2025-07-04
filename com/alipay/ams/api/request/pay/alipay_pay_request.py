@@ -12,6 +12,7 @@ from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
+from com.alipay.ams.api.model.subscription_info import SubscriptionInfo
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -39,6 +40,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__merchant_account_id = None
         self.__user_region = None
         self.__credit_pay_plan = None  # type: CreditPayPlan
+        self.__subscription_info = None # type: SubscriptionInfo
 
     @property
     def merchant_region(self):
@@ -200,6 +202,14 @@ class AlipayPayRequest(AlipayRequest):
     def credit_pay_plan(self, value):
         self.__credit_pay_plan = value
 
+    @property
+    def subscription_info(self):
+        return self.__subscription_info
+
+    @subscription_info.setter
+    def subscription_info(self, value):
+        self.__subscription_info = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -265,5 +275,8 @@ class AlipayPayRequest(AlipayRequest):
 
         if hasattr(self, "credit_pay_plan") and self.credit_pay_plan:
             params['creditPayPlan'] = self.credit_pay_plan
+
+        if hasattr(self, "subscription_info") and self.subscription_info:
+            params['subscriptionInfo'] = self.subscription_info
 
         return params

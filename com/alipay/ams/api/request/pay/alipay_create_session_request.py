@@ -9,6 +9,7 @@ from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
+from com.alipay.ams.api.model.subscription_info import SubscriptionInfo
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -36,6 +37,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__locale = None
         self.__available_payment_method = None # type: list[AvailablePaymentMethod]
         self.__allowed_payment_method_regions = None # type: list[str]
+        self.__subscription_info = None  # type: SubscriptionInfo
 
     @property
     def product_code(self):
@@ -181,6 +183,30 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def locale(self, value):
         self.__locale = value
 
+    @property
+    def allowed_payment_method_regions(self):
+        return self.__allowed_payment_method_regions
+
+    @allowed_payment_method_regions.setter
+    def allowed_payment_method_regions(self, value):
+        self.__allowed_payment_method_regions = value
+
+    @property
+    def available_payment_method(self):
+        return self.__available_payment_method
+
+    @available_payment_method.setter
+    def available_payment_method(self, value):
+        self.__available_payment_method = value
+
+    @property
+    def subscription_info(self):
+        return self.__subscription_info
+
+    @subscription_info.setter
+    def subscription_info(self, value):
+        self.__subscription_info = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -223,4 +249,10 @@ class AlipayCreateSessionRequest(AlipayRequest):
             params['savedPaymentMethods'] = self.saved_payment_methods
         if hasattr(self, "locale") and self.locale:
             params['locale'] = self.locale
+        if hasattr(self, "available_payment_method") and self.available_payment_method:
+            params['availablePaymentMethod'] = self.available_payment_method
+        if hasattr(self, "allowed_payment_method_regions") and self.allowed_payment_method_regions:
+            params['allowedPaymentMethodRegions'] = self.allowed_payment_method_regions
+        if hasattr(self, "subscription_info") and self.subscription_info:
+            params['subscriptionInfo'] = self.subscription_info
         return params
