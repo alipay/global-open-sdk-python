@@ -33,6 +33,8 @@ class AntomPathConstants(Enum):
     DOWNLOAD_DISPUTE_EVIDENCE_PATH = "/ams/api/v1/payments/downloadDisputeEvidence"
 
     REFUND_PATH = "/ams/api/v1/payments/refund"
+    RETRIEVE_PATH = "/ams/api//v1/payments/retrievePaymentSession";
+
     INQUIRY_REFUND_PATH = "/ams/api/v1/payments/inquiryRefund"
 
     DECLARE_PATH = "/ams/api/v1/customs/declare"

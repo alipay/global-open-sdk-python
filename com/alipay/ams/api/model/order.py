@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.buyer import Buyer
 from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.gaming import Gaming
@@ -27,6 +28,8 @@ class Order(object):
         self.__gaming = None  # type: Gaming
         self.__order_created_time = None
         self.__need_declaration = None
+        self.__order_discount_amount = None # type: Amount
+        self.__sub_total_order_amount = None # type: Amount
 
     @property
     def reference_order_id(self):
@@ -139,6 +142,23 @@ class Order(object):
     def need_declaration(self, value):
         self.__need_declaration = value
 
+    @property
+    def order_discount_amount(self):
+        return self.__order_discount_amount
+
+    @order_discount_amount.setter
+    def order_discount_amount(self, value):
+        self.__order_discount_amount = value
+
+
+    @property
+    def sub_total_order_amount(self):
+        return self.__sub_total_order_amount
+
+    @sub_total_order_amount.setter
+    def sub_total_order_amount(self, value):
+        self.__sub_total_order_amount = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_order_id") and self.reference_order_id:
@@ -182,5 +202,11 @@ class Order(object):
 
         if hasattr(self, "need_declaration") and self.need_declaration:
             params['needDeclaration'] = self.need_declaration
+
+        if hasattr(self, "order_discount_amount") and self.order_discount_amount:
+            params['orderDiscountAmount'] = self.order_discount_amount
+
+        if hasattr(self, "sub_total_order_amount") and self.sub_total_order_amount:
+            params['subTotalOrderAmount'] = self.sub_total_order_amount
 
         return params

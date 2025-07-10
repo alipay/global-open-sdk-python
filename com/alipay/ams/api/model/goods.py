@@ -17,6 +17,8 @@ class Goods(object):
         self.__goods_url = None
         self.__goods_image_url = None
         self.__price_id = None
+        self.__goods_discount_amount = None # type:Amount
+        self.__cross_sell = None # type:Goods
 
     @property
     def reference_goods_id(self):
@@ -106,6 +108,23 @@ class Goods(object):
     def price_id(self, value):
         self.__price_id = value
 
+    @property
+    def goods_discount_amount(self):
+        return self.__goods_discount_amount
+
+    @goods_discount_amount.setter
+    def goods_discount_amount(self, value):
+        self.__goods_discount_amount = value
+
+    @property
+    def cross_sell(self):
+        return self.__cross_sell
+
+    @cross_sell.setter
+    def cross_sell(self, value):
+        self.__cross_sell = value
+
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_goods_id") and self.reference_goods_id:
@@ -140,5 +159,10 @@ class Goods(object):
 
         if hasattr(self, "price_id") and self.price_id:
             params['priceId'] = self.price_id
+
+        if hasattr(self, "goods_discount_amount") and self.goods_discount_amount:
+            params['goodsDiscountAmount'] = self.goods_discount_amount
+        if hasattr(self, "cross_sell") and self.cross_sell:
+            params['crossSell'] = self.cross_sell
 
         return params
