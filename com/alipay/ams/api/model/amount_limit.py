@@ -1,44 +1,67 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
 
-from com.alipay.ams.api.model.amount import Amount
 
 
-class AmountLimit(object):
+
+class AmountLimit:
     def __init__(self):
-        self.__max_amount = None
-        self.__min_amount = None
-        self.__remain_amount = None
+        
+        self.__max_amount = None  # type: str
+        self.__min_amount = None  # type: str
+        self.__remain_amount = None  # type: str
+        
 
     @property
     def max_amount(self):
+        """Gets the max_amount of this AmountLimit.
+        
+        """
         return self.__max_amount
 
+    @max_amount.setter
+    def max_amount(self, value):
+        self.__max_amount = value
     @property
     def min_amount(self):
+        """Gets the min_amount of this AmountLimit.
+        
+        """
         return self.__min_amount
 
+    @min_amount.setter
+    def min_amount(self, value):
+        self.__min_amount = value
     @property
     def remain_amount(self):
+        """Gets the remain_amount of this AmountLimit.
+        
+        """
         return self.__remain_amount
 
-    def parse_rsp_body(self, amount_limit_body):
-        if type(amount_limit_body) == str:
-            amount_limit_body = json.loads(amount_limit_body)
+    @remain_amount.setter
+    def remain_amount(self, value):
+        self.__remain_amount = value
 
-        if 'maxAmount' in amount_limit_body:
-            max_amount = Amount()
-            max_amount.parse_rsp_body(amount_limit_body['maxAmount'])
-            self.__max_amount = max_amount
 
-        if 'minAmount' in amount_limit_body:
-            min_amount = Amount()
-            min_amount.parse_rsp_body(amount_limit_body['minAmount'])
-            self.__min_amount = min_amount
+    
 
-        if 'remainAmount' in amount_limit_body:
-            remain_amount = Amount()
-            remain_amount.parse_rsp_body(amount_limit_body['remainAmount'])
-            self.__remain_amount = remain_amount
+    def to_ams_dict(self):
+        params = dict()
+        if hasattr(self, "max_amount") and self.max_amount is not None:
+            params['maxAmount'] = self.max_amount
+        if hasattr(self, "min_amount") and self.min_amount is not None:
+            params['minAmount'] = self.min_amount
+        if hasattr(self, "remain_amount") and self.remain_amount is not None:
+            params['remainAmount'] = self.remain_amount
+        return params
+
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str): 
+            response_body = json.loads(response_body)
+        if 'maxAmount' in response_body:
+            self.__max_amount = response_body['maxAmount']
+        if 'minAmount' in response_body:
+            self.__min_amount = response_body['minAmount']
+        if 'remainAmount' in response_body:
+            self.__remain_amount = response_body['remainAmount']
