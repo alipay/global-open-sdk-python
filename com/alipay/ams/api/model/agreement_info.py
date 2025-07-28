@@ -23,10 +23,10 @@ class AgreementInfo(object):
         self.__user_login_id = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
 
-    def __to_ams_dict(self):
+    def to_ams_dict(self):
         params = dict()
         if self.__auth_state is not None:
             params['authState'] = self.__auth_state
