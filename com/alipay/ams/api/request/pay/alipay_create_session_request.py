@@ -38,6 +38,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__available_payment_method = None # type: list[AvailablePaymentMethod]
         self.__allowed_payment_method_regions = None # type: list[str]
         self.__subscription_info = None  # type: SubscriptionInfo
+        self.__user_region= None
 
     @property
     def product_code(self):
@@ -207,6 +208,15 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def subscription_info(self, value):
         self.__subscription_info = value
 
+
+    @property
+    def user_region(self):
+        return self.__user_region
+
+    @user_region.setter
+    def user_region(self, value):
+        self.__user_region = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -255,4 +265,6 @@ class AlipayCreateSessionRequest(AlipayRequest):
             params['allowedPaymentMethodRegions'] = self.allowed_payment_method_regions
         if hasattr(self, "subscription_info") and self.subscription_info:
             params['subscriptionInfo'] = self.subscription_info
+        if hasattr(self, "user_region") and self.user_region:
+            params['userRegion'] = self.user_region
         return params

@@ -8,6 +8,8 @@ class ThreeDSResult(object):
         self.__cavv = None
         self.__ds_transaction_id = None
         self.__xid = None
+        self.__three_ds_transaction_status_reason = None
+        self.__challenge_cancel = None
 
     @property
     def three_ds_version(self):
@@ -49,6 +51,23 @@ class ThreeDSResult(object):
     def xid(self, value):
         self.__xid = value
 
+    @property
+    def three_ds_transaction_status_reason(self):
+        return self.__three_ds_transaction_status_reason
+
+    @three_ds_transaction_status_reason.setter
+    def three_ds_transaction_status_reason(self, value):
+        self.__three_ds_transaction_status_reason = value
+
+    @property
+    def challenge_cancel(self):
+        return self.__challenge_cancel
+
+
+    @challenge_cancel.setter
+    def challenge_cancel(self, value):
+        self.__challenge_cancel = value
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'three_ds_version') and self.three_ds_version:
@@ -61,6 +80,10 @@ class ThreeDSResult(object):
             param['dsTransactionId'] = self.ds_transaction_id
         if hasattr(self, 'xid') and self.xid:
             param['xid'] = self.xid
+        if hasattr(self, 'three_ds_transaction_status_reason') and self.three_ds_transaction_status_reason:
+            param['threeDSTransactionStatusReason'] = self.three_ds_transaction_status_reason
+        if hasattr(self, 'challenge_cancel') and self.challenge_cancel:
+            param['challengeCancel'] = self.challenge_cancel
         return param
 
     def parse_rsp_body(self, three_dS_result_body):
@@ -76,3 +99,7 @@ class ThreeDSResult(object):
             self.ds_transaction_id = three_dS_result_body['dsTransactionId']
         if 'xid' in three_dS_result_body:
             self.xid = three_dS_result_body['xid']
+        if 'threeDSTransactionStatusReason' in three_dS_result_body:
+            self.three_ds_transaction_status_reason = three_dS_result_body['threeDSTransactionStatusReason']
+        if 'challengeCancel' in three_dS_result_body:
+            self.challenge_cancel = three_dS_result_body['challengeCancel']

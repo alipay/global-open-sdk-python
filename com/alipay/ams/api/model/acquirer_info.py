@@ -10,6 +10,7 @@ class AcquirerInfo:
         self.__acquirer_merchant_id = None
         self.__acquirer_result_code = None
         self.__acquirer_result_message = None
+        self.__acquirer_merchant_name = None
 
     @property
     def acquirer_name(self):
@@ -59,6 +60,15 @@ class AcquirerInfo:
     def acquirer_result_message(self, acquirer_result_message):
         self.__acquirer_result_message = acquirer_result_message
 
+    @property
+    def acquirer_merchant_name(self):
+        return self.__acquirer_merchant_name
+
+
+    @acquirer_merchant_name.setter
+    def acquirer_merchant_name(self, acquirer_merchant_name):
+        self.__acquirer_merchant_name = acquirer_merchant_name
+
     def parse_rsp_body(self, result_body):
         if type(result_body) == str:
             payment_result_info_body = json.loads(result_body)
@@ -80,6 +90,9 @@ class AcquirerInfo:
 
         if 'acquirerResultMessage' in result_body:
             self.__acquirer_result_message = result_body['acquirerResultMessage']
+
+        if 'acquirerMerchantName' in result_body:
+            self.__acquirer_merchant_name = result_body['acquirerMerchantName']
 
 
 

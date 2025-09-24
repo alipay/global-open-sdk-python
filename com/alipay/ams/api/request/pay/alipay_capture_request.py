@@ -5,6 +5,7 @@ import json
 
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
+from com.alipay.ams.api.model.transit import Transit
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -16,6 +17,8 @@ class AlipayCaptureRequest(AlipayRequest):
         self.__payment_id = None
         self.__capture_amount = None  # type: Amount
         self.__is_last_capture = None
+        self.__capture_type = None
+        self.__transit = None # type: Transit
 
     @property
     def capture_request_id(self):
@@ -49,6 +52,22 @@ class AlipayCaptureRequest(AlipayRequest):
     def is_last_capture(self, value):
         self.__is_last_capture = value
 
+    @property
+    def capture_type(self):
+        return self.__capture_type
+
+    @capture_type.setter
+    def capture_type(self, value):
+        self.__capture_type = value
+
+    @property
+    def transit(self):
+        return self.__transit
+
+    @transit.setter
+    def transit(self, value):
+        self.__transit = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -66,5 +85,11 @@ class AlipayCaptureRequest(AlipayRequest):
 
         if hasattr(self, "is_last_capture") and self.is_last_capture:
             params['isLastCapture'] = self.is_last_capture
+
+        if hasattr(self, "capture_type") and self.capture_type:
+            params['captureType'] = self.capture_type
+
+        if hasattr(self, "transit") and self.transit:
+            params['transit'] = self.transit
 
         return params

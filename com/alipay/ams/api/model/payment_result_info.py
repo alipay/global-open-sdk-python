@@ -1,5 +1,8 @@
 import json
 
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
+from com.alipay.ams.api.model.three_ds_result import ThreeDSResult
+
 
 class PaymentResultInfo(object):
 
@@ -20,6 +23,11 @@ class PaymentResultInfo(object):
         self.__last_four = None
         self.__expiry_month = None
         self.__expiry_year = None
+        self.__account_no = None
+        self.__refusal_code_raw = None
+        self.__refusal_reason_raw = None
+        self.__merchant_advice_code = None
+        self.__acquirer_info = None #type: AcquirerInfo
 
 
     @property
@@ -150,6 +158,50 @@ class PaymentResultInfo(object):
     def expiry_year(self, value):
         self.__expiry_year = value
 
+
+    @property
+    def account_no(self):
+        return self.__account_no
+
+    @account_no.setter
+    def account_no(self, value):
+        self.__account_no = value
+
+    @property
+    def refusal_code_raw(self):
+        return self.__refusal_code_raw
+
+    @refusal_code_raw.setter
+    def refusal_code_raw(self, value):
+        self.__refusal_code_raw = value
+
+
+    @property
+    def refusal_reason_raw(self):
+        return self.__refusal_reason_raw
+
+    @refusal_reason_raw.setter
+    def refusal_reason_raw(self, value):
+        self.__refusal_reason_raw = value
+
+    @property
+    def merchant_advice_code(self):
+        return self.__merchant_advice_code
+
+    @merchant_advice_code.setter
+    def merchant_advice_code(self, value):
+        self.__merchant_advice_code = value
+
+    @property
+    def acquirer_info(self):
+        return self.__acquirer_info
+
+    @acquirer_info.setter
+    def acquirer_info(self, value):
+        self.__acquirer_info = value
+
+
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'avs_result_raw') and self.avs_result_raw:
@@ -184,6 +236,16 @@ class PaymentResultInfo(object):
             param['expiryMonth'] = self.expiry_month
         if hasattr(self, 'expiry_year') and self.expiry_year:
             param['expiryYear'] = self.expiry_year
+        if hasattr(self, 'account_no') and self.account_no:
+            param['accountNo'] = self.account_no
+        if hasattr(self, 'refusal_code_raw') and self.refusal_code_raw:
+            param['refusalCodeRaw'] = self.refusal_code_raw
+        if hasattr(self, 'refusal_reason_raw') and self.refusal_reason_raw:
+            param['refusalReasonRaw'] = self.refusal_reason_raw
+        if hasattr(self, 'merchant_advice_code') and self.merchant_advice_code:
+            param['merchantAdviceCode'] = self.merchant_advice_code
+        if hasattr(self, 'acquirer_info') and self.acquirer_info:
+            param['acquirerInfo'] = self.acquirer_info
 
         return param
 
@@ -223,3 +285,13 @@ class PaymentResultInfo(object):
             self.expiry_month = payment_result_info_body['expiryMonth']
         if 'expiryYear' in payment_result_info_body:
             self.expiry_year = payment_result_info_body['expiryYear']
+        if 'accountNo' in payment_result_info_body:
+            self.account_no = payment_result_info_body['accountNo']
+        if 'refusalCodeRaw' in payment_result_info_body:
+            self.refusal_code_raw = payment_result_info_body['refusalCodeRaw']
+        if 'refusalReasonRaw' in payment_result_info_body:
+            self.refusal_reason_raw = payment_result_info_body['refusalReasonRaw']
+        if 'merchantAdviceCode' in payment_result_info_body:
+            self.merchant_advice_code = payment_result_info_body['merchantAdviceCode']
+        if 'acquirerInfo' in payment_result_info_body:
+            self.acquirer_info = payment_result_info_body['acquirerInfo']

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import json
 
+from com.alipay.ams.api.model.funding_type import FundingType
+
 
 class PaymentMethod(object):
     def __init__(self):
@@ -10,6 +12,8 @@ class PaymentMethod(object):
         self.__payment_method_meta_data = None #type: map
         self.__customer_id = None
         self.__extend_info = None
+        self.__require_issuer_authentication = None #type: bool
+        self.funding = None #type: FundingType
 
     @property
     def payment_method_type(self):
@@ -51,6 +55,21 @@ class PaymentMethod(object):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def require_issuer_authentication(self):
+        return self.__require_issuer_authentication
+    @require_issuer_authentication.setter
+    def require_issuer_authentication(self, value):
+        self.__require_issuer_authentication = value
+
+    @property
+    def funding(self):
+        return self.__funding
+
+    @funding.setter
+    def funding(self, value):
+        self.__funding = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "payment_method_type") and self.payment_method_type:
@@ -68,6 +87,12 @@ class PaymentMethod(object):
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
 
+        if hasattr(self, "require_issuer_authentication") and self.require_issuer_authentication:
+            params['requireIssuerAuthentication'] = self.require_issuer_authentication
+
+        if hasattr(self, "funding") and self.funding:
+            params['funding'] = self.funding
+
         return params
 
     def parse_rsp_body(self, response_body):
@@ -84,3 +109,7 @@ class PaymentMethod(object):
             self.payment_method_id = response_body['paymentMethodId']
         if 'extendInfo' in response_body:
             self.extend_info = response_body['extendInfo']
+        if 'requireIssuerAuthentication' in response_body:
+            self.require_issuer_authentication = response_body['requireIssuerAuthentication']
+        if 'funding' in response_body:
+            self.funding = response_body['funding']
