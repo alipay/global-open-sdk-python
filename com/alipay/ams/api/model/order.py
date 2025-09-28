@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.buyer import Buyer
+from com.alipay.ams.api.model.declaration import Declaration
 from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.gaming import Gaming
 from com.alipay.ams.api.model.goods import Goods
@@ -30,6 +31,7 @@ class Order(object):
         self.__need_declaration = None
         self.__order_discount_amount = None # type: Amount
         self.__sub_total_order_amount = None # type: Amount
+        self.__declaration = None  # type: Declaration
 
     @property
     def reference_order_id(self):
@@ -159,6 +161,17 @@ class Order(object):
     def sub_total_order_amount(self, value):
         self.__sub_total_order_amount = value
 
+    @property
+    def declaration(self):
+        """Gets the declaration of this Order.
+
+        """
+        return self.__declaration
+
+    @declaration.setter
+    def declaration(self, value):
+        self.__declaration = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_order_id") and self.reference_order_id:
@@ -208,5 +221,7 @@ class Order(object):
 
         if hasattr(self, "sub_total_order_amount") and self.sub_total_order_amount:
             params['subTotalOrderAmount'] = self.sub_total_order_amount
+        if hasattr(self, "declaration") and self.declaration is not None:
+            params['declaration'] = self.declaration
 
         return params
