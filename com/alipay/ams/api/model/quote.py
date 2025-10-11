@@ -3,6 +3,8 @@
 
 import json
 
+from com.alipay.ams.api.model.amount import Amount
+
 
 class Quote(object):
     def __init__(self):
@@ -12,6 +14,7 @@ class Quote(object):
         self.__quote_start_time = None
         self.__quote_expiry_time = None
         self.__guaranteed = None
+        self.__exchange_amount = None #type: Amount
 
     @property
     def quote_id(self):
@@ -61,6 +64,14 @@ class Quote(object):
     def guaranteed(self, value):
         self.__guaranteed = value
 
+    @property
+    def exchange_amount(self):
+        return self.__exchange_amount
+
+    @exchange_amount.setter
+    def exchange_amount(self, value):
+        self.__exchange_amount = value
+
     def parse_rsp_body(self, quote_body):
         if type(quote_body) == str:
             quote_body = json.loads(quote_body)
@@ -82,3 +93,8 @@ class Quote(object):
 
         if 'guaranteed' in quote_body:
             self.__guaranteed = quote_body['guaranteed']
+
+
+        if 'exchangeAmount' in quote_body:
+            self.__exchange_amount = Amount()
+            self.__exchange_amount.parse_rsp_body(quote_body['exchangeAmount'])

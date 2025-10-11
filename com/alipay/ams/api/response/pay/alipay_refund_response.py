@@ -21,6 +21,7 @@ class AlipayRefundResponse(AlipayResponse):
         self.__settlement_quote = None  # type: Quote
         self.__refund_details = None  # type:list:RefundDetail
         self.__refund_source_account_no = None
+        self.__actual_refund_amount = None  # type: Amount
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -67,6 +68,11 @@ class AlipayRefundResponse(AlipayResponse):
     def refund_source_account_no(self):
         return self.__refund_source_account_no
 
+    @property
+    def actual_refund_amount(self):
+        return self.__actual_refund_amount
+
+
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayRefundResponse, self).parse_rsp_body(rsp_body)
         if 'refundRequestId' in response:
@@ -109,3 +115,8 @@ class AlipayRefundResponse(AlipayResponse):
 
         if 'refundSourceAccountNo' in response:
             self.__refund_source_account_no = response['refundSourceAccountNo']
+
+        if 'actualRefundAmount' in response:
+            actual_refund_amount = Amount()
+            actual_refund_amount.parse_rsp_body(response['actualRefundAmount'])
+            self.__actual_refund_amount = actual_refund_amount
