@@ -28,6 +28,7 @@ class PaymentResultInfo(object):
         self.__refusal_reason_raw = None
         self.__merchant_advice_code = None
         self.__acquirer_info = None #type: AcquirerInfo
+        self.__exemption_requested = None
 
 
     @property
@@ -200,6 +201,13 @@ class PaymentResultInfo(object):
     def acquirer_info(self, value):
         self.__acquirer_info = value
 
+    @property
+    def exemption_requested(self):
+        return self.__exemption_requested
+
+    @exemption_requested.setter
+    def exemption_requested(self, value):
+        self.__exemption_requested = value
 
 
     def to_ams_dict(self):
@@ -246,6 +254,9 @@ class PaymentResultInfo(object):
             param['merchantAdviceCode'] = self.merchant_advice_code
         if hasattr(self, 'acquirer_info') and self.acquirer_info:
             param['acquirerInfo'] = self.acquirer_info
+
+        if hasattr(self, 'exemption_requested') and self.exemption_requested:
+            param['exemptionRequested'] = self.exemption_requested
 
         return param
 
@@ -295,3 +306,6 @@ class PaymentResultInfo(object):
             self.merchant_advice_code = payment_result_info_body['merchantAdviceCode']
         if 'acquirerInfo' in payment_result_info_body:
             self.acquirer_info = payment_result_info_body['acquirerInfo']
+
+        if 'exemptionRequested' in payment_result_info_body:
+            self.exemption_requested = payment_result_info_body['exemptionRequested']

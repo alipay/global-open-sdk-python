@@ -10,6 +10,8 @@ class ThreeDSResult(object):
         self.__xid = None
         self.__three_ds_transaction_status_reason = None
         self.__challenge_cancel = None
+        self.__challenged = None
+        self.__exemption_type = None
 
     @property
     def three_ds_version(self):
@@ -68,6 +70,24 @@ class ThreeDSResult(object):
     def challenge_cancel(self, value):
         self.__challenge_cancel = value
 
+
+    @property
+    def challenged(self):
+        return self.__challenged
+
+    @challenged.setter
+    def challenged(self, value):
+        self.__challenged = value
+
+
+    @property
+    def exemption_type(self):
+        return self.__exemption_type
+
+    @exemption_type.setter
+    def exemption_type(self, value):
+        self.__exemption_type = value
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'three_ds_version') and self.three_ds_version:
@@ -84,6 +104,12 @@ class ThreeDSResult(object):
             param['threeDSTransactionStatusReason'] = self.three_ds_transaction_status_reason
         if hasattr(self, 'challenge_cancel') and self.challenge_cancel:
             param['challengeCancel'] = self.challenge_cancel
+        if hasattr(self, 'challenged') and self.challenged:
+            param['challenged'] = self.challenged
+
+        if hasattr(self, 'exemption_type') and self.exemption_type:
+            param['exemptionType'] = self.exemption_type
+
         return param
 
     def parse_rsp_body(self, three_dS_result_body):
@@ -103,3 +129,9 @@ class ThreeDSResult(object):
             self.three_ds_transaction_status_reason = three_dS_result_body['threeDSTransactionStatusReason']
         if 'challengeCancel' in three_dS_result_body:
             self.challenge_cancel = three_dS_result_body['challengeCancel']
+
+        if 'challenged' in three_dS_result_body:
+            self.challenged = three_dS_result_body['challenged']
+
+        if 'exemptionType' in three_dS_result_body:
+            self.exemption_type = three_dS_result_body['exemptionType']

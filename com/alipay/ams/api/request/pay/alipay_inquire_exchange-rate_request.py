@@ -6,6 +6,7 @@ from typing import List
 
 from com.alipay.ams.api.model.antom_path_constants import AntomPathConstants
 from com.alipay.ams.api.model.currency_pair import CurrencyPair
+from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 
@@ -18,6 +19,7 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
         self.__currency_pairs = None # type: List[CurrencyPair]
         self.__sell_currency = None
         self.__buy_currency = None
+        self.__product_code = None # type: ProductCodeType
 
     @property
     def merchant_account_id(self):
@@ -66,6 +68,17 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
         self.__buy_currency = value
 
 
+
+
+    @property
+    def product_code(self):
+        return self.__product_code
+
+    @product_code.setter
+    def product_code(self, value):
+        self.__product_code = value
+
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), indent=3)
         return json_str
@@ -89,5 +102,8 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
 
         if hasattr(self, "extend_info") and self.extend_info:
             params['extendInfo'] = self.extend_info
+
+        if hasattr(self, "product_code") and self.product_code:
+            params['productCode'] = self.product_code
 
         return params
