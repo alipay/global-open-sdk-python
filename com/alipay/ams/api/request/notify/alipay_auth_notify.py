@@ -13,6 +13,7 @@ class AlipayAuthNotify(AlipayNotify):
         self.__reason = None
         self.__user_login_id = None
         self.__user_id = None
+        self.__pass_through_info = None
         self.__parse_notify_body(notify_body)
 
     @property
@@ -47,6 +48,11 @@ class AlipayAuthNotify(AlipayNotify):
     def user_id(self):
         return self.__user_id
 
+    @property
+    def pass_through_info(self):
+        return self.__pass_through_info
+
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayAuthNotify, self).parse_notify_body(notify_body)
         if 'authorizationNotifyType' in notify:
@@ -65,3 +71,5 @@ class AlipayAuthNotify(AlipayNotify):
             self.__user_login_id = notify['userLoginId']
         if 'userId' in notify:
             self.__user_id = notify['userId']
+        if 'passThroughInfo' in notify:
+            self.__pass_through_info = notify['passThroughInfo']

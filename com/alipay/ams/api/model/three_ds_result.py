@@ -12,6 +12,7 @@ class ThreeDSResult(object):
         self.__challenge_cancel = None
         self.__challenged = None
         self.__exemption_type = None
+        self.__three_ds_offered = None
 
     @property
     def three_ds_version(self):
@@ -88,6 +89,15 @@ class ThreeDSResult(object):
     def exemption_type(self, value):
         self.__exemption_type = value
 
+    @property
+    def three_ds_offered(self):
+        return self.__three_ds_offered
+
+    @three_ds_offered.setter
+    def three_ds_offered(self, value):
+        self.__three_ds_offered = value
+
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'three_ds_version') and self.three_ds_version:
@@ -109,6 +119,9 @@ class ThreeDSResult(object):
 
         if hasattr(self, 'exemption_type') and self.exemption_type:
             param['exemptionType'] = self.exemption_type
+
+        if hasattr(self, 'three_ds_offered') and self.three_ds_offered:
+            param['threeDSOffered'] = self.three_ds_offered
 
         return param
 
@@ -135,3 +148,6 @@ class ThreeDSResult(object):
 
         if 'exemptionType' in three_dS_result_body:
             self.exemption_type = three_dS_result_body['exemptionType']
+
+        if 'threeDSOffered' in three_dS_result_body:
+            self.three_ds_offered = three_dS_result_body['threeDSOffered']

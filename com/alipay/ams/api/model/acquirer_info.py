@@ -11,6 +11,7 @@ class AcquirerInfo:
         self.__acquirer_result_code = None
         self.__acquirer_result_message = None
         self.__acquirer_merchant_name = None
+        self.__acquirer_reason_description = None
 
     @property
     def acquirer_name(self):
@@ -69,6 +70,14 @@ class AcquirerInfo:
     def acquirer_merchant_name(self, acquirer_merchant_name):
         self.__acquirer_merchant_name = acquirer_merchant_name
 
+    @property
+    def acquirer_reason_description(self):
+        return self.__acquirer_reason_description
+
+    @acquirer_reason_description.setter
+    def acquirer_reason_description(self, acquirer_reason_description):
+        self.__acquirer_reason_description = acquirer_reason_description
+
     def parse_rsp_body(self, result_body):
         if type(result_body) == str:
             payment_result_info_body = json.loads(result_body)
@@ -93,6 +102,9 @@ class AcquirerInfo:
 
         if 'acquirerMerchantName' in result_body:
             self.__acquirer_merchant_name = result_body['acquirerMerchantName']
+
+        if 'acquirerReasonDescription' in result_body:
+            self.__acquirer_reason_description = result_body['acquirerReasonDescription']
 
 
 

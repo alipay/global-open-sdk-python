@@ -29,6 +29,8 @@ class PaymentResultInfo(object):
         self.__merchant_advice_code = None
         self.__acquirer_info = None #type: AcquirerInfo
         self.__exemption_requested = None
+        self.__card_category = None
+        self.__credential_type_used = None
 
 
     @property
@@ -210,6 +212,24 @@ class PaymentResultInfo(object):
         self.__exemption_requested = value
 
 
+    @property
+    def card_category(self):
+        return self.__card_category
+
+    @card_category.setter
+    def card_category(self, value):
+        self.__card_category = value
+
+
+    @property
+    def credential_type_used(self):
+        return self.__credential_type_used
+
+    @credential_type_used.setter
+    def credential_type_used(self, value):
+        self.__credential_type_used = value
+
+
     def to_ams_dict(self):
         param = dict()
         if hasattr(self, 'avs_result_raw') and self.avs_result_raw:
@@ -257,6 +277,12 @@ class PaymentResultInfo(object):
 
         if hasattr(self, 'exemption_requested') and self.exemption_requested:
             param['exemptionRequested'] = self.exemption_requested
+
+        if hasattr(self, 'card_category') and self.card_category:
+            param['cardCategory'] = self.card_category
+
+        if hasattr(self, 'credential_type_used') and self.credential_type_used:
+            param['credentialTypeUsed'] = self.credential_type_used
 
         return param
 
@@ -309,3 +335,9 @@ class PaymentResultInfo(object):
 
         if 'exemptionRequested' in payment_result_info_body:
             self.exemption_requested = payment_result_info_body['exemptionRequested']
+
+        if 'cardCategory' in payment_result_info_body:
+            self.card_category = payment_result_info_body['cardCategory']
+
+        if 'credentialTypeUsed' in payment_result_info_body:
+            self.credential_type_used = payment_result_info_body['credentialTypeUsed']
