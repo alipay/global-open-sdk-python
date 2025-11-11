@@ -1,17 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
-
-
 @unique
 class TransactionStatusType(Enum):
+    """TransactionStatusType枚举类"""
+
     SUCCESS = "SUCCESS"
     FAIL = "FAIL"
     PROCESSING = "PROCESSING"
     CANCELLED = "CANCELLED"
     PENDING = "PENDING"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -21,13 +19,12 @@ class TransactionStatusType(Enum):
 
         if TransactionStatusType.SUCCESS.value == value:
             return TransactionStatusType.SUCCESS
-        elif TransactionStatusType.FAIL.value == value:
+        if TransactionStatusType.FAIL.value == value:
             return TransactionStatusType.FAIL
-        elif TransactionStatusType.PROCESSING.value == value:
+        if TransactionStatusType.PROCESSING.value == value:
             return TransactionStatusType.PROCESSING
-        elif TransactionStatusType.CANCELLED.value == value:
+        if TransactionStatusType.CANCELLED.value == value:
             return TransactionStatusType.CANCELLED
-        elif TransactionStatusType.PENDING.value == value:
+        if TransactionStatusType.PENDING.value == value:
             return TransactionStatusType.PENDING
-        else:
-            return None
+        return None

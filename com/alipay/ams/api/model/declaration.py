@@ -1,11 +1,14 @@
 import json
 
 
+
+
 class Declaration:
     def __init__(self):
-
+        
         self.__declaration_biz_scene = None  # type: str
         self.__declaration_beneficiary_id = None  # type: str
+        
 
     @property
     def declaration_biz_scene(self):
@@ -17,7 +20,6 @@ class Declaration:
     @declaration_biz_scene.setter
     def declaration_biz_scene(self, value):
         self.__declaration_biz_scene = value
-
     @property
     def declaration_beneficiary_id(self):
         """
@@ -29,6 +31,9 @@ class Declaration:
     def declaration_beneficiary_id(self, value):
         self.__declaration_beneficiary_id = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "declaration_biz_scene") and self.declaration_biz_scene is not None:
@@ -37,8 +42,9 @@ class Declaration:
             params['declarationBeneficiaryId'] = self.declaration_beneficiary_id
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'declarationBizScene' in response_body:
             self.__declaration_biz_scene = response_body['declarationBizScene']
