@@ -1,29 +1,47 @@
 # Changelog
 
+## 1.4.12 - 2025-11-05
+  - update20251105
 
-## 1.4.6 - 2024-07-10
+## 1.4.11 - 2025-10-22
+  - 返回 3DS 是否无摩擦
+
+## 1.4.10 - 2025-10-11
+  - 升级用户前报价接口变更
+
+## 1.4.9 - 2025-09-26
+  - DFM 支付中支持OTA行业结汇入中申报
+
+## 1.4.8 - 2025-09-24
+  - 新增isv模式 agent-token参数
+  - 补充已知字段
+
+## 1.4.7 - 2025-07-28
+  - 修改已知问题
+
+## 1.4.6 - 2025-07-10
   - update 0710
 
-## 1.4.5 - 2024-04-10
+## 1.4.5 - 2025-04-10
   - pay/createPaymentSession支付接口支持订阅支付能力
 
 
-## 1.4.4 - 2024-04-10
+## 1.4.4 - 2025-04-10
 * [#28](https://github.com/alipay/global-open-sdk-python/pull/28)  feature-250410
   - Antom 印度渠道接入AMS拒付相关接口的标准变更 
   - Antom印度渠道接入（UPI/CARD/NETBAKING）相关接口标准变更 
   - CKP二期支持商户传入支付方式地区和支付方式要素
 
 
-## 1.4.3 - 2024-02-05
+## 1.4.3 - 2025-02-05
 * [#27](https://github.com/alipay/global-open-sdk-python/pull/27)  feature-250205
   - 支付、查询、支付结果通知新增卡相关信息字段
 
-## 1.4.2 - 2024-01-22
+## 1.4.2 - 2025-01-22
 * [#26](https://github.com/alipay/global-open-sdk-python/pull/26)  feature-250122
   - update promotionResults
 
-## 1.4.1 - 2024-01-06
+## 1.4.1 - 2025-01-06
 * [#25](https://github.com/alipay/global-open-sdk-python/pull/25)  feature-250105
   - 订阅支付新增“更新接口”
 

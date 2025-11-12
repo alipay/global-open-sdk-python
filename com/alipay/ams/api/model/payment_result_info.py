@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 from com.alipay.ams.api.model.three_ds_result import ThreeDSResult
 from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
 
@@ -8,6 +9,10 @@ from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
 class PaymentResultInfo:
     def __init__(self):
         
+        self.__refusal_code_raw = None  # type: str
+        self.__refusal_reason_raw = None  # type: str
+        self.__merchant_advice_code = None  # type: str
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.__card_no = None  # type: str
         self.__card_brand = None  # type: str
         self.__card_token = None  # type: str
@@ -26,6 +31,46 @@ class PaymentResultInfo:
         self.__expiry_year = None  # type: str
         
 
+    @property
+    def refusal_code_raw(self):
+        """
+        卡支付失败且渠道返回时的原始错误码
+        """
+        return self.__refusal_code_raw
+
+    @refusal_code_raw.setter
+    def refusal_code_raw(self, value):
+        self.__refusal_code_raw = value
+    @property
+    def refusal_reason_raw(self):
+        """
+        卡支付失败且渠道返回时的原始拒付原因
+        """
+        return self.__refusal_reason_raw
+
+    @refusal_reason_raw.setter
+    def refusal_reason_raw(self, value):
+        self.__refusal_reason_raw = value
+    @property
+    def merchant_advice_code(self):
+        """
+        支付结果的商户建议码
+        """
+        return self.__merchant_advice_code
+
+    @merchant_advice_code.setter
+    def merchant_advice_code(self, value):
+        self.__merchant_advice_code = value
+    @property
+    def acquirer_info(self):
+        """Gets the acquirer_info of this PaymentResultInfo.
+        
+        """
+        return self.__acquirer_info
+
+    @acquirer_info.setter
+    def acquirer_info(self, value):
+        self.__acquirer_info = value
     @property
     def card_no(self):
         """
@@ -192,6 +237,14 @@ class PaymentResultInfo:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "refusal_code_raw") and self.refusal_code_raw is not None:
+            params['refusalCodeRaw'] = self.refusal_code_raw
+        if hasattr(self, "refusal_reason_raw") and self.refusal_reason_raw is not None:
+            params['refusalReasonRaw'] = self.refusal_reason_raw
+        if hasattr(self, "merchant_advice_code") and self.merchant_advice_code is not None:
+            params['merchantAdviceCode'] = self.merchant_advice_code
+        if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
+            params['acquirerInfo'] = self.acquirer_info
         if hasattr(self, "card_no") and self.card_no is not None:
             params['cardNo'] = self.card_no
         if hasattr(self, "card_brand") and self.card_brand is not None:
@@ -230,6 +283,15 @@ class PaymentResultInfo:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'refusalCodeRaw' in response_body:
+            self.__refusal_code_raw = response_body['refusalCodeRaw']
+        if 'refusalReasonRaw' in response_body:
+            self.__refusal_reason_raw = response_body['refusalReasonRaw']
+        if 'merchantAdviceCode' in response_body:
+            self.__merchant_advice_code = response_body['merchantAdviceCode']
+        if 'acquirerInfo' in response_body:
+            self.__acquirer_info = AcquirerInfo()
+            self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])
         if 'cardNo' in response_body:
             self.__card_no = response_body['cardNo']
         if 'cardBrand' in response_body:

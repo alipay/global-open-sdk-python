@@ -1,4 +1,5 @@
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.customized_info import CustomizedInfo
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
 
@@ -14,6 +15,9 @@ class AlipayRefundNotify(AlipayNotify):
         self.__refund_time = None
         self.__gross_settlement_amount = None # type: Amount
         self.__settlement_quote = None # type: Quote
+        self.__customized_info = None # type: CustomizedInfo
+        self.__arn = None
+        self.__actual_refund_amount = None # type: Amount
         self.__parse_notify_body(notify_body)
 
 
@@ -46,6 +50,18 @@ class AlipayRefundNotify(AlipayNotify):
     def settlement_quote(self):
         return self.__settlement_quote
 
+    @property
+    def customized_info(self):
+        return self.__customized_info
+
+    @property
+    def arn(self):
+        return self.__arn
+
+    @property
+    def actual_refund_amount(self):
+        return self.__actual_refund_amount
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayRefundNotify, self).parse_notify_body(notify_body)
         if 'refundStatus' in notify:
@@ -64,4 +80,12 @@ class AlipayRefundNotify(AlipayNotify):
             queue = Quote()
             queue.parse_rsp_body(notify['settlementQuote'])
             self.__settlement_quote = queue
+        if 'customizedInfo' in notify:
+            customized_info = CustomizedInfo()
+            customized_info.parse_rsp_body(notify['customizedInfo'])
+            self.__customized_info = customized_info
+        if 'arn' in notify:
+            self.__arn = notify['arn']
+        if 'actualRefundAmount' in notify:
+            self.__actual_refund_amount = Amount(notify['actualRefundAmount'])
 

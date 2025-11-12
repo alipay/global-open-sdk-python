@@ -8,13 +8,14 @@ from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.transit import Transit
 from com.alipay.ams.api.model.lodging import Lodging
 from com.alipay.ams.api.model.gaming import Gaming
+from com.alipay.ams.api.model.declaration import Declaration
 
 
 
 
 class Order:
     def __init__(self):
-        
+
         self.__reference_order_id = None  # type: str
         self.__order_description = None  # type: str
         self.__order_amount = None  # type: Amount
@@ -28,8 +29,10 @@ class Order:
         self.__lodging = None  # type: Lodging
         self.__gaming = None  # type: Gaming
         self.__need_declaration = None  # type: bool
+        self.__order_test = None  # type: str
+        self.__declaration = None  # type: Declaration
         self.__order_type = None  # type: str
-        
+
 
     @property
     def reference_order_id(self):
@@ -54,7 +57,7 @@ class Order:
     @property
     def order_amount(self):
         """Gets the order_amount of this Order.
-        
+
         """
         return self.__order_amount
 
@@ -64,7 +67,7 @@ class Order:
     @property
     def merchant(self):
         """Gets the merchant of this Order.
-        
+
         """
         return self.__merchant
 
@@ -84,7 +87,7 @@ class Order:
     @property
     def shipping(self):
         """Gets the shipping of this Order.
-        
+
         """
         return self.__shipping
 
@@ -94,7 +97,7 @@ class Order:
     @property
     def buyer(self):
         """Gets the buyer of this Order.
-        
+
         """
         return self.__buyer
 
@@ -104,7 +107,7 @@ class Order:
     @property
     def env(self):
         """Gets the env of this Order.
-        
+
         """
         return self.__env
 
@@ -113,8 +116,8 @@ class Order:
         self.__env = value
     @property
     def extend_info(self):
-        """Gets the extend_info of this Order.
-        
+        """
+        Extended information data, including information for special use cases.  Note: Specify this field when you need to use the extended information.
         """
         return self.__extend_info
 
@@ -124,7 +127,7 @@ class Order:
     @property
     def transit(self):
         """Gets the transit of this Order.
-        
+
         """
         return self.__transit
 
@@ -134,7 +137,7 @@ class Order:
     @property
     def lodging(self):
         """Gets the lodging of this Order.
-        
+
         """
         return self.__lodging
 
@@ -144,7 +147,7 @@ class Order:
     @property
     def gaming(self):
         """Gets the gaming of this Order.
-        
+
         """
         return self.__gaming
 
@@ -154,7 +157,7 @@ class Order:
     @property
     def need_declaration(self):
         """Gets the need_declaration of this Order.
-        
+
         """
         return self.__need_declaration
 
@@ -162,18 +165,20 @@ class Order:
     def need_declaration(self, value):
         self.__need_declaration = value
     @property
-    def order_type(self):
+    def order_test(self):
+        """Gets the order_test of this Order.
+
         """
-        test 
-        """
-        return self.__order_type
-
-    @order_type.setter
-    def order_type(self, value):
-        self.__order_type = value
+        return self.__order_test
 
 
-    
+    @property
+    def sub_total_order_amount(self):
+        return self.__sub_total_order_amount
+
+    @sub_total_order_amount.setter
+    def sub_total_order_amount(self, value):
+        self.__sub_total_order_amount = value
 
     def to_ams_dict(self):
         params = dict()
@@ -203,13 +208,17 @@ class Order:
             params['gaming'] = self.gaming
         if hasattr(self, "need_declaration") and self.need_declaration is not None:
             params['needDeclaration'] = self.need_declaration
+        if hasattr(self, "order_test") and self.order_test is not None:
+            params['orderTest'] = self.order_test
+        if hasattr(self, "declaration") and self.declaration is not None:
+            params['declaration'] = self.declaration
         if hasattr(self, "order_type") and self.order_type is not None:
             params['orderType'] = self.order_type
         return params
 
 
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
         if 'referenceOrderId' in response_body:
             self.__reference_order_id = response_body['referenceOrderId']
@@ -249,5 +258,10 @@ class Order:
             self.__gaming.parse_rsp_body(response_body['gaming'])
         if 'needDeclaration' in response_body:
             self.__need_declaration = response_body['needDeclaration']
+        if 'orderTest' in response_body:
+            self.__order_test = response_body['orderTest']
+        if 'declaration' in response_body:
+            self.__declaration = Declaration()
+            self.__declaration.parse_rsp_body(response_body['declaration'])
         if 'orderType' in response_body:
             self.__order_type = response_body['orderType']

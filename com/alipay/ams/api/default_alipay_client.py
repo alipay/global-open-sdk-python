@@ -8,12 +8,13 @@ from com.alipay.ams.api.net.default_http_rpc import *
 
 class DefaultAlipayClient(object):
 
-    def __init__(self, gateway_url, client_id, merchant_private_key, alipay_public_key):
+    def __init__(self, gateway_url, client_id, merchant_private_key, alipay_public_key,agent_token = None):
         self.__gateway_url = gateway_url
         self.__client_id = client_id
         self.__merchant_private_key = merchant_private_key
         self.__alipay_public_key = alipay_public_key
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
+        self.__agent_token = agent_token
 
     """
     内部方法，生成请求签名
@@ -88,8 +89,11 @@ class DefaultAlipayClient(object):
             "User-Agent": "global-alipay-sdk-python",
             "Request-Time": req_time,
             "client-id": client_id,
-            "Signature": signature
+            "Signature": signature,
         }
+        if self.__agent_token:
+            headers["Agent-Token"] = self.__agent_token
+
 
         url = self.__gateway_url + path
         headers, response = do_post(url, headers, req_body)
