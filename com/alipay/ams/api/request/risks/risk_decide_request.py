@@ -14,13 +14,13 @@ class RiskDecideRequest(AlipayRequest):
     def __init__(self):
         super(RiskDecideRequest, self).__init__(AntomPathConstants.RISK_DECIDE_PATH)
         self.__reference_transaction_id = None
-        self.__authorization_phase = None #type: AuthorizationPhase
-        self.__orders = None #type: list:Order
-        self.__buyer = None #type: Buyer
-        self.__actual_payment_amount = None #type: Amount
-        self.__payment_details = None #type: PaymentDetail
-        self.__discount_amount = None #type: Amount
-        self.__env = None #type: Env
+        self.__authorization_phase = None  # type: AuthorizationPhase
+        self.__orders = None  # type: list:Order
+        self.__buyer = None  # type: Buyer
+        self.__actual_payment_amount = None  # type: Amount
+        self.__payment_details = None  # type: PaymentDetail
+        self.__discount_amount = None  # type: Amount
+        self.__env = None  # type: Env
 
     @property
     def reference_transaction_id(self):
@@ -87,35 +87,36 @@ class RiskDecideRequest(AlipayRequest):
         self.__env = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
 
         if hasattr(self, "reference_transaction_id") and self.reference_transaction_id:
-            params['referenceTransactionId'] = self.reference_transaction_id
+            params["referenceTransactionId"] = self.reference_transaction_id
 
         if hasattr(self, "authorization_phase") and self.authorization_phase:
-            params['authorizationPhase'] = self.authorization_phase
+            params["authorizationPhase"] = self.authorization_phase
 
         if hasattr(self, "orders") and self.orders:
-            params['orders'] = self.orders
+            params["orders"] = self.orders
 
         if hasattr(self, "buyer") and self.buyer:
-            params['buyer'] = self.buyer
+            params["buyer"] = self.buyer
 
         if hasattr(self, "actual_payment_amount") and self.actual_payment_amount:
-            params['actualPaymentAmount'] = self.actual_payment_amount
+            params["actualPaymentAmount"] = self.actual_payment_amount
 
         if hasattr(self, "payment_details") and self.payment_details:
-            params['paymentDetails'] = self.payment_details
+            params["paymentDetails"] = self.payment_details
 
         if hasattr(self, "discount_amount") and self.discount_amount:
-            params['discountAmount'] = self.discount_amount
+            params["discountAmount"] = self.discount_amount
 
         if hasattr(self, "env") and self.env:
-            params['env'] = self.env
-
+            params["env"] = self.env
 
         return params

@@ -1,49 +1,46 @@
 import json
-
-from com.alipay.ams.api.model.discount import Discount
 from com.alipay.ams.api.model.promotion_type import PromotionType
+from com.alipay.ams.api.model.discount import Discount
 
 
-class PromotionResult(object):
-
+class PromotionResult:
     def __init__(self):
-        self.__promotion_type = None  # type:PromotionType
-        self.__discount = None  # type:Discount
+
+        self.__promotion_type = None  # type: PromotionType
+        self.__discount = None  # type: Discount
 
     @property
     def promotion_type(self):
+        """Gets the promotion_type of this PromotionResult."""
         return self.__promotion_type
 
     @promotion_type.setter
-    def promotion_type(self, promotion_type):
-        self.__promotion_type = promotion_type
+    def promotion_type(self, value):
+        self.__promotion_type = value
 
     @property
     def discount(self):
+        """Gets the discount of this PromotionResult."""
         return self.__discount
 
     @discount.setter
-    def discount(self, discount):
-        self.__discount = discount
+    def discount(self, value):
+        self.__discount = value
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "promotion_type") and self.promotion_type:
-            params['promotionType'] = self.promotion_type
-
-        if hasattr(self, "discount") and self.discount:
-            params['discount'] = self.discount
-
+        if hasattr(self, "promotion_type") and self.promotion_type is not None:
+            params["promotionType"] = self.promotion_type
+        if hasattr(self, "discount") and self.discount is not None:
+            params["discount"] = self.discount
         return params
 
-    def parse_rsp_body(self, promotion_result_body):
-        if type(promotion_result_body) == str:
-            promotion_result_body = json.loads(promotion_result_body)
-
-        if 'promotionType' in promotion_result_body:
-            self.promotion_type = promotion_result_body['promotionType']
-
-        if 'discount' in promotion_result_body:
-            discount_result = Discount()
-            discount_result.parse_rsp_body(promotion_result_body['discount'])
-            self.__promotion_result = discount_result
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if "promotionType" in response_body:
+            promotion_type_temp = PromotionType.value_of(response_body["promotionType"])
+            self.__promotion_type = promotion_type_temp
+        if "discount" in response_body:
+            self.__discount = Discount()
+            self.__discount.parse_rsp_body(response_body["discount"])

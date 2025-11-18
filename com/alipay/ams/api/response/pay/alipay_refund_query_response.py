@@ -15,9 +15,9 @@ class AlipayRefundQueryResponse(AlipayResponse):
         self.__refund_status = None  # type:TransactionStatusType
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
-        self.__customized_info = None # type: CustomizedInfo
+        self.__customized_info = None  # type: CustomizedInfo
         self.__arn = None
-        self.__actual_refund_amount = None # type: Amount
+        self.__actual_refund_amount = None  # type: Amount
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -51,42 +51,44 @@ class AlipayRefundQueryResponse(AlipayResponse):
     @property
     def customized_info(self):
         return self.__customized_info
+
     @property
     def arn(self):
         return self.__arn
+
     @property
     def actual_refund_amount(self):
         return self.__actual_refund_amount
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayRefundQueryResponse, self).parse_rsp_body(rsp_body)
-        if 'refundRequestId' in response:
-            self.__refund_request_id = response['refundRequestId']
-        if 'refundId' in response:
-            self.__refund_id = response['refundId']
-        if 'refundAmount' in response:
+        if "refundRequestId" in response:
+            self.__refund_request_id = response["refundRequestId"]
+        if "refundId" in response:
+            self.__refund_id = response["refundId"]
+        if "refundAmount" in response:
             refund_amount = Amount()
-            refund_amount.parse_rsp_body(response['refundAmount'])
+            refund_amount.parse_rsp_body(response["refundAmount"])
             self.__refund_amount = refund_amount
-        if 'refundTime' in response:
-            self.__refund_time = response['refundTime']
-        if 'refundStatus' in response:
-            self.__refund_status = response['refundStatus']
-        if 'grossSettlementAmount' in response:
+        if "refundTime" in response:
+            self.__refund_time = response["refundTime"]
+        if "refundStatus" in response:
+            self.__refund_status = response["refundStatus"]
+        if "grossSettlementAmount" in response:
             gross_settlement_amount = Amount()
-            gross_settlement_amount.parse_rsp_body(response['grossSettlementAmount'])
+            gross_settlement_amount.parse_rsp_body(response["grossSettlementAmount"])
             self.__gross_settlement_amount = gross_settlement_amount
-        if 'settlementQuote' in response:
+        if "settlementQuote" in response:
             settlement_quote = Quote()
-            settlement_quote.parse_rsp_body(response['settlementQuote'])
+            settlement_quote.parse_rsp_body(response["settlementQuote"])
             self.__settlement_quote = settlement_quote
-        if 'customizedInfo' in response:
+        if "customizedInfo" in response:
             customized_info = CustomizedInfo()
-            customized_info.parse_rsp_body(response['customizedInfo'])
+            customized_info.parse_rsp_body(response["customizedInfo"])
             self.__customized_info = customized_info
-        if 'arn' in response:
-            self.__arn = response['arn']
-        if 'actualRefundAmount' in response:
+        if "arn" in response:
+            self.__arn = response["arn"]
+        if "actualRefundAmount" in response:
             actual_refund_amount = Amount()
-            actual_refund_amount.parse_rsp_body(response['actualRefundAmount'])
+            actual_refund_amount.parse_rsp_body(response["actualRefundAmount"])
             self.__actual_refund_amount = actual_refund_amount

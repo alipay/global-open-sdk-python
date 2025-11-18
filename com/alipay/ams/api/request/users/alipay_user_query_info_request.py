@@ -27,6 +27,6 @@ class AlipayUserQueryInfoRequest(AlipayRequest):
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "access_token") and self.access_token:
-            params['accessToken'] = self.access_token
+            params["accessToken"] = self.access_token
 
         return params

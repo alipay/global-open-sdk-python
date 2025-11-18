@@ -17,9 +17,11 @@ class AlipayMerchantRegistrationStatusQueryResponse(AlipayResponse):
         return self.__psp_registration_result_list
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayMerchantRegistrationStatusQueryResponse, self).parse_rsp_body(rsp_body)
-        if 'registrationResult' in response:
-            self.__registration_result = response['registrationResult']
+        response = super(
+            AlipayMerchantRegistrationStatusQueryResponse, self
+        ).parse_rsp_body(rsp_body)
+        if "registrationResult" in response:
+            self.__registration_result = response["registrationResult"]
 
-        if 'pspRegistrationResultList' in response:
-            self.__psp_registration_result_list = response['pspRegistrationResultList']
+        if "pspRegistrationResultList" in response:
+            self.__psp_registration_result_list = response["pspRegistrationResultList"]

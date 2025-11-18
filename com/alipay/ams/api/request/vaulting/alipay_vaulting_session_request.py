@@ -6,7 +6,9 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayVaultingSessionRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayVaultingSessionRequest, self).__init__(AntomPathConstants.CREATE_VAULTING_SESSION_PATH)
+        super(AlipayVaultingSessionRequest, self).__init__(
+            AntomPathConstants.CREATE_VAULTING_SESSION_PATH
+        )
         self.__payment_method_type = None
         self.__vaulting_request_id = None
         self.__vaulting_notification_url = None
@@ -63,22 +65,27 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__is_3D_s_authentication = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "payment_method_type") and self.payment_method_type:
-            params['paymentMethodType'] = self.payment_method_type
+            params["paymentMethodType"] = self.payment_method_type
         if hasattr(self, "vaulting_request_id") and self.vaulting_request_id:
-            params['vaultingRequestId'] = self.vaulting_request_id
-        if hasattr(self, "vaulting_notification_url") and self.vaulting_notification_url:
-            params['vaultingNotificationUrl'] = self.vaulting_notification_url
+            params["vaultingRequestId"] = self.vaulting_request_id
+        if (
+            hasattr(self, "vaulting_notification_url")
+            and self.vaulting_notification_url
+        ):
+            params["vaultingNotificationUrl"] = self.vaulting_notification_url
         if hasattr(self, "redirect_url") and self.redirect_url:
-            params['redirectUrl'] = self.redirect_url
+            params["redirectUrl"] = self.redirect_url
         if hasattr(self, "merchant_region") and self.merchant_region:
-            params['merchantRegion'] = self.merchant_region
+            params["merchantRegion"] = self.merchant_region
         if hasattr(self, "is_3D_s_authentication") and self.is_3D_s_authentication:
-            params['is3DSAuthentication'] = self.is_3D_s_authentication
+            params["is3DSAuthentication"] = self.is_3D_s_authentication
 
         return params

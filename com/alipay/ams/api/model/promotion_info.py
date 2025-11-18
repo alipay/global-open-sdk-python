@@ -1,18 +1,19 @@
 import json
-
+from com.alipay.ams.api.model.promotion_type import PromotionType
 from com.alipay.ams.api.model.discount import Discount
 from com.alipay.ams.api.model.interest_free import InterestFree
-from com.alipay.ams.api.model.promotion_type import PromotionType
 
 
-class PromotionInfo(object):
+class PromotionInfo:
     def __init__(self):
-        self.__promotion_type = None  # type:PromotionType
-        self.__discount = None  # type:Discount
-        self.__interest_free = None  # type:InterestFree
+
+        self.__promotion_type = None  # type: PromotionType
+        self.__discount = None  # type: Discount
+        self.__interest_free = None  # type: InterestFree
 
     @property
     def promotion_type(self):
+        """Gets the promotion_type of this PromotionInfo."""
         return self.__promotion_type
 
     @promotion_type.setter
@@ -21,6 +22,7 @@ class PromotionInfo(object):
 
     @property
     def discount(self):
+        """Gets the discount of this PromotionInfo."""
         return self.__discount
 
     @discount.setter
@@ -29,6 +31,7 @@ class PromotionInfo(object):
 
     @property
     def interest_free(self):
+        """Gets the interest_free of this PromotionInfo."""
         return self.__interest_free
 
     @interest_free.setter
@@ -37,30 +40,23 @@ class PromotionInfo(object):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "promotion_type") and self.promotion_type:
-            params['promotionType'] = self.promotion_type.value
-
-        if hasattr(self, "discount") and self.discount:
-            params['discount'] = self.discount.to_ams_dict()
-
-        if hasattr(self, "interest_free") and self.interest_free:
-            params['interestFree'] = self.interest_free.to_ams_dict()
-
+        if hasattr(self, "promotion_type") and self.promotion_type is not None:
+            params["promotionType"] = self.promotion_type
+        if hasattr(self, "discount") and self.discount is not None:
+            params["discount"] = self.discount
+        if hasattr(self, "interest_free") and self.interest_free is not None:
+            params["interestFree"] = self.interest_free
         return params
 
-    def parse_rsp_body(self, promotion_info_body):
-        if type(promotion_info_body) == str:
-            promotion_info_body = json.loads(promotion_info_body)
-
-        if 'promotionType' in promotion_info_body:
-            self.promotion_type = PromotionType(promotion_info_body['promotionType'])
-
-        if 'discount' in promotion_info_body:
-            discount_result = Discount()
-            discount_result.parse_rsp_body(promotion_info_body['discount'])
-            self.discount = discount_result
-
-        if 'interestFree' in promotion_info_body:
-            interest_free_result = InterestFree()
-            interest_free_result.parse_rsp_body(promotion_info_body['interestFree'])
-            self.interest_free = interest_free_result
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if "promotionType" in response_body:
+            promotion_type_temp = PromotionType.value_of(response_body["promotionType"])
+            self.__promotion_type = promotion_type_temp
+        if "discount" in response_body:
+            self.__discount = Discount()
+            self.__discount.parse_rsp_body(response_body["discount"])
+        if "interestFree" in response_body:
+            self.__interest_free = InterestFree()
+            self.__interest_free.parse_rsp_body(response_body["interestFree"])

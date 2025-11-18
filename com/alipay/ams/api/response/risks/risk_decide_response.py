@@ -20,11 +20,9 @@ class RiskDecideResponse(AlipayResponse):
     def authentication_decision(self):
         return self.__authentication_decision
 
-
     @authentication_decision.setter
     def authentication_decision(self, authentication_decision):
         self.__authentication_decision = authentication_decision
-
 
     def __parse_rsp_body(self, rsp_body):
         response = super(RiskDecideResponse, self).parse_rsp_body(rsp_body)

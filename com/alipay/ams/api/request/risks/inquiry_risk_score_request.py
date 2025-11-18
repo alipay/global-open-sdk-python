@@ -48,21 +48,23 @@ class InquiryRiskScoreRequest(AlipayRequest):
         self.__risk_score_types = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "customer_belongs_to") and self.customer_belongs_to:
-            params['customerBelongsTo'] = self.customer_belongs_to
+            params["customerBelongsTo"] = self.customer_belongs_to
 
         if hasattr(self, "customer_id_type") and self.customer_id_type:
-            params['customerIdType'] = self.customer_id_type
+            params["customerIdType"] = self.customer_id_type
 
         if hasattr(self, "customer_id") and self.customer_id:
-            params['customer_id'] = self.customer_id
+            params["customer_id"] = self.customer_id
 
         if hasattr(self, "risk_score_types") and self.risk_score_types:
-            params['riskScoreTypes'] = self.risk_score_types
+            params["riskScoreTypes"] = self.risk_score_types
 
         return params

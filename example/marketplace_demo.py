@@ -29,29 +29,54 @@ from com.alipay.ams.api.model.transfer_from_detail import TransferFromDetail
 from com.alipay.ams.api.model.transfer_to_detail import TransferToDetail
 from com.alipay.ams.api.model.user_name import UserName
 from com.alipay.ams.api.model.web_site import WebSite
-from com.alipay.ams.api.request.marketplace.alipay_create_payout_request import AlipayCreatePayoutRequest
-from com.alipay.ams.api.request.marketplace.alipay_create_transfer_request import AlipayCreateTransferRequest
-from com.alipay.ams.api.request.marketplace.alipay_inquire_balance_request import AlipayInquireBalanceRequest
-from com.alipay.ams.api.request.marketplace.alipay_register_request import AlipayRegisterRequest
-from com.alipay.ams.api.request.marketplace.alipay_settle_request import AlipaySettleRequest
-from com.alipay.ams.api.request.marketplace.alipay_settlement_info_update_request import \
-    AlipaySettlementInfoUpdateRequest
+from com.alipay.ams.api.request.marketplace.alipay_create_payout_request import (
+    AlipayCreatePayoutRequest,
+)
+from com.alipay.ams.api.request.marketplace.alipay_create_transfer_request import (
+    AlipayCreateTransferRequest,
+)
+from com.alipay.ams.api.request.marketplace.alipay_inquire_balance_request import (
+    AlipayInquireBalanceRequest,
+)
+from com.alipay.ams.api.request.marketplace.alipay_register_request import (
+    AlipayRegisterRequest,
+)
+from com.alipay.ams.api.request.marketplace.alipay_settle_request import (
+    AlipaySettleRequest,
+)
+from com.alipay.ams.api.request.marketplace.alipay_settlement_info_update_request import (
+    AlipaySettlementInfoUpdateRequest,
+)
 from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
-from com.alipay.ams.api.response.marketplace.alipay_create_payout_response import AlipayCreatePayoutResponse
-from com.alipay.ams.api.response.marketplace.alipay_create_transfer_response import AlipayCreateTransferResponse
-from com.alipay.ams.api.response.marketplace.alipay_inquire_balance_response import AlipayInquireBalanceResponse
-from com.alipay.ams.api.response.marketplace.alipay_register_response import AlipayRegisterResponse
-from com.alipay.ams.api.response.marketplace.alipay_settle_response import AlipaySettleResponse
-from com.alipay.ams.api.response.marketplace.alipay_settlement_info_update_response import \
-    AlipaySettlementInfoUpdateResponse
+from com.alipay.ams.api.response.marketplace.alipay_create_payout_response import (
+    AlipayCreatePayoutResponse,
+)
+from com.alipay.ams.api.response.marketplace.alipay_create_transfer_response import (
+    AlipayCreateTransferResponse,
+)
+from com.alipay.ams.api.response.marketplace.alipay_inquire_balance_response import (
+    AlipayInquireBalanceResponse,
+)
+from com.alipay.ams.api.response.marketplace.alipay_register_response import (
+    AlipayRegisterResponse,
+)
+from com.alipay.ams.api.response.marketplace.alipay_settle_response import (
+    AlipaySettleResponse,
+)
+from com.alipay.ams.api.response.marketplace.alipay_settlement_info_update_response import (
+    AlipaySettlementInfoUpdateResponse,
+)
 
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLIC_KEY = ""
 CLIENT_ID = ""
 GATEWAY_HOST = ""
 
+
 def register():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_register_request = AlipayRegisterRequest()
     alipay_register_request.registration_request_id = str(uuid.uuid4())
 
@@ -155,7 +180,9 @@ def register():
 
 
 def update(referenceMerchantId):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_settlement_info_update_request = AlipaySettlementInfoUpdateRequest()
     alipay_settlement_info_update_request.reference_merchant_id = referenceMerchantId
     alipay_settlement_info_update_request.update_request_id = str(uuid.uuid4())
@@ -169,7 +196,9 @@ def update(referenceMerchantId):
     settlementBankAccount.account_holder_name = "Jane Doe"
     settlementBankAccount.bank_account_no = "12345678901"
     settlementBankAccount.account_holder_type = AccountHolderType.ENTERPRISE
-    alipay_settlement_info_update_request.settlement_bank_account = settlementBankAccount
+    alipay_settlement_info_update_request.settlement_bank_account = (
+        settlementBankAccount
+    )
 
     rsp_body = default_alipay_client.execute(alipay_settlement_info_update_request)
     response = AlipaySettlementInfoUpdateResponse(rsp_body)
@@ -182,7 +211,9 @@ def update(referenceMerchantId):
 
 
 def queryBanlance(referenceMerchantId):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_inquire_balance_request = AlipayInquireBalanceRequest()
     alipay_inquire_balance_request.reference_merchant_id = referenceMerchantId
 
@@ -197,7 +228,9 @@ def queryBanlance(referenceMerchantId):
 
 
 def settleRequest(paymentId):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_settle_request = AlipaySettleRequest()
     alipay_settle_request.settlement_request_id = str(uuid.uuid4())
     alipay_settle_request.payment_id = paymentId
@@ -221,7 +254,9 @@ def settleRequest(paymentId):
 
 
 def createPayout():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_create_payout_request = AlipayCreatePayoutRequest()
     alipay_create_payout_request.transfer_requestId = str(uuid.uuid4())
 
@@ -251,7 +286,9 @@ def createPayout():
 
 
 def createTransfer():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_create_transfer_request = AlipayCreateTransferRequest()
     alipay_create_transfer_request.transfer_request_id = str(uuid.uuid4())
 

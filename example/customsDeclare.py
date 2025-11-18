@@ -5,10 +5,18 @@ from com.alipay.ams.api.model.customs_info import CustomsInfo
 from com.alipay.ams.api.model.merchant_customs_info import MerchantCustomsInfo
 from com.alipay.ams.api.model.result_status_type import ResultStatusType
 from com.alipay.ams.api.model.user_name import UserName
-from com.alipay.ams.api.request.declare.alipay_customs_declare_request import AlipayCustomsDeclareRequest
-from com.alipay.ams.api.request.declare.alipay_customs_query_request import AlipayCustomsQueryRequest
-from com.alipay.ams.api.response.declare.alipay_customs_declare_response import AlipayCustomsDeclareResponse
-from com.alipay.ams.api.response.declare.alipay_customs_query_response import AlipayCustomsQueryResponse
+from com.alipay.ams.api.request.declare.alipay_customs_declare_request import (
+    AlipayCustomsDeclareRequest,
+)
+from com.alipay.ams.api.request.declare.alipay_customs_query_request import (
+    AlipayCustomsQueryRequest,
+)
+from com.alipay.ams.api.response.declare.alipay_customs_declare_response import (
+    AlipayCustomsDeclareResponse,
+)
+from com.alipay.ams.api.response.declare.alipay_customs_query_response import (
+    AlipayCustomsQueryResponse,
+)
 
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLIC_KEY = ""
@@ -17,7 +25,9 @@ GATEWAY_HOST = ""
 
 
 def declare(paymentId):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipayCustomsDeclareRequest = AlipayCustomsDeclareRequest()
     alipayCustomsDeclareRequest.declaration_request_id = "declaration_test_00001"
     alipayCustomsDeclareRequest.payment_id = paymentId
@@ -45,15 +55,19 @@ def declare(paymentId):
     rsp_body = default_alipay_client.execute(alipayCustomsDeclareRequest)
 
     alipayCustomsDeclareResponse = AlipayCustomsDeclareResponse(rsp_body)
-    if alipayCustomsDeclareResponse.result.result_status.name == ResultStatusType.S.name:
+    if (
+        alipayCustomsDeclareResponse.result.result_status.name
+        == ResultStatusType.S.name
+    ):
         print(alipayCustomsDeclareResponse.customs_payment_id)
     else:
         print(alipayCustomsDeclareResponse.result.result_message)
 
 
 def inquiryDeclaration(declarationRequestIds):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipayCustomsQueryRequest = AlipayCustomsQueryRequest()
     alipayCustomsQueryRequest.declaration_request_ids = declarationRequestIds
 

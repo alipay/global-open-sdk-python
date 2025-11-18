@@ -7,4 +7,6 @@ class AlipayUploadInvoiceShippingFileResponse(AlipayResponse):
         self.__parse_rsp_body(rsp_body)
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayUploadInvoiceShippingFileResponse, self).parse_rsp_body(rsp_body)
+        response = super(AlipayUploadInvoiceShippingFileResponse, self).parse_rsp_body(
+            rsp_body
+        )

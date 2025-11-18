@@ -10,7 +10,9 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 class AlipayAuthQueryTokenRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayAuthQueryTokenRequest, self).__init__(AntomPathConstants.AUTH_QUERY_PATH)
+        super(AlipayAuthQueryTokenRequest, self).__init__(
+            AntomPathConstants.AUTH_QUERY_PATH
+        )
         self.__access_token = None
 
     @property
@@ -28,5 +30,5 @@ class AlipayAuthQueryTokenRequest(AlipayRequest):
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "access_token") and self.access_token:
-            params['accessToken'] = self.access_token
+            params["accessToken"] = self.access_token
         return params

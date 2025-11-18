@@ -7,14 +7,30 @@ from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
 from com.alipay.ams.api.model.os_type import OsType
 from com.alipay.ams.api.model.terminal_type import TerminalType
 from com.alipay.ams.api.default_alipay_client import DefaultAlipayClient
-from com.alipay.ams.api.request.auth.alipay_auth_apply_token_request import AlipayAuthApplyTokenRequest
-from com.alipay.ams.api.request.auth.alipay_auth_consult_request import AlipayAuthConsultRequest
-from com.alipay.ams.api.request.auth.alipay_auth_query_token_request import AlipayAuthQueryTokenRequest
-from com.alipay.ams.api.response.auth.alipay_auth_apply_token_response import AlipayAuthApplyTokenResponse
-from com.alipay.ams.api.response.auth.alipay_auth_query_token_response import AlipayAuthQueryTokenResponse
-from com.alipay.ams.api.response.auth.alipay_auth_consult_response import AlipayAuthConsultResponse
-from com.alipay.ams.api.request.auth.alipay_auth_revoke_token_request import AlipayAuthRevokeTokenRequest
-from com.alipay.ams.api.response.auth.alipay_auth_revoke_token_response import AlipayAuthRevokeTokenResponse
+from com.alipay.ams.api.request.auth.alipay_auth_apply_token_request import (
+    AlipayAuthApplyTokenRequest,
+)
+from com.alipay.ams.api.request.auth.alipay_auth_consult_request import (
+    AlipayAuthConsultRequest,
+)
+from com.alipay.ams.api.request.auth.alipay_auth_query_token_request import (
+    AlipayAuthQueryTokenRequest,
+)
+from com.alipay.ams.api.response.auth.alipay_auth_apply_token_response import (
+    AlipayAuthApplyTokenResponse,
+)
+from com.alipay.ams.api.response.auth.alipay_auth_query_token_response import (
+    AlipayAuthQueryTokenResponse,
+)
+from com.alipay.ams.api.response.auth.alipay_auth_consult_response import (
+    AlipayAuthConsultResponse,
+)
+from com.alipay.ams.api.request.auth.alipay_auth_revoke_token_request import (
+    AlipayAuthRevokeTokenRequest,
+)
+from com.alipay.ams.api.response.auth.alipay_auth_revoke_token_response import (
+    AlipayAuthRevokeTokenResponse,
+)
 
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLIC_KEY = ""
@@ -23,7 +39,9 @@ GATEWAY_HOST = ""
 
 
 def apply_token(authCode):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     # 申请token
     alipay_auth_apply_token_request = AlipayAuthApplyTokenRequest()
 
@@ -43,11 +61,15 @@ def apply_token(authCode):
 
 
 def query_token():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
 
     # 查询token
     alipay_auth_query_token_request = AlipayAuthQueryTokenRequest()
-    alipay_auth_query_token_request.access_token = "2020042910435415881282340824710273532915573saFBMrdXVH"
+    alipay_auth_query_token_request.access_token = (
+        "2020042910435415881282340824710273532915573saFBMrdXVH"
+    )
 
     rsp_body = default_alipay_client.execute(alipay_auth_query_token_request)
 
@@ -60,7 +82,9 @@ def query_token():
 
 
 def auth_consult():
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
 
     alipay_auth_consult_request = AlipayAuthConsultRequest()
     alipay_auth_consult_request.auth_redirect_url = "https://www.yourRedirectUrl.com"
@@ -88,8 +112,9 @@ def auth_consult():
 
 
 def revoke_token(accessToken):
-    default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
     alipay_revoke_token_request = AlipayAuthRevokeTokenRequest()
     alipay_revoke_token_request.access_token = accessToken
 

@@ -7,11 +7,13 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 class SendPaymentResultRequest(AlipayRequest):
 
     def __init__(self):
-        super(AlipayRequest, self).__init__(AntomPathConstants.RISK_SEND_PAYMENT_RESULT_PATH)
+        super(AlipayRequest, self).__init__(
+            AntomPathConstants.RISK_SEND_PAYMENT_RESULT_PATH
+        )
         self.__reference_transaction_id = None
         self.__payment_status = None
-        self.__authorization_error = None #type: AuthorizationError
-        self.__card_verification_result = None #type: CardVerificationResult
+        self.__authorization_error = None  # type: AuthorizationError
+        self.__card_verification_result = None  # type: CardVerificationResult
         self.__payment_method_provider = None
 
     @property
@@ -55,19 +57,21 @@ class SendPaymentResultRequest(AlipayRequest):
         self.__payment_method_provider = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if self.__reference_transaction_id is not None:
-            params['referenceTransactionId'] = self.__reference_transaction_id
+            params["referenceTransactionId"] = self.__reference_transaction_id
         if self.__payment_status is not None:
-            params['paymentStatus'] = self.__payment_status
+            params["paymentStatus"] = self.__payment_status
         if self.__authorization_error is not None:
-            params['authorizationError'] = self.__authorization_error
+            params["authorizationError"] = self.__authorization_error
         if self.__card_verification_result is not None:
-            params['cardVerificationResult'] = self.__card_verification_result
+            params["cardVerificationResult"] = self.__card_verification_result
         if self.__payment_method_provider is not None:
-            params['paymentMethodProvider'] = self.__payment_method_provider
+            params["paymentMethodProvider"] = self.__payment_method_provider
         return params

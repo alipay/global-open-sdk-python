@@ -24,11 +24,11 @@ class AlipayAuthCreateSessionResponse(AlipayResponse):
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayAuthCreateSessionResponse, self).parse_rsp_body(rsp_body)
-        if 'paymentSessionId' in response:
-            self.__payment_session_id = response['paymentSessionId']
+        if "paymentSessionId" in response:
+            self.__payment_session_id = response["paymentSessionId"]
 
-        if 'paymentSessionData' in response:
-            self.__payment_session_data = response['paymentSessionData']
+        if "paymentSessionData" in response:
+            self.__payment_session_data = response["paymentSessionData"]
 
-        if 'paymentSessionExpiryTime' in response:
-            self.__payment_session_expiry_time = response['paymentSessionExpiryTime']
+        if "paymentSessionExpiryTime" in response:
+            self.__payment_session_expiry_time = response["paymentSessionExpiryTime"]

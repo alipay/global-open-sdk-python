@@ -11,15 +11,14 @@ class AlipayRefundNotify(AlipayNotify):
         self.__refund_status = None
         self.__refund_request_id = None
         self.__refund_id = None
-        self.__refund_amount = None # type: Amount
+        self.__refund_amount = None  # type: Amount
         self.__refund_time = None
-        self.__gross_settlement_amount = None # type: Amount
-        self.__settlement_quote = None # type: Quote
-        self.__customized_info = None # type: CustomizedInfo
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
+        self.__customized_info = None  # type: CustomizedInfo
         self.__arn = None
-        self.__actual_refund_amount = None # type: Amount
+        self.__actual_refund_amount = None  # type: Amount
         self.__parse_notify_body(notify_body)
-
 
     @property
     def refund_status(self):
@@ -28,7 +27,6 @@ class AlipayRefundNotify(AlipayNotify):
     @property
     def refund_request_id(self):
         return self.__refund_request_id
-
 
     @property
     def refund_id(self):
@@ -64,28 +62,27 @@ class AlipayRefundNotify(AlipayNotify):
 
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayRefundNotify, self).parse_notify_body(notify_body)
-        if 'refundStatus' in notify:
-            self.__refund_status = notify['refundStatus']
-        if 'refundRequestId' in notify:
-            self.__refund_request_id = notify['refundRequestId']
-        if 'refundId' in notify:
-            self.__refund_id = notify['refundId']
-        if 'refundAmount' in notify:
-            self.__refund_amount = Amount(notify['refundAmount'])
-        if 'refundTime' in notify:
-            self.__refund_time = notify['refundTime']
-        if 'grossSettlementAmount' in notify:
-            self.__gross_settlement_amount = Amount(notify['grossSettlementAmount'])
-        if 'settlementQuote' in notify:
+        if "refundStatus" in notify:
+            self.__refund_status = notify["refundStatus"]
+        if "refundRequestId" in notify:
+            self.__refund_request_id = notify["refundRequestId"]
+        if "refundId" in notify:
+            self.__refund_id = notify["refundId"]
+        if "refundAmount" in notify:
+            self.__refund_amount = Amount(notify["refundAmount"])
+        if "refundTime" in notify:
+            self.__refund_time = notify["refundTime"]
+        if "grossSettlementAmount" in notify:
+            self.__gross_settlement_amount = Amount(notify["grossSettlementAmount"])
+        if "settlementQuote" in notify:
             queue = Quote()
-            queue.parse_rsp_body(notify['settlementQuote'])
+            queue.parse_rsp_body(notify["settlementQuote"])
             self.__settlement_quote = queue
-        if 'customizedInfo' in notify:
+        if "customizedInfo" in notify:
             customized_info = CustomizedInfo()
-            customized_info.parse_rsp_body(notify['customizedInfo'])
+            customized_info.parse_rsp_body(notify["customizedInfo"])
             self.__customized_info = customized_info
-        if 'arn' in notify:
-            self.__arn = notify['arn']
-        if 'actualRefundAmount' in notify:
-            self.__actual_refund_amount = Amount(notify['actualRefundAmount'])
-
+        if "arn" in notify:
+            self.__arn = notify["arn"]
+        if "actualRefundAmount" in notify:
+            self.__actual_refund_amount = Amount(notify["actualRefundAmount"])

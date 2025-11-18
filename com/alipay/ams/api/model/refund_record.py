@@ -5,7 +5,7 @@ class RefundRecord:
     def __init__(self):
         self.__reference_order_id = None
         self.__reference_goods_id = None
-        self.__amount = None #type: Amount
+        self.__amount = None  # type: Amount
         self.__refund_reason = None
         self.__refund_time = None
 
@@ -46,21 +46,20 @@ class RefundRecord:
         return self.__refund_time
 
     @refund_time.setter
-    def refund_time(self, value ):
+    def refund_time(self, value):
         self.__refund_time = value
-
 
     def to_ams_dict(self):
         params = dict()
         if self.__reference_order_id is not None:
-            params['referenceOrderId'] = self.__reference_order_id
+            params["referenceOrderId"] = self.__reference_order_id
         if self.__reference_goods_id is not None:
-            params['referenceGoodsId'] = self.__reference_goods_id
+            params["referenceGoodsId"] = self.__reference_goods_id
         if self.__amount is not None:
-            params['amount'] = self.__amount.to_ams_dict()
+            params["amount"] = self.__amount.to_ams_dict()
         if self.__refund_reason is not None:
-            params['refundReason'] = self.__refund_reason
+            params["refundReason"] = self.__refund_reason
         if self.__refund_time is not None:
-            params['refundTime'] = self.__refund_time
+            params["refundTime"] = self.__refund_time
 
         return params

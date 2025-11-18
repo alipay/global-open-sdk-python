@@ -1,16 +1,16 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
 
 
 @unique
 class PaymentMethodDetailType(Enum):
+    """PaymentMethodDetailType枚举类"""
+
     CARD = "CARD"
     EXTERNALACCOUNT = "EXTERNALACCOUNT"
     COUPON = "COUPON"
     DISCOUNT = "DISCOUNT"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -20,11 +20,10 @@ class PaymentMethodDetailType(Enum):
 
         if PaymentMethodDetailType.CARD.value == value:
             return PaymentMethodDetailType.CARD
-        elif PaymentMethodDetailType.EXTERNALACCOUNT.value == value:
+        if PaymentMethodDetailType.EXTERNALACCOUNT.value == value:
             return PaymentMethodDetailType.EXTERNALACCOUNT
-        elif PaymentMethodDetailType.COUPON.value == value:
+        if PaymentMethodDetailType.COUPON.value == value:
             return PaymentMethodDetailType.COUPON
-        elif PaymentMethodDetailType.DISCOUNT.value == value:
+        if PaymentMethodDetailType.DISCOUNT.value == value:
             return PaymentMethodDetailType.DISCOUNT
-        else:
-            return None
+        return None

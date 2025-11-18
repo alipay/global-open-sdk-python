@@ -1,10 +1,10 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
 
 
 @unique
 class CardBrand(Enum):
+    """CardBrand枚举类"""
+
     VISA = "VISA"
     MASTERCARD = "MASTERCARD"
     MAESTRO = "MAESTRO"
@@ -18,7 +18,7 @@ class CardBrand(Enum):
     HIPERCARD = "HIPERCARD"
     TROY = "TROY"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -28,27 +28,26 @@ class CardBrand(Enum):
 
         if CardBrand.VISA.value == value:
             return CardBrand.VISA
-        elif CardBrand.MASTERCARD.value == value:
+        if CardBrand.MASTERCARD.value == value:
             return CardBrand.MASTERCARD
-        elif CardBrand.MAESTRO.value == value:
+        if CardBrand.MAESTRO.value == value:
             return CardBrand.MAESTRO
-        elif CardBrand.AMEX.value == value:
+        if CardBrand.AMEX.value == value:
             return CardBrand.AMEX
-        elif CardBrand.JCB.value == value:
+        if CardBrand.JCB.value == value:
             return CardBrand.JCB
-        elif CardBrand.DINERS.value == value:
+        if CardBrand.DINERS.value == value:
             return CardBrand.DINERS
-        elif CardBrand.DISCOVER.value == value:
+        if CardBrand.DISCOVER.value == value:
             return CardBrand.DISCOVER
-        elif CardBrand.CUP.value == value:
+        if CardBrand.CUP.value == value:
             return CardBrand.CUP
-        elif CardBrand.MIR.value == value:
+        if CardBrand.MIR.value == value:
             return CardBrand.MIR
-        elif CardBrand.ELO.value == value:
+        if CardBrand.ELO.value == value:
             return CardBrand.ELO
-        elif CardBrand.HIPERCARD.value == value:
+        if CardBrand.HIPERCARD.value == value:
             return CardBrand.HIPERCARD
-        elif CardBrand.TROY.value == value:
+        if CardBrand.TROY.value == value:
             return CardBrand.TROY
-        else:
-            return None
+        return None
