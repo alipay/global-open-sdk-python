@@ -69,25 +69,28 @@ class SubscriptionInfo(object):
     @subscription_expiry_time.setter
     def subscription_expiry_time(self, value):
         self.__subscription_expiry_time = value
+
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if self.__subscription_description is not None:
-            params['subscriptionDescription'] = self.__subscription_description
+            params["subscriptionDescription"] = self.__subscription_description
         if self.__subscription_start_time is not None:
-            params['subscriptionStartTime'] = self.__subscription_start_time
+            params["subscriptionStartTime"] = self.__subscription_start_time
         if self.__subscription_end_time is not None:
-            params['subscriptionEndTime'] = self.__subscription_end_time
+            params["subscriptionEndTime"] = self.__subscription_end_time
         if self.__period_rule is not None:
-            params['periodRule'] = self.__period_rule
+            params["periodRule"] = self.__period_rule
         if self.__trials is not None:
-            params['trials'] = self.__trials
+            params["trials"] = self.__trials
         if self.__subscription_notify_url is not None:
-            params['subscriptionNotifyUrl'] = self.__subscription_notify_url
+            params["subscriptionNotifyUrl"] = self.__subscription_notify_url
         if self.__subscription_expiry_time is not None:
-            params['subscriptionExpiryTime'] = self.__subscription_expiry_time
+            params["subscriptionExpiryTime"] = self.__subscription_expiry_time
 
         return params

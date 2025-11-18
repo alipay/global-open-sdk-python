@@ -1,10 +1,12 @@
 from enum import Enum
 
+
 class AntomPathConstants(Enum):
     """
     Ant Group
     Copyright (c) 2004-2024 All Rights Reserved.
     """
+
     AUTH_CONSULT_PATH = "/ams/api/v1/authorizations/consult"
     AUTH_APPLY_TOKEN_PATH = "/ams/api/v1/authorizations/applyToken"
     AUTH_REVOKE_PATH = "/ams/api/v1/authorizations/revoke"
@@ -33,16 +35,20 @@ class AntomPathConstants(Enum):
     DOWNLOAD_DISPUTE_EVIDENCE_PATH = "/ams/api/v1/payments/downloadDisputeEvidence"
 
     REFUND_PATH = "/ams/api/v1/payments/refund"
-    RETRIEVE_PATH = "/ams/api//v1/payments/retrievePaymentSession";
+    RETRIEVE_PATH = "/ams/api//v1/payments/retrievePaymentSession"
 
     INQUIRY_REFUND_PATH = "/ams/api/v1/payments/inquiryRefund"
 
     DECLARE_PATH = "/ams/api/v1/customs/declare"
     INQUIRY_DECLARE_PATH = "/ams/api/v1/customs/inquiryDeclarationRequests"
 
-    MARKETPLACE_SUBMITATTACHMENT_PATH = "/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment"
+    MARKETPLACE_SUBMITATTACHMENT_PATH = (
+        "/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment"
+    )
     MARKETPLACE_REGISTER_PATH = "/ams/api/v1/merchants/register"
-    MARKETPLACE_SETTLEMENTINFO_UPDATE_PATH = "/ams/api/v1/merchants/settlementInfo/update"
+    MARKETPLACE_SETTLEMENTINFO_UPDATE_PATH = (
+        "/ams/api/v1/merchants/settlementInfo/update"
+    )
     MARKETPLACE_INQUIREBALANCE_PATH = "/ams/api/v1/accounts/inquireBalance"
     MARKETPLACE_SETTLE_PATH = "/ams/api/v1/payments/settle"
     MARKETPLACE_CREATEPAYOUT_PATH = "/ams/api/v1/funds/createPayout"
@@ -53,8 +59,12 @@ class AntomPathConstants(Enum):
     RISK_SEND_PAYMENT_RESULT_PATH = "/ams/api/v1/risk/payments/sendPaymentResult"
     RISK_SEND_REFUND_RESULT_PATH = "/ams/api/v1/risk/payments/sendRefundResult"
 
-    MERCHANTS_INQUIRY_REGISTRATION_PATH  ="/ams/api/v1/merchants/inquiryRegistrationInfo"
+    MERCHANTS_INQUIRY_REGISTRATION_PATH = (
+        "/ams/api/v1/merchants/inquiryRegistrationInfo"
+    )
     MERCHANTS_REGISTRATION_PATH = "/ams/api/v1/merchants/registration"
-    MERCHANTS_INQUIRY_REGISTRATION_STATUS_PATH = "/ams/api/v1/merchants/inquiryRegistrationStatus"
+    MERCHANTS_INQUIRY_REGISTRATION_STATUS_PATH = (
+        "/ams/api/v1/merchants/inquiryRegistrationStatus"
+    )
     PAYMENT_INQUIRE_EXCHANGE_RATE_PATH = "/ams/api/v1/payments/inquireExchangeRate"
     ABA_INQUERY_STATEMENT_LIST_PATH = "/ams/api/v1/aba/accounts/inquiryStatementList"

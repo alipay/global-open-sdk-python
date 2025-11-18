@@ -72,40 +72,39 @@ class AlipayPayResultNotify(AlipayNotify):
     @property
     def promotion_result(self):
         return self.__promotion_result
+
     @property
     def payment_method_type(self):
         return self.__payment_method_type
 
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayPayResultNotify, self).parse_notify_body(notify_body)
-        if 'paymentRequestId' in notify:
-            self.__payment_request_id = notify['paymentRequestId']
-        if 'paymentId' in notify:
-            self.__payment_id = notify['paymentId']
-        if 'paymentAmount' in notify:
-            self.__payment_amount = notify['paymentAmount']
-        if 'paymentCreateTime' in notify:
-            self.__payment_create_time = notify['paymentCreateTime']
-        if 'paymentTime' in notify:
-            self.__payment_time = notify['paymentTime']
-        if 'customsDeclarationAmount' in notify:
-            self.__customs_declaration_amount = notify['customsDeclarationAmount']
-        if 'grossSettlementAmount' in notify:
-            self.__gross_settlement_amount = notify['grossSettlementAmount']
-        if 'settlementQuote' in notify:
-            self.__settlement_quote = notify['settlementQuote']
-        if 'pspCustomerInfo' in notify:
-            self.__psp_customer_info = notify['pspCustomerInfo']
-        if 'acquirerReferenceNo' in notify:
-            self.__acquirer_reference_no = notify['acquirerReferenceNo']
-        if 'paymentResultInfo' in notify:
-            self.__payment_result_info = notify['paymentResultInfo']
-        if 'acquirerInfo' in notify:
-            self.__acquirer_info = notify['acquirerInfo']
-        if 'promotionResult' in notify:
-            self.__promotion_result = notify['promotionResult']
+        if "paymentRequestId" in notify:
+            self.__payment_request_id = notify["paymentRequestId"]
+        if "paymentId" in notify:
+            self.__payment_id = notify["paymentId"]
+        if "paymentAmount" in notify:
+            self.__payment_amount = notify["paymentAmount"]
+        if "paymentCreateTime" in notify:
+            self.__payment_create_time = notify["paymentCreateTime"]
+        if "paymentTime" in notify:
+            self.__payment_time = notify["paymentTime"]
+        if "customsDeclarationAmount" in notify:
+            self.__customs_declaration_amount = notify["customsDeclarationAmount"]
+        if "grossSettlementAmount" in notify:
+            self.__gross_settlement_amount = notify["grossSettlementAmount"]
+        if "settlementQuote" in notify:
+            self.__settlement_quote = notify["settlementQuote"]
+        if "pspCustomerInfo" in notify:
+            self.__psp_customer_info = notify["pspCustomerInfo"]
+        if "acquirerReferenceNo" in notify:
+            self.__acquirer_reference_no = notify["acquirerReferenceNo"]
+        if "paymentResultInfo" in notify:
+            self.__payment_result_info = notify["paymentResultInfo"]
+        if "acquirerInfo" in notify:
+            self.__acquirer_info = notify["acquirerInfo"]
+        if "promotionResult" in notify:
+            self.__promotion_result = notify["promotionResult"]
 
-        if 'paymentMethodType' in notify:
-            self.__payment_method_type = notify['paymentMethodType']
-
-
+        if "paymentMethodType" in notify:
+            self.__payment_method_type = notify["paymentMethodType"]

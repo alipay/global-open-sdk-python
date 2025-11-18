@@ -31,16 +31,24 @@ class Declaration:
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "declaration_biz_scene") and self.declaration_biz_scene is not None:
-            params['declarationBizScene'] = self.declaration_biz_scene
-        if hasattr(self, "declaration_beneficiary_id") and self.declaration_beneficiary_id is not None:
-            params['declarationBeneficiaryId'] = self.declaration_beneficiary_id
+        if (
+            hasattr(self, "declaration_biz_scene")
+            and self.declaration_biz_scene is not None
+        ):
+            params["declarationBizScene"] = self.declaration_biz_scene
+        if (
+            hasattr(self, "declaration_beneficiary_id")
+            and self.declaration_beneficiary_id is not None
+        ):
+            params["declarationBeneficiaryId"] = self.declaration_beneficiary_id
         return params
 
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'declarationBizScene' in response_body:
-            self.__declaration_biz_scene = response_body['declarationBizScene']
-        if 'declarationBeneficiaryId' in response_body:
-            self.__declaration_beneficiary_id = response_body['declarationBeneficiaryId']
+        if "declarationBizScene" in response_body:
+            self.__declaration_biz_scene = response_body["declarationBizScene"]
+        if "declarationBeneficiaryId" in response_body:
+            self.__declaration_beneficiary_id = response_body[
+                "declarationBeneficiaryId"
+            ]

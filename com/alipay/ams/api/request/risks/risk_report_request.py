@@ -49,17 +49,19 @@ class RiskReportRequest(AlipayRequest):
         ams_dict = super(RiskReportRequest, self)
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if self.__reference_transaction_id is not None:
-            params['referenceTransactionId'] = self.__reference_transaction_id
+            params["referenceTransactionId"] = self.__reference_transaction_id
         if self.__report_reason is not None:
-            params['reportReason'] = self.__report_reason
+            params["reportReason"] = self.__report_reason
         if self.__risk_type is not None:
-            params['riskType'] = self.__risk_type
+            params["riskType"] = self.__risk_type
         if self.__risk_occurrence_time is not None:
-            params['riskOccurrenceTime'] = self.__risk_occurrence_time
+            params["riskOccurrenceTime"] = self.__risk_occurrence_time
         return params

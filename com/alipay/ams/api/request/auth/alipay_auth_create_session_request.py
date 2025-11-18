@@ -10,7 +10,9 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayAuthCreateSessionRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayAuthCreateSessionRequest, self).__init__(AntomPathConstants.CREATE_SESSION_PATH)
+        super(AlipayAuthCreateSessionRequest, self).__init__(
+            AntomPathConstants.CREATE_SESSION_PATH
+        )
         self.__product_code = None  # type:ProductCodeType
         self.__agreement_info = None  # type:AgreementInfo
         self.__scopes = None  # type:list[ScopeType]
@@ -58,27 +60,29 @@ class AlipayAuthCreateSessionRequest(AlipayRequest):
         self.__payment_redirect_url = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "product_code") and self.product_code:
-            params['productCodeType'] = self.product_code
+            params["productCodeType"] = self.product_code
 
         if hasattr(self, "agreement_info") and self.agreement_info:
-            params['agreementInfo'] = self.agreement_info.to_ams_json()
+            params["agreementInfo"] = self.agreement_info.to_ams_json()
 
         if hasattr(self, "scopes") and self.scopes:
             scopes_list = []
             for scope in self.scopes:
                 scopes_list.append(scope.value)
-            params['scopes'] = scopes_list
+            params["scopes"] = scopes_list
 
         if hasattr(self, "payment_method") and self.payment_method:
-            params['paymentMethod'] = self.payment_method.to_ams_dict()
+            params["paymentMethod"] = self.payment_method.to_ams_dict()
 
         if hasattr(self, "payment_redirect_url") and self.payment_redirect_url:
-            params['paymentRedirectUrl'] = self.payment_redirect_url
+            params["paymentRedirectUrl"] = self.payment_redirect_url
 
         return params

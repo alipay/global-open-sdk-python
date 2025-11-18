@@ -8,11 +8,10 @@ class AlipayVaultingNotify(AlipayNotify):
     def __init__(self, notify_body):
         super(AlipayVaultingNotify, self).__init__()
         self.__vaulting_request_id = None
-        self.__payment_method_detail = None #type: PaymentMethodDetail
+        self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__vaulting_create_time = None
-        self.__acquirer_info = None # type: AcquirerInfo
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.__parse_rsp_body(notify_body)
-
 
     @property
     def vaulting_request_id(self):
@@ -30,18 +29,17 @@ class AlipayVaultingNotify(AlipayNotify):
     def acquirer_info(self):
         return self.__acquirer_info
 
-
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayVaultingNotify, self).parse_notify_body(notify_body)
-        if 'vaultingRequestId' in notify:
-            self.__vaulting_request_id = notify['vaultingRequestId']
-        if 'paymentMethodDetail' in notify:
+        if "vaultingRequestId" in notify:
+            self.__vaulting_request_id = notify["vaultingRequestId"]
+        if "paymentMethodDetail" in notify:
             payment_method_detail = PaymentMethodDetail()
-            payment_method_detail.parse_rsp_body(notify['paymentMethodDetail'])
+            payment_method_detail.parse_rsp_body(notify["paymentMethodDetail"])
             self.__payment_method_detail = payment_method_detail
-        if 'vaultingCreateTime' in notify:
-            self.__vaulting_create_time = notify['vaultingCreateTime']
-        if 'acquirerInfo' in notify:
+        if "vaultingCreateTime" in notify:
+            self.__vaulting_create_time = notify["vaultingCreateTime"]
+        if "acquirerInfo" in notify:
             acquirer_info = AcquirerInfo()
-            acquirer_info.parse_rsp_body(notify['acquirerInfo'])
+            acquirer_info.parse_rsp_body(notify["acquirerInfo"])
             self.__acquirer_info = acquirer_info

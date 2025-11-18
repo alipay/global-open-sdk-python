@@ -7,17 +7,24 @@ from com.alipay.ams.api.model.merchant_registration_info import MerchantRegistra
 from com.alipay.ams.api.model.registration_detail import RegistrationDetail
 from com.alipay.ams.api.model.result_status_type import ResultStatusType
 from com.alipay.ams.api.model.web_site import WebSite
-from com.alipay.ams.api.request.merchant.alipay_merchant_registration_info_query_request import \
-    AlipayMerchantRegistrationInfoQueryRequest
-from com.alipay.ams.api.request.merchant.alipay_merchant_registration_request import AlipayMerchantRegistrationRequest
-from com.alipay.ams.api.request.merchant.alipay_merchant_registration_status_query_request import \
-    AlipayMerchantRegistrationStatusQueryRequest
-from com.alipay.ams.api.response.merchant.alipay_merchant_registration_info_query_response import \
-    AlipayMerchantRegistrationInfoQueryResponse
-from com.alipay.ams.api.response.merchant.alipay_merchant_registration_response import \
-    AlipayMerchantRegistrationResponse
-from com.alipay.ams.api.response.merchant.alipay_merchant_registration_status_query_response import \
-    AlipayMerchantRegistrationStatusQueryResponse
+from com.alipay.ams.api.request.merchant.alipay_merchant_registration_info_query_request import (
+    AlipayMerchantRegistrationInfoQueryRequest,
+)
+from com.alipay.ams.api.request.merchant.alipay_merchant_registration_request import (
+    AlipayMerchantRegistrationRequest,
+)
+from com.alipay.ams.api.request.merchant.alipay_merchant_registration_status_query_request import (
+    AlipayMerchantRegistrationStatusQueryRequest,
+)
+from com.alipay.ams.api.response.merchant.alipay_merchant_registration_info_query_response import (
+    AlipayMerchantRegistrationInfoQueryResponse,
+)
+from com.alipay.ams.api.response.merchant.alipay_merchant_registration_response import (
+    AlipayMerchantRegistrationResponse,
+)
+from com.alipay.ams.api.response.merchant.alipay_merchant_registration_status_query_response import (
+    AlipayMerchantRegistrationStatusQueryResponse,
+)
 
 MERCHANT_PRIVATE_KEY = ""
 ALIPAY_PUBLIC_KEY = ""
@@ -25,13 +32,18 @@ CLIENT_ID = ""
 
 
 def register():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLIC_KEY)
+    default_alipay_client = DefaultAlipayClient(
+        "https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
 
     alipay_merchant_registration_request = AlipayMerchantRegistrationRequest()
-    alipay_merchant_registration_request.registration_request_id = "reqId107336691327831097346773_test_111"
-    alipay_merchant_registration_request.pass_through_info = "{\"acquiringCurrency\":[\"HKD\"],\"settlementType\":\"DOMESTIC_SETTLEMENT\",\"legalRepresentativeName\":\"legalRepresentativeName\"}"
-    alipay_merchant_registration_request.registration_notify_url = "https://www.yourNotifyUrl.com"
+    alipay_merchant_registration_request.registration_request_id = (
+        "reqId107336691327831097346773_test_111"
+    )
+    alipay_merchant_registration_request.pass_through_info = '{"acquiringCurrency":["HKD"],"settlementType":"DOMESTIC_SETTLEMENT","legalRepresentativeName":"legalRepresentativeName"}'
+    alipay_merchant_registration_request.registration_notify_url = (
+        "https://www.yourNotifyUrl.com"
+    )
     alipay_merchant_registration_request.product_codes = ["AGREEMENT_PAYMENT"]
 
     merchant_info = MerchantRegistrationInfo()
@@ -118,17 +130,29 @@ def register():
 
 
 def query_info():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
-                                                ALIPAY_PUBLIC_KEY)
-    alipay_merchant_registration_info_query_request = AlipayMerchantRegistrationInfoQueryRequest()
+    default_alipay_client = DefaultAlipayClient(
+        "https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
+    alipay_merchant_registration_info_query_request = (
+        AlipayMerchantRegistrationInfoQueryRequest()
+    )
 
-    alipay_merchant_registration_info_query_request.reference_merchant_id = "5188122826664900663130"
+    alipay_merchant_registration_info_query_request.reference_merchant_id = (
+        "5188122826664900663130"
+    )
 
     print(alipay_merchant_registration_info_query_request.to_ams_json())
 
-    rsp_body = default_alipay_client.execute(alipay_merchant_registration_info_query_request)
-    alipay_merchant_registration_info_response = AlipayMerchantRegistrationInfoQueryResponse(rsp_body)
-    if alipay_merchant_registration_info_response.result.result_status.name != ResultStatusType.F.name:
+    rsp_body = default_alipay_client.execute(
+        alipay_merchant_registration_info_query_request
+    )
+    alipay_merchant_registration_info_response = (
+        AlipayMerchantRegistrationInfoQueryResponse(rsp_body)
+    )
+    if (
+        alipay_merchant_registration_info_response.result.result_status.name
+        != ResultStatusType.F.name
+    ):
         print(alipay_merchant_registration_info_response.product_codes)
         print(alipay_merchant_registration_info_response.merchant_info)
     else:
@@ -136,17 +160,29 @@ def query_info():
 
 
 def query_registration_status():
-    default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID,
-                                                MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY)
-    alipay_merchant_registration_status_query_request = AlipayMerchantRegistrationStatusQueryRequest()
+    default_alipay_client = DefaultAlipayClient(
+        "https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY, ALIPAY_PUBLIC_KEY
+    )
+    alipay_merchant_registration_status_query_request = (
+        AlipayMerchantRegistrationStatusQueryRequest()
+    )
 
-    alipay_merchant_registration_status_query_request.reference_merchant_id = "5188122826664900663130"
+    alipay_merchant_registration_status_query_request.reference_merchant_id = (
+        "5188122826664900663130"
+    )
 
     print(alipay_merchant_registration_status_query_request.to_ams_json())
 
-    rsp_body = default_alipay_client.execute(alipay_merchant_registration_status_query_request)
-    alipay_merchant_registration_status_response = AlipayMerchantRegistrationStatusQueryResponse(rsp_body)
-    if alipay_merchant_registration_status_response.result.result_status.name != ResultStatusType.F.name:
+    rsp_body = default_alipay_client.execute(
+        alipay_merchant_registration_status_query_request
+    )
+    alipay_merchant_registration_status_response = (
+        AlipayMerchantRegistrationStatusQueryResponse(rsp_body)
+    )
+    if (
+        alipay_merchant_registration_status_response.result.result_status.name
+        != ResultStatusType.F.name
+    ):
         print(alipay_merchant_registration_status_response.psp_registration_result_list)
         print(alipay_merchant_registration_status_response.registration_result)
     else:

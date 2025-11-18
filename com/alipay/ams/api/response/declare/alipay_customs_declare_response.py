@@ -40,15 +40,17 @@ class AlipayCustomsDeclareResponse(AlipayResponse):
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayCustomsDeclareResponse, self).parse_rsp_body(rsp_body)
-        if response.get('customsPaymentId'):
-            self.__customs_payment_id = response.get('customsPaymentId')
-        if response.get('customsOrderId'):
-            self.__customs_order_id = response.get('customsOrderId')
-        if response.get('identityCheckResult'):
-            self.__identity_check_result = response.get('identityCheckResult')
-        if response.get('clearingChannel'):
-            self.__clearing_channel = response.get('clearingChannel')
-        if response.get('clearingTransactionId'):
-            self.__clearing_transaction_id = response.get('clearingTransactionId')
-        if response.get('customsProviderRegistrationId'):
-            self.__customs_provider_registration_id = response.get('customsProviderRegistrationId')
+        if response.get("customsPaymentId"):
+            self.__customs_payment_id = response.get("customsPaymentId")
+        if response.get("customsOrderId"):
+            self.__customs_order_id = response.get("customsOrderId")
+        if response.get("identityCheckResult"):
+            self.__identity_check_result = response.get("identityCheckResult")
+        if response.get("clearingChannel"):
+            self.__clearing_channel = response.get("clearingChannel")
+        if response.get("clearingTransactionId"):
+            self.__clearing_transaction_id = response.get("clearingTransactionId")
+        if response.get("customsProviderRegistrationId"):
+            self.__customs_provider_registration_id = response.get(
+                "customsProviderRegistrationId"
+            )

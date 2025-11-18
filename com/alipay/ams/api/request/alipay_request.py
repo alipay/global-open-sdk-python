@@ -13,8 +13,8 @@ class AlipayRequest(object):
 
     def __init__(self, *args, **kwargs):
         self.__path = args[0].value if len(args) > 0 else None
-        self.__key_version = kwargs.get('key_version', None)
-        self.__http_method = kwargs.get('http_method', HttpMethod.POST)
+        self.__key_version = kwargs.get("key_version", None)
+        self.__http_method = kwargs.get("http_method", HttpMethod.POST)
 
     @property
     def path(self):

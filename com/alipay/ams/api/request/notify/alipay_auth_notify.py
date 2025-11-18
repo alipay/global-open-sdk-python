@@ -52,24 +52,23 @@ class AlipayAuthNotify(AlipayNotify):
     def pass_through_info(self):
         return self.__pass_through_info
 
-
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayAuthNotify, self).parse_notify_body(notify_body)
-        if 'authorizationNotifyType' in notify:
-            self.__authorization_notify_type = notify['authorizationNotifyType']
-        if 'authClientId' in notify:
-            self.__auth_client_id = notify['authClientId']
-        if 'accessToken' in notify:
-            self.__access_token = notify['accessToken']
-        if 'authState' in notify:
-            self.__auth_state = notify['authState']
-        if 'authCode' in notify:
-            self.__auth_code = notify['authCode']
-        if 'reason' in notify:
-            self.__reason = notify['reason']
-        if 'userLoginId' in notify:
-            self.__user_login_id = notify['userLoginId']
-        if 'userId' in notify:
-            self.__user_id = notify['userId']
-        if 'passThroughInfo' in notify:
-            self.__pass_through_info = notify['passThroughInfo']
+        if "authorizationNotifyType" in notify:
+            self.__authorization_notify_type = notify["authorizationNotifyType"]
+        if "authClientId" in notify:
+            self.__auth_client_id = notify["authClientId"]
+        if "accessToken" in notify:
+            self.__access_token = notify["accessToken"]
+        if "authState" in notify:
+            self.__auth_state = notify["authState"]
+        if "authCode" in notify:
+            self.__auth_code = notify["authCode"]
+        if "reason" in notify:
+            self.__reason = notify["reason"]
+        if "userLoginId" in notify:
+            self.__user_login_id = notify["userLoginId"]
+        if "userId" in notify:
+            self.__user_id = notify["userId"]
+        if "passThroughInfo" in notify:
+            self.__pass_through_info = notify["passThroughInfo"]

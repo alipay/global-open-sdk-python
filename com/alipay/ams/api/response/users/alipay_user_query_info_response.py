@@ -27,11 +27,11 @@ class AlipayUserQueryInfoResponse(AlipayResponse):
 
     def __parse_rsp_body(self, rsp_body):
         response = super(AlipayUserQueryInfoResponse, self).parse_rsp_body(rsp_body)
-        if 'userId' in response:
-            self.__user_id = response['userId']
+        if "userId" in response:
+            self.__user_id = response["userId"]
 
-        if 'userLoginId' in response:
-            self.__user_login_id = response['userLoginId']
+        if "userLoginId" in response:
+            self.__user_login_id = response["userLoginId"]
 
-        if 'hashUserLoginId' in response:
-            self.__hash_user_login_id = response['hashUserLoginId']
+        if "hashUserLoginId" in response:
+            self.__hash_user_login_id = response["hashUserLoginId"]

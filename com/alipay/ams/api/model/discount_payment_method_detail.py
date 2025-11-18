@@ -1,22 +1,19 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
-
 from com.alipay.ams.api.model.amount import Amount
 
 
-class DiscountPaymentMethodDetail(object):
-
+class DiscountPaymentMethodDetail:
     def __init__(self):
-        self.__discount_id = None
+
+        self.__discount_id = None  # type: str
         self.__available_amount = None  # type: Amount
-        self.__discount_name = None
-        self.__discount_description = None
-        self.__payment_method_detail_metadata = None
+        self.__discount_name = None  # type: str
+        self.__discount_description = None  # type: str
+        self.__payment_method_detail_metadata = None  # type: str
 
     @property
     def discount_id(self):
+        """Gets the discount_id of this DiscountPaymentMethodDetail."""
         return self.__discount_id
 
     @discount_id.setter
@@ -24,16 +21,8 @@ class DiscountPaymentMethodDetail(object):
         self.__discount_id = value
 
     @property
-    def discount_name(self):
-        return self.__discount_name
-
-
-    @discount_name.setter
-    def discount_name(self, value):
-        self.__discount_name = value
-
-    @property
     def available_amount(self):
+        """Gets the available_amount of this DiscountPaymentMethodDetail."""
         return self.__available_amount
 
     @available_amount.setter
@@ -41,9 +30,18 @@ class DiscountPaymentMethodDetail(object):
         self.__available_amount = value
 
     @property
-    def discount_description(self):
-        return self.__discount_description
+    def discount_name(self):
+        """Gets the discount_name of this DiscountPaymentMethodDetail."""
+        return self.__discount_name
 
+    @discount_name.setter
+    def discount_name(self, value):
+        self.__discount_name = value
+
+    @property
+    def discount_description(self):
+        """Gets the discount_description of this DiscountPaymentMethodDetail."""
+        return self.__discount_description
 
     @discount_description.setter
     def discount_description(self, value):
@@ -51,44 +49,46 @@ class DiscountPaymentMethodDetail(object):
 
     @property
     def payment_method_detail_metadata(self):
+        """Gets the payment_method_detail_metadata of this DiscountPaymentMethodDetail."""
         return self.__payment_method_detail_metadata
-
 
     @payment_method_detail_metadata.setter
     def payment_method_detail_metadata(self, value):
         self.__payment_method_detail_metadata = value
 
-    def parse_rsp_body(self, external_payment_method_detail_body):
-        if type(external_payment_method_detail_body) == str:
-            external_payment_method_detail_body = json.loads(external_payment_method_detail_body)
-
-        if 'discountId' in external_payment_method_detail_body:
-            self.__discount_id = external_payment_method_detail_body['discountId']
-
-        if 'availableAmount' in external_payment_method_detail_body:
-            available_amount = Amount()
-            available_amount.parse_rsp_body(external_payment_method_detail_body['availableAmount'])
-            self.__available_amount = available_amount
-
-        if 'discountName' in external_payment_method_detail_body:
-            self.__discount_name = external_payment_method_detail_body['discountName']
-
-        if 'discountDescription' in external_payment_method_detail_body:
-            self.__discount_description = external_payment_method_detail_body['discountDescription']
-
-        if 'paymentMethodDetailMetadata' in external_payment_method_detail_body:
-            self.__payment_method_detail_metadata = external_payment_method_detail_body['paymentMethodDetailMetadata']
-
     def to_ams_dict(self):
         params = dict()
-        if self.discount_id:
-            params['discountId'] = self.discount_id
-        if self.available_amount:
-            params['availableAmount'] = self.available_amount.to_ams_dict()
-        if self.discount_name:
-            params['discountName'] = self.discount_name
-        if self.discount_description:
-            params['discountDescription'] = self.discount_description
-        if self.payment_method_detail_metadata:
-            params['paymentMethodDetailMetadata'] = self.payment_method_detail_metadata
+        if hasattr(self, "discount_id") and self.discount_id is not None:
+            params["discountId"] = self.discount_id
+        if hasattr(self, "available_amount") and self.available_amount is not None:
+            params["availableAmount"] = self.available_amount
+        if hasattr(self, "discount_name") and self.discount_name is not None:
+            params["discountName"] = self.discount_name
+        if (
+            hasattr(self, "discount_description")
+            and self.discount_description is not None
+        ):
+            params["discountDescription"] = self.discount_description
+        if (
+            hasattr(self, "payment_method_detail_metadata")
+            and self.payment_method_detail_metadata is not None
+        ):
+            params["paymentMethodDetailMetadata"] = self.payment_method_detail_metadata
         return params
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if "discountId" in response_body:
+            self.__discount_id = response_body["discountId"]
+        if "availableAmount" in response_body:
+            self.__available_amount = Amount()
+            self.__available_amount.parse_rsp_body(response_body["availableAmount"])
+        if "discountName" in response_body:
+            self.__discount_name = response_body["discountName"]
+        if "discountDescription" in response_body:
+            self.__discount_description = response_body["discountDescription"]
+        if "paymentMethodDetailMetadata" in response_body:
+            self.__payment_method_detail_metadata = response_body[
+                "paymentMethodDetailMetadata"
+            ]

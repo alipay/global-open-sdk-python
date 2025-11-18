@@ -22,9 +22,9 @@ class ContactInfo(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "contact_no") and self.contact_no:
-            params['contactNo'] = self.contact_no
+            params["contactNo"] = self.contact_no
 
         if hasattr(self, "contact_type") and self.contact_type:
-            params['contactType'] = self.contact_type
+            params["contactType"] = self.contact_type
 
         return params
