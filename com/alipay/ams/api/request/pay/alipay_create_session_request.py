@@ -40,7 +40,7 @@ class AlipayCreateSessionRequest(AlipayRequest):
         self.__subscription_info = None  # type: SubscriptionInfo
         self.__user_region= None
         self.__scopes = None # type: list[str]
-
+        self.__payment_expiry_time = None
     @property
     def product_code(self):
         return self.__product_code
@@ -225,6 +225,14 @@ class AlipayCreateSessionRequest(AlipayRequest):
     def scopes(self, value):
         self.__scopes = value
 
+    @property
+    def payment_expiry_time(self):
+        return self.__payment_expiry_time
+
+    @payment_expiry_time.setter
+    def payment_expiry_time(self, value):
+        self.__payment_expiry_time = value
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -277,4 +285,6 @@ class AlipayCreateSessionRequest(AlipayRequest):
             params['userRegion'] = self.user_region
         if hasattr(self, "scopes") and self.scopes:
             params['scopes'] = self.scopes
+        if hasattr(self, "payment_expiry_time") and self.payment_expiry_time:
+            params['paymentExpiryTime'] = self.payment_expiry_time
         return params

@@ -56,4 +56,5 @@ class AntomPathConstants(Enum):
     MERCHANTS_INQUIRY_REGISTRATION_PATH  ="/ams/api/v1/merchants/inquiryRegistrationInfo"
     MERCHANTS_REGISTRATION_PATH = "/ams/api/v1/merchants/registration"
     MERCHANTS_INQUIRY_REGISTRATION_STATUS_PATH = "/ams/api/v1/merchants/inquiryRegistrationStatus"
-    PAYMENT_INQUIRE_EXCHANGE_RATE_PATH = "/ams/api/v1/payments/inquireExchangeRate";
+    PAYMENT_INQUIRE_EXCHANGE_RATE_PATH = "/ams/api/v1/payments/inquireExchangeRate"
+    ABA_INQUERY_STATEMENT_LIST_PATH = "/ams/api/v1/aba/accounts/inquiryStatementList"

@@ -41,6 +41,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__user_region = None
         self.__credit_pay_plan = None  # type: CreditPayPlan
         self.__subscription_info = None # type: SubscriptionInfo
+        self.__agreement_info= None
 
     @property
     def merchant_region(self):
@@ -209,6 +210,13 @@ class AlipayPayRequest(AlipayRequest):
     @subscription_info.setter
     def subscription_info(self, value):
         self.__subscription_info = value
+    @property
+    def agreement_info(self):
+        return self.__agreement_info
+
+    @agreement_info.setter
+    def agreement_info(self, value):
+        self.__agreement_info = value
 
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
@@ -278,5 +286,7 @@ class AlipayPayRequest(AlipayRequest):
 
         if hasattr(self, "subscription_info") and self.subscription_info:
             params['subscriptionInfo'] = self.subscription_info
+        if hasattr(self, "agreement_info") and self.agreement_info:
+            params['agreementInfo'] = self.agreement_info
 
         return params

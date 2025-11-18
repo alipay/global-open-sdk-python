@@ -25,6 +25,7 @@ class Env(object):
         self.__device_model = None
         self.__device_language = None
         self.__device_id = None
+        self.__os_version = None
 
     @property
     def terminal_type(self):
@@ -170,6 +171,13 @@ class Env(object):
     def device_id(self, value):
         self.__device_id = value
 
+    @property
+    def os_version(self):
+        return self.__os_version
+    @os_version.setter
+    def os_version(self, value):
+        self.__os_version = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "terminal_type") and self.terminal_type:
@@ -225,5 +233,8 @@ class Env(object):
 
         if hasattr(self, "device_id") and self.device_id:
             params['deviceId'] = self.device_id
+
+        if hasattr(self, "os_version") and self.os_version:
+            params['osVersion'] = self.os_version
 
         return params
