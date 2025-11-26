@@ -11,6 +11,7 @@ from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.subscription_info import SubscriptionInfo
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
@@ -42,6 +43,8 @@ class AlipayPayRequest(AlipayRequest):
         self.__credit_pay_plan = None  # type: CreditPayPlan
         self.__subscription_info = None # type: SubscriptionInfo
         self.__agreement_info= None
+        self.__payment_quote = None  # type: Quote
+        self.__processing_amount = None #type: Amount
 
     @property
     def merchant_region(self):
@@ -218,6 +221,24 @@ class AlipayPayRequest(AlipayRequest):
     def agreement_info(self, value):
         self.__agreement_info = value
 
+    @property
+    def payment_quote(self):
+        return self.__payment_quote
+
+    @payment_quote.setter
+    def payment_quote(self, value):
+        self.__payment_quote = value
+
+    @property
+    def processing_amount(self):
+        return self.__processing_amount
+
+    @processing_amount.setter
+    def processing_amount(self, value):
+        self.__processing_amount = value
+
+
+
     def to_ams_json(self):
         json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
         return json_str
@@ -288,5 +309,8 @@ class AlipayPayRequest(AlipayRequest):
             params['subscriptionInfo'] = self.subscription_info
         if hasattr(self, "agreement_info") and self.agreement_info:
             params['agreementInfo'] = self.agreement_info
-
+        if hasattr(self, "payment_quote") and self.payment_quote:
+            params['paymentQuote'] = self.payment_quote
+        if hasattr(self, "processing_amount") and self.processing_amount:
+            params['processingAmount'] = self.processing_amount
         return params

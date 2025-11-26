@@ -44,7 +44,7 @@ class Gaming(object):
             params['gameName'] = self.game_name
 
         if hasattr(self, "topped_up_user") and self.topped_up_user:
-            params['toppedUpUser'] = self.topped_up_user.to_ams_dict()
+            params['toppedUpUser'] = self.topped_up_user
 
         if hasattr(self, "topped_up_email") and self.topped_up_email:
             params['toppedUpEmail'] = self.topped_up_email
