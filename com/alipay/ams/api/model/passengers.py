@@ -7,7 +7,7 @@ class Passengers(object):
         self.__passenger_email = None
         self.__passenger_phoneNo = None
         self.__passenger_id = None
-        self.__passenger_id_type = None #type: PassengerIdType
+        self.__passenger_id_type = None  # type: PassengerIdType
         self.__passenger_code = None
 
     @property
@@ -33,7 +33,6 @@ class Passengers(object):
     @passenger_phoneNo.setter
     def passenger_phoneNo(self, value):
         self.__passenger_phoneNo = value
-
 
     @property
     def passenger_id(self):
@@ -62,15 +61,15 @@ class Passengers(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "passenger_name") and self.passenger_name:
-            params['passengerName'] = self.passenger_name
+            params["passengerName"] = self.passenger_name
         if hasattr(self, "passenger_email") and self.passenger_email:
-            params['passengerEmail'] = self.passenger_email
+            params["passengerEmail"] = self.passenger_email
         if hasattr(self, "passenger_phoneNo") and self.passenger_phoneNo:
-            params['passengerPhoneNo'] = self.passenger_phoneNo
+            params["passengerPhoneNo"] = self.passenger_phoneNo
         if hasattr(self, "passenger_id") and self.passenger_id:
-            params['passengerId'] = self.passenger_id
+            params["passengerId"] = self.passenger_id
         if hasattr(self, "passenger_id_type") and self.passenger_id_type:
-            params['passengerIdType'] = self.passenger_id_type.to_ams_dict()
+            params["passengerIdType"] = self.passenger_id_type.to_ams_dict()
         if hasattr(self, "passenger_code") and self.passenger_code:
-            params['passengerCode'] = self.passenger_code
+            params["passengerCode"] = self.passenger_code
         return params

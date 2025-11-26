@@ -16,6 +16,6 @@ class ExtendInfo(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "china_extra_trans_info") and self.china_extra_trans_info:
-            params['chinaExtraTransInfo'] = self.china_extra_trans_info
+            params["chinaExtraTransInfo"] = self.china_extra_trans_info
 
         return params

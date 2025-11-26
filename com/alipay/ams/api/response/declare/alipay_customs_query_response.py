@@ -22,11 +22,13 @@ class AlipayCustomsQueryResponse(AlipayResponse):
 
     def parse_rsp_body(self, rsp_body):
         rsp_dict = super(AlipayCustomsQueryResponse, self).parse_rsp_body(rsp_body)
-        if 'declarationRequestsNotFound' in rsp_dict:
-            self.__declaration_requests_not_found = rsp_dict['declarationRequestsNotFound']
-        if 'declarationRecords' in rsp_dict:
+        if "declarationRequestsNotFound" in rsp_dict:
+            self.__declaration_requests_not_found = rsp_dict[
+                "declarationRequestsNotFound"
+            ]
+        if "declarationRecords" in rsp_dict:
             self.__declaration_records = []
-            for declaration_record_dict in rsp_dict['declarationRecords']:
+            for declaration_record_dict in rsp_dict["declarationRecords"]:
                 declaration_record = DeclarationRecord()
                 declaration_record.parse_rsp_body(declaration_record_dict)
                 self.__declaration_records.append(declaration_record)

@@ -1,10 +1,10 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
 
 
 @unique
 class TransactionType(Enum):
+    """TransactionType枚举类"""
+
     PAYMENT = "PAYMENT"
     REFUND = "REFUND"
     CAPTURE = "CAPTURE"
@@ -12,7 +12,7 @@ class TransactionType(Enum):
     AUTHORIZATION = "AUTHORIZATION"
     VOID = "VOID"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -22,15 +22,14 @@ class TransactionType(Enum):
 
         if TransactionType.PAYMENT.value == value:
             return TransactionType.PAYMENT
-        elif TransactionType.REFUND.value == value:
+        if TransactionType.REFUND.value == value:
             return TransactionType.REFUND
-        elif TransactionType.CAPTURE.value == value:
+        if TransactionType.CAPTURE.value == value:
             return TransactionType.CAPTURE
-        elif TransactionType.CANCEL.value == value:
+        if TransactionType.CANCEL.value == value:
             return TransactionType.CANCEL
-        elif TransactionType.AUTHORIZATION.value == value:
+        if TransactionType.AUTHORIZATION.value == value:
             return TransactionType.AUTHORIZATION
-        elif TransactionType.VOID.value == value:
+        if TransactionType.VOID.value == value:
             return TransactionType.VOID
-        else:
-            return None
+        return None

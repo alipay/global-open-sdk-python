@@ -13,8 +13,10 @@ class AlipayMerchantRegistrationResponse(AlipayResponse):
         return self.__pass_through_info
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayMerchantRegistrationResponse, self).parse_rsp_body(rsp_body)
+        response = super(AlipayMerchantRegistrationResponse, self).parse_rsp_body(
+            rsp_body
+        )
 
-        if 'passThroughInfo' in response:
-            pass_through_info = response['passThroughInfo']
+        if "passThroughInfo" in response:
+            pass_through_info = response["passThroughInfo"]
             self.__pass_through_info = pass_through_info

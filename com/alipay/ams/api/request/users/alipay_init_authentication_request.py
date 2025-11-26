@@ -56,24 +56,32 @@ class AlipayInitAuthenticationRequest(AlipayRequest):
         self.__user_identity_value = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "authentication_type") and self.authentication_type:
-            params['authenticationType'] = self.authentication_type
+            params["authenticationType"] = self.authentication_type
 
-        if hasattr(self, "authentication_request_id") and self.authentication_request_id:
-            params['authenticationRequestId'] = self.authentication_request_id
+        if (
+            hasattr(self, "authentication_request_id")
+            and self.authentication_request_id
+        ):
+            params["authenticationRequestId"] = self.authentication_request_id
 
-        if hasattr(self, "authentication_channel_type") and self.authentication_channel_type:
-            params['authenticationChannelType'] = self.authentication_channel_type
+        if (
+            hasattr(self, "authentication_channel_type")
+            and self.authentication_channel_type
+        ):
+            params["authenticationChannelType"] = self.authentication_channel_type
 
         if hasattr(self, "user_identity_type") and self.user_identity_type:
-            params['userIdentityType'] = self.user_identity_type
+            params["userIdentityType"] = self.user_identity_type
 
         if hasattr(self, "user_identity_value") and self.user_identity_value:
-            params['userIdentityValue'] = self.user_identity_value
+            params["userIdentityValue"] = self.user_identity_value
 
         return params

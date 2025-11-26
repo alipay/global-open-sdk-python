@@ -6,6 +6,5 @@ class SendRefundResultResponse(AlipayResponse):
         super(SendRefundResultResponse, self).__init__()
         self.__parse_rsp_body(rsp_body)
 
-
     def __parse_rsp_body(self, rsp_body):
         response = super(SendRefundResultResponse, self).parse_rsp_body(rsp_body)
