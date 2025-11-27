@@ -8,7 +8,14 @@ from com.alipay.ams.api.net.default_http_rpc import *
 
 class DefaultAlipayClient(object):
 
-    def __init__(self, gateway_url, client_id, merchant_private_key, alipay_public_key,agent_token = None):
+    def __init__(
+        self,
+        gateway_url,
+        client_id,
+        merchant_private_key,
+        alipay_public_key,
+        agent_token=None,
+    ):
         self.__gateway_url = gateway_url
         self.__client_id = client_id
         self.__merchant_private_key = merchant_private_key
@@ -22,7 +29,14 @@ class DefaultAlipayClient(object):
 
     def __gen_sign(self, http_method, path, client_id, req_time, req_body):
         try:
-            sign_value = sign(http_method, path, client_id, req_time, req_body, self.__merchant_private_key)
+            sign_value = sign(
+                http_method,
+                path,
+                client_id,
+                req_time,
+                req_body,
+                self.__merchant_private_key,
+            )
         except Exception as e:
             raise AlipayApiException("request sign failed. " + str(e))
         return sign_value
@@ -31,10 +45,19 @@ class DefaultAlipayClient(object):
     内部方法，生成请求签名
     """
 
-    def __verify_sign(self, http_method, path, client_id, rsp_time, rsp_body, rsp_signature):
+    def __verify_sign(
+        self, http_method, path, client_id, rsp_time, rsp_body, rsp_signature
+    ):
         try:
-            is_verify = verify(http_method, path, client_id, rsp_time, rsp_body, rsp_signature,
-                               self.__alipay_public_key)
+            is_verify = verify(
+                http_method,
+                path,
+                client_id,
+                rsp_time,
+                rsp_body,
+                rsp_signature,
+                self.__alipay_public_key,
+            )
         except Exception as e:
             raise AlipayApiException("response verify failed. " + str(e))
         return is_verify
@@ -55,7 +78,9 @@ class DefaultAlipayClient(object):
         if "rsp_signature" not in locals():
             raise AlipayApiException("response header exception，signature not exist.")
         if "response_time" not in locals():
-            raise AlipayApiException("response header exception，response-time not exist.")
+            raise AlipayApiException(
+                "response header exception，response-time not exist."
+            )
         if "client_id" not in locals():
             raise AlipayApiException("response header exception，client-id not exist.")
 
@@ -64,7 +89,7 @@ class DefaultAlipayClient(object):
     def execute(self, request):
 
         if not hasattr(request, "path") or not request.path:
-            raise AlipayApiException('invalid path')
+            raise AlipayApiException("invalid path")
 
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
@@ -80,7 +105,9 @@ class DefaultAlipayClient(object):
         if hasattr(request, "key_version") and request.key_version:
             key_version = request.key_version
 
-        signature = "algorithm=RSA256,keyVersion=" + key_version + ",signature=" + sign_value
+        signature = (
+            "algorithm=RSA256,keyVersion=" + key_version + ",signature=" + sign_value
+        )
         headers = {
             "Content-type": "application/json; charset=UTF-8",
             "Accept": "text/plain,text/xml,text/javascript,text/html",
@@ -94,7 +121,6 @@ class DefaultAlipayClient(object):
         if self.__agent_token:
             headers["Agent-Token"] = self.__agent_token
 
-
         url = self.__gateway_url + path
         headers, response = do_post(url, headers, req_body)
 
@@ -104,7 +130,9 @@ class DefaultAlipayClient(object):
         if not rsp_signature or not response_time:
             return rsp_body
 
-        is_verify = self.__verify_sign(http_method, path, client_id, response_time, rsp_body, rsp_signature)
+        is_verify = self.__verify_sign(
+            http_method, path, client_id, response_time, rsp_body, rsp_signature
+        )
         if not is_verify:
             raise AlipayApiException("response signature verify failed.")
 
@@ -113,6 +141,5 @@ class DefaultAlipayClient(object):
     def adjust_sandbox_url(self, request):
         if self.__is_sandbox_mode:
             origin_path = request.path
-            new_path = origin_path.replace('/ams/api', '/ams/sandbox/api', 1)
+            new_path = origin_path.replace("/ams/api", "/ams/sandbox/api", 1)
             request.path = new_path
-

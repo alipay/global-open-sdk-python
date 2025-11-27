@@ -90,30 +90,33 @@ class RegistrationDetail(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "legal_name") and self.legal_name:
-            params['legalName'] = self.legal_name
+            params["legalName"] = self.legal_name
 
         if hasattr(self, "attachments") and self.attachments:
-            params['attachments'] = self.attachments
+            params["attachments"] = self.attachments
 
         if hasattr(self, "contact_info") and self.contact_info:
-            params['contactInfo'] = self.contact_info
+            params["contactInfo"] = self.contact_info
 
         if hasattr(self, "registration_type") and self.registration_type:
-            params['registrationType'] = self.registration_type
+            params["registrationType"] = self.registration_type
 
         if hasattr(self, "registration_no") and self.registration_no:
-            params['registrationNo'] = self.registration_no
+            params["registrationNo"] = self.registration_no
 
         if hasattr(self, "registration_address") and self.registration_address:
-            params['registrationAddress'] = self.registration_address
+            params["registrationAddress"] = self.registration_address
 
         if hasattr(self, "business_type") and self.business_type:
-            params['businessType'] = self.business_type
+            params["businessType"] = self.business_type
 
-        if hasattr(self, "registration_effective_date") and self.registration_effective_date:
-            params['registrationEffectiveDate'] = self.registration_effective_date
+        if (
+            hasattr(self, "registration_effective_date")
+            and self.registration_effective_date
+        ):
+            params["registrationEffectiveDate"] = self.registration_effective_date
 
         if hasattr(self, "registration_expire_date") and self.registration_expire_date:
-            params['registrationExpireDate'] = self.registration_expire_date
+            params["registrationExpireDate"] = self.registration_expire_date
 
         return params

@@ -16,16 +16,16 @@ class AlipayVaultingSessionResponse(AlipayResponse):
     @property
     def vaulting_session_id(self):
         return self.__vaulting_session_id
+
     @property
     def vaulting_session_expiry_time(self):
         return self.__vaulting_session_expiry_time
 
     def __parse_rsp_body(self, rsp_body):
         rsp_dict = super(AlipayVaultingSessionResponse, self).parse_rsp_body(rsp_body)
-        if 'vaultingSessionData' in rsp_dict:
-            self.__vaulting_session_data = rsp_dict['vaultingSessionData']
-        if 'vaultingSessionId' in rsp_dict:
-            self.__vaulting_session_id = rsp_dict['vaultingSessionId']
-        if 'vaultingSessionExpiryTime' in rsp_dict:
-            self.__vaulting_session_expiry_time = rsp_dict['vaultingSessionExpiryTime']
-
+        if "vaultingSessionData" in rsp_dict:
+            self.__vaulting_session_data = rsp_dict["vaultingSessionData"]
+        if "vaultingSessionId" in rsp_dict:
+            self.__vaulting_session_id = rsp_dict["vaultingSessionId"]
+        if "vaultingSessionExpiryTime" in rsp_dict:
+            self.__vaulting_session_expiry_time = rsp_dict["vaultingSessionExpiryTime"]

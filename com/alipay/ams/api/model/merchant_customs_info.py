@@ -22,7 +22,7 @@ class MerchantCustomsInfo(object):
     def to_ams_dict(self):
         params = dict()
         if self.merchant_customs_code is not None:
-            params['merchantCustomsCode'] = self.merchant_customs_code
+            params["merchantCustomsCode"] = self.merchant_customs_code
         if self.merchant_customs_name is not None:
-            params['merchantCustomsName'] = self.merchant_customs_name
+            params["merchantCustomsName"] = self.merchant_customs_name
         return params

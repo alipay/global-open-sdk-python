@@ -16,6 +16,8 @@ class AlipayVerifyAuthenticationResponse(AlipayResponse):
         return self.__is_passed
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayVerifyAuthenticationResponse, self).parse_rsp_body(rsp_body)
-        if 'isPassed' in response:
-            self.__is_passed = response['isPassed']
+        response = super(AlipayVerifyAuthenticationResponse, self).parse_rsp_body(
+            rsp_body
+        )
+        if "isPassed" in response:
+            self.__is_passed = response["isPassed"]

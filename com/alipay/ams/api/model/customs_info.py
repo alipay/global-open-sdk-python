@@ -22,7 +22,7 @@ class CustomsInfo(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "customs_code") and self.customs_code:
-            params['customsCode'] = self.customs_code
+            params["customsCode"] = self.customs_code
         if hasattr(self, "region") and self.region:
-            params['region'] = self.region
+            params["region"] = self.region
         return params

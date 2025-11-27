@@ -16,6 +16,8 @@ class AlipayInitAuthenticationResponse(AlipayResponse):
         return self.__authentication_request_id
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayInitAuthenticationResponse, self).parse_rsp_body(rsp_body)
-        if 'authenticationRequestId' in response:
-            self.__authentication_request_id = response['authenticationRequestId']
+        response = super(AlipayInitAuthenticationResponse, self).parse_rsp_body(
+            rsp_body
+        )
+        if "authenticationRequestId" in response:
+            self.__authentication_request_id = response["authenticationRequestId"]

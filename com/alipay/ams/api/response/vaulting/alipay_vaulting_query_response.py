@@ -10,7 +10,7 @@ class AlipayVaultingQueryResponse(AlipayResponse):
         self.__scheme_url = None
         self.__applink_url = None
         self.__vaulting_status = None
-        self.__payment_method_detail = None #type: PaymentMethodDetail
+        self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__parse_rsp_body(rsp_body)
 
     @property
@@ -39,15 +39,17 @@ class AlipayVaultingQueryResponse(AlipayResponse):
 
     def __parse_rsp_body(self, rsp_body):
         rsp_dict = super(AlipayVaultingQueryResponse, self).parse_rsp_body(rsp_body)
-        if 'vaultingRequestId' in rsp_dict:
-            self.__vaulting_request_id = rsp_dict['vaultingRequestId']
-        if 'normalUrl' in rsp_dict:
-            self.__normal_url = rsp_dict['normalUrl']
-        if 'schemeUrl' in rsp_dict:
-            self.__scheme_url = rsp_dict['schemeUrl']
-        if 'applinkUrl' in rsp_dict:
-            self.__applink_url = rsp_dict['applinkUrl']
-        if 'vaultingStatus' in rsp_dict:
-            self.__vaulting_status = rsp_dict['vaultingStatus']
-        if 'paymentMethodDetail' in rsp_dict:
-            self.__payment_method_detail = PaymentMethodDetail.parse_rsp_body(rsp_dict['paymentMethodDetail'])
+        if "vaultingRequestId" in rsp_dict:
+            self.__vaulting_request_id = rsp_dict["vaultingRequestId"]
+        if "normalUrl" in rsp_dict:
+            self.__normal_url = rsp_dict["normalUrl"]
+        if "schemeUrl" in rsp_dict:
+            self.__scheme_url = rsp_dict["schemeUrl"]
+        if "applinkUrl" in rsp_dict:
+            self.__applink_url = rsp_dict["applinkUrl"]
+        if "vaultingStatus" in rsp_dict:
+            self.__vaulting_status = rsp_dict["vaultingStatus"]
+        if "paymentMethodDetail" in rsp_dict:
+            self.__payment_method_detail = PaymentMethodDetail.parse_rsp_body(
+                rsp_dict["paymentMethodDetail"]
+            )

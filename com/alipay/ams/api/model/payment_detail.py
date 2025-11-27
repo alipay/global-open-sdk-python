@@ -4,8 +4,8 @@ from com.alipay.ams.api.model.payment_method import PaymentMethod
 
 class PaymentDetail:
     def __init__(self):
-        self.__amount = None #type: Amount
-        self.__payment_method = None #type: PaymentMethod
+        self.__amount = None  # type: Amount
+        self.__payment_method = None  # type: PaymentMethod
 
     @property
     def amount(self):
@@ -26,7 +26,7 @@ class PaymentDetail:
     def to_ams_dict(self):
         params = dict()
         if self.amount:
-            params['amount'] = self.amount.to_ams_dict()
+            params["amount"] = self.amount.to_ams_dict()
         if self.payment_method:
-            params['paymentMethod'] = self.payment_method.to_ams_dict()
+            params["paymentMethod"] = self.payment_method.to_ams_dict()
         return params

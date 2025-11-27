@@ -73,24 +73,24 @@ class MerchantRegistrationInfo(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "reference_merchant_id") and self.reference_merchant_id:
-            params['referenceMerchantId'] = self.reference_merchant_id
+            params["referenceMerchantId"] = self.reference_merchant_id
 
         if hasattr(self, "merchant_display_name") and self.merchant_display_name:
-            params['merchantDisplayName'] = self.merchant_display_name
+            params["merchantDisplayName"] = self.merchant_display_name
 
         if hasattr(self, "merchant_mcc") and self.merchant_mcc:
-            params['merchantMCC'] = self.merchant_mcc
+            params["merchantMCC"] = self.merchant_mcc
 
         if hasattr(self, "logo") and self.logo:
-            params['logo'] = self.logo
+            params["logo"] = self.logo
 
         if hasattr(self, "websites") and self.websites:
-            params['websites'] = self.websites
+            params["websites"] = self.websites
 
         if hasattr(self, "merchant_address") and self.merchant_address:
-            params['merchantAddress'] = self.merchant_address
+            params["merchantAddress"] = self.merchant_address
 
         if hasattr(self, "registration_detail") and self.registration_detail:
-            params['registrationDetail'] = self.registration_detail
+            params["registrationDetail"] = self.registration_detail
 
         return params

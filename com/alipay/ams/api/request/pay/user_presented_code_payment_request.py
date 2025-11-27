@@ -11,18 +11,26 @@ from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 
 class UserPresentedCodePaymentRequest(AlipayPayRequest):
 
-    def __init__(self, payment_request_id, order, currency, amount_in_cents, payment_code, payment_notify_url=None,
-                 payment_expiry_time=None):
+    def __init__(
+        self,
+        payment_request_id,
+        order,
+        currency,
+        amount_in_cents,
+        payment_code,
+        payment_notify_url=None,
+        payment_expiry_time=None,
+    ):
         super(AlipayPayRequest, self).__init__(AntomPathConstants.PAYMENT_PATH)
         self.product_code = ProductCodeType.IN_STORE_PAYMENT
         self.payment_amount = Amount(currency, amount_in_cents)
 
         self.payment_method = PaymentMethod()
-        self.payment_method.payment_method_type = 'CONNECT_WALLET'
+        self.payment_method.payment_method_type = "CONNECT_WALLET"
         self.payment_method.payment_method_id = payment_code
 
         self.payment_factor = PaymentFactor()
-        self.payment_factor.in_store_payment_scenario = 'PaymentCode'
+        self.payment_factor.in_store_payment_scenario = "PaymentCode"
 
         self.payment_request_id = payment_request_id
         self.order = order
@@ -38,13 +46,25 @@ class UserPresentedCodePaymentRequest(AlipayPayRequest):
         assert self.order.merchant, "order.merchant required."
         assert self.order.order_amount, "order.order_amount required."
         assert self.order.order_description, "order.order_description required."
-        assert self.order.merchant.reference_merchant_id, "order.merchant.reference_merchant_id required."
+        assert (
+            self.order.merchant.reference_merchant_id
+        ), "order.merchant.reference_merchant_id required."
         assert self.order.merchant.merchant_mcc, "order.merchant.merchant_mcc required."
-        assert self.order.merchant.merchant_name, "order.merchant.merchant_name required."
+        assert (
+            self.order.merchant.merchant_name
+        ), "order.merchant.merchant_name required."
         assert self.order.merchant.store, "order.merchant.store required."
-        assert self.order.merchant.store.reference_store_id, "order.merchant.store.reference_store_id required."
-        assert self.order.merchant.store.store_name, "order.merchant.store.store_name required."
-        assert self.order.merchant.store.store_mcc, "order.merchant.store.store_mcc required."
+        assert (
+            self.order.merchant.store.reference_store_id
+        ), "order.merchant.store.reference_store_id required."
+        assert (
+            self.order.merchant.store.store_name
+        ), "order.merchant.store.store_name required."
+        assert (
+            self.order.merchant.store.store_mcc
+        ), "order.merchant.store.store_mcc required."
         assert self.order.env, "order.env required."
         assert self.order.env.store_terminal_id, "order.env.store_terminal_id required."
-        assert self.order.env.store_terminal_request_time, "order.env.store_terminal_request_time required."
+        assert (
+            self.order.env.store_terminal_request_time
+        ), "order.env.store_terminal_request_time required."
