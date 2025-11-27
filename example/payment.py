@@ -321,6 +321,6 @@ def createPaymentSession():
         print(alipay_create_session_response.result.result_message)
 
 
-# refund("202407311940108001001882A0209648393")
+refund("202407311940108001001882A0209648393")
 pay()
-# createPaymentSession()
+createPaymentSession()

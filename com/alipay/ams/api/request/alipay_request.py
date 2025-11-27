@@ -12,7 +12,10 @@ class AlipayRequest(object):
     #     self.__http_method = HttpMethod.POST
 
     def __init__(self, *args, **kwargs):
-        self.__path = args[0].value if len(args) > 0 else None
+        if args[0] is not None and hasattr(args[0], 'value'):
+            self.__path = args[0].value if len(args) > 0 else None
+        else:
+            self.__path = args[0] if len(args) > 0 else None
         self.__key_version = kwargs.get("key_version", None)
         self.__http_method = kwargs.get("http_method", HttpMethod.POST)
 
