@@ -39,18 +39,23 @@ class AlipayVerifyAuthenticationRequest(AlipayRequest):
         self.__authentication_value = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "authentication_type") and self.authentication_type:
-            params['authenticationType'] = self.authentication_type
+            params["authenticationType"] = self.authentication_type
 
-        if hasattr(self, "authentication_request_id") and self.authentication_request_id:
-            params['authenticationRequestId'] = self.authentication_request_id
+        if (
+            hasattr(self, "authentication_request_id")
+            and self.authentication_request_id
+        ):
+            params["authenticationRequestId"] = self.authentication_request_id
 
         if hasattr(self, "authentication_value") and self.authentication_value:
-            params['authenticationValue'] = self.authentication_value
+            params["authenticationValue"] = self.authentication_value
 
         return params

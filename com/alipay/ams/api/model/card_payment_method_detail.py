@@ -1,72 +1,84 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
-
-from com.alipay.ams.api.model.address import Address
+from com.alipay.ams.api.model.card_brand import CardBrand
 from com.alipay.ams.api.model.card_brand import CardBrand
 from com.alipay.ams.api.model.user_name import UserName
+from com.alipay.ams.api.model.address import Address
+from com.alipay.ams.api.model.user_name import UserName
+from com.alipay.ams.api.model.mpi_data import MpiData
 
 
-class CardPaymentMethodDetail(object):
-
+class CardPaymentMethodDetail:
     def __init__(self):
-        self.__card_token = None
-        self.__card_no = None
-        self.__brand = None # type: CardBrand
-        self.__selected_card_brand = None # type: CardBrand
-        self.__card_issuer = None
-        self.__country_issue = None
-        self.__inst_user_name = None  # type: UserName
-        self.__expiry_year = None
-        self.__expiry_month = None
-        self.__billing_address = None  # type: Address
-        self.__mask = None
-        self.__last4 = None
-        self.__payment_method_detail_metadata = None
 
-        self.__masked_card_no = None
-        self.__fingerprint = None
-        self.__authentication_flow = None
-        self.__funding = None
-        self.__avs_result_raw = None
-        self.__bin = None
-        self.__issuer_name = None
-        self.__issuing_country = None
-        self.__last_four = None
-        self.__cardholder_name = None
-        self.__cvv = None
-        self.__date_of_birth = None
-        self.__businessNo = None
-        self.__card_password_digest = None
-        self.__cpf = None
-        self.__payer_email = None
-        self.__network_transaction_id = None
-        self.__is_3DS_authentication = None
+        self.__card_token = None  # type: str
+        self.__card_no = None  # type: str
+        self.__brand = None  # type: CardBrand
+        self.__selected_card_brand = None  # type: CardBrand
+        self.__card_issuer = None  # type: str
+        self.__country_issue = None  # type: str
+        self.__inst_user_name = None  # type: UserName
+        self.__expiry_year = None  # type: str
+        self.__expiry_month = None  # type: str
+        self.__billing_address = None  # type: Address
+        self.__mask = None  # type: str
+        self.__last4 = None  # type: str
+        self.__payment_method_detail_metadata = None  # type: str
+        self.__masked_card_no = None  # type: str
+        self.__fingerprint = None  # type: str
+        self.__authentication_flow = None  # type: str
+        self.__funding = None  # type: str
+        self.__avs_result_raw = None  # type: str
+        self.__cvv_result_raw = None  # type: str
+        self.__bin = None  # type: str
+        self.__issuer_name = None  # type: str
+        self.__issuing_country = None  # type: str
+        self.__last_four = None  # type: str
+        self.__cardholder_name = None  # type: UserName
+        self.__cvv = None  # type: str
+        self.__date_of_birth = None  # type: str
+        self.__business_no = None  # type: str
+        self.__card_password_digest = None  # type: str
+        self.__cpf = None  # type: str
+        self.__payer_email = None  # type: str
+        self.__network_transaction_id = None  # type: str
+        self.__is3_ds_authentication = None  # type: bool
+        self.__request3_ds = None  # type: str
+        self.__sca_exemption_indicator = None  # type: str
+        self.__enable_authentication_upgrade = None  # type: str
+        self.__mpi_data = None  # type: MpiData
 
     @property
     def card_token(self):
+        """
+        The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments.   More information:  Maximum length: 2048 characters
+        """
         return self.__card_token
+
     @card_token.setter
     def card_token(self, value):
         self.__card_token = value
 
     @property
     def card_no(self):
+        """Gets the card_no of this CardPaymentMethodDetail."""
         return self.__card_no
+
     @card_no.setter
     def card_no(self, value):
         self.__card_no = value
 
     @property
     def brand(self):
+        """Gets the brand of this CardPaymentMethodDetail."""
         return self.__brand
+
     @brand.setter
     def brand(self, value):
         self.__brand = value
 
     @property
     def selected_card_brand(self):
+        """Gets the selected_card_brand of this CardPaymentMethodDetail."""
         return self.__selected_card_brand
 
     @selected_card_brand.setter
@@ -75,6 +87,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def card_issuer(self):
+        """Gets the card_issuer of this CardPaymentMethodDetail."""
         return self.__card_issuer
 
     @card_issuer.setter
@@ -83,13 +96,16 @@ class CardPaymentMethodDetail(object):
 
     @property
     def country_issue(self):
+        """Gets the country_issue of this CardPaymentMethodDetail."""
         return self.__country_issue
+
     @country_issue.setter
     def country_issue(self, value):
         self.__country_issue = value
 
     @property
     def inst_user_name(self):
+        """Gets the inst_user_name of this CardPaymentMethodDetail."""
         return self.__inst_user_name
 
     @inst_user_name.setter
@@ -98,6 +114,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def expiry_year(self):
+        """Gets the expiry_year of this CardPaymentMethodDetail."""
         return self.__expiry_year
 
     @expiry_year.setter
@@ -106,6 +123,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def expiry_month(self):
+        """Gets the expiry_month of this CardPaymentMethodDetail."""
         return self.__expiry_month
 
     @expiry_month.setter
@@ -114,6 +132,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def billing_address(self):
+        """Gets the billing_address of this CardPaymentMethodDetail."""
         return self.__billing_address
 
     @billing_address.setter
@@ -122,6 +141,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def mask(self):
+        """Gets the mask of this CardPaymentMethodDetail."""
         return self.__mask
 
     @mask.setter
@@ -130,6 +150,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def last4(self):
+        """Gets the last4 of this CardPaymentMethodDetail."""
         return self.__last4
 
     @last4.setter
@@ -138,6 +159,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def payment_method_detail_metadata(self):
+        """Gets the payment_method_detail_metadata of this CardPaymentMethodDetail."""
         return self.__payment_method_detail_metadata
 
     @payment_method_detail_metadata.setter
@@ -146,6 +168,9 @@ class CardPaymentMethodDetail(object):
 
     @property
     def masked_card_no(self):
+        """
+        The masked card number, showing only a few digits and hiding the rest.   More information:  Maximum length: 64 characters
+        """
         return self.__masked_card_no
 
     @masked_card_no.setter
@@ -154,6 +179,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def fingerprint(self):
+        """Gets the fingerprint of this CardPaymentMethodDetail."""
         return self.__fingerprint
 
     @fingerprint.setter
@@ -162,6 +188,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def authentication_flow(self):
+        """Gets the authentication_flow of this CardPaymentMethodDetail."""
         return self.__authentication_flow
 
     @authentication_flow.setter
@@ -170,6 +197,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def funding(self):
+        """Gets the funding of this CardPaymentMethodDetail."""
         return self.__funding
 
     @funding.setter
@@ -178,6 +206,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def avs_result_raw(self):
+        """Gets the avs_result_raw of this CardPaymentMethodDetail."""
         return self.__avs_result_raw
 
     @avs_result_raw.setter
@@ -185,7 +214,17 @@ class CardPaymentMethodDetail(object):
         self.__avs_result_raw = value
 
     @property
+    def cvv_result_raw(self):
+        """Gets the cvv_result_raw of this CardPaymentMethodDetail."""
+        return self.__cvv_result_raw
+
+    @cvv_result_raw.setter
+    def cvv_result_raw(self, value):
+        self.__cvv_result_raw = value
+
+    @property
     def bin(self):
+        """Gets the bin of this CardPaymentMethodDetail."""
         return self.__bin
 
     @bin.setter
@@ -194,6 +233,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def issuer_name(self):
+        """Gets the issuer_name of this CardPaymentMethodDetail."""
         return self.__issuer_name
 
     @issuer_name.setter
@@ -202,6 +242,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def issuing_country(self):
+        """Gets the issuing_country of this CardPaymentMethodDetail."""
         return self.__issuing_country
 
     @issuing_country.setter
@@ -210,6 +251,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def last_four(self):
+        """Gets the last_four of this CardPaymentMethodDetail."""
         return self.__last_four
 
     @last_four.setter
@@ -218,6 +260,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def cardholder_name(self):
+        """Gets the cardholder_name of this CardPaymentMethodDetail."""
         return self.__cardholder_name
 
     @cardholder_name.setter
@@ -226,6 +269,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def cvv(self):
+        """Gets the cvv of this CardPaymentMethodDetail."""
         return self.__cvv
 
     @cvv.setter
@@ -234,6 +278,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def date_of_birth(self):
+        """Gets the date_of_birth of this CardPaymentMethodDetail."""
         return self.__date_of_birth
 
     @date_of_birth.setter
@@ -241,15 +286,17 @@ class CardPaymentMethodDetail(object):
         self.__date_of_birth = value
 
     @property
-    def businessNo(self):
-        return self.__businessNo
+    def business_no(self):
+        """Gets the business_no of this CardPaymentMethodDetail."""
+        return self.__business_no
 
-    @businessNo.setter
-    def businessNo(self, value):
-        self.__businessNo = value
+    @business_no.setter
+    def business_no(self, value):
+        self.__business_no = value
 
     @property
     def card_password_digest(self):
+        """Gets the card_password_digest of this CardPaymentMethodDetail."""
         return self.__card_password_digest
 
     @card_password_digest.setter
@@ -258,6 +305,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def cpf(self):
+        """Gets the cpf of this CardPaymentMethodDetail."""
         return self.__cpf
 
     @cpf.setter
@@ -266,6 +314,7 @@ class CardPaymentMethodDetail(object):
 
     @property
     def payer_email(self):
+        """Gets the payer_email of this CardPaymentMethodDetail."""
         return self.__payer_email
 
     @payer_email.setter
@@ -274,6 +323,9 @@ class CardPaymentMethodDetail(object):
 
     @property
     def network_transaction_id(self):
+        """
+        The unique ID assigned by the card scheme to identify a transaction.  More information:  Maximum length: 256 characters
+        """
         return self.__network_transaction_id
 
     @network_transaction_id.setter
@@ -281,177 +333,234 @@ class CardPaymentMethodDetail(object):
         self.__network_transaction_id = value
 
     @property
-    def is_3DS_authentication(self):
-        return self.__is_3DS_authentication
+    def is3_ds_authentication(self):
+        """Gets the is3_ds_authentication of this CardPaymentMethodDetail."""
+        return self.__is3_ds_authentication
 
-    @is_3DS_authentication.setter
-    def is_3DS_authentication(self, value):
-        self.__is_3DS_authentication = value
+    @is3_ds_authentication.setter
+    def is3_ds_authentication(self, value):
+        self.__is3_ds_authentication = value
 
+    @property
+    def request3_ds(self):
+        """Gets the request3_ds of this CardPaymentMethodDetail."""
+        return self.__request3_ds
 
-    def parse_rsp_body(self, card_payment_method_detail_body):
-        if type(card_payment_method_detail_body) == str:
-            card_payment_method_detail_body = json.loads(card_payment_method_detail_body)
+    @request3_ds.setter
+    def request3_ds(self, value):
+        self.__request3_ds = value
 
-        if 'cardToken' in card_payment_method_detail_body:
-            self.__card_token = card_payment_method_detail_body['cardToken']
+    @property
+    def sca_exemption_indicator(self):
+        """Gets the sca_exemption_indicator of this CardPaymentMethodDetail."""
+        return self.__sca_exemption_indicator
 
-        if 'cardNo' in card_payment_method_detail_body:
-            self.__card_no = card_payment_method_detail_body['cardNo']
+    @sca_exemption_indicator.setter
+    def sca_exemption_indicator(self, value):
+        self.__sca_exemption_indicator = value
 
-        if 'brand' in card_payment_method_detail_body:
-            card_no = CardBrand.value_of(card_payment_method_detail_body['brand'])
-            self.__card_no = card_no
+    @property
+    def enable_authentication_upgrade(self):
+        """Gets the enable_authentication_upgrade of this CardPaymentMethodDetail."""
+        return self.__enable_authentication_upgrade
 
-        if 'selectedCardBrand' in card_payment_method_detail_body:
-            card_no = CardBrand.value_of(card_payment_method_detail_body['selectedCardBrand'])
-            self.__selected_card_brand = card_no
+    @enable_authentication_upgrade.setter
+    def enable_authentication_upgrade(self, value):
+        self.__enable_authentication_upgrade = value
 
-        if 'cardIssuer' in card_payment_method_detail_body:
-            self.__card_issuer = card_payment_method_detail_body['cardIssuer']
+    @property
+    def mpi_data(self):
+        """Gets the mpi_data of this CardPaymentMethodDetail."""
+        return self.__mpi_data
 
-        if 'countryIssue' in card_payment_method_detail_body:
-            self.__country_issue = card_payment_method_detail_body['countryIssue']
-
-        if 'instUserName' in card_payment_method_detail_body:
-            inst_user_name = UserName()
-            inst_user_name.parse_rsp_body(card_payment_method_detail_body['instUserName'])
-            self.__inst_user_name = inst_user_name
-
-        if 'expiryYear' in card_payment_method_detail_body:
-            self.__expiry_year = card_payment_method_detail_body['expiryYear']
-
-        if 'expiryMonth' in card_payment_method_detail_body:
-            self.__expiry_month = card_payment_method_detail_body['expiryMonth']
-
-        if 'billingAddress' in card_payment_method_detail_body:
-            billing_address = Address()
-            billing_address.parse_rsp_body(card_payment_method_detail_body['billingAddress'])
-            self.__billing_address = billing_address
-
-        if 'mask' in card_payment_method_detail_body:
-            self.__mask = card_payment_method_detail_body['mask']
-
-        if 'last4' in card_payment_method_detail_body:
-            self.__last4 = card_payment_method_detail_body['last4']
-
-        if 'paymentMethodDetailMetadata' in card_payment_method_detail_body:
-            self.__payment_method_detail_metadata = card_payment_method_detail_body['paymentMethodDetailMetadata']
-
-        if 'maskedCardNo' in card_payment_method_detail_body:
-            self.__masked_card_no = card_payment_method_detail_body['maskedCardNo']
-
-        if 'fingerprint' in card_payment_method_detail_body:
-            self.__fingerprint = card_payment_method_detail_body['fingerprint']
-
-        if 'authenticationFlow' in card_payment_method_detail_body:
-            self.__authentication_flow = card_payment_method_detail_body['authenticationFlow']
-
-        if 'funding' in card_payment_method_detail_body:
-            self.__funding = card_payment_method_detail_body['funding']
-
-        if 'avsResultRaw' in card_payment_method_detail_body:
-            self.__avs_result_raw = card_payment_method_detail_body['avsResultRaw']
-
-        if 'bin' in card_payment_method_detail_body:
-            self.__bin = card_payment_method_detail_body['bin']
-
-        if 'issuerName' in card_payment_method_detail_body:
-            self.__issuer_name = card_payment_method_detail_body['issuerName']
-
-        if 'issuingCountry' in card_payment_method_detail_body:
-            self.__issuing_country = card_payment_method_detail_body['issuingCountry']
-
-        if 'lastFour' in card_payment_method_detail_body:
-            self.__last_four = card_payment_method_detail_body['lastFour']
-
-        if 'cardholderName' in card_payment_method_detail_body:
-            self.__cardholder_name = card_payment_method_detail_body['cardholderName']
-
-        if 'cvv' in card_payment_method_detail_body:
-            self.__cvv = card_payment_method_detail_body['cvv']
-
-        if 'dateOfBirth' in card_payment_method_detail_body:
-            self.__date_of_birth = card_payment_method_detail_body['dateOfBirth']
-
-        if 'businessNo' in card_payment_method_detail_body:
-            self.__businessNo = card_payment_method_detail_body['businessNo']
-
-        if 'cardPasswordDigest' in card_payment_method_detail_body:
-            self.__card_password_digest = card_payment_method_detail_body['cardPasswordDigest']
-
-        if 'cpf' in card_payment_method_detail_body:
-            self.__cpf = card_payment_method_detail_body['cpf']
-
-        if 'payerEmail' in card_payment_method_detail_body:
-            self.__payer_email = card_payment_method_detail_body['payerEmail']
-        if 'networkTransactionId' in card_payment_method_detail_body:
-            self.__network_transaction_id = card_payment_method_detail_body['networkTransactionId']
-        if 'is3DSAuthentication' in card_payment_method_detail_body:
-            self.__is_3DS_authentication = card_payment_method_detail_body['is3DSAuthentication']
+    @mpi_data.setter
+    def mpi_data(self, value):
+        self.__mpi_data = value
 
     def to_ams_dict(self):
         params = dict()
-        if self.card_token:
-            params['cardToken'] = self.card_token
-        if self.card_no:
-            params['cardNo'] = self.card_no
-        if self.brand:
-            params['brand'] = self.brand.name
-        if self.selected_card_brand:
-            params['selectedCardBrand'] = self.selected_card_brand.name
-        if self.card_issuer:
-            params['cardIssuer'] = self.card_issuer
-        if self.country_issue:
-            params['countryIssue'] = self.country_issue
-        if self.inst_user_name:
-            params['instUserName'] = self.inst_user_name.to_ams_dict()
-        if self.expiry_year:
-            params['expiryYear'] = self.expiry_year
-        if self.expiry_month:
-            params['expiryMonth'] = self.expiry_month
-        if self.billing_address:
-            params['billingAddress'] = self.billing_address.to_ams_dict()
-        if self.mask:
-            params['mask'] = self.mask
-        if self.last4:
-            params['last4'] = self.last4
-        if self.payment_method_detail_metadata:
-            params['paymentMethodDetailMetadata'] = self.payment_method_detail_metadata
-        if self.masked_card_no:
-            params['maskedCardNo'] = self.masked_card_no
-        if self.fingerprint:
-            params['fingerprint'] = self.fingerprint
-        if self.authentication_flow:
-            params['authenticationFlow'] = self.authentication_flow
-        if self.funding:
-            params['funding'] = self.funding
-        if self.avs_result_raw:
-            params['avsResultRaw'] = self.avs_result_raw
-        if self.bin:
-            params['bin'] = self.bin
-        if self.issuer_name:
-            params['issuerName'] = self.issuer_name
-        if self.issuing_country:
-            params['issuingCountry'] = self.issuing_country
-        if self.last_four:
-            params['lastFour'] = self.last_four
-        if self.cardholder_name:
-            params['cardholderName'] = self.cardholder_name
-        if self.cvv:
-            params['cvv'] = self.cvv
-        if self.date_of_birth:
-            params['dateOfBirth'] = self.date_of_birth
-        if self.businessNo:
-            params['businessNo'] = self.businessNo
-        if self.card_password_digest:
-            params['cardPasswordDigest'] = self.card_password_digest
-        if self.cpf:
-            params['cpf'] = self.cpf
-        if self.payer_email:
-            params['payerEmail'] = self.payer_email
-        if self.network_transaction_id:
-            params['networkTransactionId'] = self.network_transaction_id
-        if self.is_3DS_authentication:
-            params['is3DSAuthentication'] = self.is_3DS_authentication
+        if hasattr(self, "card_token") and self.card_token is not None:
+            params["cardToken"] = self.card_token
+        if hasattr(self, "card_no") and self.card_no is not None:
+            params["cardNo"] = self.card_no
+        if hasattr(self, "brand") and self.brand is not None:
+            params["brand"] = self.brand
+        if (
+            hasattr(self, "selected_card_brand")
+            and self.selected_card_brand is not None
+        ):
+            params["selectedCardBrand"] = self.selected_card_brand
+        if hasattr(self, "card_issuer") and self.card_issuer is not None:
+            params["cardIssuer"] = self.card_issuer
+        if hasattr(self, "country_issue") and self.country_issue is not None:
+            params["countryIssue"] = self.country_issue
+        if hasattr(self, "inst_user_name") and self.inst_user_name is not None:
+            params["instUserName"] = self.inst_user_name
+        if hasattr(self, "expiry_year") and self.expiry_year is not None:
+            params["expiryYear"] = self.expiry_year
+        if hasattr(self, "expiry_month") and self.expiry_month is not None:
+            params["expiryMonth"] = self.expiry_month
+        if hasattr(self, "billing_address") and self.billing_address is not None:
+            params["billingAddress"] = self.billing_address
+        if hasattr(self, "mask") and self.mask is not None:
+            params["mask"] = self.mask
+        if hasattr(self, "last4") and self.last4 is not None:
+            params["last4"] = self.last4
+        if (
+            hasattr(self, "payment_method_detail_metadata")
+            and self.payment_method_detail_metadata is not None
+        ):
+            params["paymentMethodDetailMetadata"] = self.payment_method_detail_metadata
+        if hasattr(self, "masked_card_no") and self.masked_card_no is not None:
+            params["maskedCardNo"] = self.masked_card_no
+        if hasattr(self, "fingerprint") and self.fingerprint is not None:
+            params["fingerprint"] = self.fingerprint
+        if (
+            hasattr(self, "authentication_flow")
+            and self.authentication_flow is not None
+        ):
+            params["authenticationFlow"] = self.authentication_flow
+        if hasattr(self, "funding") and self.funding is not None:
+            params["funding"] = self.funding
+        if hasattr(self, "avs_result_raw") and self.avs_result_raw is not None:
+            params["avsResultRaw"] = self.avs_result_raw
+        if hasattr(self, "cvv_result_raw") and self.cvv_result_raw is not None:
+            params["cvvResultRaw"] = self.cvv_result_raw
+        if hasattr(self, "bin") and self.bin is not None:
+            params["bin"] = self.bin
+        if hasattr(self, "issuer_name") and self.issuer_name is not None:
+            params["issuerName"] = self.issuer_name
+        if hasattr(self, "issuing_country") and self.issuing_country is not None:
+            params["issuingCountry"] = self.issuing_country
+        if hasattr(self, "last_four") and self.last_four is not None:
+            params["lastFour"] = self.last_four
+        if hasattr(self, "cardholder_name") and self.cardholder_name is not None:
+            params["cardholderName"] = self.cardholder_name
+        if hasattr(self, "cvv") and self.cvv is not None:
+            params["cvv"] = self.cvv
+        if hasattr(self, "date_of_birth") and self.date_of_birth is not None:
+            params["dateOfBirth"] = self.date_of_birth
+        if hasattr(self, "business_no") and self.business_no is not None:
+            params["businessNo"] = self.business_no
+        if (
+            hasattr(self, "card_password_digest")
+            and self.card_password_digest is not None
+        ):
+            params["cardPasswordDigest"] = self.card_password_digest
+        if hasattr(self, "cpf") and self.cpf is not None:
+            params["cpf"] = self.cpf
+        if hasattr(self, "payer_email") and self.payer_email is not None:
+            params["payerEmail"] = self.payer_email
+        if (
+            hasattr(self, "network_transaction_id")
+            and self.network_transaction_id is not None
+        ):
+            params["networkTransactionId"] = self.network_transaction_id
+        if (
+            hasattr(self, "is3_ds_authentication")
+            and self.is3_ds_authentication is not None
+        ):
+            params["is3DSAuthentication"] = self.is3_ds_authentication
+        if hasattr(self, "request3_ds") and self.request3_ds is not None:
+            params["request3DS"] = self.request3_ds
+        if (
+            hasattr(self, "sca_exemption_indicator")
+            and self.sca_exemption_indicator is not None
+        ):
+            params["scaExemptionIndicator"] = self.sca_exemption_indicator
+        if (
+            hasattr(self, "enable_authentication_upgrade")
+            and self.enable_authentication_upgrade is not None
+        ):
+            params["enableAuthenticationUpgrade"] = self.enable_authentication_upgrade
+        if hasattr(self, "mpi_data") and self.mpi_data is not None:
+            params["mpiData"] = self.mpi_data
         return params
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if "cardToken" in response_body:
+            self.__card_token = response_body["cardToken"]
+        if "cardNo" in response_body:
+            self.__card_no = response_body["cardNo"]
+        if "brand" in response_body:
+            brand_temp = CardBrand.value_of(response_body["brand"])
+            self.__brand = brand_temp
+        if "selectedCardBrand" in response_body:
+            selected_card_brand_temp = CardBrand.value_of(
+                response_body["selectedCardBrand"]
+            )
+            self.__selected_card_brand = selected_card_brand_temp
+        if "cardIssuer" in response_body:
+            self.__card_issuer = response_body["cardIssuer"]
+        if "countryIssue" in response_body:
+            self.__country_issue = response_body["countryIssue"]
+        if "instUserName" in response_body:
+            self.__inst_user_name = UserName()
+            self.__inst_user_name.parse_rsp_body(response_body["instUserName"])
+        if "expiryYear" in response_body:
+            self.__expiry_year = response_body["expiryYear"]
+        if "expiryMonth" in response_body:
+            self.__expiry_month = response_body["expiryMonth"]
+        if "billingAddress" in response_body:
+            self.__billing_address = Address()
+            self.__billing_address.parse_rsp_body(response_body["billingAddress"])
+        if "mask" in response_body:
+            self.__mask = response_body["mask"]
+        if "last4" in response_body:
+            self.__last4 = response_body["last4"]
+        if "paymentMethodDetailMetadata" in response_body:
+            self.__payment_method_detail_metadata = response_body[
+                "paymentMethodDetailMetadata"
+            ]
+        if "maskedCardNo" in response_body:
+            self.__masked_card_no = response_body["maskedCardNo"]
+        if "fingerprint" in response_body:
+            self.__fingerprint = response_body["fingerprint"]
+        if "authenticationFlow" in response_body:
+            self.__authentication_flow = response_body["authenticationFlow"]
+        if "funding" in response_body:
+            self.__funding = response_body["funding"]
+        if "avsResultRaw" in response_body:
+            self.__avs_result_raw = response_body["avsResultRaw"]
+        if "cvvResultRaw" in response_body:
+            self.__cvv_result_raw = response_body["cvvResultRaw"]
+        if "bin" in response_body:
+            self.__bin = response_body["bin"]
+        if "issuerName" in response_body:
+            self.__issuer_name = response_body["issuerName"]
+        if "issuingCountry" in response_body:
+            self.__issuing_country = response_body["issuingCountry"]
+        if "lastFour" in response_body:
+            self.__last_four = response_body["lastFour"]
+        if "cardholderName" in response_body:
+            self.__cardholder_name = UserName()
+            self.__cardholder_name.parse_rsp_body(response_body["cardholderName"])
+        if "cvv" in response_body:
+            self.__cvv = response_body["cvv"]
+        if "dateOfBirth" in response_body:
+            self.__date_of_birth = response_body["dateOfBirth"]
+        if "businessNo" in response_body:
+            self.__business_no = response_body["businessNo"]
+        if "cardPasswordDigest" in response_body:
+            self.__card_password_digest = response_body["cardPasswordDigest"]
+        if "cpf" in response_body:
+            self.__cpf = response_body["cpf"]
+        if "payerEmail" in response_body:
+            self.__payer_email = response_body["payerEmail"]
+        if "networkTransactionId" in response_body:
+            self.__network_transaction_id = response_body["networkTransactionId"]
+        if "is3DSAuthentication" in response_body:
+            self.__is3_ds_authentication = response_body["is3DSAuthentication"]
+        if "request3DS" in response_body:
+            self.__request3_ds = response_body["request3DS"]
+        if "scaExemptionIndicator" in response_body:
+            self.__sca_exemption_indicator = response_body["scaExemptionIndicator"]
+        if "enableAuthenticationUpgrade" in response_body:
+            self.__enable_authentication_upgrade = response_body[
+                "enableAuthenticationUpgrade"
+            ]
+        if "mpiData" in response_body:
+            self.__mpi_data = MpiData()
+            self.__mpi_data.parse_rsp_body(response_body["mpiData"])

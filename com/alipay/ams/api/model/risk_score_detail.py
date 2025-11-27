@@ -30,8 +30,8 @@ class RiskScoreDetail(object):
         if type(risk_score_detail_body) == str:
             risk_score_detail_body = json.loads(risk_score_detail_body)
 
-        if 'riskInfoCode' in risk_score_detail_body:
-            self.__risk_info_code = risk_score_detail_body['riskInfoCode']
+        if "riskInfoCode" in risk_score_detail_body:
+            self.__risk_info_code = risk_score_detail_body["riskInfoCode"]
 
-        if 'riskInfoCodeResult' in risk_score_detail_body:
-            self.__risk_info_code_result = risk_score_detail_body['riskInfoCodeResult']
+        if "riskInfoCodeResult" in risk_score_detail_body:
+            self.__risk_info_code_result = risk_score_detail_body["riskInfoCodeResult"]

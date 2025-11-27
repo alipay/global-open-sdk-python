@@ -18,8 +18,10 @@ class AlipayMerchantRegistrationInfoQueryResponse(AlipayResponse):
         return self.__product_codes
 
     def __parse_rsp_body(self, rsp_body):
-        response = super(AlipayMerchantRegistrationInfoQueryResponse, self).parse_rsp_body(rsp_body)
-        if 'merchantInfo' in response:
-            self.__merchant_info = response['merchantInfo']
-        if 'productCodes' in response:
-            self.__product_codes = response['productCodes']
+        response = super(
+            AlipayMerchantRegistrationInfoQueryResponse, self
+        ).parse_rsp_body(rsp_body)
+        if "merchantInfo" in response:
+            self.__merchant_info = response["merchantInfo"]
+        if "productCodes" in response:
+            self.__product_codes = response["productCodes"]

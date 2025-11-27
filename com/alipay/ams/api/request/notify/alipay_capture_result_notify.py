@@ -12,7 +12,7 @@ class AlipayCaptureResultNotify(AlipayNotify):
         self.__capture_amount = None
         self.__capture_time = None
         self.__acquirer_reference_no = None
-        self.__acquirer_info = None # type: AcquirerInfo
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.__parse_notify_body(notify_body)
 
     @property
@@ -43,22 +43,20 @@ class AlipayCaptureResultNotify(AlipayNotify):
     def acquirer_info(self):
         return self.__acquirer_info
 
-
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayCaptureResultNotify, self).parse_notify_body(notify_body)
-        if 'captureRequestId' in notify:
-            self.__capture_request_id = notify['captureRequestId']
-        if 'paymentId' in notify:
-            self.__payment_id = notify['paymentId']
-        if 'captureId' in notify:
-            self.__capture_id = notify['captureId']
-        if 'captureAmount' in notify:
-            self.__capture_amount = notify['captureAmount']
-        if 'captureTime' in notify:
-            self.__capture_time = notify['captureTime']
-        if 'acquirerReferenceNo' in notify:
-            self.__acquirer_reference_no = notify['acquirerReferenceNo']
-        if 'acquirerInfo' in notify:
+        if "captureRequestId" in notify:
+            self.__capture_request_id = notify["captureRequestId"]
+        if "paymentId" in notify:
+            self.__payment_id = notify["paymentId"]
+        if "captureId" in notify:
+            self.__capture_id = notify["captureId"]
+        if "captureAmount" in notify:
+            self.__capture_amount = notify["captureAmount"]
+        if "captureTime" in notify:
+            self.__capture_time = notify["captureTime"]
+        if "acquirerReferenceNo" in notify:
+            self.__acquirer_reference_no = notify["acquirerReferenceNo"]
+        if "acquirerInfo" in notify:
             self.__acquirer_info = acquirer_info = AcquirerInfo()
-            acquirer_info.parse_rsp_body(notify['acquirerInfo'])
-
+            acquirer_info.parse_rsp_body(notify["acquirerInfo"])

@@ -15,8 +15,8 @@ class AlipayResponse(object):
 
     def parse_rsp_body(self, rsp_body):
         response = json.loads(rsp_body)
-        if 'result' in response:
+        if "result" in response:
             result = Result()
-            result.parse_rsp_body(response['result'])
+            result.parse_rsp_body(response["result"])
             self.__result = result
         return response

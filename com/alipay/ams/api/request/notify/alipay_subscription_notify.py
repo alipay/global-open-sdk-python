@@ -1,20 +1,24 @@
 import json
 from com.alipay.ams.api.model.period_rule import PeriodRule
-from com.alipay.ams.api.model.subscription_notification_type import SubscriptionNotificationType
+from com.alipay.ams.api.model.subscription_notification_type import (
+    SubscriptionNotificationType,
+)
 from com.alipay.ams.api.model.subscription_status import SubscriptionStatus
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
 
 
-class AlipaySubscriptionNotify():
+class AlipaySubscriptionNotify:
 
     def __init__(self, notify_body):
         self.__subscription_request_id = None
         self.__subscription_id = None
-        self.__subscription_status = None # type: SubscriptionStatus
-        self.__subscription_notification_type = None # type: SubscriptionNotificationType
+        self.__subscription_status = None  # type: SubscriptionStatus
+        self.__subscription_notification_type = (
+            None
+        )  # type: SubscriptionNotificationType
         self.__subscription_start_time = None
         self.__subscription_end_time = None
-        self.__period_rule = None # type: PeriodRule
+        self.__period_rule = None  # type: PeriodRule
         self.__parse_notify_body(notify_body)
 
     @property
@@ -75,20 +79,24 @@ class AlipaySubscriptionNotify():
 
     def __parse_notify_body(self, notify_body):
         notify = json.loads(notify_body)
-        if 'subscriptionId' in notify:
-            self.__subscription_id = notify['subscriptionId']
-        if 'subscriptionRequestId' in notify:
-            self.__subscription_request_id = notify['subscriptionRequestId']
-        if 'subscriptionStatus' in notify:
-            self.__subscription_status = SubscriptionStatus[notify['subscriptionStatus']]
-        if 'subscriptionNotificationType' in notify:
-            self.__subscription_notification_type = SubscriptionNotificationType[notify['subscriptionNotificationType']]
-        if 'subscriptionStartTime' in notify:
-            self.__subscription_start_time = notify['subscriptionStartTime']
-        if 'subscriptionEndTime' in notify:
-            self.__subscription_end_time = notify['subscriptionEndTime']
-        if 'periodRule' in notify:
+        if "subscriptionId" in notify:
+            self.__subscription_id = notify["subscriptionId"]
+        if "subscriptionRequestId" in notify:
+            self.__subscription_request_id = notify["subscriptionRequestId"]
+        if "subscriptionStatus" in notify:
+            self.__subscription_status = SubscriptionStatus[
+                notify["subscriptionStatus"]
+            ]
+        if "subscriptionNotificationType" in notify:
+            self.__subscription_notification_type = SubscriptionNotificationType[
+                notify["subscriptionNotificationType"]
+            ]
+        if "subscriptionStartTime" in notify:
+            self.__subscription_start_time = notify["subscriptionStartTime"]
+        if "subscriptionEndTime" in notify:
+            self.__subscription_end_time = notify["subscriptionEndTime"]
+        if "periodRule" in notify:
             periodRule = PeriodRule()
-            periodRule.parse_rsp_body(notify['periodRule'])
+            periodRule.parse_rsp_body(notify["periodRule"])
             self.__period_rule = periodRule
         return notify

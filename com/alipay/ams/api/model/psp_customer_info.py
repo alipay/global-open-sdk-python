@@ -1,20 +1,21 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import json
 
 
-class PspCustomerInfo(object):
+class PspCustomerInfo:
     def __init__(self):
-        self.__psp_name = None
-        self.__psp_customer_id = None
-        self.__display_customer_id = None
-        self.__display_customer_name = None
-        self.__customer_2088_id = None
-        self.__extend_info = None
+
+        self.__psp_name = None  # type: str
+        self.__psp_customer_id = None  # type: str
+        self.__display_customer_id = None  # type: str
+        self.__display_customer_name = None  # type: str
+        self.__customer2088_id = None  # type: str
+        self.__extend_info = None  # type: str
 
     @property
     def psp_name(self):
+        """
+        The name of Alipay+ payment methods.  Note: This field is returned when the Alipay+ payment methods can provide the related information.  More information:  Maximum length: 64 characters
+        """
         return self.__psp_name
 
     @psp_name.setter
@@ -23,6 +24,9 @@ class PspCustomerInfo(object):
 
     @property
     def psp_customer_id(self):
+        """
+        The customer ID of Alipay+ payment methods.  Note: This field is returned when the Alipay+ payment methods can provide the related information.  More information:  Maximum length: 64 characters
+        """
         return self.__psp_customer_id
 
     @psp_customer_id.setter
@@ -31,6 +35,9 @@ class PspCustomerInfo(object):
 
     @property
     def display_customer_id(self):
+        """
+        The customer ID used for display. For example, loginId.  Note: This field is returned when the Alipay+ payment methods can provide the related information.  More information:  Maximum length: 64 characters
+        """
         return self.__display_customer_id
 
     @display_customer_id.setter
@@ -39,6 +46,7 @@ class PspCustomerInfo(object):
 
     @property
     def display_customer_name(self):
+        """Gets the display_customer_name of this PspCustomerInfo."""
         return self.__display_customer_name
 
     @display_customer_name.setter
@@ -46,33 +54,57 @@ class PspCustomerInfo(object):
         self.__display_customer_name = value
 
     @property
-    def customer_2088_id(self):
-        return self.__customer_2088_id
+    def customer2088_id(self):
+        """Gets the customer2088_id of this PspCustomerInfo."""
+        return self.__customer2088_id
 
-    @customer_2088_id.setter
-    def customer_2088_id(self, value):
-        self.__customer_2088_id = value
+    @customer2088_id.setter
+    def customer2088_id(self, value):
+        self.__customer2088_id = value
 
     @property
     def extend_info(self):
+        """Gets the extend_info of this PspCustomerInfo."""
         return self.__extend_info
 
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
 
-    def parse_rsp_body(self, psp_customer_info_body):
-        if type(psp_customer_info_body) == str:
-            psp_customer_info_body = json.loads(psp_customer_info_body)
-        if 'pspName' in psp_customer_info_body:
-            self.__psp_name = psp_customer_info_body['pspName']
-        if 'pspCustomerId' in psp_customer_info_body:
-            self.__psp_customer_id = psp_customer_info_body['pspCustomerId']
-        if 'displayCustomerId' in psp_customer_info_body:
-            self.__display_customer_id = psp_customer_info_body['displayCustomerId']
-        if 'displayCustomerName' in psp_customer_info_body:
-            self.__display_customer_name = psp_customer_info_body['displayCustomerName']
-        if 'customer2088Id' in psp_customer_info_body:
-            self.__customer_2088_id = psp_customer_info_body['customer2088Id']
-        if 'extendInfo' in psp_customer_info_body:
-            self.__extend_info = psp_customer_info_body['extendInfo']
+    def to_ams_dict(self):
+        params = dict()
+        if hasattr(self, "psp_name") and self.psp_name is not None:
+            params["pspName"] = self.psp_name
+        if hasattr(self, "psp_customer_id") and self.psp_customer_id is not None:
+            params["pspCustomerId"] = self.psp_customer_id
+        if (
+            hasattr(self, "display_customer_id")
+            and self.display_customer_id is not None
+        ):
+            params["displayCustomerId"] = self.display_customer_id
+        if (
+            hasattr(self, "display_customer_name")
+            and self.display_customer_name is not None
+        ):
+            params["displayCustomerName"] = self.display_customer_name
+        if hasattr(self, "customer2088_id") and self.customer2088_id is not None:
+            params["customer2088Id"] = self.customer2088_id
+        if hasattr(self, "extend_info") and self.extend_info is not None:
+            params["extendInfo"] = self.extend_info
+        return params
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if "pspName" in response_body:
+            self.__psp_name = response_body["pspName"]
+        if "pspCustomerId" in response_body:
+            self.__psp_customer_id = response_body["pspCustomerId"]
+        if "displayCustomerId" in response_body:
+            self.__display_customer_id = response_body["displayCustomerId"]
+        if "displayCustomerName" in response_body:
+            self.__display_customer_name = response_body["displayCustomerName"]
+        if "customer2088Id" in response_body:
+            self.__customer2088_id = response_body["customer2088Id"]
+        if "extendInfo" in response_body:
+            self.__extend_info = response_body["extendInfo"]

@@ -1,15 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from enum import Enum, unique
 
 
 @unique
 class ResultStatusType(Enum):
+    """ResultStatusType枚举类"""
+
     S = "S"
     F = "F"
     U = "U"
 
-    def to_ams_dict(self):
+    def to_ams_dict(self) -> str:
         return self.name
 
     @staticmethod
@@ -19,9 +19,8 @@ class ResultStatusType(Enum):
 
         if ResultStatusType.S.value == value:
             return ResultStatusType.S
-        elif ResultStatusType.F.value == value:
+        if ResultStatusType.F.value == value:
             return ResultStatusType.F
-        elif ResultStatusType.U.value == value:
+        if ResultStatusType.U.value == value:
             return ResultStatusType.U
-        else:
-            return None
+        return None

@@ -10,7 +10,9 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCustomsDeclareRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCustomsDeclareRequest, self).__init__(AntomPathConstants.DECLARE_PATH)
+        super(AlipayCustomsDeclareRequest, self).__init__(
+            AntomPathConstants.DECLARE_PATH
+        )
         self.__declaration_request_id = None
         self.__payment_id = None
         self.__declaration_amount = None  # type:Amount
@@ -85,25 +87,27 @@ class AlipayCustomsDeclareRequest(AlipayRequest):
         self.__buyer_certificate = value
 
     def to_ams_json(self):
-        json_str = json.dumps(obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3)
+        json_str = json.dumps(
+            obj=self.__to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
 
     def __to_ams_dict(self):
         params = dict()
         if hasattr(self, "declaration_request_id") and self.declaration_request_id:
-            params['declarationRequestId'] = self.declaration_request_id
+            params["declarationRequestId"] = self.declaration_request_id
         if hasattr(self, "payment_id") and self.payment_id:
-            params['paymentId'] = self.payment_id
+            params["paymentId"] = self.payment_id
         if hasattr(self, "declaration_amount") and self.declaration_amount:
-            params['declarationAmount'] = self.declaration_amount
+            params["declarationAmount"] = self.declaration_amount
         if hasattr(self, "customs") and self.customs:
-            params['customs'] = self.customs
+            params["customs"] = self.customs
         if hasattr(self, "merchant_customs_info") and self.merchant_customs_info:
-            params['merchantCustomsInfo'] = self.merchant_customs_info
+            params["merchantCustomsInfo"] = self.merchant_customs_info
         if hasattr(self, "split_order") and self.split_order:
-            params['splitOrder'] = self.split_order
+            params["splitOrder"] = self.split_order
         if hasattr(self, "suborder_id") and self.suborder_id:
-            params['suborderId'] = self.suborder_id
+            params["suborderId"] = self.suborder_id
         if hasattr(self, "buyer_certificate") and self.buyer_certificate:
-            params['buyerCertificate'] = self.buyer_certificate
+            params["buyerCertificate"] = self.buyer_certificate
         return params

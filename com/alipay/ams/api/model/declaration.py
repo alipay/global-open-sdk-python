@@ -1,17 +1,16 @@
 import json
+from com.alipay.ams.api.model.declaration_biz_scene_type import DeclarationBizSceneType
 
 
 class Declaration:
     def __init__(self):
 
-        self.__declaration_biz_scene = None  # type: str
+        self.__declaration_biz_scene = None  # type: DeclarationBizSceneType
         self.__declaration_beneficiary_id = None  # type: str
 
     @property
     def declaration_biz_scene(self):
-        """
-        申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
-        """
+        """Gets the declaration_biz_scene of this Declaration."""
         return self.__declaration_biz_scene
 
     @declaration_biz_scene.setter
@@ -31,16 +30,27 @@ class Declaration:
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "declaration_biz_scene") and self.declaration_biz_scene is not None:
-            params['declarationBizScene'] = self.declaration_biz_scene
-        if hasattr(self, "declaration_beneficiary_id") and self.declaration_beneficiary_id is not None:
-            params['declarationBeneficiaryId'] = self.declaration_beneficiary_id
+        if (
+            hasattr(self, "declaration_biz_scene")
+            and self.declaration_biz_scene is not None
+        ):
+            params["declarationBizScene"] = self.declaration_biz_scene
+        if (
+            hasattr(self, "declaration_beneficiary_id")
+            and self.declaration_beneficiary_id is not None
+        ):
+            params["declarationBeneficiaryId"] = self.declaration_beneficiary_id
         return params
 
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'declarationBizScene' in response_body:
-            self.__declaration_biz_scene = response_body['declarationBizScene']
-        if 'declarationBeneficiaryId' in response_body:
-            self.__declaration_beneficiary_id = response_body['declarationBeneficiaryId']
+        if "declarationBizScene" in response_body:
+            declaration_biz_scene_temp = DeclarationBizSceneType.value_of(
+                response_body["declarationBizScene"]
+            )
+            self.__declaration_biz_scene = declaration_biz_scene_temp
+        if "declarationBeneficiaryId" in response_body:
+            self.__declaration_beneficiary_id = response_body[
+                "declarationBeneficiaryId"
+            ]

@@ -98,33 +98,33 @@ class ChinaExtraTransInfo(object):
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "business_type") and self.business_type:
-            params['businessType'] = self.business_type
+            params["businessType"] = self.business_type
 
         if hasattr(self, "flight_number") and self.flight_number:
-            params['flightNumber'] = self.flight_number
+            params["flightNumber"] = self.flight_number
 
         if hasattr(self, "departure_time") and self.departure_time:
-            params['departureTime'] = self.departure_time
+            params["departureTime"] = self.departure_time
 
         if hasattr(self, "hotel_name ") and self.hotel_name:
-            params['hotelName'] = self.hotel_name
+            params["hotelName"] = self.hotel_name
 
         if hasattr(self, "checkin_time") and self.checkin_time:
-            params['checkinTime'] = self.checkin_time
+            params["checkinTime"] = self.checkin_time
 
         if hasattr(self, "checkout_time") and self.checkout_time:
-            params['checkoutTime'] = self.checkout_time
+            params["checkoutTime"] = self.checkout_time
 
         if hasattr(self, "admission_notice_url") and self.admission_notice_url:
-            params['admissionNoticeUrl'] = self.admission_notice_url
+            params["admissionNoticeUrl"] = self.admission_notice_url
 
         if hasattr(self, "total_quantity") and self.total_quantity:
-            params['totalQuantity'] = self.total_quantity
+            params["totalQuantity"] = self.total_quantity
 
         if hasattr(self, "goods_info") and self.goods_info:
-            params['goodsInfo'] = self.goods_info
+            params["goodsInfo"] = self.goods_info
 
         if hasattr(self, "other_business_type") and self.other_business_type:
-            params['otherBusinessType'] = self.other_business_type
+            params["otherBusinessType"] = self.other_business_type
 
         return params
