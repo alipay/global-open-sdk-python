@@ -42,7 +42,8 @@ class AlipayVaultingPaymentMethodResponse(AlipayResponse):
         if "vaultingRequestId" in rsp_dict:
             self.__vaulting_request_id = rsp_dict["vaultingRequestId"]
         if "paymentMethodDetail" in rsp_dict:
-            self.__payment_method_detail = PaymentMethodDetail.parse_rsp_body(
+            payment_method_detail = PaymentMethodDetail()
+            self.__payment_method_detail = payment_method_detail.parse_rsp_body(
                 rsp_dict["paymentMethodDetail"]
             )
         if "normalUrl" in rsp_dict:
