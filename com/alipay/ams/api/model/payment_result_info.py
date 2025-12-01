@@ -31,6 +31,7 @@ class PaymentResultInfo:
         self.__account_no = None  # type: str
         self.__exemption_requested = None  # type: str
         self.__credential_type_used = None  # type: str
+        self.__rrn = None  # type: str
 
     @property
     def refusal_code_raw(self):
@@ -290,6 +291,17 @@ class PaymentResultInfo:
     def credential_type_used(self, value):
         self.__credential_type_used = value
 
+    @property
+    def rrn(self):
+        """
+        检索参考号，可提供给用户用于跟踪支付/退款/争议的详细信息
+        """
+        return self.__rrn
+
+    @rrn.setter
+    def rrn(self, value):
+        self.__rrn = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "refusal_code_raw") and self.refusal_code_raw is not None:
@@ -355,6 +367,8 @@ class PaymentResultInfo:
             and self.credential_type_used is not None
         ):
             params["credentialTypeUsed"] = self.credential_type_used
+        if hasattr(self, "rrn") and self.rrn is not None:
+            params["rrn"] = self.rrn
         return params
 
     def parse_rsp_body(self, response_body):
@@ -411,3 +425,5 @@ class PaymentResultInfo:
             self.__exemption_requested = response_body["exemptionRequested"]
         if "credentialTypeUsed" in response_body:
             self.__credential_type_used = response_body["credentialTypeUsed"]
+        if "rrn" in response_body:
+            self.__rrn = response_body["rrn"]
