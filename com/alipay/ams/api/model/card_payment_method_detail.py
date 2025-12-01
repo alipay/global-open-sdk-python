@@ -10,6 +10,7 @@ from com.alipay.ams.api.model.mpi_data import MpiData
 class CardPaymentMethodDetail:
     def __init__(self):
 
+        self.__supported_brands = None  # type: str
         self.__card_token = None  # type: str
         self.__card_no = None  # type: str
         self.__brand = None  # type: CardBrand
@@ -48,6 +49,17 @@ class CardPaymentMethodDetail:
         self.__mpi_data = None  # type: MpiData
 
     @property
+    def supported_brands(self):
+        """
+        Supported card brands for this payment method
+        """
+        return self.__supported_brands
+
+    @supported_brands.setter
+    def supported_brands(self, value):
+        self.__supported_brands = value
+
+    @property
     def card_token(self):
         """
         The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments.   More information:  Maximum length: 2048 characters
@@ -60,7 +72,9 @@ class CardPaymentMethodDetail:
 
     @property
     def card_no(self):
-        """Gets the card_no of this CardPaymentMethodDetail."""
+        """
+        The card number.   More information:  Maximum length: 32 characters
+        """
         return self.__card_no
 
     @card_no.setter
@@ -114,7 +128,9 @@ class CardPaymentMethodDetail:
 
     @property
     def expiry_year(self):
-        """Gets the expiry_year of this CardPaymentMethodDetail."""
+        """
+        The year the card expires. Pass in the last two digits of the year number. For example, if the expiration year is 2025, the value of this parameter is 25.   More information:  Maximum length: 2 characters
+        """
         return self.__expiry_year
 
     @expiry_year.setter
@@ -123,7 +139,9 @@ class CardPaymentMethodDetail:
 
     @property
     def expiry_month(self):
-        """Gets the expiry_month of this CardPaymentMethodDetail."""
+        """
+        The month the card expires. Pass in two digits representing the month. For example, if the expiration month is February, the value of this parameter is 02.   More information:  Maximum length: 2 characters
+        """
         return self.__expiry_month
 
     @expiry_month.setter
@@ -269,7 +287,9 @@ class CardPaymentMethodDetail:
 
     @property
     def cvv(self):
-        """Gets the cvv of this CardPaymentMethodDetail."""
+        """
+        The card verification value (CVV), which is also known as a card security code (CSC) or a card verification code (CVC).   Note: Specify this parameter when the card issuing bank is in Brazil, Chile, Mexico, or Peru, or the card is a global card.  More information:  Maximum length: 3 characters
+        """
         return self.__cvv
 
     @cvv.setter
@@ -278,7 +298,9 @@ class CardPaymentMethodDetail:
 
     @property
     def date_of_birth(self):
-        """Gets the date_of_birth of this CardPaymentMethodDetail."""
+        """
+        The date of birth of the cardholder. The value of this parameter is an 8-digit date of birth in the format of YYYY-MM-DD that follows the ISO 8601 standard. For example, 1971-06-07 means the cardholder&#39;s birthday is June 7, 1971.  Specify this parameter when all the following conditions are met:  The card issuing bank is in Korea. The card is a personal card. More information:  Maximum length: 10 characters
+        """
         return self.__date_of_birth
 
     @date_of_birth.setter
@@ -287,7 +309,9 @@ class CardPaymentMethodDetail:
 
     @property
     def business_no(self):
-        """Gets the business_no of this CardPaymentMethodDetail."""
+        """
+        The business number of the company that holds the corporate card. The value of this parameter is a 10-digit business number, such as 97XXXXXX11.  Specify this parameter when all the following conditions are met:  The card issuing bank is in Korea. The card is a corporate card. More information:  Maximum length: 10 characters
+        """
         return self.__business_no
 
     @business_no.setter
@@ -296,7 +320,9 @@ class CardPaymentMethodDetail:
 
     @property
     def card_password_digest(self):
-        """Gets the card_password_digest of this CardPaymentMethodDetail."""
+        """
+        The first two digits of the card payment password.  Note: Specify this parameter when the card issuing bank is in Korea.  More information:  Maximum length: 2 characters
+        """
         return self.__card_password_digest
 
     @card_password_digest.setter
@@ -305,7 +331,9 @@ class CardPaymentMethodDetail:
 
     @property
     def cpf(self):
-        """Gets the cpf of this CardPaymentMethodDetail."""
+        """
+        The Cadastro Pessoal de Pessoa Física (CPF) is the tax ID of the Brazilian individual taxpayer.  Note: Specify this parameter when the card issuing bank is in Brazil.  More information:  Maximum length: 11 characters
+        """
         return self.__cpf
 
     @cpf.setter
@@ -314,7 +342,9 @@ class CardPaymentMethodDetail:
 
     @property
     def payer_email(self):
-        """Gets the payer_email of this CardPaymentMethodDetail."""
+        """
+        The email address of the payer.   Note: Specify this parameter when the card issuing bank is in Brazil, Chile, Mexico, or Peru.  More information:  Maximum length: 64 characters
+        """
         return self.__payer_email
 
     @payer_email.setter
@@ -334,7 +364,9 @@ class CardPaymentMethodDetail:
 
     @property
     def is3_ds_authentication(self):
-        """Gets the is3_ds_authentication of this CardPaymentMethodDetail."""
+        """
+        Indicates whether the transaction authentication type is 3D secure. Specify this parameter when the value of paymentMethodType is CARD.
+        """
         return self.__is3_ds_authentication
 
     @is3_ds_authentication.setter
@@ -379,6 +411,8 @@ class CardPaymentMethodDetail:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "supported_brands") and self.supported_brands is not None:
+            params["supportedBrands"] = self.supported_brands
         if hasattr(self, "card_token") and self.card_token is not None:
             params["cardToken"] = self.card_token
         if hasattr(self, "card_no") and self.card_no is not None:
@@ -480,6 +514,8 @@ class CardPaymentMethodDetail:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "supportedBrands" in response_body:
+            self.__supported_brands = response_body["supportedBrands"]
         if "cardToken" in response_body:
             self.__card_token = response_body["cardToken"]
         if "cardNo" in response_body:

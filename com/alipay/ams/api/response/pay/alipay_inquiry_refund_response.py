@@ -28,6 +28,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
         self.__acquirer_info = None  # type: AcquirerInfo
+        self.__rrn = None  # type: str
         self.parse_rsp_body(rsp_body)
 
     @property
@@ -146,6 +147,17 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     def acquirer_info(self, value):
         self.__acquirer_info = value
 
+    @property
+    def rrn(self):
+        """
+        检索参考号，可提供给用户用于跟踪支付/退款/争议的详细信息
+        """
+        return self.__rrn
+
+    @rrn.setter
+    def rrn(self, value):
+        self.__rrn = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "customized_info") and self.customized_info is not None:
@@ -178,6 +190,8 @@ class AlipayInquiryRefundResponse(AlipayResponse):
             params["settlementQuote"] = self.settlement_quote
         if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
             params["acquirerInfo"] = self.acquirer_info
+        if hasattr(self, "rrn") and self.rrn is not None:
+            params["rrn"] = self.rrn
         return params
 
     def parse_rsp_body(self, response_body):
@@ -222,3 +236,5 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         if "acquirerInfo" in response_body:
             self.__acquirer_info = AcquirerInfo()
             self.__acquirer_info.parse_rsp_body(response_body["acquirerInfo"])
+        if "rrn" in response_body:
+            self.__rrn = response_body["rrn"]
