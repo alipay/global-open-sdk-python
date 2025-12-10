@@ -9,6 +9,7 @@ class PaymentOptionDetail:
         self.__support_card_brands = None  # type: [SupportCardBrand]
         self.__funding = None  # type: [str]
         self.__support_banks = None  # type: [SupportBank]
+        self.__interaction_types = None  # type: [str]
 
     @property
     def support_card_brands(self):
@@ -43,6 +44,17 @@ class PaymentOptionDetail:
     def support_banks(self, value):
         self.__support_banks = value
 
+    @property
+    def interaction_types(self):
+        """
+        表示支付方式支持的交互类型，有效取值包括QR(扫码支付)和REDIRECT(重定向支付)
+        """
+        return self.__interaction_types
+
+    @interaction_types.setter
+    def interaction_types(self, value):
+        self.__interaction_types = value
+
     def to_ams_dict(self):
         params = dict()
         if (
@@ -54,6 +66,8 @@ class PaymentOptionDetail:
             params["funding"] = self.funding
         if hasattr(self, "support_banks") and self.support_banks is not None:
             params["supportBanks"] = self.support_banks
+        if hasattr(self, "interaction_types") and self.interaction_types is not None:
+            params["interactionTypes"] = self.interaction_types
         return params
 
     def parse_rsp_body(self, response_body):
@@ -73,3 +87,5 @@ class PaymentOptionDetail:
                 obj = SupportBank()
                 obj.parse_rsp_body(item)
                 self.__support_banks.append(obj)
+        if "interactionTypes" in response_body:
+            self.__interaction_types = response_body["interactionTypes"]
