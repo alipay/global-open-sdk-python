@@ -12,6 +12,7 @@ class AlipayAuthRevokeTokenRequest(AlipayRequest):
 
         self.__access_token = None  # type: str
         self.__extend_info = None  # type: str
+        self.__merchant_account_id = None  # type: str
 
     @property
     def access_token(self):
@@ -33,6 +34,17 @@ class AlipayAuthRevokeTokenRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
 
+    @property
+    def merchant_account_id(self):
+        """
+        The merchant account ID for 2C2P Replatform scenario.
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
+
     def to_ams_json(self):
         json_str = json.dumps(
             obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
@@ -45,6 +57,11 @@ class AlipayAuthRevokeTokenRequest(AlipayRequest):
             params["accessToken"] = self.access_token
         if hasattr(self, "extend_info") and self.extend_info is not None:
             params["extendInfo"] = self.extend_info
+        if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
         return params
 
     def parse_rsp_body(self, response_body):
@@ -54,3 +71,5 @@ class AlipayAuthRevokeTokenRequest(AlipayRequest):
             self.__access_token = response_body["accessToken"]
         if "extendInfo" in response_body:
             self.__extend_info = response_body["extendInfo"]
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
