@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class RefundFromType(Enum):
     """RefundFromType枚举类"""

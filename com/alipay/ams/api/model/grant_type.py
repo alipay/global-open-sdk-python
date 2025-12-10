@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class GrantType(Enum):
     """GrantType枚举类"""

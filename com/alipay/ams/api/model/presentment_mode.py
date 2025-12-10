@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class PresentmentMode(Enum):
     """PresentmentMode枚举类"""

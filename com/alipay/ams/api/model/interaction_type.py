@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class InteractionType(Enum):
     """The interaction type for the payment method."""
