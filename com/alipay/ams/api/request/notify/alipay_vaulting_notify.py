@@ -11,7 +11,8 @@ class AlipayVaultingNotify(AlipayNotify):
         self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__vaulting_create_time = None
         self.__acquirer_info = None  # type: AcquirerInfo
-        self.__parse_rsp_body(notify_body)
+        self.__metadata = None  # type: str
+        self.__parse_notify_body(notify_body)
 
     @property
     def vaulting_request_id(self):
@@ -24,6 +25,9 @@ class AlipayVaultingNotify(AlipayNotify):
     @property
     def vaulting_create_time(self):
         return self.__vaulting_create_time
+    @property
+    def metadata(self):
+        return self.__metadata
 
     @property
     def acquirer_info(self):
@@ -43,3 +47,5 @@ class AlipayVaultingNotify(AlipayNotify):
             acquirer_info = AcquirerInfo()
             acquirer_info.parse_rsp_body(notify["acquirerInfo"])
             self.__acquirer_info = acquirer_info
+        if "metadata" in notify:
+            self.__metadata = notify["metadata"]

@@ -19,6 +19,7 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__acquirer_info = None
         self.__promotion_result = None
         self.__payment_method_type = None
+        self.__metadata = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -77,6 +78,10 @@ class AlipayPayResultNotify(AlipayNotify):
     def payment_method_type(self):
         return self.__payment_method_type
 
+    @property
+    def metadata(self):
+        return self.__metadata
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayPayResultNotify, self).parse_notify_body(notify_body)
         if "paymentRequestId" in notify:
@@ -108,3 +113,5 @@ class AlipayPayResultNotify(AlipayNotify):
 
         if "paymentMethodType" in notify:
             self.__payment_method_type = notify["paymentMethodType"]
+        if "metadata" in notify:
+            self.__metadata = notify["metadata"]

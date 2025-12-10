@@ -18,6 +18,7 @@ class AlipayRefundNotify(AlipayNotify):
         self.__customized_info = None  # type: CustomizedInfo
         self.__arn = None
         self.__actual_refund_amount = None  # type: Amount
+        self.__metadata = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -59,6 +60,9 @@ class AlipayRefundNotify(AlipayNotify):
     @property
     def actual_refund_amount(self):
         return self.__actual_refund_amount
+    @property
+    def metadata(self):
+        return self.__metadata
 
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayRefundNotify, self).parse_notify_body(notify_body)
@@ -86,3 +90,5 @@ class AlipayRefundNotify(AlipayNotify):
             self.__arn = notify["arn"]
         if "actualRefundAmount" in notify:
             self.__actual_refund_amount = Amount(notify["actualRefundAmount"])
+        if "metadata" in notify:
+            self.__metadata = notify["metadata"]
