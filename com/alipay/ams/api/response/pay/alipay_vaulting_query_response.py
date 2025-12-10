@@ -17,6 +17,7 @@ class AlipayVaultingQueryResponse(AlipayResponse):
         self.__applink_url = None  # type: str
         self.__vaulting_status = None  # type: str
         self.__payment_method_detail = None  # type: PaymentMethodDetail
+        self.__metadata = None  # type: str
         self.parse_rsp_body(rsp_body)
 
     @property
@@ -92,6 +93,17 @@ class AlipayVaultingQueryResponse(AlipayResponse):
     def payment_method_detail(self, value):
         self.__payment_method_detail = value
 
+    @property
+    def metadata(self):
+        """
+        Metadata for custom data transmission
+        """
+        return self.__metadata
+
+    @metadata.setter
+    def metadata(self, value):
+        self.__metadata = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
@@ -114,6 +126,8 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             and self.payment_method_detail is not None
         ):
             params["paymentMethodDetail"] = self.payment_method_detail
+        if hasattr(self, "metadata") and self.metadata is not None:
+            params["metadata"] = self.metadata
         return params
 
     def parse_rsp_body(self, response_body):
@@ -138,3 +152,5 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             self.__payment_method_detail.parse_rsp_body(
                 response_body["paymentMethodDetail"]
             )
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
