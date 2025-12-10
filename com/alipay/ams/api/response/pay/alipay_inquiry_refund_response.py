@@ -16,6 +16,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     def __init__(self, rsp_body):
         super(AlipayResponse, self).__init__()
 
+        self.__metadata = None  # type: str
         self.__customized_info = None  # type: CustomizedInfo
         self.__arn = None  # type: str
         self.__actual_refund_amount = None  # type: Amount
@@ -30,6 +31,17 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         self.__acquirer_info = None  # type: AcquirerInfo
         self.__rrn = None  # type: str
         self.parse_rsp_body(rsp_body)
+
+    @property
+    def metadata(self):
+        """
+        Your metadata provided during the refund process. This parameter is returned when you provided value to the parameter in the refund API. Json format
+        """
+        return self.__metadata
+
+    @metadata.setter
+    def metadata(self, value):
+        self.__metadata = value
 
     @property
     def customized_info(self):
@@ -160,6 +172,8 @@ class AlipayInquiryRefundResponse(AlipayResponse):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "metadata") and self.metadata is not None:
+            params["metadata"] = self.metadata
         if hasattr(self, "customized_info") and self.customized_info is not None:
             params["customizedInfo"] = self.customized_info
         if hasattr(self, "arn") and self.arn is not None:
@@ -198,6 +212,8 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         response_body = super(AlipayInquiryRefundResponse, self).parse_rsp_body(
             response_body
         )
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
         if "customizedInfo" in response_body:
             self.__customized_info = CustomizedInfo()
             self.__customized_info.parse_rsp_body(response_body["customizedInfo"])
