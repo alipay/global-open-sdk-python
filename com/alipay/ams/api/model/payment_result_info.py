@@ -7,6 +7,7 @@ from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
 class PaymentResultInfo:
     def __init__(self):
 
+        self.__issuer_name = None  # type: str
         self.__refusal_code_raw = None  # type: str
         self.__refusal_reason_raw = None  # type: str
         self.__merchant_advice_code = None  # type: str
@@ -32,6 +33,17 @@ class PaymentResultInfo:
         self.__exemption_requested = None  # type: str
         self.__credential_type_used = None  # type: str
         self.__rrn = None  # type: str
+
+    @property
+    def issuer_name(self):
+        """
+        The name of the card issuer bank
+        """
+        return self.__issuer_name
+
+    @issuer_name.setter
+    def issuer_name(self, value):
+        self.__issuer_name = value
 
     @property
     def refusal_code_raw(self):
@@ -304,6 +316,8 @@ class PaymentResultInfo:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "issuer_name") and self.issuer_name is not None:
+            params["issuerName"] = self.issuer_name
         if hasattr(self, "refusal_code_raw") and self.refusal_code_raw is not None:
             params["refusalCodeRaw"] = self.refusal_code_raw
         if hasattr(self, "refusal_reason_raw") and self.refusal_reason_raw is not None:
@@ -374,6 +388,8 @@ class PaymentResultInfo:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "issuerName" in response_body:
+            self.__issuer_name = response_body["issuerName"]
         if "refusalCodeRaw" in response_body:
             self.__refusal_code_raw = response_body["refusalCodeRaw"]
         if "refusalReasonRaw" in response_body:
