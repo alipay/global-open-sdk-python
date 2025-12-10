@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ClassType(Enum):
     """ClassType枚举类"""

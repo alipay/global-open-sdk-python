@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class PaymentMethodCategoryType(Enum):
     """PaymentMethodCategoryType枚举类"""

@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class TransitType(Enum):
     """Type of transit"""

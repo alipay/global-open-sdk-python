@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class AccountHolderType(Enum):
     """AccountHolderType枚举类"""

@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ContactType(Enum):
     """ContactType枚举类"""

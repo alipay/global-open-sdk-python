@@ -4,9 +4,11 @@ from com.alipay.ams.api.model.os_type import OsType
 from com.alipay.ams.api.model.browser_info import BrowserInfo
 
 
+
+
 class Env:
     def __init__(self):
-
+        
         self.__terminal_type = None  # type: TerminalType
         self.__os_type = None  # type: OsType
         self.__user_agent = None  # type: str
@@ -26,34 +28,38 @@ class Env:
         self.__device_language = None  # type: str
         self.__device_id = None  # type: str
         self.__os_version = None  # type: str
+        
 
     @property
     def terminal_type(self):
-        """Gets the terminal_type of this Env."""
+        """Gets the terminal_type of this Env.
+        
+        """
         return self.__terminal_type
 
     @terminal_type.setter
     def terminal_type(self, value):
         self.__terminal_type = value
-
     @property
     def os_type(self):
-        """Gets the os_type of this Env."""
+        """Gets the os_type of this Env.
+        
+        """
         return self.__os_type
 
     @os_type.setter
     def os_type(self, value):
         self.__os_type = value
-
     @property
     def user_agent(self):
-        """Gets the user_agent of this Env."""
+        """Gets the user_agent of this Env.
+        
+        """
         return self.__user_agent
 
     @user_agent.setter
     def user_agent(self, value):
         self.__user_agent = value
-
     @property
     def device_token_id(self):
         """
@@ -64,7 +70,6 @@ class Env:
     @device_token_id.setter
     def device_token_id(self, value):
         self.__device_token_id = value
-
     @property
     def client_ip(self):
         """
@@ -75,16 +80,16 @@ class Env:
     @client_ip.setter
     def client_ip(self, value):
         self.__client_ip = value
-
     @property
     def cookie_id(self):
-        """Gets the cookie_id of this Env."""
+        """Gets the cookie_id of this Env.
+        
+        """
         return self.__cookie_id
 
     @cookie_id.setter
     def cookie_id(self, value):
         self.__cookie_id = value
-
     @property
     def extend_info(self):
         """
@@ -95,34 +100,36 @@ class Env:
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
-
     @property
     def store_terminal_id(self):
-        """Gets the store_terminal_id of this Env."""
+        """Gets the store_terminal_id of this Env.
+        
+        """
         return self.__store_terminal_id
 
     @store_terminal_id.setter
     def store_terminal_id(self, value):
         self.__store_terminal_id = value
-
     @property
     def store_terminal_request_time(self):
-        """Gets the store_terminal_request_time of this Env."""
+        """Gets the store_terminal_request_time of this Env.
+        
+        """
         return self.__store_terminal_request_time
 
     @store_terminal_request_time.setter
     def store_terminal_request_time(self, value):
         self.__store_terminal_request_time = value
-
     @property
     def browser_info(self):
-        """Gets the browser_info of this Env."""
+        """Gets the browser_info of this Env.
+        
+        """
         return self.__browser_info
 
     @browser_info.setter
     def browser_info(self, value):
         self.__browser_info = value
-
     @property
     def color_depth(self):
         """
@@ -133,7 +140,6 @@ class Env:
     @color_depth.setter
     def color_depth(self, value):
         self.__color_depth = value
-
     @property
     def screen_height(self):
         """
@@ -144,7 +150,6 @@ class Env:
     @screen_height.setter
     def screen_height(self, value):
         self.__screen_height = value
-
     @property
     def screen_width(self):
         """
@@ -155,7 +160,6 @@ class Env:
     @screen_width.setter
     def screen_width(self, value):
         self.__screen_width = value
-
     @property
     def time_zone_offset(self):
         """
@@ -166,7 +170,6 @@ class Env:
     @time_zone_offset.setter
     def time_zone_offset(self, value):
         self.__time_zone_offset = value
-
     @property
     def device_brand(self):
         """
@@ -177,7 +180,6 @@ class Env:
     @device_brand.setter
     def device_brand(self, value):
         self.__device_brand = value
-
     @property
     def device_model(self):
         """
@@ -188,7 +190,6 @@ class Env:
     @device_model.setter
     def device_model(self, value):
         self.__device_model = value
-
     @property
     def device_language(self):
         """
@@ -199,7 +200,6 @@ class Env:
     @device_language.setter
     def device_language(self, value):
         self.__device_language = value
-
     @property
     def device_id(self):
         """
@@ -210,7 +210,6 @@ class Env:
     @device_id.setter
     def device_id(self, value):
         self.__device_id = value
-
     @property
     def os_version(self):
         """
@@ -222,94 +221,93 @@ class Env:
     def os_version(self, value):
         self.__os_version = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "terminal_type") and self.terminal_type is not None:
-            params["terminalType"] = self.terminal_type
+            params['terminalType'] = self.terminal_type
         if hasattr(self, "os_type") and self.os_type is not None:
-            params["osType"] = self.os_type
+            params['osType'] = self.os_type
         if hasattr(self, "user_agent") and self.user_agent is not None:
-            params["userAgent"] = self.user_agent
+            params['userAgent'] = self.user_agent
         if hasattr(self, "device_token_id") and self.device_token_id is not None:
-            params["deviceTokenId"] = self.device_token_id
+            params['deviceTokenId'] = self.device_token_id
         if hasattr(self, "client_ip") and self.client_ip is not None:
-            params["clientIp"] = self.client_ip
+            params['clientIp'] = self.client_ip
         if hasattr(self, "cookie_id") and self.cookie_id is not None:
-            params["cookieId"] = self.cookie_id
+            params['cookieId'] = self.cookie_id
         if hasattr(self, "extend_info") and self.extend_info is not None:
-            params["extendInfo"] = self.extend_info
+            params['extendInfo'] = self.extend_info
         if hasattr(self, "store_terminal_id") and self.store_terminal_id is not None:
-            params["storeTerminalId"] = self.store_terminal_id
-        if (
-            hasattr(self, "store_terminal_request_time")
-            and self.store_terminal_request_time is not None
-        ):
-            params["storeTerminalRequestTime"] = self.store_terminal_request_time
+            params['storeTerminalId'] = self.store_terminal_id
+        if hasattr(self, "store_terminal_request_time") and self.store_terminal_request_time is not None:
+            params['storeTerminalRequestTime'] = self.store_terminal_request_time
         if hasattr(self, "browser_info") and self.browser_info is not None:
-            params["browserInfo"] = self.browser_info
+            params['browserInfo'] = self.browser_info
         if hasattr(self, "color_depth") and self.color_depth is not None:
-            params["colorDepth"] = self.color_depth
+            params['colorDepth'] = self.color_depth
         if hasattr(self, "screen_height") and self.screen_height is not None:
-            params["screenHeight"] = self.screen_height
+            params['screenHeight'] = self.screen_height
         if hasattr(self, "screen_width") and self.screen_width is not None:
-            params["screenWidth"] = self.screen_width
+            params['screenWidth'] = self.screen_width
         if hasattr(self, "time_zone_offset") and self.time_zone_offset is not None:
-            params["timeZoneOffset"] = self.time_zone_offset
+            params['timeZoneOffset'] = self.time_zone_offset
         if hasattr(self, "device_brand") and self.device_brand is not None:
-            params["deviceBrand"] = self.device_brand
+            params['deviceBrand'] = self.device_brand
         if hasattr(self, "device_model") and self.device_model is not None:
-            params["deviceModel"] = self.device_model
+            params['deviceModel'] = self.device_model
         if hasattr(self, "device_language") and self.device_language is not None:
-            params["deviceLanguage"] = self.device_language
+            params['deviceLanguage'] = self.device_language
         if hasattr(self, "device_id") and self.device_id is not None:
-            params["deviceId"] = self.device_id
+            params['deviceId'] = self.device_id
         if hasattr(self, "os_version") and self.os_version is not None:
-            params["osVersion"] = self.os_version
+            params['osVersion'] = self.os_version
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "terminalType" in response_body:
-            terminal_type_temp = TerminalType.value_of(response_body["terminalType"])
+        if 'terminalType' in response_body:
+            terminal_type_temp = TerminalType.value_of(response_body['terminalType'])
             self.__terminal_type = terminal_type_temp
-        if "osType" in response_body:
-            os_type_temp = OsType.value_of(response_body["osType"])
+        if 'osType' in response_body:
+            os_type_temp = OsType.value_of(response_body['osType'])
             self.__os_type = os_type_temp
-        if "userAgent" in response_body:
-            self.__user_agent = response_body["userAgent"]
-        if "deviceTokenId" in response_body:
-            self.__device_token_id = response_body["deviceTokenId"]
-        if "clientIp" in response_body:
-            self.__client_ip = response_body["clientIp"]
-        if "cookieId" in response_body:
-            self.__cookie_id = response_body["cookieId"]
-        if "extendInfo" in response_body:
-            self.__extend_info = response_body["extendInfo"]
-        if "storeTerminalId" in response_body:
-            self.__store_terminal_id = response_body["storeTerminalId"]
-        if "storeTerminalRequestTime" in response_body:
-            self.__store_terminal_request_time = response_body[
-                "storeTerminalRequestTime"
-            ]
-        if "browserInfo" in response_body:
+        if 'userAgent' in response_body:
+            self.__user_agent = response_body['userAgent']
+        if 'deviceTokenId' in response_body:
+            self.__device_token_id = response_body['deviceTokenId']
+        if 'clientIp' in response_body:
+            self.__client_ip = response_body['clientIp']
+        if 'cookieId' in response_body:
+            self.__cookie_id = response_body['cookieId']
+        if 'extendInfo' in response_body:
+            self.__extend_info = response_body['extendInfo']
+        if 'storeTerminalId' in response_body:
+            self.__store_terminal_id = response_body['storeTerminalId']
+        if 'storeTerminalRequestTime' in response_body:
+            self.__store_terminal_request_time = response_body['storeTerminalRequestTime']
+        if 'browserInfo' in response_body:
             self.__browser_info = BrowserInfo()
-            self.__browser_info.parse_rsp_body(response_body["browserInfo"])
-        if "colorDepth" in response_body:
-            self.__color_depth = response_body["colorDepth"]
-        if "screenHeight" in response_body:
-            self.__screen_height = response_body["screenHeight"]
-        if "screenWidth" in response_body:
-            self.__screen_width = response_body["screenWidth"]
-        if "timeZoneOffset" in response_body:
-            self.__time_zone_offset = response_body["timeZoneOffset"]
-        if "deviceBrand" in response_body:
-            self.__device_brand = response_body["deviceBrand"]
-        if "deviceModel" in response_body:
-            self.__device_model = response_body["deviceModel"]
-        if "deviceLanguage" in response_body:
-            self.__device_language = response_body["deviceLanguage"]
-        if "deviceId" in response_body:
-            self.__device_id = response_body["deviceId"]
-        if "osVersion" in response_body:
-            self.__os_version = response_body["osVersion"]
+            self.__browser_info.parse_rsp_body(response_body['browserInfo'])
+        if 'colorDepth' in response_body:
+            self.__color_depth = response_body['colorDepth']
+        if 'screenHeight' in response_body:
+            self.__screen_height = response_body['screenHeight']
+        if 'screenWidth' in response_body:
+            self.__screen_width = response_body['screenWidth']
+        if 'timeZoneOffset' in response_body:
+            self.__time_zone_offset = response_body['timeZoneOffset']
+        if 'deviceBrand' in response_body:
+            self.__device_brand = response_body['deviceBrand']
+        if 'deviceModel' in response_body:
+            self.__device_model = response_body['deviceModel']
+        if 'deviceLanguage' in response_body:
+            self.__device_language = response_body['deviceLanguage']
+        if 'deviceId' in response_body:
+            self.__device_id = response_body['deviceId']
+        if 'osVersion' in response_body:
+            self.__os_version = response_body['osVersion']

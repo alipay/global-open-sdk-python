@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class OsType(Enum):
     """OsType枚举类"""
