@@ -11,6 +11,7 @@ class AlipayVaultingQueryRequest(AlipayRequest):
         )
 
         self.__vaulting_request_id = None  # type: str
+        self.__merchant_account_id = None  # type: str
 
     @property
     def vaulting_request_id(self):
@@ -22,6 +23,17 @@ class AlipayVaultingQueryRequest(AlipayRequest):
     @vaulting_request_id.setter
     def vaulting_request_id(self, value):
         self.__vaulting_request_id = value
+
+    @property
+    def merchant_account_id(self):
+        """
+        Merchant account ID for 2C2P integration scenario
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
 
     def to_ams_json(self):
         json_str = json.dumps(
@@ -36,6 +48,11 @@ class AlipayVaultingQueryRequest(AlipayRequest):
             and self.vaulting_request_id is not None
         ):
             params["vaultingRequestId"] = self.vaulting_request_id
+        if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
         return params
 
     def parse_rsp_body(self, response_body):
@@ -43,3 +60,5 @@ class AlipayVaultingQueryRequest(AlipayRequest):
             response_body = json.loads(response_body)
         if "vaultingRequestId" in response_body:
             self.__vaulting_request_id = response_body["vaultingRequestId"]
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
