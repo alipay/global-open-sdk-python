@@ -12,12 +12,24 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
             "/ams/api/v1/authorizations/applyToken"
         )
 
+        self.__merchant_account_id = None  # type: str
         self.__grant_type = None  # type: GrantType
         self.__customer_belongs_to = None  # type: CustomerBelongsTo
         self.__auth_code = None  # type: str
         self.__refresh_token = None  # type: str
         self.__extend_info = None  # type: str
         self.__merchant_region = None  # type: str
+
+    @property
+    def merchant_account_id(self):
+        """
+        The merchant account ID
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
 
     @property
     def grant_type(self):
@@ -87,6 +99,11 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
         if hasattr(self, "grant_type") and self.grant_type is not None:
             params["grantType"] = self.grant_type
         if (
@@ -107,6 +124,8 @@ class AlipayAuthApplyTokenRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
         if "grantType" in response_body:
             grant_type_temp = GrantType.value_of(response_body["grantType"])
             self.__grant_type = grant_type_temp
