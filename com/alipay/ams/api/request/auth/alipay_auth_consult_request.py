@@ -16,11 +16,12 @@ class AlipayAuthConsultRequest(AlipayRequest):
             "/ams/api/v1/authorizations/consult"
         )
 
+        self.__merchant_account_id = None  # type: str
         self.__auth_notify_url = None  # type: str
         self.__customer_belongs_to = None  # type: CustomerBelongsTo
         self.__auth_client_id = None  # type: str
         self.__auth_redirect_url = None  # type: str
-        self.__scopes = None  # type: [ScopeType]
+        self.__scopes = None  # type: ScopeType
         self.__auth_state = None  # type: str
         self.__terminal_type = None  # type: TerminalType
         self.__os_type = None  # type: OsType
@@ -30,6 +31,17 @@ class AlipayAuthConsultRequest(AlipayRequest):
         self.__recurring_payment = None  # type: bool
         self.__auth_meta_data = None  # type: AuthMetaData
         self.__env = None  # type: Env
+
+    @property
+    def merchant_account_id(self):
+        """
+        A unique identifier for a specific merchant account.
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
 
     @property
     def auth_notify_url(self):
@@ -75,9 +87,7 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     @property
     def scopes(self):
-        """
-        The authorization scope. Valid values are:    BASE_USER_INFO: Indicates that the unique user ID can be obtained. USER_INFO: Indicates that the complete user information can be obtained, for example, user name, avatar, and other user information. AGREEMENT_PAY: Indicates that the user agrees to authorize for auto debit so that the merchant can use the access token to automatically deduct money from the user&#39;s account. More information:  Maximum size: 4 elements
-        """
+        """Gets the scopes of this AlipayAuthConsultRequest."""
         return self.__scopes
 
     @scopes.setter
@@ -181,6 +191,11 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
         if hasattr(self, "auth_notify_url") and self.auth_notify_url is not None:
             params["authNotifyUrl"] = self.auth_notify_url
         if (
@@ -217,6 +232,8 @@ class AlipayAuthConsultRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
         if "authNotifyUrl" in response_body:
             self.__auth_notify_url = response_body["authNotifyUrl"]
         if "customerBelongsTo" in response_body:
@@ -232,6 +249,8 @@ class AlipayAuthConsultRequest(AlipayRequest):
             self.__scopes = []
             for item in response_body["scopes"]:
                 self.__scopes.append(item)
+            scopes_temp = ScopeType.value_of(response_body["scopes"])
+            self.__scopes = scopes_temp
         if "authState" in response_body:
             self.__auth_state = response_body["authState"]
         if "terminalType" in response_body:
