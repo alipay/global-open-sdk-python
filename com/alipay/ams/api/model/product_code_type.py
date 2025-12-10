@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ProductCodeType(Enum):
     """ProductCodeType枚举类"""

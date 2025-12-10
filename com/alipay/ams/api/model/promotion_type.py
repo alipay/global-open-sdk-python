@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class PromotionType(Enum):
     """PromotionType枚举类"""

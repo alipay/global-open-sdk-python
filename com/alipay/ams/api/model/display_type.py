@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class DisplayType(Enum):
     """DisplayType枚举类"""

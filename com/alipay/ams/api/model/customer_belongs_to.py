@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class CustomerBelongsTo(Enum):
     """CustomerBelongsTo枚举类"""

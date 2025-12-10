@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class CompanyType(Enum):
     """CompanyType枚举类"""

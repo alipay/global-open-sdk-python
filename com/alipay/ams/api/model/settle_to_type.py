@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class SettleToType(Enum):
     """SettleToType枚举类"""

@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class FundingType(Enum):
     """The funding source type for the payment method"""
