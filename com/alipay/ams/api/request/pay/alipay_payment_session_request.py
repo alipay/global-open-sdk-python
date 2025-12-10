@@ -27,6 +27,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
             "/ams/api/v1/payments/createPaymentSession"
         )
 
+        self.__merchant_account_id = None  # type: str
+        self.__metadata = None  # type: str
         self.__allowed_payment_method_regions = None  # type: str
         self.__customized_info = None  # type: CustomizedInfo
         self.__payment_quote = None  # type: Quote
@@ -56,6 +58,28 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__locale = None  # type: str
         self.__available_payment_method = None  # type: AvailablePaymentMethod
         self.__payment_expiry_time = None  # type: str
+
+    @property
+    def merchant_account_id(self):
+        """
+        The merchant account ID
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
+
+    @property
+    def metadata(self):
+        """
+        Additional metadata for the payment session
+        """
+        return self.__metadata
+
+    @metadata.setter
+    def metadata(self, value):
+        self.__metadata = value
 
     @property
     def allowed_payment_method_regions(self):
@@ -353,6 +377,13 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def to_ams_dict(self):
         params = dict()
         if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
+        if hasattr(self, "metadata") and self.metadata is not None:
+            params["metadata"] = self.metadata
+        if (
             hasattr(self, "allowed_payment_method_regions")
             and self.allowed_payment_method_regions is not None
         ):
@@ -439,6 +470,10 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
         if "allowedPaymentMethodRegions" in response_body:
             self.__allowed_payment_method_regions = response_body[
                 "allowedPaymentMethodRegions"
