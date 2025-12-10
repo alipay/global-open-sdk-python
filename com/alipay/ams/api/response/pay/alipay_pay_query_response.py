@@ -26,6 +26,7 @@ class AlipayPayQueryResponse(AlipayResponse):
     def __init__(self, rsp_body):
         super(AlipayResponse, self).__init__()
 
+        self.__metadata = None  # type: str
         self.__result = None  # type: Result
         self.__customized_info = None  # type: CustomizedInfo
         self.__processing_amount = None  # type: Amount
@@ -58,6 +59,17 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__earliest_settlement_time = None  # type: str
         self.__payment_method_type = None  # type: str
         self.parse_rsp_body(rsp_body)
+
+    @property
+    def metadata(self):
+        """
+        Additional metadata about the payment
+        """
+        return self.__metadata
+
+    @metadata.setter
+    def metadata(self, value):
+        self.__metadata = value
 
     @property
     def result(self):
@@ -362,6 +374,8 @@ class AlipayPayQueryResponse(AlipayResponse):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "metadata") and self.metadata is not None:
+            params["metadata"] = self.metadata
         if hasattr(self, "result") and self.result is not None:
             params["result"] = self.result
         if hasattr(self, "customized_info") and self.customized_info is not None:
@@ -469,6 +483,8 @@ class AlipayPayQueryResponse(AlipayResponse):
         response_body = super(AlipayPayQueryResponse, self).parse_rsp_body(
             response_body
         )
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
         if "result" in response_body:
             self.__result = Result()
             self.__result.parse_rsp_body(response_body["result"])
