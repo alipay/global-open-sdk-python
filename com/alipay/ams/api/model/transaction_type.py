@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class TransactionType(Enum):
     """TransactionType枚举类"""

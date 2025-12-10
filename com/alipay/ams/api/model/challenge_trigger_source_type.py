@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ChallengeTriggerSourceType(Enum):
     """ChallengeTriggerSourceType枚举类"""

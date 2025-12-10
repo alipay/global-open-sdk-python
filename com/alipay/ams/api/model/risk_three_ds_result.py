@@ -1,13 +1,16 @@
 import json
 
 
+
+
 class RiskThreeDSResult:
     def __init__(self):
-
+        
         self.__three_ds_version = None  # type: str
         self.__three_ds_interaction_mode = None  # type: str
         self.__eci = None  # type: str
         self.__cavv = None  # type: str
+        
 
     @property
     def three_ds_version(self):
@@ -19,7 +22,6 @@ class RiskThreeDSResult:
     @three_ds_version.setter
     def three_ds_version(self, value):
         self.__three_ds_version = value
-
     @property
     def three_ds_interaction_mode(self):
         """
@@ -30,7 +32,6 @@ class RiskThreeDSResult:
     @three_ds_interaction_mode.setter
     def three_ds_interaction_mode(self, value):
         self.__three_ds_interaction_mode = value
-
     @property
     def eci(self):
         """
@@ -41,7 +42,6 @@ class RiskThreeDSResult:
     @eci.setter
     def eci(self, value):
         self.__eci = value
-
     @property
     def cavv(self):
         """
@@ -53,29 +53,30 @@ class RiskThreeDSResult:
     def cavv(self, value):
         self.__cavv = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "three_ds_version") and self.three_ds_version is not None:
-            params["threeDSVersion"] = self.three_ds_version
-        if (
-            hasattr(self, "three_ds_interaction_mode")
-            and self.three_ds_interaction_mode is not None
-        ):
-            params["threeDSInteractionMode"] = self.three_ds_interaction_mode
+            params['threeDSVersion'] = self.three_ds_version
+        if hasattr(self, "three_ds_interaction_mode") and self.three_ds_interaction_mode is not None:
+            params['threeDSInteractionMode'] = self.three_ds_interaction_mode
         if hasattr(self, "eci") and self.eci is not None:
-            params["eci"] = self.eci
+            params['eci'] = self.eci
         if hasattr(self, "cavv") and self.cavv is not None:
-            params["cavv"] = self.cavv
+            params['cavv'] = self.cavv
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "threeDSVersion" in response_body:
-            self.__three_ds_version = response_body["threeDSVersion"]
-        if "threeDSInteractionMode" in response_body:
-            self.__three_ds_interaction_mode = response_body["threeDSInteractionMode"]
-        if "eci" in response_body:
-            self.__eci = response_body["eci"]
-        if "cavv" in response_body:
-            self.__cavv = response_body["cavv"]
+        if 'threeDSVersion' in response_body:
+            self.__three_ds_version = response_body['threeDSVersion']
+        if 'threeDSInteractionMode' in response_body:
+            self.__three_ds_interaction_mode = response_body['threeDSInteractionMode']
+        if 'eci' in response_body:
+            self.__eci = response_body['eci']
+        if 'cavv' in response_body:
+            self.__cavv = response_body['cavv']

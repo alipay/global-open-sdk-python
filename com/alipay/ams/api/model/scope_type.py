@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ScopeType(Enum):
     """ScopeType枚举类"""

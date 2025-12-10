@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class CodeValueType(Enum):
     """CodeValueType枚举类"""

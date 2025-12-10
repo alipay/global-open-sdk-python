@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class PassengerIdType(Enum):
     """Type of passenger identification"""

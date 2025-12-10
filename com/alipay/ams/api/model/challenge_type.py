@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ChallengeType(Enum):
     """ChallengeType枚举类"""

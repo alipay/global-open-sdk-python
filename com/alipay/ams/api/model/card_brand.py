@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class CardBrand(Enum):
     """CardBrand枚举类"""

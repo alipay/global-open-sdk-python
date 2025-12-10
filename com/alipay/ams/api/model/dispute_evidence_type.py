@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class DisputeEvidenceType(Enum):
     """DisputeEvidenceType枚举类"""

@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class InStorePaymentScenario(Enum):
     """InStorePaymentScenario枚举类"""

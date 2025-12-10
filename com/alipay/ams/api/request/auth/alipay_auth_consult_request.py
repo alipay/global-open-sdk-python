@@ -7,14 +7,12 @@ from com.alipay.ams.api.model.auth_meta_data import AuthMetaData
 from com.alipay.ams.api.model.env import Env
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayAuthConsultRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayAuthConsultRequest, self).__init__(
-            "/ams/api/v1/authorizations/consult"
-        )
+        super(AlipayAuthConsultRequest, self).__init__("/ams/api/v1/authorizations/consult") 
 
         self.__merchant_account_id = None  # type: str
         self.__auth_notify_url = None  # type: str
@@ -31,6 +29,7 @@ class AlipayAuthConsultRequest(AlipayRequest):
         self.__recurring_payment = None  # type: bool
         self.__auth_meta_data = None  # type: AuthMetaData
         self.__env = None  # type: Env
+        
 
     @property
     def merchant_account_id(self):
@@ -42,7 +41,6 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @merchant_account_id.setter
     def merchant_account_id(self, value):
         self.__merchant_account_id = value
-
     @property
     def auth_notify_url(self):
         """
@@ -53,16 +51,16 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @auth_notify_url.setter
     def auth_notify_url(self, value):
         self.__auth_notify_url = value
-
     @property
     def customer_belongs_to(self):
-        """Gets the customer_belongs_to of this AlipayAuthConsultRequest."""
+        """Gets the customer_belongs_to of this AlipayAuthConsultRequest.
+        
+        """
         return self.__customer_belongs_to
 
     @customer_belongs_to.setter
     def customer_belongs_to(self, value):
         self.__customer_belongs_to = value
-
     @property
     def auth_client_id(self):
         """
@@ -73,27 +71,26 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @auth_client_id.setter
     def auth_client_id(self, value):
         self.__auth_client_id = value
-
     @property
     def auth_redirect_url(self):
         """
-        The redirection URL that the user is redirected to after the user agrees to authorize. This value is provided by the merchant.  More information:  Maximum length: 1024 characters
+        The redirection URL that the user is redirected to after the user agrees to authorize. This value is provided by the merchant.  More information:  Maximum length: 1024 characters 
         """
         return self.__auth_redirect_url
 
     @auth_redirect_url.setter
     def auth_redirect_url(self, value):
         self.__auth_redirect_url = value
-
     @property
     def scopes(self):
-        """Gets the scopes of this AlipayAuthConsultRequest."""
+        """Gets the scopes of this AlipayAuthConsultRequest.
+        
+        """
         return self.__scopes
 
     @scopes.setter
     def scopes(self, value):
         self.__scopes = value
-
     @property
     def auth_state(self):
         """
@@ -104,25 +101,26 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @auth_state.setter
     def auth_state(self, value):
         self.__auth_state = value
-
     @property
     def terminal_type(self):
-        """Gets the terminal_type of this AlipayAuthConsultRequest."""
+        """Gets the terminal_type of this AlipayAuthConsultRequest.
+        
+        """
         return self.__terminal_type
 
     @terminal_type.setter
     def terminal_type(self, value):
         self.__terminal_type = value
-
     @property
     def os_type(self):
-        """Gets the os_type of this AlipayAuthConsultRequest."""
+        """Gets the os_type of this AlipayAuthConsultRequest.
+        
+        """
         return self.__os_type
 
     @os_type.setter
     def os_type(self, value):
         self.__os_type = value
-
     @property
     def os_version(self):
         """
@@ -133,16 +131,16 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @os_version.setter
     def os_version(self, value):
         self.__os_version = value
-
     @property
     def extend_info(self):
-        """Gets the extend_info of this AlipayAuthConsultRequest."""
+        """Gets the extend_info of this AlipayAuthConsultRequest.
+        
+        """
         return self.__extend_info
 
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
-
     @property
     def merchant_region(self):
         """
@@ -153,7 +151,6 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @merchant_region.setter
     def merchant_region(self, value):
         self.__merchant_region = value
-
     @property
     def recurring_payment(self):
         """
@@ -164,112 +161,107 @@ class AlipayAuthConsultRequest(AlipayRequest):
     @recurring_payment.setter
     def recurring_payment(self, value):
         self.__recurring_payment = value
-
     @property
     def auth_meta_data(self):
-        """Gets the auth_meta_data of this AlipayAuthConsultRequest."""
+        """Gets the auth_meta_data of this AlipayAuthConsultRequest.
+        
+        """
         return self.__auth_meta_data
 
     @auth_meta_data.setter
     def auth_meta_data(self, value):
         self.__auth_meta_data = value
-
     @property
     def env(self):
-        """Gets the env of this AlipayAuthConsultRequest."""
+        """Gets the env of this AlipayAuthConsultRequest.
+        
+        """
         return self.__env
 
     @env.setter
     def env(self, value):
         self.__env = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "merchant_account_id")
-            and self.merchant_account_id is not None
-        ):
-            params["merchantAccountId"] = self.merchant_account_id
+        if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
+            params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "auth_notify_url") and self.auth_notify_url is not None:
-            params["authNotifyUrl"] = self.auth_notify_url
-        if (
-            hasattr(self, "customer_belongs_to")
-            and self.customer_belongs_to is not None
-        ):
-            params["customerBelongsTo"] = self.customer_belongs_to
+            params['authNotifyUrl'] = self.auth_notify_url
+        if hasattr(self, "customer_belongs_to") and self.customer_belongs_to is not None:
+            params['customerBelongsTo'] = self.customer_belongs_to
         if hasattr(self, "auth_client_id") and self.auth_client_id is not None:
-            params["authClientId"] = self.auth_client_id
+            params['authClientId'] = self.auth_client_id
         if hasattr(self, "auth_redirect_url") and self.auth_redirect_url is not None:
-            params["authRedirectUrl"] = self.auth_redirect_url
+            params['authRedirectUrl'] = self.auth_redirect_url
         if hasattr(self, "scopes") and self.scopes is not None:
-            params["scopes"] = self.scopes
+            params['scopes'] = self.scopes
         if hasattr(self, "auth_state") and self.auth_state is not None:
-            params["authState"] = self.auth_state
+            params['authState'] = self.auth_state
         if hasattr(self, "terminal_type") and self.terminal_type is not None:
-            params["terminalType"] = self.terminal_type
+            params['terminalType'] = self.terminal_type
         if hasattr(self, "os_type") and self.os_type is not None:
-            params["osType"] = self.os_type
+            params['osType'] = self.os_type
         if hasattr(self, "os_version") and self.os_version is not None:
-            params["osVersion"] = self.os_version
+            params['osVersion'] = self.os_version
         if hasattr(self, "extend_info") and self.extend_info is not None:
-            params["extendInfo"] = self.extend_info
+            params['extendInfo'] = self.extend_info
         if hasattr(self, "merchant_region") and self.merchant_region is not None:
-            params["merchantRegion"] = self.merchant_region
+            params['merchantRegion'] = self.merchant_region
         if hasattr(self, "recurring_payment") and self.recurring_payment is not None:
-            params["recurringPayment"] = self.recurring_payment
+            params['recurringPayment'] = self.recurring_payment
         if hasattr(self, "auth_meta_data") and self.auth_meta_data is not None:
-            params["authMetaData"] = self.auth_meta_data
+            params['authMetaData'] = self.auth_meta_data
         if hasattr(self, "env") and self.env is not None:
-            params["env"] = self.env
+            params['env'] = self.env
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "merchantAccountId" in response_body:
-            self.__merchant_account_id = response_body["merchantAccountId"]
-        if "authNotifyUrl" in response_body:
-            self.__auth_notify_url = response_body["authNotifyUrl"]
-        if "customerBelongsTo" in response_body:
-            customer_belongs_to_temp = CustomerBelongsTo.value_of(
-                response_body["customerBelongsTo"]
-            )
+        if 'merchantAccountId' in response_body:
+            self.__merchant_account_id = response_body['merchantAccountId']
+        if 'authNotifyUrl' in response_body:
+            self.__auth_notify_url = response_body['authNotifyUrl']
+        if 'customerBelongsTo' in response_body:
+            customer_belongs_to_temp = CustomerBelongsTo.value_of(response_body['customerBelongsTo'])
             self.__customer_belongs_to = customer_belongs_to_temp
-        if "authClientId" in response_body:
-            self.__auth_client_id = response_body["authClientId"]
-        if "authRedirectUrl" in response_body:
-            self.__auth_redirect_url = response_body["authRedirectUrl"]
-        if "scopes" in response_body:
+        if 'authClientId' in response_body:
+            self.__auth_client_id = response_body['authClientId']
+        if 'authRedirectUrl' in response_body:
+            self.__auth_redirect_url = response_body['authRedirectUrl']
+        if 'scopes' in response_body:
             self.__scopes = []
-            for item in response_body["scopes"]:
+            for item in response_body['scopes']:
                 self.__scopes.append(item)
-            scopes_temp = ScopeType.value_of(response_body["scopes"])
+            scopes_temp = ScopeType.value_of(response_body['scopes'])
             self.__scopes = scopes_temp
-        if "authState" in response_body:
-            self.__auth_state = response_body["authState"]
-        if "terminalType" in response_body:
-            terminal_type_temp = TerminalType.value_of(response_body["terminalType"])
+        if 'authState' in response_body:
+            self.__auth_state = response_body['authState']
+        if 'terminalType' in response_body:
+            terminal_type_temp = TerminalType.value_of(response_body['terminalType'])
             self.__terminal_type = terminal_type_temp
-        if "osType" in response_body:
-            os_type_temp = OsType.value_of(response_body["osType"])
+        if 'osType' in response_body:
+            os_type_temp = OsType.value_of(response_body['osType'])
             self.__os_type = os_type_temp
-        if "osVersion" in response_body:
-            self.__os_version = response_body["osVersion"]
-        if "extendInfo" in response_body:
-            self.__extend_info = response_body["extendInfo"]
-        if "merchantRegion" in response_body:
-            self.__merchant_region = response_body["merchantRegion"]
-        if "recurringPayment" in response_body:
-            self.__recurring_payment = response_body["recurringPayment"]
-        if "authMetaData" in response_body:
+        if 'osVersion' in response_body:
+            self.__os_version = response_body['osVersion']
+        if 'extendInfo' in response_body:
+            self.__extend_info = response_body['extendInfo']
+        if 'merchantRegion' in response_body:
+            self.__merchant_region = response_body['merchantRegion']
+        if 'recurringPayment' in response_body:
+            self.__recurring_payment = response_body['recurringPayment']
+        if 'authMetaData' in response_body:
             self.__auth_meta_data = AuthMetaData()
-            self.__auth_meta_data.parse_rsp_body(response_body["authMetaData"])
-        if "env" in response_body:
+            self.__auth_meta_data.parse_rsp_body(response_body['authMetaData'])
+        if 'env' in response_body:
             self.__env = Env()
-            self.__env.parse_rsp_body(response_body["env"])
+            self.__env.parse_rsp_body(response_body['env'])
