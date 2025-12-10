@@ -48,10 +48,7 @@ def do_post(url, headers=None, req_body=None, charset=DEFAULT_CHARSET):
 
     response = connection.getresponse()
     if response.status != 200:
-        raise AlipayApiException(
-            "invalid http status "
-            + str(response.status)
-        )
+        raise AlipayApiException("invalid http status " + str(response.status))
     headers = response.getheaders()
     result = response.read()
     try:
