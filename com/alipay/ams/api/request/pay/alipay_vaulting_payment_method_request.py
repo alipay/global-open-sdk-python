@@ -13,15 +13,38 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
             "/ams/api/v1/vaults/vaultPaymentMethod"
         )
 
+        self.__merchant_account_id = None  # type: str
+        self.__metadata = None  # type: str
         self.__vaulting_request_id = None  # type: str
         self.__vaulting_notification_url = None  # type: str
         self.__redirect_url = None  # type: str
         self.__merchant_region = None  # type: str
         self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__env = None  # type: Env
-        self.__merchant_account_id = None  # type: str
         self.__vaulting_currency = None  # type: str
         self.__customized_info = None  # type: CustomizedInfo
+
+    @property
+    def merchant_account_id(self):
+        """
+        一点集成场景使用
+        """
+        return self.__merchant_account_id
+
+    @merchant_account_id.setter
+    def merchant_account_id(self, value):
+        self.__merchant_account_id = value
+
+    @property
+    def metadata(self):
+        """
+        商户使用，Json Format，用于提交元数据信息
+        """
+        return self.__metadata
+
+    @metadata.setter
+    def metadata(self, value):
+        self.__metadata = value
 
     @property
     def vaulting_request_id(self):
@@ -86,15 +109,6 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
         self.__env = value
 
     @property
-    def merchant_account_id(self):
-        """Gets the merchant_account_id of this AlipayVaultingPaymentMethodRequest."""
-        return self.__merchant_account_id
-
-    @merchant_account_id.setter
-    def merchant_account_id(self, value):
-        self.__merchant_account_id = value
-
-    @property
     def vaulting_currency(self):
         """Gets the vaulting_currency of this AlipayVaultingPaymentMethodRequest."""
         return self.__vaulting_currency
@@ -121,6 +135,13 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
     def to_ams_dict(self):
         params = dict()
         if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
+        if hasattr(self, "metadata") and self.metadata is not None:
+            params["metadata"] = self.metadata
+        if (
             hasattr(self, "vaulting_request_id")
             and self.vaulting_request_id is not None
         ):
@@ -141,11 +162,6 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
             params["paymentMethodDetail"] = self.payment_method_detail
         if hasattr(self, "env") and self.env is not None:
             params["env"] = self.env
-        if (
-            hasattr(self, "merchant_account_id")
-            and self.merchant_account_id is not None
-        ):
-            params["merchantAccountId"] = self.merchant_account_id
         if hasattr(self, "vaulting_currency") and self.vaulting_currency is not None:
             params["vaultingCurrency"] = self.vaulting_currency
         if hasattr(self, "customized_info") and self.customized_info is not None:
@@ -155,6 +171,10 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str):
             response_body = json.loads(response_body)
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
         if "vaultingRequestId" in response_body:
             self.__vaulting_request_id = response_body["vaultingRequestId"]
         if "vaultingNotificationUrl" in response_body:
@@ -171,8 +191,6 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
         if "env" in response_body:
             self.__env = Env()
             self.__env.parse_rsp_body(response_body["env"])
-        if "merchantAccountId" in response_body:
-            self.__merchant_account_id = response_body["merchantAccountId"]
         if "vaultingCurrency" in response_body:
             self.__vaulting_currency = response_body["vaultingCurrency"]
         if "customizedInfo" in response_body:
