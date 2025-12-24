@@ -9,6 +9,8 @@ class Statement:
         
         self.__statement_id = None  # type: str
         self.__fund_move_detail = None  # type: FundMoveDetail
+        self.__transaction_type = None  # type: str
+        self.__beneficiary_asset_id = None  # type: str
         
 
     @property
@@ -31,6 +33,26 @@ class Statement:
     @fund_move_detail.setter
     def fund_move_detail(self, value):
         self.__fund_move_detail = value
+    @property
+    def transaction_type(self):
+        """Gets the transaction_type of this Statement.
+        
+        """
+        return self.__transaction_type
+
+    @transaction_type.setter
+    def transaction_type(self, value):
+        self.__transaction_type = value
+    @property
+    def beneficiary_asset_id(self):
+        """Gets the beneficiary_asset_id of this Statement.
+        
+        """
+        return self.__beneficiary_asset_id
+
+    @beneficiary_asset_id.setter
+    def beneficiary_asset_id(self, value):
+        self.__beneficiary_asset_id = value
 
 
     
@@ -41,6 +63,10 @@ class Statement:
             params['statementId'] = self.statement_id
         if hasattr(self, "fund_move_detail") and self.fund_move_detail is not None:
             params['fundMoveDetail'] = self.fund_move_detail
+        if hasattr(self, "transaction_type") and self.transaction_type is not None:
+            params['transactionType'] = self.transaction_type
+        if hasattr(self, "beneficiary_asset_id") and self.beneficiary_asset_id is not None:
+            params['beneficiaryAssetId'] = self.beneficiary_asset_id
         return params
 
 
@@ -52,3 +78,7 @@ class Statement:
         if 'fundMoveDetail' in response_body:
             self.__fund_move_detail = FundMoveDetail()
             self.__fund_move_detail.parse_rsp_body(response_body['fundMoveDetail'])
+        if 'transactionType' in response_body:
+            self.__transaction_type = response_body['transactionType']
+        if 'beneficiaryAssetId' in response_body:
+            self.__beneficiary_asset_id = response_body['beneficiaryAssetId']
