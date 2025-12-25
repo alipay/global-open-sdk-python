@@ -12,7 +12,7 @@ DESCRIPTION = "The global alipay gateway SDK for Python."
 AUTHOR = "guodong.wzj"
 AUTHOR_EMAIL = "wangzunjiao.wzj@digital-engine.com"
 URL = "https://github.com/alipay/global-open-sdk-python"
-VERSION = "1.4.22"
+VERSION = "1.4.23"
 """
 only python2 need enum34、pytz
 """
