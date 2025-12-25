@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.payment_evaluation import PaymentEvaluation
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.env import Env
@@ -15,6 +16,7 @@ class AlipayPayConsultRequest(AlipayRequest):
     def __init__(self):
         super(AlipayPayConsultRequest, self).__init__("/ams/api/v1/payments/consult") 
 
+        self.__payment_evaluation = None  # type: PaymentEvaluation
         self.__product_code = None  # type: ProductCodeType
         self.__payment_amount = None  # type: Amount
         self.__merchant_region = None  # type: str
@@ -35,6 +37,16 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__merchant_account_id = None  # type: str
         
 
+    @property
+    def payment_evaluation(self):
+        """Gets the payment_evaluation of this AlipayPayConsultRequest.
+        
+        """
+        return self.__payment_evaluation
+
+    @payment_evaluation.setter
+    def payment_evaluation(self, value):
+        self.__payment_evaluation = value
     @property
     def product_code(self):
         """Gets the product_code of this AlipayPayConsultRequest.
@@ -224,6 +236,8 @@ class AlipayPayConsultRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "payment_evaluation") and self.payment_evaluation is not None:
+            params['paymentEvaluation'] = self.payment_evaluation
         if hasattr(self, "product_code") and self.product_code is not None:
             params['productCode'] = self.product_code
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
@@ -266,6 +280,9 @@ class AlipayPayConsultRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'paymentEvaluation' in response_body:
+            self.__payment_evaluation = PaymentEvaluation()
+            self.__payment_evaluation.parse_rsp_body(response_body['paymentEvaluation'])
         if 'productCode' in response_body:
             product_code_temp = ProductCodeType.value_of(response_body['productCode'])
             self.__product_code = product_code_temp
