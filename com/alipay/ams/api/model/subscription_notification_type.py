@@ -6,6 +6,7 @@ class SubscriptionNotificationType(Enum):
     CREATE = "CREATE"
     CHANGE = "CHANGE"
     CANCEL = "CANCEL"
+    UPDATE = "UPDATE"
     TERMINATE = "TERMINATE"
 
     def to_ams_dict(self):
