@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.currency_pair import CurrencyPair
 from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.rate_type import RateType
 
 
 
@@ -16,6 +17,7 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
         self.__sell_currency = None  # type: str
         self.__buy_currency = None  # type: str
         self.__product_code = None  # type: ProductCodeType
+        self.__rate_type = None  # type: RateType
         
 
     @property
@@ -78,6 +80,16 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
     @product_code.setter
     def product_code(self, value):
         self.__product_code = value
+    @property
+    def rate_type(self):
+        """Gets the rate_type of this AlipayInquireExchangeRateRequest.
+        
+        """
+        return self.__rate_type
+
+    @rate_type.setter
+    def rate_type(self, value):
+        self.__rate_type = value
 
 
     def to_ams_json(self): 
@@ -99,6 +111,8 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
             params['buyCurrency'] = self.buy_currency
         if hasattr(self, "product_code") and self.product_code is not None:
             params['productCode'] = self.product_code
+        if hasattr(self, "rate_type") and self.rate_type is not None:
+            params['rateType'] = self.rate_type
         return params
 
 
@@ -122,3 +136,6 @@ class AlipayInquireExchangeRateRequest(AlipayRequest):
         if 'productCode' in response_body:
             product_code_temp = ProductCodeType.value_of(response_body['productCode'])
             self.__product_code = product_code_temp
+        if 'rateType' in response_body:
+            rate_type_temp = RateType.value_of(response_body['rateType'])
+            self.__rate_type = rate_type_temp
