@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.payment_quote import PaymentQuote
 
 
 
@@ -12,6 +13,7 @@ class AlipayInquireExchangeRateResponse(AlipayResponse):
 
         self.__quotes = None  # type: [Quote]
         self.__result = None  # type: Result
+        self.__payment_quotes = None  # type: [PaymentQuote]
         self.parse_rsp_body(rsp_body) 
 
 
@@ -35,6 +37,16 @@ class AlipayInquireExchangeRateResponse(AlipayResponse):
     @result.setter
     def result(self, value):
         self.__result = value
+    @property
+    def payment_quotes(self):
+        """Gets the payment_quotes of this AlipayInquireExchangeRateResponse.
+        
+        """
+        return self.__payment_quotes
+
+    @payment_quotes.setter
+    def payment_quotes(self, value):
+        self.__payment_quotes = value
 
 
     
@@ -45,6 +57,8 @@ class AlipayInquireExchangeRateResponse(AlipayResponse):
             params['quotes'] = self.quotes
         if hasattr(self, "result") and self.result is not None:
             params['result'] = self.result
+        if hasattr(self, "payment_quotes") and self.payment_quotes is not None:
+            params['paymentQuotes'] = self.payment_quotes
         return params
 
 
@@ -59,3 +73,9 @@ class AlipayInquireExchangeRateResponse(AlipayResponse):
         if 'result' in response_body:
             self.__result = Result()
             self.__result.parse_rsp_body(response_body['result'])
+        if 'paymentQuotes' in response_body:
+            self.__payment_quotes = []
+            for item in response_body['paymentQuotes']:
+                obj = PaymentQuote()
+                obj.parse_rsp_body(item)
+                self.__payment_quotes.append(obj)
