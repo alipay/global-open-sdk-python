@@ -13,12 +13,13 @@ class Address:
         self.__address2 = None  # type: str
         self.__zip_code = None  # type: str
         self.__label = None  # type: str
+        self.__address3 = None  # type: str
         
 
     @property
     def region(self):
-        """Gets the region of this Address.
-        
+        """
+        The 2-letter country or region code. For more information, see the ISO 3166 Country Codes standard.   More information:  Maximum length: 2 characters
         """
         return self.__region
 
@@ -27,8 +28,8 @@ class Address:
         self.__region = value
     @property
     def state(self):
-        """Gets the state of this Address.
-        
+        """
+        The state, country, or province name.   For card payments, if your business entity is in the United States, and the card issuing country is Canada, the United States, or the United Kingdom, set the value to a region code that consists of two to three characters and follows the ISO 3166-2 standard.   More information:  Maximum length: 8 characters
         """
         return self.__state
 
@@ -37,8 +38,8 @@ class Address:
         self.__state = value
     @property
     def city(self):
-        """Gets the city of this Address.
-        
+        """
+        The city, district, suburb, town, or village name.   More information:  Maximum length: 32 characters 
         """
         return self.__city
 
@@ -47,8 +48,8 @@ class Address:
         self.__city = value
     @property
     def address1(self):
-        """Gets the address1 of this Address.
-        
+        """
+        Address line 1, for example, the street address, PO box, and company name.   More information:  Maximum length: 256 characters
         """
         return self.__address1
 
@@ -57,8 +58,8 @@ class Address:
         self.__address1 = value
     @property
     def address2(self):
-        """Gets the address2 of this Address.
-        
+        """
+        Address line 2, for example, the apartment, suite, unit, and building information.   More information:  Maximum length: 256 characters
         """
         return self.__address2
 
@@ -67,8 +68,8 @@ class Address:
         self.__address2 = value
     @property
     def zip_code(self):
-        """Gets the zip_code of this Address.
-        
+        """
+        The ZIP or postal code.   For card payments, if your business entity is in the United States, specify this parameter according to the following parameter value requirements:  Only contains numbers, letters, hyphens, and spaces. Must be within ten characters.  More information:  Maximum length: 32 characters
         """
         return self.__zip_code
 
@@ -85,6 +86,16 @@ class Address:
     @label.setter
     def label(self, value):
         self.__label = value
+    @property
+    def address3(self):
+        """Gets the address3 of this Address.
+        
+        """
+        return self.__address3
+
+    @address3.setter
+    def address3(self, value):
+        self.__address3 = value
 
 
     
@@ -105,6 +116,8 @@ class Address:
             params['zipCode'] = self.zip_code
         if hasattr(self, "label") and self.label is not None:
             params['label'] = self.label
+        if hasattr(self, "address3") and self.address3 is not None:
+            params['address3'] = self.address3
         return params
 
 
@@ -125,3 +138,5 @@ class Address:
             self.__zip_code = response_body['zipCode']
         if 'label' in response_body:
             self.__label = response_body['label']
+        if 'address3' in response_body:
+            self.__address3 = response_body['address3']
