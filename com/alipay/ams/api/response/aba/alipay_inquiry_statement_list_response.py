@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.statement import Statement
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.total_count import TotalCount
 
 
 
@@ -12,6 +13,7 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
 
         self.__statement_list = None  # type: [Statement]
         self.__result = None  # type: Result
+        self.__total_count = None  # type: TotalCount
         self.parse_rsp_body(rsp_body) 
 
 
@@ -35,6 +37,16 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
     @result.setter
     def result(self, value):
         self.__result = value
+    @property
+    def total_count(self):
+        """Gets the total_count of this AlipayInquiryStatementListResponse.
+        
+        """
+        return self.__total_count
+
+    @total_count.setter
+    def total_count(self, value):
+        self.__total_count = value
 
 
     
@@ -45,6 +57,8 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
             params['statementList'] = self.statement_list
         if hasattr(self, "result") and self.result is not None:
             params['result'] = self.result
+        if hasattr(self, "total_count") and self.total_count is not None:
+            params['totalCount'] = self.total_count
         return params
 
 
@@ -59,3 +73,6 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
         if 'result' in response_body:
             self.__result = Result()
             self.__result.parse_rsp_body(response_body['result'])
+        if 'totalCount' in response_body:
+            self.__total_count = TotalCount()
+            self.__total_count.parse_rsp_body(response_body['totalCount'])
