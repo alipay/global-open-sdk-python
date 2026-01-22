@@ -8,6 +8,7 @@ class AlipayInquiryStatementListRequest(AlipayRequest):
     def __init__(self):
         super(AlipayInquiryStatementListRequest, self).__init__("/ams/api/v1/aba/accounts/inquiryStatementList") 
 
+        self.__fuzzy_name = None  # type: str
         self.__customer_id = None  # type: str
         self.__access_token = None  # type: str
         self.__start_time = None  # type: str
@@ -18,6 +19,16 @@ class AlipayInquiryStatementListRequest(AlipayRequest):
         self.__page_number = None  # type: str
         
 
+    @property
+    def fuzzy_name(self):
+        """Gets the fuzzy_name of this AlipayInquiryStatementListRequest.
+        
+        """
+        return self.__fuzzy_name
+
+    @fuzzy_name.setter
+    def fuzzy_name(self, value):
+        self.__fuzzy_name = value
     @property
     def customer_id(self):
         """Gets the customer_id of this AlipayInquiryStatementListRequest.
@@ -107,6 +118,8 @@ class AlipayInquiryStatementListRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "fuzzy_name") and self.fuzzy_name is not None:
+            params['fuzzyName'] = self.fuzzy_name
         if hasattr(self, "customer_id") and self.customer_id is not None:
             params['customerId'] = self.customer_id
         if hasattr(self, "access_token") and self.access_token is not None:
@@ -129,6 +142,8 @@ class AlipayInquiryStatementListRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'fuzzyName' in response_body:
+            self.__fuzzy_name = response_body['fuzzyName']
         if 'customerId' in response_body:
             self.__customer_id = response_body['customerId']
         if 'accessToken' in response_body:

@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.statement import Statement
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.total_count import TotalCount
 
 
 
@@ -12,6 +13,9 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
 
         self.__statement_list = None  # type: [Statement]
         self.__result = None  # type: Result
+        self.__total_count = None  # type: TotalCount
+        self.__total_page_number = None  # type: str
+        self.__current_page_number = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -35,6 +39,36 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
     @result.setter
     def result(self, value):
         self.__result = value
+    @property
+    def total_count(self):
+        """Gets the total_count of this AlipayInquiryStatementListResponse.
+        
+        """
+        return self.__total_count
+
+    @total_count.setter
+    def total_count(self, value):
+        self.__total_count = value
+    @property
+    def total_page_number(self):
+        """Gets the total_page_number of this AlipayInquiryStatementListResponse.
+        
+        """
+        return self.__total_page_number
+
+    @total_page_number.setter
+    def total_page_number(self, value):
+        self.__total_page_number = value
+    @property
+    def current_page_number(self):
+        """Gets the current_page_number of this AlipayInquiryStatementListResponse.
+        
+        """
+        return self.__current_page_number
+
+    @current_page_number.setter
+    def current_page_number(self, value):
+        self.__current_page_number = value
 
 
     
@@ -45,6 +79,12 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
             params['statementList'] = self.statement_list
         if hasattr(self, "result") and self.result is not None:
             params['result'] = self.result
+        if hasattr(self, "total_count") and self.total_count is not None:
+            params['totalCount'] = self.total_count
+        if hasattr(self, "total_page_number") and self.total_page_number is not None:
+            params['totalPageNumber'] = self.total_page_number
+        if hasattr(self, "current_page_number") and self.current_page_number is not None:
+            params['currentPageNumber'] = self.current_page_number
         return params
 
 
@@ -59,3 +99,10 @@ class AlipayInquiryStatementListResponse(AlipayResponse):
         if 'result' in response_body:
             self.__result = Result()
             self.__result.parse_rsp_body(response_body['result'])
+        if 'totalCount' in response_body:
+            self.__total_count = TotalCount()
+            self.__total_count.parse_rsp_body(response_body['totalCount'])
+        if 'totalPageNumber' in response_body:
+            self.__total_page_number = response_body['totalPageNumber']
+        if 'currentPageNumber' in response_body:
+            self.__current_page_number = response_body['currentPageNumber']
