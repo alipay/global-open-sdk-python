@@ -21,6 +21,7 @@ class Leg:
         self.__fare_basis = None  # type: str
         self.__coupon_number = None  # type: str
         self.__flight_number = None  # type: str
+        self.__passenger_name_record = None  # type: str
         
 
     @property
@@ -143,6 +144,16 @@ class Leg:
     @flight_number.setter
     def flight_number(self, value):
         self.__flight_number = value
+    @property
+    def passenger_name_record(self):
+        """
+        Unique record locator for passenger booking
+        """
+        return self.__passenger_name_record
+
+    @passenger_name_record.setter
+    def passenger_name_record(self, value):
+        self.__passenger_name_record = value
 
 
     
@@ -173,6 +184,8 @@ class Leg:
             params['couponNumber'] = self.coupon_number
         if hasattr(self, "flight_number") and self.flight_number is not None:
             params['flightNumber'] = self.flight_number
+        if hasattr(self, "passenger_name_record") and self.passenger_name_record is not None:
+            params['passengerNameRecord'] = self.passenger_name_record
         return params
 
 
@@ -206,3 +219,5 @@ class Leg:
             self.__coupon_number = response_body['couponNumber']
         if 'flightNumber' in response_body:
             self.__flight_number = response_body['flightNumber']
+        if 'passengerNameRecord' in response_body:
+            self.__passenger_name_record = response_body['passengerNameRecord']
