@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.customized_info import CustomizedInfo
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.period_rule import PeriodRule
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.order_info import OrderInfo
@@ -21,6 +22,8 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
         self.__merchant_account_id = None  # type: str
         self.__allow_accumulate = None  # type: bool
         self.__max_accumulate_amount = None  # type: Amount
+        self.__allow_retry = None  # type: bool
+        self.__max_amount_floor = None  # type: Amount
         self.__subscription_request_id = None  # type: str
         self.__subscription_description = None  # type: str
         self.__subscription_redirect_url = None  # type: str
@@ -78,6 +81,26 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
     @max_accumulate_amount.setter
     def max_accumulate_amount(self, value):
         self.__max_accumulate_amount = value
+    @property
+    def allow_retry(self):
+        """
+        This field is only used in the PIX recurrence scenario. Default &#x3D; false Whether to allow a retry in the event that a recurring payment fails due to insufficient balance.
+        """
+        return self.__allow_retry
+
+    @allow_retry.setter
+    def allow_retry(self, value):
+        self.__allow_retry = value
+    @property
+    def max_amount_floor(self):
+        """Gets the max_amount_floor of this AlipaySubscriptionCreateRequest.
+        
+        """
+        return self.__max_amount_floor
+
+    @max_amount_floor.setter
+    def max_amount_floor(self, value):
+        self.__max_amount_floor = value
     @property
     def subscription_request_id(self):
         """
@@ -245,6 +268,10 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
             params['allowAccumulate'] = self.allow_accumulate
         if hasattr(self, "max_accumulate_amount") and self.max_accumulate_amount is not None:
             params['maxAccumulateAmount'] = self.max_accumulate_amount
+        if hasattr(self, "allow_retry") and self.allow_retry is not None:
+            params['allowRetry'] = self.allow_retry
+        if hasattr(self, "max_amount_floor") and self.max_amount_floor is not None:
+            params['maxAmountFloor'] = self.max_amount_floor
         if hasattr(self, "subscription_request_id") and self.subscription_request_id is not None:
             params['subscriptionRequestId'] = self.subscription_request_id
         if hasattr(self, "subscription_description") and self.subscription_description is not None:
@@ -291,6 +318,11 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
         if 'maxAccumulateAmount' in response_body:
             self.__max_accumulate_amount = Amount()
             self.__max_accumulate_amount.parse_rsp_body(response_body['maxAccumulateAmount'])
+        if 'allowRetry' in response_body:
+            self.__allow_retry = response_body['allowRetry']
+        if 'maxAmountFloor' in response_body:
+            self.__max_amount_floor = Amount()
+            self.__max_amount_floor.parse_rsp_body(response_body['maxAmountFloor'])
         if 'subscriptionRequestId' in response_body:
             self.__subscription_request_id = response_body['subscriptionRequestId']
         if 'subscriptionDescription' in response_body:
