@@ -9,7 +9,6 @@ from com.alipay.ams.api.model.amount import Amount
 class AccountBalance:
     def __init__(self):
         
-        self.__account_no = None  # type: str
         self.__currency = None  # type: str
         self.__available_balance = None  # type: Amount
         self.__frozen_balance = None  # type: Amount
@@ -17,19 +16,9 @@ class AccountBalance:
         
 
     @property
-    def account_no(self):
-        """
-        The balance account number.    More information:  Maximum length: 32 characters
-        """
-        return self.__account_no
-
-    @account_no.setter
-    def account_no(self, value):
-        self.__account_no = value
-    @property
     def currency(self):
-        """
-        The currency associated with the balance account. The value of this parameter is a 3-letter currency code that follows the ISO 4217 standard.    More information:  Maximum length: 3 characters
+        """Gets the currency of this AccountBalance.
+        
         """
         return self.__currency
 
@@ -72,8 +61,6 @@ class AccountBalance:
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "account_no") and self.account_no is not None:
-            params['accountNo'] = self.account_no
         if hasattr(self, "currency") and self.currency is not None:
             params['currency'] = self.currency
         if hasattr(self, "available_balance") and self.available_balance is not None:
@@ -88,8 +75,6 @@ class AccountBalance:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'accountNo' in response_body:
-            self.__account_no = response_body['accountNo']
         if 'currency' in response_body:
             self.__currency = response_body['currency']
         if 'availableBalance' in response_body:
