@@ -1,3 +1,5 @@
+from com.alipay.ams.api.model.refund_to_bank_info import RefundToBankInfo
+from com.alipay.ams.api.model.retry_info import RetryInfo
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
 
 
@@ -20,6 +22,9 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__promotion_result = None
         self.__payment_method_type = None
         self.__metadata = None  # type: str
+        self.__subscriptionOrderId = None
+        self.__subscription_id = None # type: str
+        self.__retry_info = None # type: RetryInfo
         self.__parse_notify_body(notify_body)
 
     @property
@@ -82,6 +87,21 @@ class AlipayPayResultNotify(AlipayNotify):
     def metadata(self):
         return self.__metadata
 
+    @property
+    def subscription_order_id(self):
+        return self.__subscriptionOrderId
+
+    @subscription_order_id.setter
+    def subscription_order_id(self, value):
+        self.__subscriptionOrderId = value
+
+    @property
+    def retry_info(self):
+        return self.__retry_info
+    @retry_info.setter
+    def retry_info(self, value):
+        self.__retry_info = value
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayPayResultNotify, self).parse_notify_body(notify_body)
         if "paymentRequestId" in notify:
@@ -115,3 +135,7 @@ class AlipayPayResultNotify(AlipayNotify):
             self.__payment_method_type = notify["paymentMethodType"]
         if "metadata" in notify:
             self.__metadata = notify["metadata"]
+        if "subscriptionOrderId" in notify:
+            self.__subscriptionOrderId = notify["subscriptionOrderId"]
+        if "retryInfo" in notify:
+            self.__retry_info = notify["retryInfo"]
