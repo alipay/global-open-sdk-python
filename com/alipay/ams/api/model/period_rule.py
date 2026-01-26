@@ -16,7 +16,7 @@ class PeriodRule:
     @property
     def period_type(self):
         """
-        The subscription period type. Valid values are:  YEAR: indicates that the subscription period is measured in years.  MONTH: indicates that the subscription period is measured in months.  WEEK: indicates that the subscription period is measured in weeks.  DAY: indicates that the subscription period is measured in days.   More information:  Maximum length: 20 characters
+        The subscription period type. Valid values are:  WEEK: indicates that the subscription period is measured in weeks. MONTH: indicates that the subscription period is measured in months. QUARTER: indicates that the subscription period is measured in quarters. HALF_YEAR: indicates that the subscription period is measured in half years. YEAR: indicates that the subscription period is measured in years. More information:  Maximum length: 20 characters
         """
         return self.__period_type
 

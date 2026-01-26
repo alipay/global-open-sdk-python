@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.period_rule import PeriodRule
 from com.alipay.ams.api.model.trial import Trial
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -15,6 +16,8 @@ class SubscriptionInfo:
         self.__trials = None  # type: [Trial]
         self.__subscription_notify_url = None  # type: str
         self.__subscription_expiry_time = None  # type: str
+        self.__allow_retry = None  # type: bool
+        self.__max_amount_floor = None  # type: Amount
         
 
     @property
@@ -87,6 +90,26 @@ class SubscriptionInfo:
     @subscription_expiry_time.setter
     def subscription_expiry_time(self, value):
         self.__subscription_expiry_time = value
+    @property
+    def allow_retry(self):
+        """
+        Field is used only in the PIX recurrence scenario. Whether to allow a retry in the event that a recurring payment fails due to insufficient balance.
+        """
+        return self.__allow_retry
+
+    @allow_retry.setter
+    def allow_retry(self, value):
+        self.__allow_retry = value
+    @property
+    def max_amount_floor(self):
+        """Gets the max_amount_floor of this SubscriptionInfo.
+        
+        """
+        return self.__max_amount_floor
+
+    @max_amount_floor.setter
+    def max_amount_floor(self, value):
+        self.__max_amount_floor = value
 
 
     
@@ -107,6 +130,10 @@ class SubscriptionInfo:
             params['subscriptionNotifyUrl'] = self.subscription_notify_url
         if hasattr(self, "subscription_expiry_time") and self.subscription_expiry_time is not None:
             params['subscriptionExpiryTime'] = self.subscription_expiry_time
+        if hasattr(self, "allow_retry") and self.allow_retry is not None:
+            params['allowRetry'] = self.allow_retry
+        if hasattr(self, "max_amount_floor") and self.max_amount_floor is not None:
+            params['maxAmountFloor'] = self.max_amount_floor
         return params
 
 
@@ -130,3 +157,8 @@ class SubscriptionInfo:
             self.__subscription_notify_url = response_body['subscriptionNotifyUrl']
         if 'subscriptionExpiryTime' in response_body:
             self.__subscription_expiry_time = response_body['subscriptionExpiryTime']
+        if 'allowRetry' in response_body:
+            self.__allow_retry = response_body['allowRetry']
+        if 'maxAmountFloor' in response_body:
+            self.__max_amount_floor = Amount()
+            self.__max_amount_floor.parse_rsp_body(response_body['maxAmountFloor'])
