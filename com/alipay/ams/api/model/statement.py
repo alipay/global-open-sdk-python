@@ -213,8 +213,6 @@ class Statement:
             self.__fund_move_detail = FundMoveDetail()
             self.__fund_move_detail.parse_rsp_body(response_body['fundMoveDetail'])
         if 'foreignExchangeQuote' in response_body:
-            self.__foreign_exchange_quote = ForeignExchangeQuote()
-            self.__foreign_exchange_quote.parse_rsp_body(response_body['foreignExchangeQuote'])
         if 'statementId' in response_body:
             self.__statement_id = response_body['statementId']
         if 'transactionTime' in response_body:
