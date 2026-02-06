@@ -14,12 +14,13 @@ class Buyer:
         self.__buyer_registration_time = None  # type: str
         self.__is_account_verified = None  # type: bool
         self.__successful_order_count = None  # type: int
+        self.__buyer_phone_no_contry_code = None  # type: str
         
 
     @property
     def reference_buyer_id(self):
         """
-        The unique ID to identify the buyer.  Specify this parameter:  When you require risk control. When the value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 64 characters 
+        The unique ID to identify the buyer.  Note: Specify this parameter when you want to use the promotion offered by Antom to this order.  More information:  Maximum length: 64 characters
         """
         return self.__reference_buyer_id
 
@@ -86,6 +87,16 @@ class Buyer:
     @successful_order_count.setter
     def successful_order_count(self, value):
         self.__successful_order_count = value
+    @property
+    def buyer_phone_no_contry_code(self):
+        """
+        用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
+        """
+        return self.__buyer_phone_no_contry_code
+
+    @buyer_phone_no_contry_code.setter
+    def buyer_phone_no_contry_code(self, value):
+        self.__buyer_phone_no_contry_code = value
 
 
     
@@ -106,6 +117,8 @@ class Buyer:
             params['isAccountVerified'] = self.is_account_verified
         if hasattr(self, "successful_order_count") and self.successful_order_count is not None:
             params['successfulOrderCount'] = self.successful_order_count
+        if hasattr(self, "buyer_phone_no_contry_code") and self.buyer_phone_no_contry_code is not None:
+            params['buyerPhoneNoContryCode'] = self.buyer_phone_no_contry_code
         return params
 
 
@@ -127,3 +140,5 @@ class Buyer:
             self.__is_account_verified = response_body['isAccountVerified']
         if 'successfulOrderCount' in response_body:
             self.__successful_order_count = response_body['successfulOrderCount']
+        if 'buyerPhoneNoContryCode' in response_body:
+            self.__buyer_phone_no_contry_code = response_body['buyerPhoneNoContryCode']
