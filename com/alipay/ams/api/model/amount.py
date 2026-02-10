@@ -12,8 +12,8 @@ class Amount:
 
     @property
     def currency(self):
-        """Gets the currency of this Amount.
-        
+        """
+        The 3-letter currency code that follows the ISO 4217 standard.   More information:  Maximum length: 3 characters
         """
         return self.__currency
 
@@ -22,8 +22,8 @@ class Amount:
         self.__currency = value
     @property
     def value(self):
-        """Gets the value of this Amount.
-        
+        """
+        The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.    For details about the smallest currency unit, see Smallest unit of the currency .  For details about the minimum payment amount allowed for each payment method, see Minimum amount rules.   Note: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker&#39;s rounding and fix the last two digits of this parameter as 00.    More information:  Value range: 0 - unlimited 
         """
         return self.__value
 
