@@ -12,7 +12,7 @@ from com.alipay.ams.api.model.mpi_data import MpiData
 class CardPaymentMethodDetail:
     def __init__(self):
         
-        self.__supported_brands = None  # type: str
+        self.__supported_brands = None  # type: list
         self.__card_token = None  # type: str
         self.__card_no = None  # type: str
         self.__brand = None  # type: CardBrand
