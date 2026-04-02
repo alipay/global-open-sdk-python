@@ -2,6 +2,7 @@ import json
 from com.alipay.ams.api.model.period_rule import PeriodRule
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.order_info import OrderInfo
+from com.alipay.ams.api.model.proration_settings import ProrationSettings
 
 
 
@@ -18,6 +19,8 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
         self.__payment_amount = None  # type: Amount
         self.__subscription_end_time = None  # type: str
         self.__order_info = None  # type: OrderInfo
+        self.__proration_settings = None  # type: ProrationSettings
+        self.__next_subscription_date = None  # type: str
         
 
     @property
@@ -90,6 +93,26 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     @order_info.setter
     def order_info(self, value):
         self.__order_info = value
+    @property
+    def proration_settings(self):
+        """Gets the proration_settings of this AlipaySubscriptionUpdateRequest.
+        
+        """
+        return self.__proration_settings
+
+    @proration_settings.setter
+    def proration_settings(self, value):
+        self.__proration_settings = value
+    @property
+    def next_subscription_date(self):
+        """
+        商户指定的下次扣款时间。遵循ISO 8601标准。  允许更改的时间要在一个周期内。  注意：由于订阅产品会在履约时间24小时前开始尝试扣款，商户指定的下次扣款时间至少要在当前时间的24小时之后。如商户指定的下次扣款时间小于当前时间的24小时，预期订阅升级失败并返回PROCCESS_FAIL错误码。
+        """
+        return self.__next_subscription_date
+
+    @next_subscription_date.setter
+    def next_subscription_date(self, value):
+        self.__next_subscription_date = value
 
 
     def to_ams_json(self): 
@@ -113,6 +136,10 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
             params['subscriptionEndTime'] = self.subscription_end_time
         if hasattr(self, "order_info") and self.order_info is not None:
             params['orderInfo'] = self.order_info
+        if hasattr(self, "proration_settings") and self.proration_settings is not None:
+            params['prorationSettings'] = self.proration_settings
+        if hasattr(self, "next_subscription_date") and self.next_subscription_date is not None:
+            params['nextSubscriptionDate'] = self.next_subscription_date
         return params
 
 
@@ -136,3 +163,8 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
         if 'orderInfo' in response_body:
             self.__order_info = OrderInfo()
             self.__order_info.parse_rsp_body(response_body['orderInfo'])
+        if 'prorationSettings' in response_body:
+            self.__proration_settings = ProrationSettings()
+            self.__proration_settings.parse_rsp_body(response_body['prorationSettings'])
+        if 'nextSubscriptionDate' in response_body:
+            self.__next_subscription_date = response_body['nextSubscriptionDate']
