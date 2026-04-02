@@ -6,7 +6,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipaySubscriptionsInquiryRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubscriptionsInquiryRequest, self).__init__("/ams/v1/subscriptions/inquiry") 
+        super(AlipaySubscriptionsInquiryRequest, self).__init__("/ams/api/v1/subscriptions/inquiry") 
 
         self.__subscription_id = None  # type: str
         self.__subscription_request_id = None  # type: str
