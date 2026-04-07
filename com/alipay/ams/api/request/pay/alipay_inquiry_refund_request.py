@@ -35,8 +35,8 @@ class AlipayInquiryRefundRequest(AlipayRequest):
         self.__refund_id = value
     @property
     def merchant_account_id(self):
-        """Gets the merchant_account_id of this AlipayInquiryRefundRequest.
-        
+        """
+        The unique ID to identify a merchant account.
         """
         return self.__merchant_account_id
 
