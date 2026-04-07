@@ -57,7 +57,7 @@ class AlipayPayRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        用于商户自定义元数据信息，支持JSON格式
+        Use this parameter to submit metadata, including information for special use cases.  Specify this parameter when you need to add metadata information.
         """
         return self.__metadata
 

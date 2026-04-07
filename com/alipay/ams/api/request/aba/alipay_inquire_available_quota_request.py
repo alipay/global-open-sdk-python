@@ -6,7 +6,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquireAvailableQuotaRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireAvailableQuotaRequest, self).__init__("/ams/v1/aba/account/inquireAvailableQuota") 
+        super(AlipayInquireAvailableQuotaRequest, self).__init__("/ams/api/v1/aba/account/inquireAvailableQuota") 
 
         self.__currency = None  # type: str
         

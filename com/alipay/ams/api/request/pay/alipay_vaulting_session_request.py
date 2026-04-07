@@ -19,7 +19,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
     @property
     def payment_method_type(self):
         """
-        The payment method type is included in payment method options. See Payment methods to check the valid values for card payments.    More information:  Maximum length: 64 characters
+        The type of payment method to be vaulted. The value of this parameter is fixed to CARD.
         """
         return self.__payment_method_type
 
@@ -29,7 +29,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
     @property
     def vaulting_request_id(self):
         """
-        The unique ID that is assigned by a merchant to identify a card vaulting request.   More information:  Maximum length: 64 characters 
+        The unique ID that is assigned by a merchant to identify a card vaulting request.   More information:  This field is an API idempotency field. For vaulting requests that are initiated with the same value of vaultingRequestId and reach a final status of S or F, the same result is to be returned for the request.
         """
         return self.__vaulting_request_id
 
