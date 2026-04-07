@@ -35,6 +35,7 @@ class PaymentResultInfo:
         self.__exemption_requested = None  # type: str
         self.__credential_type_used = None  # type: str
         self.__rrn = None  # type: str
+        self.__user_authorization_status = None  # type: str
         
 
     @property
@@ -250,7 +251,7 @@ class PaymentResultInfo:
     @property
     def card_category(self):
         """
-        Added field for card category
+        The payment card category. Valid vaules are:  CONSUMER: the personal card COMMERCIAL: the business card
         """
         return self.__card_category
 
@@ -270,7 +271,7 @@ class PaymentResultInfo:
     @property
     def exemption_requested(self):
         """
-        Added field for exemption requested
+        The exemption type that Antom requested for in the payment authorization. Valid values are:  lowValue: Transactions below €30 may be exempt from Strong Customer Authentication, if certain cumulative amount and transaction count criteria are met. transactionRiskAnalysis: Transactions considered at low risk of fraud based on the fraud level of the payment provider.
         """
         return self.__exemption_requested
 
@@ -280,7 +281,7 @@ class PaymentResultInfo:
     @property
     def credential_type_used(self):
         """
-        Added field for credential type used
+        Indicates whether the transaction was processed with the primary account number (PAN) or a network token.  PAN: The transaction was processed using the PAN. NETWORK_TOKEN: The transaction was processed using a network token provided by the merchant or Antom.
         """
         return self.__credential_type_used
 
@@ -297,6 +298,16 @@ class PaymentResultInfo:
     @rrn.setter
     def rrn(self, value):
         self.__rrn = value
+    @property
+    def user_authorization_status(self):
+        """
+        交易中用户是否授权绑定，当用户使用PAYPAY支付并且指定支付要素smartPaymentEnabled&#x3D;true的情况下才会返回。 ● AUTHORIZED - 用户发起交易时时已授权，直接付款 ● UNAUTHORIZED - 用户发起交易时未授权，现授权后付款
+        """
+        return self.__user_authorization_status
+
+    @user_authorization_status.setter
+    def user_authorization_status(self, value):
+        self.__user_authorization_status = value
 
 
     
@@ -355,6 +366,8 @@ class PaymentResultInfo:
             params['credentialTypeUsed'] = self.credential_type_used
         if hasattr(self, "rrn") and self.rrn is not None:
             params['rrn'] = self.rrn
+        if hasattr(self, "user_authorization_status") and self.user_authorization_status is not None:
+            params['userAuthorizationStatus'] = self.user_authorization_status
         return params
 
 
@@ -416,3 +429,5 @@ class PaymentResultInfo:
             self.__credential_type_used = response_body['credentialTypeUsed']
         if 'rrn' in response_body:
             self.__rrn = response_body['rrn']
+        if 'userAuthorizationStatus' in response_body:
+            self.__user_authorization_status = response_body['userAuthorizationStatus']

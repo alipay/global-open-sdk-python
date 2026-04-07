@@ -56,7 +56,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     @property
     def arn(self):
         """
-        Acquirer Reference Number
+        Acquirer reference number. If the payment method includes an acquirer reference number, this field will have a value.  
         """
         return self.__arn
 

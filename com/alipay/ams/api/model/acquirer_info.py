@@ -14,6 +14,8 @@ class AcquirerInfo:
         self.__acquirer_result_message = None  # type: str
         self.__acquirer_merchant_name = None  # type: str
         self.__acquirer_reason_description = None  # type: str
+        self.__ptsp_transaction_id = None  # type: str
+        self.__acquirer_card_token = None  # type: str
         
 
     @property
@@ -96,6 +98,26 @@ class AcquirerInfo:
     @acquirer_reason_description.setter
     def acquirer_reason_description(self, value):
         self.__acquirer_reason_description = value
+    @property
+    def ptsp_transaction_id(self):
+        """Gets the ptsp_transaction_id of this AcquirerInfo.
+        
+        """
+        return self.__ptsp_transaction_id
+
+    @ptsp_transaction_id.setter
+    def ptsp_transaction_id(self, value):
+        self.__ptsp_transaction_id = value
+    @property
+    def acquirer_card_token(self):
+        """
+        The card token assigned by the acquirer for card tokenization.  Note: This parameter is returned if you integrate the APO product.  More information:  Maximum length: 64 characters
+        """
+        return self.__acquirer_card_token
+
+    @acquirer_card_token.setter
+    def acquirer_card_token(self, value):
+        self.__acquirer_card_token = value
 
 
     
@@ -118,6 +140,10 @@ class AcquirerInfo:
             params['acquirerMerchantName'] = self.acquirer_merchant_name
         if hasattr(self, "acquirer_reason_description") and self.acquirer_reason_description is not None:
             params['acquirerReasonDescription'] = self.acquirer_reason_description
+        if hasattr(self, "ptsp_transaction_id") and self.ptsp_transaction_id is not None:
+            params['ptspTransactionId'] = self.ptsp_transaction_id
+        if hasattr(self, "acquirer_card_token") and self.acquirer_card_token is not None:
+            params['acquirerCardToken'] = self.acquirer_card_token
         return params
 
 
@@ -140,3 +166,7 @@ class AcquirerInfo:
             self.__acquirer_merchant_name = response_body['acquirerMerchantName']
         if 'acquirerReasonDescription' in response_body:
             self.__acquirer_reason_description = response_body['acquirerReasonDescription']
+        if 'ptspTransactionId' in response_body:
+            self.__ptsp_transaction_id = response_body['ptspTransactionId']
+        if 'acquirerCardToken' in response_body:
+            self.__acquirer_card_token = response_body['acquirerCardToken']

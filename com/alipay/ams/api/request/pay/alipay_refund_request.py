@@ -33,7 +33,7 @@ class AlipayRefundRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Additional metadata about the refund request
+        This parameter is used for submitting metadata, including information for special use cases.
         """
         return self.__metadata
 
