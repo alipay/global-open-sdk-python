@@ -343,8 +343,8 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__acquirer_info = value
     @property
     def merchant_account_id(self):
-        """Gets the merchant_account_id of this AlipayPayQueryResponse.
-        
+        """
+        The unique ID to identify a merchant account.  Note: Specify this parameter when you use a single client ID across multiple locations.
         """
         return self.__merchant_account_id
 

@@ -69,7 +69,7 @@ class Quote:
     @property
     def guaranteed(self):
         """
-        Guaranteed exchange rate available for payment.    
+        Guaranteed exchange rate available for payment.
         """
         return self.__guaranteed
 

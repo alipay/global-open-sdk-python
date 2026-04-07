@@ -16,8 +16,8 @@ class AlipayVaultsFetchNonceResponse(AlipayResponse):
 
     @property
     def card_token(self):
-        """Gets the card_token of this AlipayVaultsFetchNonceResponse.
-        
+        """
+        The token of the card. The value of this parameter is used by paymentMethodId in the pay (One-time Payments) API when initiating payments.
         """
         return self.__card_token
 

@@ -10,6 +10,7 @@ class CardholderInfo:
         
         self.__card_holder_name = None  # type: UserName
         self.__bill_address = None  # type: Address
+        self.__display_name = None  # type: str
         
 
     @property
@@ -32,6 +33,16 @@ class CardholderInfo:
     @bill_address.setter
     def bill_address(self, value):
         self.__bill_address = value
+    @property
+    def display_name(self):
+        """
+        The name that is displayed on the card
+        """
+        return self.__display_name
+
+    @display_name.setter
+    def display_name(self, value):
+        self.__display_name = value
 
 
     
@@ -42,6 +53,8 @@ class CardholderInfo:
             params['cardHolderName'] = self.card_holder_name
         if hasattr(self, "bill_address") and self.bill_address is not None:
             params['billAddress'] = self.bill_address
+        if hasattr(self, "display_name") and self.display_name is not None:
+            params['displayName'] = self.display_name
         return params
 
 
@@ -54,3 +67,5 @@ class CardholderInfo:
         if 'billAddress' in response_body:
             self.__bill_address = Address()
             self.__bill_address.parse_rsp_body(response_body['billAddress'])
+        if 'displayName' in response_body:
+            self.__display_name = response_body['displayName']

@@ -61,7 +61,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     @property
     def merchant_account_id(self):
         """
-        The merchant account ID
+        A unique ID to identify a specific merchant account.  Note: Specify this parameter when you use one client ID across multiple locations.
         """
         return self.__merchant_account_id
 
@@ -71,7 +71,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Additional metadata for the payment session
+        This parameter is used for submitting metadata, including information for special use cases.  Specify this parameter when you need to add metadata information.
         """
         return self.__metadata
 
@@ -81,7 +81,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     @property
     def allowed_payment_method_regions(self):
         """
-        Allowed payment method regions
+        A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL.   Note: Specify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.  
         """
         return self.__allowed_payment_method_regions
 
