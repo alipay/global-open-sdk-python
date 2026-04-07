@@ -8,7 +8,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCreateQuoteRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreateQuoteRequest, self).__init__("/ams/v1/aba/funds/createQuote") 
+        super(AlipayCreateQuoteRequest, self).__init__("/ams/api/v1/aba/funds/createQuote") 
 
         self.__buy_amount = None  # type: Amount
         self.__sell_amount = None  # type: Amount
