@@ -21,7 +21,7 @@ class ThreeDSResult:
     @property
     def three_ds_version(self):
         """
-        The version of 3D Secure protocol
+        The version of 3D Secure protocol. Valid values are:  1.0.2 2.1.0 2.2.0  
         """
         return self.__three_ds_version
 
@@ -31,7 +31,7 @@ class ThreeDSResult:
     @property
     def eci(self):
         """
-        Electronic Commerce Indicator (ECI) that is returned by the card scheme
+        Electronic Commerce Indicator (ECI) that is returned by the card scheme. This parameter is used to indicate the type of cardholder identity authentication. Valid values are:  02 or 05: Indicates fully authenticated transaction. 01 or 06: Indicates attempted authentication transaction. 00 or 07: Indicates non-3D Secure transaction. 04: Indicates 3D Secure data-only transaction. No authentication required (for Mastercard only). Note: This parameter is returned when the value of paymentMethodType is CARD and the issuing bank returns this data.
         """
         return self.__eci
 
@@ -41,7 +41,7 @@ class ThreeDSResult:
     @property
     def cavv(self):
         """
-        The cardholder authentication value
+        The cardholder authentication value. The value of this parameter can be Cardholder Authentication Verification Value (CAVV) or Authentication Verification Value (AVV).  Note: This parameter is returned when the cardholder passes the 3D Secure authentication.
         """
         return self.__cavv
 
@@ -51,7 +51,7 @@ class ThreeDSResult:
     @property
     def ds_transaction_id(self):
         """
-        dsTransactionId
+        The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication.    Note: This parameter is returned for 3D Secure 2.0.
         """
         return self.__ds_transaction_id
 
@@ -61,7 +61,7 @@ class ThreeDSResult:
     @property
     def xid(self):
         """
-        The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication
+        The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication.     Note: This parameter is returned for 3D Secure 1.0. 
         """
         return self.__xid
 
@@ -71,7 +71,7 @@ class ThreeDSResult:
     @property
     def three_d_stransaction_status_reason(self):
         """
-        Added field for 3DS transaction status reason
+        When a transaction is unsuccessful due to 3D Secure authentication failure, you may receive the transaction status reason code returned by this parameter, indicating the reason for the failure.
         """
         return self.__three_d_stransaction_status_reason
 
@@ -81,7 +81,7 @@ class ThreeDSResult:
     @property
     def challenge_cancel(self):
         """
-        Added field for challenge cancel
+        Indicator informing the Access Control Server (ACS) and the Directory Server (DS) that the authentication has been cancelled. Possible values are:  01: Cardholder selected cancel. 02: 3DS Requestor cancelled authentication. 03: Transaction abandoned. 04: Transaction timed out at ACS — other timeouts. 05: Transaction timed out at ACS — the first Client Request not received by ACS. 06: Transaction error. 07: Unknown. 08: Transaction timed out at SDK.
         """
         return self.__challenge_cancel
 
@@ -91,7 +91,7 @@ class ThreeDSResult:
     @property
     def challenged(self):
         """
-        Added field for challenged status
+        Indicates whether a 3DS challenge was triggered. Valid values are:  true: The transaction has been challenged, and the user is required to complete the 3D Secure authentication process. false: The transaction is a frictionless process, where the user does not experience the 3D Secure authentication process.
         """
         return self.__challenged
 
@@ -101,7 +101,7 @@ class ThreeDSResult:
     @property
     def exemption_type(self):
         """
-        Added field for exemption type
+        The exemption type that Antom requested during 3DS authentication, specified through the 3DS requestor challenge indicator. Valid values are:  dataOnly: Transactions where shopper data is shared with the card schemes directly using the 3DS2 infrastructure. This flow is currently only available for Visa and Mastercard outside PSD2 SCA regulated markets. lowValue: Transactions below €30 may be exempt from Strong Customer Authentication, if certain cumulative amount and transaction count criteria are met. transactionRiskAnalysis: Transactions considered at low risk of fraud based on the fraud level of the payment provider.
         """
         return self.__exemption_type
 
@@ -111,7 +111,7 @@ class ThreeDSResult:
     @property
     def three_ds_offered(self):
         """
-        Added field for 3DS offered
+        Indicates whether 3D Secure authentication was triggered for the payment. Valid values are:  true: indicates 3D Secure authentication was triggered for the payment. Determine the authentication result by combining the other returned 3D Secure parameters. false: indicates 3D Secure authentication was not triggered for the payment. Note: This parameter may be returned even if the payment fails.
         """
         return self.__three_ds_offered
 
