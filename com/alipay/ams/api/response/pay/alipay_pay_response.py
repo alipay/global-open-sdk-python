@@ -316,7 +316,7 @@ class AlipayPayResponse(AlipayResponse):
     @property
     def promotion_result(self):
         """
-        Promotion result.
+        Promotion result.  Note: This parameter is generated when the buyer applies a promotion during the process of placing an order.
         """
         return self.__promotion_result
 

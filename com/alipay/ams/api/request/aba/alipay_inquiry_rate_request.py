@@ -7,7 +7,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquiryRateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquiryRateRequest, self).__init__("/ams/v1/aba/funds/inquireRate") 
+        super(AlipayInquiryRateRequest, self).__init__("/ams/api/v1/aba/funds/inquireRate") 
 
         self.__rate_condition_list = None  # type: [InquiryRateCondition]
         
