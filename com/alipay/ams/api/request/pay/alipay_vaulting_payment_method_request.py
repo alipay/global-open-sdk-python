@@ -26,7 +26,7 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
     @property
     def merchant_account_id(self):
         """
-        一点集成场景使用
+        A unique ID to identify a specific merchant account.  Note: Specify this parameter when you use one client ID across multiple locations.
         """
         return self.__merchant_account_id
 
@@ -36,7 +36,7 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        商户使用，Json Format，用于提交元数据信息
+        This parameter is used for submitting metadata, including information for special use cases.  Specify this parameter when you need to add metadata information.
         """
         return self.__metadata
 

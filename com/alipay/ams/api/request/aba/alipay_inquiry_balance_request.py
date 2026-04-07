@@ -6,7 +6,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquiryBalanceRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquiryBalanceRequest, self).__init__("/ams/v1/aba/accounts/inquiryBalance") 
+        super(AlipayInquiryBalanceRequest, self).__init__("/ams/api/v1/aba/accounts/inquiryBalance") 
 
         self.__currency_list = None  # type: [str]
         self.__accesstoken = None  # type: str
