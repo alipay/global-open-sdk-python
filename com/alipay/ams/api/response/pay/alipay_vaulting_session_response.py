@@ -60,7 +60,7 @@ class AlipayVaultingSessionResponse(AlipayResponse):
     @property
     def normal_url(self):
         """
-        The normal URL for vaulting session
+        The URL used to redirect to the card-binding page.
         """
         return self.__normal_url
 
