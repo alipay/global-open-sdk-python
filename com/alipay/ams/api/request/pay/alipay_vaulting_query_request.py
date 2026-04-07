@@ -25,7 +25,7 @@ class AlipayVaultingQueryRequest(AlipayRequest):
     @property
     def merchant_account_id(self):
         """
-        Merchant account ID for 2C2P integration scenario
+        A unique ID to identify a specific merchant account.  Note: Specify this parameter when you use one client ID across multiple locations.
         """
         return self.__merchant_account_id
 
