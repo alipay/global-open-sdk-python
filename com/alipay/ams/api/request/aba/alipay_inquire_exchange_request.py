@@ -6,7 +6,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquireExchangeRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireExchangeRequest, self).__init__("/ams/v1/aba/funds/inquireExchange") 
+        super(AlipayInquireExchangeRequest, self).__init__("/ams/api/v1/aba/funds/inquireExchange") 
 
         self.__exchange_request_id = None  # type: str
         
