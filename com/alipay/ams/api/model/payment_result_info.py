@@ -36,6 +36,7 @@ class PaymentResultInfo:
         self.__credential_type_used = None  # type: str
         self.__rrn = None  # type: str
         self.__user_authorization_status = None  # type: str
+        self.__authorization_code = None  # type: str
         
 
     @property
@@ -231,7 +232,7 @@ class PaymentResultInfo:
     @property
     def expiry_month(self):
         """
-        The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.  Note: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.  More information:  Maximum length: 2 characters
+        The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02. Note: This parameter is returned when the value of paymentMethodType in the pay (One-time Payments) API is CARD.
         """
         return self.__expiry_month
 
@@ -241,7 +242,7 @@ class PaymentResultInfo:
     @property
     def expiry_year(self):
         """
-        The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.  Note: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.  More information:  Maximum length: 2 characters
+        The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25. Note: This parameter is returned when the value of paymentMethodType in the pay (One-time Payments) API is CARD.
         """
         return self.__expiry_year
 
@@ -308,6 +309,16 @@ class PaymentResultInfo:
     @user_authorization_status.setter
     def user_authorization_status(self, value):
         self.__user_authorization_status = value
+    @property
+    def authorization_code(self):
+        """
+        The authorization code returned by the payment channel upon successful authorization.
+        """
+        return self.__authorization_code
+
+    @authorization_code.setter
+    def authorization_code(self, value):
+        self.__authorization_code = value
 
 
     
@@ -368,6 +379,8 @@ class PaymentResultInfo:
             params['rrn'] = self.rrn
         if hasattr(self, "user_authorization_status") and self.user_authorization_status is not None:
             params['userAuthorizationStatus'] = self.user_authorization_status
+        if hasattr(self, "authorization_code") and self.authorization_code is not None:
+            params['authorizationCode'] = self.authorization_code
         return params
 
 
@@ -431,3 +444,5 @@ class PaymentResultInfo:
             self.__rrn = response_body['rrn']
         if 'userAuthorizationStatus' in response_body:
             self.__user_authorization_status = response_body['userAuthorizationStatus']
+        if 'authorizationCode' in response_body:
+            self.__authorization_code = response_body['authorizationCode']
