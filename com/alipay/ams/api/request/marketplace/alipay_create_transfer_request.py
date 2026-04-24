@@ -8,7 +8,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCreateTransferRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreateTransferRequest, self).__init__("/ams/api/v1/funds/createTransfer") 
+        super(AlipayCreateTransferRequest, self).__init__("/ams/api/v1/aba/funds/createTransfer") 
 
         self.__transfer_request_id = None  # type: str
         self.__transfer_from_detail = None  # type: TransferFromDetail
@@ -18,7 +18,7 @@ class AlipayCreateTransferRequest(AlipayRequest):
     @property
     def transfer_request_id(self):
         """
-        The unique ID assigned by the marketplace to identify a transfer request.   More information:  This field is an API idempotency field.For requests that are initiated with the same value of transferRequestId and reach a final status (S or F), the same result is to be returned for the request. Maximum length: 64 characters 
+        The unique ID assigned by the merchant to identify a transfer request. This field is an API idempotency field.
         """
         return self.__transfer_request_id
 
