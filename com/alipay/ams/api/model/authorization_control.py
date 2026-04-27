@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.card_limit_detail import CardLimitDetail
 from com.alipay.ams.api.model.card_limit_info import CardLimitInfo
+from com.alipay.ams.api.model.refund_preference import RefundPreference
 
 
 
@@ -15,6 +16,7 @@ class AuthorizationControl:
         self.__allowed_currencies = None  # type: [str]
         self.__card_limit_detail = None  # type: CardLimitDetail
         self.__card_limit_info = None  # type: CardLimitInfo
+        self.__refund_preference = None  # type: RefundPreference
         
 
     @property
@@ -87,6 +89,16 @@ class AuthorizationControl:
     @card_limit_info.setter
     def card_limit_info(self, value):
         self.__card_limit_info = value
+    @property
+    def refund_preference(self):
+        """Gets the refund_preference of this AuthorizationControl.
+        
+        """
+        return self.__refund_preference
+
+    @refund_preference.setter
+    def refund_preference(self, value):
+        self.__refund_preference = value
 
 
     
@@ -107,6 +119,8 @@ class AuthorizationControl:
             params['cardLimitDetail'] = self.card_limit_detail
         if hasattr(self, "card_limit_info") and self.card_limit_info is not None:
             params['cardLimitInfo'] = self.card_limit_info
+        if hasattr(self, "refund_preference") and self.refund_preference is not None:
+            params['refundPreference'] = self.refund_preference
         return params
 
 
@@ -129,3 +143,6 @@ class AuthorizationControl:
         if 'cardLimitInfo' in response_body:
             self.__card_limit_info = CardLimitInfo()
             self.__card_limit_info.parse_rsp_body(response_body['cardLimitInfo'])
+        if 'refundPreference' in response_body:
+            self.__refund_preference = RefundPreference()
+            self.__refund_preference.parse_rsp_body(response_body['refundPreference'])

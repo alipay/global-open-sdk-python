@@ -8,9 +8,8 @@ from com.alipay.ams.api.model.amount import Amount
 
 class TransferToDetail:
     def __init__(self):
-
+        
         self.__transfer_to_method = None  # type: PaymentMethod
-        self.__transfer_to_amount = None  # type: Amount
         self.__transfer_to_currency = None  # type: str
         self.__fee_amount = None  # type: Amount
         self.__actual_transfer_to_amount = None  # type: Amount
@@ -22,25 +21,13 @@ class TransferToDetail:
     @property
     def transfer_to_method(self):
         """Gets the transfer_to_method of this TransferToDetail.
-
+        
         """
         return self.__transfer_to_method
 
     @transfer_to_method.setter
     def transfer_to_method(self, value):
         self.__transfer_to_method = value
-
-    @property
-    def transfer_to_amount(self):
-        """Gets the transfer_to_amount of this TransferToDetail.
-
-        """
-        return self.__transfer_to_amount
-
-    @transfer_to_amount.setter
-    def transfer_to_amount(self, value):
-        self.__transfer_to_amount = value
-
     @property
     def transfer_to_currency(self):
         """
@@ -109,8 +96,6 @@ class TransferToDetail:
         params = dict()
         if hasattr(self, "transfer_to_method") and self.transfer_to_method is not None:
             params['transferToMethod'] = self.transfer_to_method
-        if hasattr(self, "transfer_to_amount") and self.transfer_to_amount is not None:
-            params['transferToAmount'] = self.transfer_to_amount
         if hasattr(self, "transfer_to_currency") and self.transfer_to_currency is not None:
             params['transferToCurrency'] = self.transfer_to_currency
         if hasattr(self, "fee_amount") and self.fee_amount is not None:
@@ -127,14 +112,11 @@ class TransferToDetail:
 
 
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'transferToMethod' in response_body:
             self.__transfer_to_method = PaymentMethod()
             self.__transfer_to_method.parse_rsp_body(response_body['transferToMethod'])
-        if 'transferToAmount' in response_body:
-            self.__transfer_to_amount = Amount()
-            self.__transfer_to_amount.parse_rsp_body(response_body['transferToAmount'])
         if 'transferToCurrency' in response_body:
             self.__transfer_to_currency = response_body['transferToCurrency']
         if 'feeAmount' in response_body:
