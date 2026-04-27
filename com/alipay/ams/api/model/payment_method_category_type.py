@@ -10,6 +10,7 @@ class PaymentMethodCategoryType(Enum):
     ONLINE_BANKING = "ONLINE_BANKING"
     CARD = "CARD"
     OTC = "OTC"
+    VA = "VA"
 
     def to_ams_dict(self) -> str:
         return self.name
@@ -33,4 +34,6 @@ class PaymentMethodCategoryType(Enum):
             return PaymentMethodCategoryType.CARD
         if PaymentMethodCategoryType.OTC.value == value:
             return PaymentMethodCategoryType.OTC
+        if PaymentMethodCategoryType.VA.value == value:
+            return PaymentMethodCategoryType.VA
         return None
