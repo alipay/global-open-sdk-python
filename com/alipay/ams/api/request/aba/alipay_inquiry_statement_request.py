@@ -16,6 +16,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         self.__currency_list = None  # type: [str]
         self.__page_size = None  # type: int
         self.__page_number = None  # type: int
+        self.__asset_id = None  # type: str
         
 
     @property
@@ -98,6 +99,16 @@ class AlipayInquiryStatementRequest(AlipayRequest):
     @page_number.setter
     def page_number(self, value):
         self.__page_number = value
+    @property
+    def asset_id(self):
+        """
+        The card&#39;s assetId that merchants want to query. Only available if they want to filter by.
+        """
+        return self.__asset_id
+
+    @asset_id.setter
+    def asset_id(self, value):
+        self.__asset_id = value
 
 
     def to_ams_json(self): 
@@ -123,6 +134,8 @@ class AlipayInquiryStatementRequest(AlipayRequest):
             params['pageSize'] = self.page_size
         if hasattr(self, "page_number") and self.page_number is not None:
             params['pageNumber'] = self.page_number
+        if hasattr(self, "asset_id") and self.asset_id is not None:
+            params['assetId'] = self.asset_id
         return params
 
 
@@ -144,3 +157,5 @@ class AlipayInquiryStatementRequest(AlipayRequest):
             self.__page_size = response_body['pageSize']
         if 'pageNumber' in response_body:
             self.__page_number = response_body['pageNumber']
+        if 'assetId' in response_body:
+            self.__asset_id = response_body['assetId']
