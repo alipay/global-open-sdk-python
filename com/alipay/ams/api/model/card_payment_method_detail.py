@@ -223,8 +223,8 @@ class CardPaymentMethodDetail:
         self.__authentication_flow = value
     @property
     def funding(self):
-        """Gets the funding of this CardPaymentMethodDetail.
-        
+        """
+        The funding type of the card.  Valid values are:  CREDIT: indicates a credit card. DEBIT: indicates a debit card. PREPAID: indicates a prepaid card. CHARGE: indicates a charge card. DEFERRED_DEBIT: indicates a deferred debit card.  This parameter is returned when the value of paymentMethodType is CARD and the information is available from the channel.
         """
         return self.__funding
 
@@ -263,8 +263,8 @@ class CardPaymentMethodDetail:
         self.__bin = value
     @property
     def issuer_name(self):
-        """Gets the issuer_name of this CardPaymentMethodDetail.
-        
+        """
+        The issuer name of the card.  This parameter is returned when the value of paymentMethodType is CARD and the information is available from the channel.
         """
         return self.__issuer_name
 
@@ -273,8 +273,8 @@ class CardPaymentMethodDetail:
         self.__issuer_name = value
     @property
     def issuing_country(self):
-        """Gets the issuing_country of this CardPaymentMethodDetail.
-        
+        """
+        The issuing country of the card. The value of this parameter is a 2-letter country code that follows ISO 3166 Country Codes standard.  This parameter is returned when the value of paymentMethodType is CARD and the information is available from the channel.
         """
         return self.__issuing_country
 
