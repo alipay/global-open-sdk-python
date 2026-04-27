@@ -23,6 +23,7 @@ class AlipayBillNotify(AlipayNotify):
         self.__bill_fail_reason = None  # 现在是 FailReason 对象
         self.__last_update = None
         self.__metadata = None
+        self.__bill_no = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -89,6 +90,14 @@ class AlipayBillNotify(AlipayNotify):
     def metadata(self):
         return self.__metadata
 
+    @property
+    def bill_no(self):
+        """
+        The unique identifier for a single card authorization within an order.
+        Maximum length: 32 characters
+        """
+        return self.__bill_no
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayBillNotify, self).parse_notify_body(notify_body)
 
@@ -129,3 +138,5 @@ class AlipayBillNotify(AlipayNotify):
             self.__last_update = notify["lastUpdate"]
         if "metadata" in notify:
             self.__metadata = notify["metadata"]
+        if "billNo" in notify:
+            self.__bill_no = notify["billNo"]
