@@ -16,7 +16,7 @@ VERSION = "1.4.32"
 """
 only python2 need enum34、pytz
 """
-requires = ["enum34", "pytz", "pycryptodome", "rsa", "cryptography==44.0.3"]
+requires = ["enum34", "pytz", "pycryptodome", "rsa", "cryptography==46.0.6"]
 
 setup(
     name=NAME,
