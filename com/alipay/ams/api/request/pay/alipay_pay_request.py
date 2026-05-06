@@ -50,6 +50,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__merchant = None  # type: Merchant
         self.__payment_verification_data = None  # type: PaymentVerificationData
         self.__extend_info = None  # type: str
+        self.__ordertestrequest = None  # type: str
         self.__merchant_account_id = None  # type: str
         self.__dual_offline_payment = None  # type: bool
         
@@ -315,6 +316,16 @@ class AlipayPayRequest(AlipayRequest):
     def extend_info(self, value):
         self.__extend_info = value
     @property
+    def ordertestrequest(self):
+        """
+        5.6号测试
+        """
+        return self.__ordertestrequest
+
+    @ordertestrequest.setter
+    def ordertestrequest(self, value):
+        self.__ordertestrequest = value
+    @property
     def merchant_account_id(self):
         """
         The unique ID to identify a merchant account.  Note: Specify this parameter when you use a single client ID across multiple locations.  More information:  Maximum length: 32 characters
@@ -395,6 +406,8 @@ class AlipayPayRequest(AlipayRequest):
             params['paymentVerificationData'] = self.payment_verification_data
         if hasattr(self, "extend_info") and self.extend_info is not None:
             params['extendInfo'] = self.extend_info
+        if hasattr(self, "ordertestrequest") and self.ordertestrequest is not None:
+            params['ordertestrequest'] = self.ordertestrequest
         if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
             params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "dual_offline_payment") and self.dual_offline_payment is not None:
@@ -473,6 +486,8 @@ class AlipayPayRequest(AlipayRequest):
             self.__payment_verification_data.parse_rsp_body(response_body['paymentVerificationData'])
         if 'extendInfo' in response_body:
             self.__extend_info = response_body['extendInfo']
+        if 'ordertestrequest' in response_body:
+            self.__ordertestrequest = response_body['ordertestrequest']
         if 'merchantAccountId' in response_body:
             self.__merchant_account_id = response_body['merchantAccountId']
         if 'dualOfflinePayment' in response_body:
