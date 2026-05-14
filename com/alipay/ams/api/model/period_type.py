@@ -1,8 +1,9 @@
 from enum import Enum, unique
 @unique
 class PeriodType(Enum):
-    """The subscription period type. Valid values are:  WEEK: indicates that the subscription period is measured in weeks. MONTH: indicates that the subscription period is measured in months. QUARTER: indicates that the subscription period is measured in quarters. HALF_YEAR: indicates that the subscription period is measured in half years. YEAR: indicates that the subscription period is measured in years."""
+    """The subscription period type. Valid values are:  DAY: indicates that the subscription period is measured in days. WEEK: indicates that the subscription period is measured in weeks. MONTH: indicates that the subscription period is measured in months. QUARTER: indicates that the subscription period is measured in quarters. HALF_YEAR: indicates that the subscription period is measured in half years. YEAR: indicates that the subscription period is measured in years."""
 
+    DAY = "DAY"
     WEEK = "WEEK"
     MONTH = "MONTH"
     QUARTER = "QUARTER"
@@ -17,6 +18,8 @@ class PeriodType(Enum):
         if not value:
             return None
 
+        if PeriodType.DAY.value == value:
+            return PeriodType.DAY
         if PeriodType.WEEK.value == value:
             return PeriodType.WEEK
         if PeriodType.MONTH.value == value:
