@@ -20,6 +20,7 @@ class Goods:
         self.__goods_image_url = None  # type: str
         self.__price_id = None  # type: str
         self.__goods_discount_amount = None  # type: Amount
+        self.__goods_ends_on_time = None  # type: str
         self.__cross_sell = None  # type: Goods
         
 
@@ -144,6 +145,16 @@ class Goods:
     def goods_discount_amount(self, value):
         self.__goods_discount_amount = value
     @property
+    def goods_ends_on_time(self):
+        """
+        The maximum end date for the service goods. Applicable when the merchant type is Service (e.g., online courses, beauty packages).    The value follows the ISO 8601 standard format. For example, \&quot;2025-11-27T12:00:01+08:30\&quot;. 
+        """
+        return self.__goods_ends_on_time
+
+    @goods_ends_on_time.setter
+    def goods_ends_on_time(self, value):
+        self.__goods_ends_on_time = value
+    @property
     def cross_sell(self):
         """Gets the cross_sell of this Goods.
         
@@ -183,6 +194,8 @@ class Goods:
             params['priceId'] = self.price_id
         if hasattr(self, "goods_discount_amount") and self.goods_discount_amount is not None:
             params['goodsDiscountAmount'] = self.goods_discount_amount
+        if hasattr(self, "goods_ends_on_time") and self.goods_ends_on_time is not None:
+            params['goodsEndsOnTime'] = self.goods_ends_on_time
         if hasattr(self, "cross_sell") and self.cross_sell is not None:
             params['crossSell'] = self.cross_sell
         return params
@@ -217,6 +230,8 @@ class Goods:
         if 'goodsDiscountAmount' in response_body:
             self.__goods_discount_amount = Amount()
             self.__goods_discount_amount.parse_rsp_body(response_body['goodsDiscountAmount'])
+        if 'goodsEndsOnTime' in response_body:
+            self.__goods_ends_on_time = response_body['goodsEndsOnTime']
         if 'crossSell' in response_body:
             self.__cross_sell = Goods()
             self.__cross_sell.parse_rsp_body(response_body['crossSell'])
