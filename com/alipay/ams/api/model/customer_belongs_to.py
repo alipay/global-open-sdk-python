@@ -32,7 +32,7 @@ class CustomerBelongsTo(Enum):
     BKASH = "BKASH"
     EASYPAISA = "EASYPAISA"
     DIRECTDEBIT_YAPILY = "DIRECTDEBIT_YAPILY"
-    ANTIM_BIZ_ACCOUNT = "ANTIM_BIZ_ACCOUNT"
+    ANTOM_BIZ_ACCOUNT = "ANTOM_BIZ_ACCOUNT"
 
     def to_ams_dict(self) -> str:
         return self.name
@@ -100,6 +100,6 @@ class CustomerBelongsTo(Enum):
             return CustomerBelongsTo.EASYPAISA
         if CustomerBelongsTo.DIRECTDEBIT_YAPILY.value == value:
             return CustomerBelongsTo.DIRECTDEBIT_YAPILY
-        if CustomerBelongsTo.ANTIM_BIZ_ACCOUNT.value == value:
-            return CustomerBelongsTo.ANTIM_BIZ_ACCOUNT
+        if CustomerBelongsTo.ANTOM_BIZ_ACCOUNT.value == value:
+            return CustomerBelongsTo.ANTOM_BIZ_ACCOUNT
         return None

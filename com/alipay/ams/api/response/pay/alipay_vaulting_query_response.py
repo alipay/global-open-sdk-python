@@ -18,6 +18,8 @@ class AlipayVaultingQueryResponse(AlipayResponse):
         self.__vaulting_status = None  # type: str
         self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__metadata = None  # type: str
+        self.__vaulting_result_code = None  # type: str
+        self.__vaulting_result_message = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -101,6 +103,26 @@ class AlipayVaultingQueryResponse(AlipayResponse):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def vaulting_result_code(self):
+        """
+        The vaulting result code, corresponding to vaultingStatus.  When vaultingStatus is SUCCESS, the value is SUCCESS. When vaultingStatus is PROCESSING, the value is VERIFICATION_IN_PROCESS. When vaultingStatus is FAIL, the value is a specific error code returned by the card scheme, issuing bank, or acquirer; when the channel error cannot be mapped, the value is PROCESS_FAIL.  Note: This parameter is returned when the value of result.resultStatus is S.  Possible values when vaultingStatus is FAIL include: ACCESS_DENIED, ACCOUNT_CLOSED, AUTHENTICATION_REQUIRED, BLOCKED_FIRST_USED, CARD_EXPIRED, CARD_NOT_SUPPORTED, DO_NOT_HONOR, FRAUD_REJECT, INVALID_CARD_NUMBER, INVALID_CVV, INVALID_EXPIRATION_DATE, LOST_CARD, NO_SELECTED_ACCOUNT, ORDER_IS_CLOSED, PAYMENT_AMOUNT_EXCEED_LIMIT, PAYMENT_COUNT_EXCEED_LIMIT, PICKUP_CARD, POLICY, PROCESS_FAIL, RESTRICTED_CARD, STOLEN_CARD, USER_BALANCE_NOT_ENOUGH, USER_PAYMENT_VERIFICATION_FAILED, VERIFY_TIMES_EXCEED_LIMIT. Additional values may be added in the future as channel capabilities evolve.  More information:  Maximum length: 64 characters
+        """
+        return self.__vaulting_result_code
+
+    @vaulting_result_code.setter
+    def vaulting_result_code(self, value):
+        self.__vaulting_result_code = value
+    @property
+    def vaulting_result_message(self):
+        """
+        The readable description of vaultingResultCode.  When vaultingResultCode is SUCCESS, the value is \&quot;success.\&quot;. When vaultingResultCode is VERIFICATION_IN_PROCESS, the value is \&quot;The verification is still under process.\&quot;. When vaultingStatus is FAIL, the value is the specific error description corresponding to vaultingResultCode.  Note: This parameter is returned when the value of result.resultStatus is S.  More information:  Maximum length: 256 characters
+        """
+        return self.__vaulting_result_message
+
+    @vaulting_result_message.setter
+    def vaulting_result_message(self, value):
+        self.__vaulting_result_message = value
 
 
     
@@ -123,6 +145,10 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             params['paymentMethodDetail'] = self.payment_method_detail
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "vaulting_result_code") and self.vaulting_result_code is not None:
+            params['vaultingResultCode'] = self.vaulting_result_code
+        if hasattr(self, "vaulting_result_message") and self.vaulting_result_message is not None:
+            params['vaultingResultMessage'] = self.vaulting_result_message
         return params
 
 
@@ -146,3 +172,7 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             self.__payment_method_detail.parse_rsp_body(response_body['paymentMethodDetail'])
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'vaultingResultCode' in response_body:
+            self.__vaulting_result_code = response_body['vaultingResultCode']
+        if 'vaultingResultMessage' in response_body:
+            self.__vaulting_result_message = response_body['vaultingResultMessage']
