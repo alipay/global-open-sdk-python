@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.statement_transaction_type import StatementTransactionType
 
 
 
@@ -12,7 +13,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         self.__access_token = None  # type: str
         self.__start_time = None  # type: bool, date, datetime, dict, float, int, list, str, none_type
         self.__end_time = None  # type: str
-        self.__transaction_type_list = None  # type: [str]
+        self.__transaction_type_list = None  # type: [StatementTransactionType]
         self.__currency_list = None  # type: [str]
         self.__page_size = None  # type: int
         self.__page_number = None  # type: int
@@ -62,7 +63,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
     @property
     def transaction_type_list(self):
         """
-        If no value passed, the API shall return all transactions. Antom only supports [0-1] single type for the current time.
+        The type of transaction that this API requests. If no value passed, the API shall return all transactions. Antom only supports [0-1] single type for the current time.  Valid values: - OVERFLOW_DEBIT: Indicates a fund outflow from the main account to the overflow account. Applicable to MY region merchants only. - OVERFLOW_CREDIT: Indicates a fund inflow to the main account back from the overflow account. Applicable to MY region merchants only. - CASH_BACK: Indicates a fund inflow for cashBack credit settlement to the merchant&#39;s main account. Applicable to CN and HK region merchants with VCC cashback feature enabled only.  If not provided, returns all transaction types (including OVERFLOW_DEBIT, OVERFLOW_CREDIT, CASH_BACK). Unknown enum value: rejected with INVALID_PARAMETER.
         """
         return self.__transaction_type_list
 
@@ -150,7 +151,9 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         if 'endTime' in response_body:
             self.__end_time = response_body['endTime']
         if 'transactionTypeList' in response_body:
-            self.__transaction_type_list = response_body['transactionTypeList']
+            self.__transaction_type_list = []
+            for item in response_body['transactionTypeList']:
+                self.__transaction_type_list.append(item)
         if 'currencyList' in response_body:
             self.__currency_list = response_body['currencyList']
         if 'pageSize' in response_body:
