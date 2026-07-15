@@ -1,5 +1,4 @@
 import json
-from com.alipay.ams.api.model.statement_transaction_type import StatementTransactionType
 
 
 
@@ -13,7 +12,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         self.__access_token = None  # type: str
         self.__start_time = None  # type: bool, date, datetime, dict, float, int, list, str, none_type
         self.__end_time = None  # type: str
-        self.__transaction_type_list = None  # type: [StatementTransactionType]
+        self.__transaction_type_list = None  # type: [str]
         self.__currency_list = None  # type: [str]
         self.__page_size = None  # type: int
         self.__page_number = None  # type: int
@@ -151,9 +150,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         if 'endTime' in response_body:
             self.__end_time = response_body['endTime']
         if 'transactionTypeList' in response_body:
-            self.__transaction_type_list = []
-            for item in response_body['transactionTypeList']:
-                self.__transaction_type_list.append(item)
+            self.__transaction_type_list = response_body['transactionTypeList']
         if 'currencyList' in response_body:
             self.__currency_list = response_body['currencyList']
         if 'pageSize' in response_body:
