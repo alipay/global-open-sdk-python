@@ -17,6 +17,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         self.__page_size = None  # type: int
         self.__page_number = None  # type: int
         self.__asset_id = None  # type: str
+        self.__fuzzy_name = None  # type: str
         
 
     @property
@@ -109,6 +110,16 @@ class AlipayInquiryStatementRequest(AlipayRequest):
     @asset_id.setter
     def asset_id(self, value):
         self.__asset_id = value
+    @property
+    def fuzzy_name(self):
+        """
+        The value used to filter beneficiaries using fuzzy matching.
+        """
+        return self.__fuzzy_name
+
+    @fuzzy_name.setter
+    def fuzzy_name(self, value):
+        self.__fuzzy_name = value
 
 
     def to_ams_json(self): 
@@ -136,6 +147,8 @@ class AlipayInquiryStatementRequest(AlipayRequest):
             params['pageNumber'] = self.page_number
         if hasattr(self, "asset_id") and self.asset_id is not None:
             params['assetId'] = self.asset_id
+        if hasattr(self, "fuzzy_name") and self.fuzzy_name is not None:
+            params['fuzzyName'] = self.fuzzy_name
         return params
 
 
@@ -159,3 +172,5 @@ class AlipayInquiryStatementRequest(AlipayRequest):
             self.__page_number = response_body['pageNumber']
         if 'assetId' in response_body:
             self.__asset_id = response_body['assetId']
+        if 'fuzzyName' in response_body:
+            self.__fuzzy_name = response_body['fuzzyName']
