@@ -37,6 +37,9 @@ class PaymentResultInfo:
         self.__rrn = None  # type: str
         self.__user_authorization_status = None  # type: str
         self.__authorization_code = None  # type: str
+        self.__incremental_authorization_available = None  # type: bool
+        self.__extended_authorization_available = None  # type: bool
+        self.__refund_on_authorization_available = None  # type: bool
         
 
     @property
@@ -319,6 +322,36 @@ class PaymentResultInfo:
     @authorization_code.setter
     def authorization_code(self, value):
         self.__authorization_code = value
+    @property
+    def incremental_authorization_available(self):
+        """
+        Whether this pre-auth supports incremental auth. Returned when auth is successful.
+        """
+        return self.__incremental_authorization_available
+
+    @incremental_authorization_available.setter
+    def incremental_authorization_available(self, value):
+        self.__incremental_authorization_available = value
+    @property
+    def extended_authorization_available(self):
+        """
+        Whether this pre-auth supports extended auth. Returned when auth is successful.
+        """
+        return self.__extended_authorization_available
+
+    @extended_authorization_available.setter
+    def extended_authorization_available(self, value):
+        self.__extended_authorization_available = value
+    @property
+    def refund_on_authorization_available(self):
+        """
+        Whether subsequent refunds can be made via paymentId. Returned when auth is successful.
+        """
+        return self.__refund_on_authorization_available
+
+    @refund_on_authorization_available.setter
+    def refund_on_authorization_available(self, value):
+        self.__refund_on_authorization_available = value
 
 
     
@@ -381,6 +414,12 @@ class PaymentResultInfo:
             params['userAuthorizationStatus'] = self.user_authorization_status
         if hasattr(self, "authorization_code") and self.authorization_code is not None:
             params['authorizationCode'] = self.authorization_code
+        if hasattr(self, "incremental_authorization_available") and self.incremental_authorization_available is not None:
+            params['incrementalAuthorizationAvailable'] = self.incremental_authorization_available
+        if hasattr(self, "extended_authorization_available") and self.extended_authorization_available is not None:
+            params['extendedAuthorizationAvailable'] = self.extended_authorization_available
+        if hasattr(self, "refund_on_authorization_available") and self.refund_on_authorization_available is not None:
+            params['refundOnAuthorizationAvailable'] = self.refund_on_authorization_available
         return params
 
 
@@ -446,3 +485,9 @@ class PaymentResultInfo:
             self.__user_authorization_status = response_body['userAuthorizationStatus']
         if 'authorizationCode' in response_body:
             self.__authorization_code = response_body['authorizationCode']
+        if 'incrementalAuthorizationAvailable' in response_body:
+            self.__incremental_authorization_available = response_body['incrementalAuthorizationAvailable']
+        if 'extendedAuthorizationAvailable' in response_body:
+            self.__extended_authorization_available = response_body['extendedAuthorizationAvailable']
+        if 'refundOnAuthorizationAvailable' in response_body:
+            self.__refund_on_authorization_available = response_body['refundOnAuthorizationAvailable']

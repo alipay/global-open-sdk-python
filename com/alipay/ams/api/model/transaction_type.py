@@ -9,6 +9,7 @@ class TransactionType(Enum):
     CANCEL = "CANCEL"
     AUTHORIZATION = "AUTHORIZATION"
     VOID = "VOID"
+    INCREMENTAL = "INCREMENTAL"
 
     def to_ams_dict(self) -> str:
         return self.name
@@ -30,4 +31,6 @@ class TransactionType(Enum):
             return TransactionType.AUTHORIZATION
         if TransactionType.VOID.value == value:
             return TransactionType.VOID
+        if TransactionType.INCREMENTAL.value == value:
+            return TransactionType.INCREMENTAL
         return None

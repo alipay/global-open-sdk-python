@@ -25,6 +25,8 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__subscriptionOrderId = None
         self.__subscription_id = None # type: str
         self.__retry_info = None # type: RetryInfo
+        self.__update_request_id = None  # type: str
+        self.__auth_expiry_time = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -102,6 +104,22 @@ class AlipayPayResultNotify(AlipayNotify):
     def retry_info(self, value):
         self.__retry_info = value
 
+    @property
+    def update_request_id(self):
+        return self.__update_request_id
+
+    @update_request_id.setter
+    def update_request_id(self, value):
+        self.__update_request_id = value
+
+    @property
+    def auth_expiry_time(self):
+        return self.__auth_expiry_time
+
+    @auth_expiry_time.setter
+    def auth_expiry_time(self, value):
+        self.__auth_expiry_time = value
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayPayResultNotify, self).parse_notify_body(notify_body)
         if "paymentRequestId" in notify:
@@ -139,3 +157,7 @@ class AlipayPayResultNotify(AlipayNotify):
             self.__subscriptionOrderId = notify["subscriptionOrderId"]
         if "retryInfo" in notify:
             self.__retry_info = notify["retryInfo"]
+        if "updateRequestId" in notify:
+            self.__update_request_id = notify["updateRequestId"]
+        if "authExpiryTime" in notify:
+            self.__auth_expiry_time = notify["authExpiryTime"]
