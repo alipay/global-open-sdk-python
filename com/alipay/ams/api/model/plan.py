@@ -14,6 +14,7 @@ class Plan:
         self.__installment_num = None  # type: str
         self.__interval = None  # type: str
         self.__enabled = None  # type: bool
+        self.__extend_info = None  # type: str
         
 
     @property
@@ -76,6 +77,16 @@ class Plan:
     @enabled.setter
     def enabled(self, value):
         self.__enabled = value
+    @property
+    def extend_info(self):
+        """
+        Extended information field, used to return extended information of the payment installment plan in the payment consultation interface. The extended fields in the installment plan include interest rates and various amount details to meet the merchant&#39;s amount display requirements.  More information:  Maximum length: 4096 characters
+        """
+        return self.__extend_info
+
+    @extend_info.setter
+    def extend_info(self, value):
+        self.__extend_info = value
 
 
     
@@ -94,6 +105,8 @@ class Plan:
             params['interval'] = self.interval
         if hasattr(self, "enabled") and self.enabled is not None:
             params['enabled'] = self.enabled
+        if hasattr(self, "extend_info") and self.extend_info is not None:
+            params['extendInfo'] = self.extend_info
         return params
 
 
@@ -114,3 +127,5 @@ class Plan:
             self.__interval = response_body['interval']
         if 'enabled' in response_body:
             self.__enabled = response_body['enabled']
+        if 'extendInfo' in response_body:
+            self.__extend_info = response_body['extendInfo']

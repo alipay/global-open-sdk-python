@@ -4,6 +4,8 @@ from com.alipay.ams.api.model.transaction_type import TransactionType
 from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.quote import Quote
 
 
 
@@ -19,6 +21,8 @@ class Transaction:
         self.__transaction_request_id = None  # type: str
         self.__transaction_time = None  # type: str
         self.__acquirer_info = None  # type: AcquirerInfo
+        self.__gross_settlement_amount = None  # type: Amount
+        self.__settlement_quote = None  # type: Quote
         
 
     @property
@@ -101,6 +105,26 @@ class Transaction:
     @acquirer_info.setter
     def acquirer_info(self, value):
         self.__acquirer_info = value
+    @property
+    def gross_settlement_amount(self):
+        """Gets the gross_settlement_amount of this Transaction.
+        
+        """
+        return self.__gross_settlement_amount
+
+    @gross_settlement_amount.setter
+    def gross_settlement_amount(self, value):
+        self.__gross_settlement_amount = value
+    @property
+    def settlement_quote(self):
+        """Gets the settlement_quote of this Transaction.
+        
+        """
+        return self.__settlement_quote
+
+    @settlement_quote.setter
+    def settlement_quote(self, value):
+        self.__settlement_quote = value
 
 
     
@@ -123,6 +147,10 @@ class Transaction:
             params['transactionTime'] = self.transaction_time
         if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
             params['acquirerInfo'] = self.acquirer_info
+        if hasattr(self, "gross_settlement_amount") and self.gross_settlement_amount is not None:
+            params['grossSettlementAmount'] = self.gross_settlement_amount
+        if hasattr(self, "settlement_quote") and self.settlement_quote is not None:
+            params['settlementQuote'] = self.settlement_quote
         return params
 
 
@@ -150,3 +178,9 @@ class Transaction:
         if 'acquirerInfo' in response_body:
             self.__acquirer_info = AcquirerInfo()
             self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])
+        if 'grossSettlementAmount' in response_body:
+            self.__gross_settlement_amount = Amount()
+            self.__gross_settlement_amount.parse_rsp_body(response_body['grossSettlementAmount'])
+        if 'settlementQuote' in response_body:
+            self.__settlement_quote = Quote()
+            self.__settlement_quote.parse_rsp_body(response_body['settlementQuote'])
