@@ -52,6 +52,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__extend_info = None  # type: str
         self.__merchant_account_id = None  # type: str
         self.__dual_offline_payment = None  # type: bool
+        self.__tea_drinker_plus_test = None  # type: str
         
 
     @property
@@ -334,6 +335,16 @@ class AlipayPayRequest(AlipayRequest):
     @dual_offline_payment.setter
     def dual_offline_payment(self, value):
         self.__dual_offline_payment = value
+    @property
+    def tea_drinker_plus_test(self):
+        """
+        Test parameter for TeaDrinkerPlus
+        """
+        return self.__tea_drinker_plus_test
+
+    @tea_drinker_plus_test.setter
+    def tea_drinker_plus_test(self, value):
+        self.__tea_drinker_plus_test = value
 
 
     def to_ams_json(self): 
@@ -399,6 +410,8 @@ class AlipayPayRequest(AlipayRequest):
             params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "dual_offline_payment") and self.dual_offline_payment is not None:
             params['dualOfflinePayment'] = self.dual_offline_payment
+        if hasattr(self, "tea_drinker_plus_test") and self.tea_drinker_plus_test is not None:
+            params['teaDrinkerPlusTest'] = self.tea_drinker_plus_test
         return params
 
 
@@ -477,3 +490,5 @@ class AlipayPayRequest(AlipayRequest):
             self.__merchant_account_id = response_body['merchantAccountId']
         if 'dualOfflinePayment' in response_body:
             self.__dual_offline_payment = response_body['dualOfflinePayment']
+        if 'teaDrinkerPlusTest' in response_body:
+            self.__tea_drinker_plus_test = response_body['teaDrinkerPlusTest']
