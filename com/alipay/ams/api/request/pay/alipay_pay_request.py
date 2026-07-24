@@ -52,6 +52,8 @@ class AlipayPayRequest(AlipayRequest):
         self.__extend_info = None  # type: str
         self.__merchant_account_id = None  # type: str
         self.__dual_offline_payment = None  # type: bool
+        self.__subscription_id = None  # type: str
+        self.__tax_calculation_id = None  # type: str
         
 
     @property
@@ -334,6 +336,26 @@ class AlipayPayRequest(AlipayRequest):
     @dual_offline_payment.setter
     def dual_offline_payment(self, value):
         self.__dual_offline_payment = value
+    @property
+    def subscription_id(self):
+        """
+        The existing subscription ID, pre-created via the create subscription API.
+        """
+        return self.__subscription_id
+
+    @subscription_id.setter
+    def subscription_id(self, value):
+        self.__subscription_id = value
+    @property
+    def tax_calculation_id(self):
+        """
+        The tax calculation ID. This ID is obtained from the calculate API and used for subsequent payment posting verification and tax records.
+        """
+        return self.__tax_calculation_id
+
+    @tax_calculation_id.setter
+    def tax_calculation_id(self, value):
+        self.__tax_calculation_id = value
 
 
     def to_ams_json(self): 
@@ -399,6 +421,10 @@ class AlipayPayRequest(AlipayRequest):
             params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "dual_offline_payment") and self.dual_offline_payment is not None:
             params['dualOfflinePayment'] = self.dual_offline_payment
+        if hasattr(self, "subscription_id") and self.subscription_id is not None:
+            params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
+            params['taxCalculationId'] = self.tax_calculation_id
         return params
 
 
@@ -477,3 +503,7 @@ class AlipayPayRequest(AlipayRequest):
             self.__merchant_account_id = response_body['merchantAccountId']
         if 'dualOfflinePayment' in response_body:
             self.__dual_offline_payment = response_body['dualOfflinePayment']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'taxCalculationId' in response_body:
+            self.__tax_calculation_id = response_body['taxCalculationId']
