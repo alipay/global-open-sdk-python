@@ -15,6 +15,8 @@ class AlipayPaymentSessionResponse(AlipayResponse):
         self.__payment_session_id = None  # type: str
         self.__normal_url = None  # type: str
         self.__url = None  # type: str
+        self.__subscription_id = None  # type: str
+        self.__invoice_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -78,6 +80,26 @@ class AlipayPaymentSessionResponse(AlipayResponse):
     @url.setter
     def url(self, value):
         self.__url = value
+    @property
+    def subscription_id(self):
+        """
+        The system-created subscription ID. Always returned when subscription is provided in the request.
+        """
+        return self.__subscription_id
+
+    @subscription_id.setter
+    def subscription_id(self, value):
+        self.__subscription_id = value
+    @property
+    def invoice_id(self):
+        """
+        The draft invoice ID created for the first billing cycle. Empty for trial subscriptions.
+        """
+        return self.__invoice_id
+
+    @invoice_id.setter
+    def invoice_id(self, value):
+        self.__invoice_id = value
 
 
     
@@ -96,6 +118,10 @@ class AlipayPaymentSessionResponse(AlipayResponse):
             params['normalUrl'] = self.normal_url
         if hasattr(self, "url") and self.url is not None:
             params['url'] = self.url
+        if hasattr(self, "subscription_id") and self.subscription_id is not None:
+            params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "invoice_id") and self.invoice_id is not None:
+            params['invoiceId'] = self.invoice_id
         return params
 
 
@@ -114,3 +140,7 @@ class AlipayPaymentSessionResponse(AlipayResponse):
             self.__normal_url = response_body['normalUrl']
         if 'url' in response_body:
             self.__url = response_body['url']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'invoiceId' in response_body:
+            self.__invoice_id = response_body['invoiceId']

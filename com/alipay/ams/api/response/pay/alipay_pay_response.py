@@ -50,6 +50,10 @@ class AlipayPayResponse(AlipayResponse):
         self.__payment_result_info = None  # type: PaymentResultInfo
         self.__acquirer_info = None  # type: AcquirerInfo
         self.__promotion_result = None  # type: [PromotionResult]
+        self.__subscription_id = None  # type: str
+        self.__status = None  # type: str
+        self.__current_period_start = None  # type: str
+        self.__current_period_end = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -323,6 +327,46 @@ class AlipayPayResponse(AlipayResponse):
     @promotion_result.setter
     def promotion_result(self, value):
         self.__promotion_result = value
+    @property
+    def subscription_id(self):
+        """
+        The subscription ID echo.
+        """
+        return self.__subscription_id
+
+    @subscription_id.setter
+    def subscription_id(self, value):
+        self.__subscription_id = value
+    @property
+    def status(self):
+        """
+        The subscription status after payment/token binding.
+        """
+        return self.__status
+
+    @status.setter
+    def status(self, value):
+        self.__status = value
+    @property
+    def current_period_start(self):
+        """
+        The start time of the billing cycle.
+        """
+        return self.__current_period_start
+
+    @current_period_start.setter
+    def current_period_start(self, value):
+        self.__current_period_start = value
+    @property
+    def current_period_end(self):
+        """
+        The end time of the billing cycle.
+        """
+        return self.__current_period_end
+
+    @current_period_end.setter
+    def current_period_end(self, value):
+        self.__current_period_end = value
 
 
     
@@ -383,6 +427,14 @@ class AlipayPayResponse(AlipayResponse):
             params['acquirerInfo'] = self.acquirer_info
         if hasattr(self, "promotion_result") and self.promotion_result is not None:
             params['promotionResult'] = self.promotion_result
+        if hasattr(self, "subscription_id") and self.subscription_id is not None:
+            params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "status") and self.status is not None:
+            params['status'] = self.status
+        if hasattr(self, "current_period_start") and self.current_period_start is not None:
+            params['currentPeriodStart'] = self.current_period_start
+        if hasattr(self, "current_period_end") and self.current_period_end is not None:
+            params['currentPeriodEnd'] = self.current_period_end
         return params
 
 
@@ -460,3 +512,11 @@ class AlipayPayResponse(AlipayResponse):
                 obj = PromotionResult()
                 obj.parse_rsp_body(item)
                 self.__promotion_result.append(obj)
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'currentPeriodStart' in response_body:
+            self.__current_period_start = response_body['currentPeriodStart']
+        if 'currentPeriodEnd' in response_body:
+            self.__current_period_end = response_body['currentPeriodEnd']
