@@ -7,7 +7,7 @@ class AlipayMeterEventNotify(AlipayNotify):
     def __init__(self, notify_body):
         super(AlipayMeterEventNotify, self).__init__()
         self.__event_name = None  # type: str
-        self.__error_events = None  # type: ErrorEvent
+        self.__error_events = None  # type: list[ErrorEvent]
         self.__parse_notify_body(notify_body)
 
     @property
@@ -31,5 +31,8 @@ class AlipayMeterEventNotify(AlipayNotify):
         if "eventName" in notify:
             self.__event_name = notify["eventName"]
         if "errorEvents" in notify:
-            self.__error_events = ErrorEvent()
-            self.__error_events.parse_rsp_body(notify["errorEvents"])
+            self.__error_events = []
+            for item in notify["errorEvents"]:
+                error_event = ErrorEvent()
+                error_event.parse_rsp_body(item)
+                self.__error_events.append(error_event)

@@ -139,6 +139,10 @@ class DefaultAlipayClient(object):
         return rsp_body
 
     _RESERVED_HEADERS = {"signature", "client-id", "request-time", "content-type", "agent-token"}
+    _SANDBOX_PRODUCTION_PATH_PREFIXES = (
+        "/ams/api/v1/billing/",
+        "/ams/api/v1/meter/",
+    )
 
     def execute_with_headers(self, request, extra_headers=None):
 
@@ -202,5 +206,10 @@ class DefaultAlipayClient(object):
     def adjust_sandbox_url(self, request):
         if self.__is_sandbox_mode:
             origin_path = request.path
+            if self.__should_use_production_path_in_sandbox(origin_path):
+                return
             new_path = origin_path.replace("/ams/api", "/ams/sandbox/api", 1)
             request.path = new_path
+
+    def __should_use_production_path_in_sandbox(self, path):
+        return path.startswith(self._SANDBOX_PRODUCTION_PATH_PREFIXES)
