@@ -13,6 +13,7 @@ class AlipayCaptureResultNotify(AlipayNotify):
         self.__capture_time = None
         self.__acquirer_reference_no = None
         self.__acquirer_info = None  # type: AcquirerInfo
+        self.__tax_calculation_id = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -43,6 +44,14 @@ class AlipayCaptureResultNotify(AlipayNotify):
     def acquirer_info(self):
         return self.__acquirer_info
 
+    @property
+    def tax_calculation_id(self):
+        return self.__tax_calculation_id
+
+    @tax_calculation_id.setter
+    def tax_calculation_id(self, value):
+        self.__tax_calculation_id = value
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayCaptureResultNotify, self).parse_notify_body(notify_body)
         if "captureRequestId" in notify:
@@ -60,3 +69,5 @@ class AlipayCaptureResultNotify(AlipayNotify):
         if "acquirerInfo" in notify:
             self.__acquirer_info = acquirer_info = AcquirerInfo()
             acquirer_info.parse_rsp_body(notify["acquirerInfo"])
+        if "taxCalculationId" in notify:
+            self.__tax_calculation_id = notify["taxCalculationId"]

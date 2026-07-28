@@ -138,8 +138,78 @@ class DefaultAlipayClient(object):
 
         return rsp_body
 
+    _RESERVED_HEADERS = {"signature", "client-id", "request-time", "content-type", "agent-token"}
+    _SANDBOX_PRODUCTION_PATH_PREFIXES = (
+        "/ams/api/v1/billing/",
+        "/ams/api/v1/meter/",
+    )
+
+    def execute_with_headers(self, request, extra_headers=None):
+
+        if not hasattr(request, "path") or not request.path:
+            raise AlipayApiException("invalid path")
+
+        client_id = self.__client_id
+        self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
+        self.adjust_sandbox_url(request)
+        http_method = request.http_method.value
+        path = request.path
+        req_time = get_cur_iso8601_time()
+        req_body = request.to_ams_json()
+
+        sign_value = self.__gen_sign(http_method, path, client_id, req_time, req_body)
+
+        key_version = DEFAULT_KEY_VERSION
+        if hasattr(request, "key_version") and request.key_version:
+            key_version = request.key_version
+
+        signature = (
+            "algorithm=RSA256,keyVersion=" + key_version + ",signature=" + sign_value
+        )
+        headers = {
+            "Content-type": "application/json; charset=UTF-8",
+            "Accept": "text/plain,text/xml,text/javascript,text/html",
+            "Cache-Control": "no-cache",
+            "Connection": "Keep-Alive",
+            "User-Agent": "global-alipay-sdk-python",
+            "Request-Time": req_time,
+            "client-id": client_id,
+            "Signature": signature,
+        }
+        if self.__agent_token:
+            headers["Agent-Token"] = self.__agent_token
+
+        if extra_headers:
+            for key, value in extra_headers.items():
+                if key is None:
+                    continue
+                if key.lower() not in self._RESERVED_HEADERS:
+                    headers[key] = value
+
+        url = self.__gateway_url + path
+        headers, response = do_post(url, headers, req_body)
+
+        rsp_body = response.decode(DEFAULT_CHARSET)
+
+        rsp_signature, response_time, client_id = self.__parse_header(headers)
+        if not rsp_signature or not response_time:
+            return rsp_body
+
+        is_verify = self.__verify_sign(
+            http_method, path, client_id, response_time, rsp_body, rsp_signature
+        )
+        if not is_verify:
+            raise AlipayApiException("response signature verify failed.")
+
+        return rsp_body
+
     def adjust_sandbox_url(self, request):
         if self.__is_sandbox_mode:
             origin_path = request.path
+            if self.__should_use_production_path_in_sandbox(origin_path):
+                return
             new_path = origin_path.replace("/ams/api", "/ams/sandbox/api", 1)
             request.path = new_path
+
+    def __should_use_production_path_in_sandbox(self, path):
+        return path.startswith(self._SANDBOX_PRODUCTION_PATH_PREFIXES)
