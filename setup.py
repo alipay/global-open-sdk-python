@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
+from com.alipay.ams.api._version import VERSION
 
 """
 setup module for core.
@@ -12,7 +13,6 @@ DESCRIPTION = "The global alipay gateway SDK for Python."
 AUTHOR = "guodong.wzj"
 AUTHOR_EMAIL = "wangzunjiao.wzj@digital-engine.com"
 URL = "https://github.com/alipay/global-open-sdk-python"
-VERSION = "1.5.1"
 """
 only python2 need enum34、pytz
 """
