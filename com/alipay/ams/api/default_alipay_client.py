@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from com.alipay.ams.api._version import USER_AGENT
 from com.alipay.ams.api.tools.signature_tool import *
 from com.alipay.ams.api.tools.date_tools import *
 from com.alipay.ams.api.net.default_http_rpc import *
@@ -113,7 +114,7 @@ class DefaultAlipayClient(object):
             "Accept": "text/plain,text/xml,text/javascript,text/html",
             "Cache-Control": "no-cache",
             "Connection": "Keep-Alive",
-            "User-Agent": "global-alipay-sdk-python",
+            "User-Agent": USER_AGENT,
             "Request-Time": req_time,
             "client-id": client_id,
             "Signature": signature,
@@ -138,7 +139,14 @@ class DefaultAlipayClient(object):
 
         return rsp_body
 
-    _RESERVED_HEADERS = {"signature", "client-id", "request-time", "content-type", "agent-token"}
+    _RESERVED_HEADERS = {
+        "signature",
+        "client-id",
+        "request-time",
+        "content-type",
+        "agent-token",
+        "user-agent",
+    }
     _SANDBOX_PRODUCTION_PATH_PREFIXES = (
         "/ams/api/v1/billing/",
         "/ams/api/v1/meter/",
@@ -171,7 +179,7 @@ class DefaultAlipayClient(object):
             "Accept": "text/plain,text/xml,text/javascript,text/html",
             "Cache-Control": "no-cache",
             "Connection": "Keep-Alive",
-            "User-Agent": "global-alipay-sdk-python",
+            "User-Agent": USER_AGENT,
             "Request-Time": req_time,
             "client-id": client_id,
             "Signature": signature,
