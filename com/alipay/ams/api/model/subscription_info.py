@@ -7,6 +7,7 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.trial_plan import TrialPlan
 from com.alipay.ams.api.model.trial import Trial
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -36,6 +37,9 @@ class SubscriptionInfo:
         self.__subscription_expiry_time = None  # type: str
         self.__allow_retry = None  # type: bool
         self.__max_amount_floor = None  # type: Amount
+        self.__fixed_amount = None  # type: Amount
+        self.__retry_mode = None  # type: str
+        self.__subscription_order_id = None  # type: str
         
 
     @property
@@ -258,6 +262,36 @@ class SubscriptionInfo:
     @max_amount_floor.setter
     def max_amount_floor(self, value):
         self.__max_amount_floor = value
+    @property
+    def fixed_amount(self):
+        """Gets the fixed_amount of this SubscriptionInfo.
+        
+        """
+        return self.__fixed_amount
+
+    @fixed_amount.setter
+    def fixed_amount(self, value):
+        self.__fixed_amount = value
+    @property
+    def retry_mode(self):
+        """
+        The retry mode. Valid values are MANUAL and AUTOMATIC. Defaults to MANUAL when allowRetry is true. Only used in the PIX recurrence scenario. Maximum length: 9 characters.
+        """
+        return self.__retry_mode
+
+    @retry_mode.setter
+    def retry_mode(self, value):
+        self.__retry_mode = value
+    @property
+    def subscription_order_id(self):
+        """
+        The order number for this subscription period. Used in PIX recurrence retry schedule payment scenarios. Maximum length: 32 characters.
+        """
+        return self.__subscription_order_id
+
+    @subscription_order_id.setter
+    def subscription_order_id(self, value):
+        self.__subscription_order_id = value
 
 
     
@@ -308,6 +342,12 @@ class SubscriptionInfo:
             params['allowRetry'] = self.allow_retry
         if hasattr(self, "max_amount_floor") and self.max_amount_floor is not None:
             params['maxAmountFloor'] = self.max_amount_floor
+        if hasattr(self, "fixed_amount") and self.fixed_amount is not None:
+            params['fixedAmount'] = self.fixed_amount
+        if hasattr(self, "retry_mode") and self.retry_mode is not None:
+            params['retryMode'] = self.retry_mode
+        if hasattr(self, "subscription_order_id") and self.subscription_order_id is not None:
+            params['subscriptionOrderId'] = self.subscription_order_id
         return params
 
 
@@ -369,3 +409,10 @@ class SubscriptionInfo:
         if 'maxAmountFloor' in response_body:
             self.__max_amount_floor = Amount()
             self.__max_amount_floor.parse_rsp_body(response_body['maxAmountFloor'])
+        if 'fixedAmount' in response_body:
+            self.__fixed_amount = Amount()
+            self.__fixed_amount.parse_rsp_body(response_body['fixedAmount'])
+        if 'retryMode' in response_body:
+            self.__retry_mode = response_body['retryMode']
+        if 'subscriptionOrderId' in response_body:
+            self.__subscription_order_id = response_body['subscriptionOrderId']

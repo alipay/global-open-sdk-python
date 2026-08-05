@@ -9,6 +9,7 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.trial import Trial
+from com.alipay.ams.api.model.create_subscription_info import CreateSubscriptionInfo
 
 
 
@@ -39,6 +40,7 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
         self.__settlement_strategy = None  # type: SettlementStrategy
         self.__env = None  # type: Env
         self.__trials = None  # type: [Trial]
+        self.__subscription_info = None  # type: CreateSubscriptionInfo
         
 
     @property
@@ -251,6 +253,16 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
     @trials.setter
     def trials(self, value):
         self.__trials = value
+    @property
+    def subscription_info(self):
+        """Gets the subscription_info of this AlipaySubscriptionCreateRequest.
+        
+        """
+        return self.__subscription_info
+
+    @subscription_info.setter
+    def subscription_info(self, value):
+        self.__subscription_info = value
 
 
     def to_ams_json(self): 
@@ -302,6 +314,8 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
             params['env'] = self.env
         if hasattr(self, "trials") and self.trials is not None:
             params['trials'] = self.trials
+        if hasattr(self, "subscription_info") and self.subscription_info is not None:
+            params['subscriptionInfo'] = self.subscription_info
         return params
 
 
@@ -363,3 +377,6 @@ class AlipaySubscriptionCreateRequest(AlipayRequest):
                 obj = Trial()
                 obj.parse_rsp_body(item)
                 self.__trials.append(obj)
+        if 'subscriptionInfo' in response_body:
+            self.__subscription_info = CreateSubscriptionInfo()
+            self.__subscription_info.parse_rsp_body(response_body['subscriptionInfo'])

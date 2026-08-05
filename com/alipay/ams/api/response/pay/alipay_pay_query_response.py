@@ -17,6 +17,7 @@ from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 from com.alipay.ams.api.model.promotion_result import PromotionResult
+from com.alipay.ams.api.model.retry_info import RetryInfo
 
 
 
@@ -58,6 +59,7 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__promotion_results = None  # type: [PromotionResult]
         self.__earliest_settlement_time = None  # type: str
         self.__payment_method_type = None  # type: str
+        self.__retry_info = None  # type: RetryInfo
         self.parse_rsp_body(rsp_body) 
 
 
@@ -381,6 +383,16 @@ class AlipayPayQueryResponse(AlipayResponse):
     @payment_method_type.setter
     def payment_method_type(self, value):
         self.__payment_method_type = value
+    @property
+    def retry_info(self):
+        """Gets the retry_info of this AlipayPayQueryResponse.
+        
+        """
+        return self.__retry_info
+
+    @retry_info.setter
+    def retry_info(self, value):
+        self.__retry_info = value
 
 
     
@@ -451,6 +463,8 @@ class AlipayPayQueryResponse(AlipayResponse):
             params['earliestSettlementTime'] = self.earliest_settlement_time
         if hasattr(self, "payment_method_type") and self.payment_method_type is not None:
             params['paymentMethodType'] = self.payment_method_type
+        if hasattr(self, "retry_info") and self.retry_info is not None:
+            params['retryInfo'] = self.retry_info
         return params
 
 
@@ -544,3 +558,6 @@ class AlipayPayQueryResponse(AlipayResponse):
             self.__earliest_settlement_time = response_body['earliestSettlementTime']
         if 'paymentMethodType' in response_body:
             self.__payment_method_type = response_body['paymentMethodType']
+        if 'retryInfo' in response_body:
+            self.__retry_info = RetryInfo()
+            self.__retry_info.parse_rsp_body(response_body['retryInfo'])

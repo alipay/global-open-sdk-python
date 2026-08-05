@@ -14,14 +14,12 @@ class AlipayCustomerCreateRequest(AlipayRequest):
         self.__email = None  # type: str
         self.__first_name = None  # type: str
         self.__last_name = None  # type: str
-        self.__mobile_no = None  # type: str
         self.__country = None  # type: str
         self.__state = None  # type: str
         self.__city = None  # type: str
         self.__address = None  # type: str
         self.__address_detail = None  # type: str
         self.__zipcode = None  # type: str
-        self.__shipping_name = None  # type: str
         self.__shipping_phone = None  # type: str
         self.__shipping_country = None  # type: str
         self.__shipping_state = None  # type: str
@@ -31,9 +29,15 @@ class AlipayCustomerCreateRequest(AlipayRequest):
         self.__shipping_zipcode = None  # type: str
         self.__description = None  # type: str
         self.__currency = None  # type: str
-        self.__preferred_locales = None  # type: str
+        self.__preferred_locales = None  # type: [str]
         self.__default_payment_method = None  # type: str
         self.__metadata = None  # type: {str: (str,)}
+        self.__phone_no = None  # type: str
+        self.__country_code = None  # type: str
+        self.__billing_email = None  # type: str
+        self.__shipping_first_name = None  # type: str
+        self.__shipping_last_name = None  # type: str
+        self.__shipping_country_code = None  # type: str
         
 
     @property
@@ -97,16 +101,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
     def last_name(self, value):
         self.__last_name = value
     @property
-    def mobile_no(self):
-        """
-        The mobile phone number. Maximum length: 32 characters.
-        """
-        return self.__mobile_no
-
-    @mobile_no.setter
-    def mobile_no(self, value):
-        self.__mobile_no = value
-    @property
     def country(self):
         """
         The country or region code. Maximum length: 8 characters.
@@ -166,16 +160,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
     @zipcode.setter
     def zipcode(self, value):
         self.__zipcode = value
-    @property
-    def shipping_name(self):
-        """
-        The shipping name. Maximum length: 512 characters.
-        """
-        return self.__shipping_name
-
-    @shipping_name.setter
-    def shipping_name(self, value):
-        self.__shipping_name = value
     @property
     def shipping_phone(self):
         """
@@ -269,7 +253,7 @@ class AlipayCustomerCreateRequest(AlipayRequest):
     @property
     def preferred_locales(self):
         """
-        The preferred language or locale settings. Maximum length: 256 characters.
+        The preferred language or locale settings.
         """
         return self.__preferred_locales
 
@@ -296,6 +280,66 @@ class AlipayCustomerCreateRequest(AlipayRequest):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def phone_no(self):
+        """
+        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        """
+        return self.__phone_no
+
+    @phone_no.setter
+    def phone_no(self, value):
+        self.__phone_no = value
+    @property
+    def country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        """
+        return self.__country_code
+
+    @country_code.setter
+    def country_code(self, value):
+        self.__country_code = value
+    @property
+    def billing_email(self):
+        """
+        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        """
+        return self.__billing_email
+
+    @billing_email.setter
+    def billing_email(self, value):
+        self.__billing_email = value
+    @property
+    def shipping_first_name(self):
+        """
+        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_first_name
+
+    @shipping_first_name.setter
+    def shipping_first_name(self, value):
+        self.__shipping_first_name = value
+    @property
+    def shipping_last_name(self):
+        """
+        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_last_name
+
+    @shipping_last_name.setter
+    def shipping_last_name(self, value):
+        self.__shipping_last_name = value
+    @property
+    def shipping_country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        """
+        return self.__shipping_country_code
+
+    @shipping_country_code.setter
+    def shipping_country_code(self, value):
+        self.__shipping_country_code = value
 
 
     def to_ams_json(self): 
@@ -317,8 +361,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             params['firstName'] = self.first_name
         if hasattr(self, "last_name") and self.last_name is not None:
             params['lastName'] = self.last_name
-        if hasattr(self, "mobile_no") and self.mobile_no is not None:
-            params['mobileNo'] = self.mobile_no
         if hasattr(self, "country") and self.country is not None:
             params['country'] = self.country
         if hasattr(self, "state") and self.state is not None:
@@ -331,8 +373,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             params['addressDetail'] = self.address_detail
         if hasattr(self, "zipcode") and self.zipcode is not None:
             params['zipcode'] = self.zipcode
-        if hasattr(self, "shipping_name") and self.shipping_name is not None:
-            params['shippingName'] = self.shipping_name
         if hasattr(self, "shipping_phone") and self.shipping_phone is not None:
             params['shippingPhone'] = self.shipping_phone
         if hasattr(self, "shipping_country") and self.shipping_country is not None:
@@ -357,6 +397,18 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             params['defaultPaymentMethod'] = self.default_payment_method
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "phone_no") and self.phone_no is not None:
+            params['phoneNo'] = self.phone_no
+        if hasattr(self, "country_code") and self.country_code is not None:
+            params['countryCode'] = self.country_code
+        if hasattr(self, "billing_email") and self.billing_email is not None:
+            params['billingEmail'] = self.billing_email
+        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
+            params['shippingFirstName'] = self.shipping_first_name
+        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
+            params['shippingLastName'] = self.shipping_last_name
+        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
+            params['shippingCountryCode'] = self.shipping_country_code
         return params
 
 
@@ -375,8 +427,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             self.__first_name = response_body['firstName']
         if 'lastName' in response_body:
             self.__last_name = response_body['lastName']
-        if 'mobileNo' in response_body:
-            self.__mobile_no = response_body['mobileNo']
         if 'country' in response_body:
             self.__country = response_body['country']
         if 'state' in response_body:
@@ -389,8 +439,6 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             self.__address_detail = response_body['addressDetail']
         if 'zipcode' in response_body:
             self.__zipcode = response_body['zipcode']
-        if 'shippingName' in response_body:
-            self.__shipping_name = response_body['shippingName']
         if 'shippingPhone' in response_body:
             self.__shipping_phone = response_body['shippingPhone']
         if 'shippingCountry' in response_body:
@@ -415,3 +463,15 @@ class AlipayCustomerCreateRequest(AlipayRequest):
             self.__default_payment_method = response_body['defaultPaymentMethod']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'phoneNo' in response_body:
+            self.__phone_no = response_body['phoneNo']
+        if 'countryCode' in response_body:
+            self.__country_code = response_body['countryCode']
+        if 'billingEmail' in response_body:
+            self.__billing_email = response_body['billingEmail']
+        if 'shippingFirstName' in response_body:
+            self.__shipping_first_name = response_body['shippingFirstName']
+        if 'shippingLastName' in response_body:
+            self.__shipping_last_name = response_body['shippingLastName']
+        if 'shippingCountryCode' in response_body:
+            self.__shipping_country_code = response_body['shippingCountryCode']

@@ -23,6 +23,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
         self.__unit_amount = None  # type: Amount
         self.__recurring = None  # type: RecurringSettings
         self.__active = None  # type: bool
+        self.__included_quantity = None  # type: int
         self.__tiers_mode = None  # type: str
         self.__tiers = None  # type: [Tier]
         self.__metadata = None  # type: {str: (str,)}
@@ -143,6 +144,16 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     def active(self, value):
         self.__active = value
     @property
+    def included_quantity(self):
+        """
+        The included quantity.
+        """
+        return self.__included_quantity
+
+    @included_quantity.setter
+    def included_quantity(self, value):
+        self.__included_quantity = value
+    @property
     def tiers_mode(self):
         """
         The tiers mode. Maximum length: 16 characters.
@@ -230,6 +241,8 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
             params['recurring'] = self.recurring
         if hasattr(self, "active") and self.active is not None:
             params['active'] = self.active
+        if hasattr(self, "included_quantity") and self.included_quantity is not None:
+            params['includedQuantity'] = self.included_quantity
         if hasattr(self, "tiers_mode") and self.tiers_mode is not None:
             params['tiersMode'] = self.tiers_mode
         if hasattr(self, "tiers") and self.tiers is not None:
@@ -272,6 +285,8 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
             self.__recurring.parse_rsp_body(response_body['recurring'])
         if 'active' in response_body:
             self.__active = response_body['active']
+        if 'includedQuantity' in response_body:
+            self.__included_quantity = response_body['includedQuantity']
         if 'tiersMode' in response_body:
             self.__tiers_mode = response_body['tiersMode']
         if 'tiers' in response_body:

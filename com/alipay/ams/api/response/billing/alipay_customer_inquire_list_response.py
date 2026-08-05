@@ -15,6 +15,12 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
         self.__total = None  # type: int
         self.__has_more = None  # type: bool
         self.__next_cursor = None  # type: str
+        self.__phone_no = None  # type: str
+        self.__country_code = None  # type: str
+        self.__billing_email = None  # type: str
+        self.__shipping_first_name = None  # type: str
+        self.__shipping_last_name = None  # type: str
+        self.__shipping_country_code = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -68,6 +74,66 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     @next_cursor.setter
     def next_cursor(self, value):
         self.__next_cursor = value
+    @property
+    def phone_no(self):
+        """
+        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        """
+        return self.__phone_no
+
+    @phone_no.setter
+    def phone_no(self, value):
+        self.__phone_no = value
+    @property
+    def country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        """
+        return self.__country_code
+
+    @country_code.setter
+    def country_code(self, value):
+        self.__country_code = value
+    @property
+    def billing_email(self):
+        """
+        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        """
+        return self.__billing_email
+
+    @billing_email.setter
+    def billing_email(self, value):
+        self.__billing_email = value
+    @property
+    def shipping_first_name(self):
+        """
+        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_first_name
+
+    @shipping_first_name.setter
+    def shipping_first_name(self, value):
+        self.__shipping_first_name = value
+    @property
+    def shipping_last_name(self):
+        """
+        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_last_name
+
+    @shipping_last_name.setter
+    def shipping_last_name(self, value):
+        self.__shipping_last_name = value
+    @property
+    def shipping_country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        """
+        return self.__shipping_country_code
+
+    @shipping_country_code.setter
+    def shipping_country_code(self, value):
+        self.__shipping_country_code = value
 
 
     
@@ -84,6 +150,18 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
             params['hasMore'] = self.has_more
         if hasattr(self, "next_cursor") and self.next_cursor is not None:
             params['nextCursor'] = self.next_cursor
+        if hasattr(self, "phone_no") and self.phone_no is not None:
+            params['phoneNo'] = self.phone_no
+        if hasattr(self, "country_code") and self.country_code is not None:
+            params['countryCode'] = self.country_code
+        if hasattr(self, "billing_email") and self.billing_email is not None:
+            params['billingEmail'] = self.billing_email
+        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
+            params['shippingFirstName'] = self.shipping_first_name
+        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
+            params['shippingLastName'] = self.shipping_last_name
+        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
+            params['shippingCountryCode'] = self.shipping_country_code
         return params
 
 
@@ -104,3 +182,15 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
             self.__has_more = response_body['hasMore']
         if 'nextCursor' in response_body:
             self.__next_cursor = response_body['nextCursor']
+        if 'phoneNo' in response_body:
+            self.__phone_no = response_body['phoneNo']
+        if 'countryCode' in response_body:
+            self.__country_code = response_body['countryCode']
+        if 'billingEmail' in response_body:
+            self.__billing_email = response_body['billingEmail']
+        if 'shippingFirstName' in response_body:
+            self.__shipping_first_name = response_body['shippingFirstName']
+        if 'shippingLastName' in response_body:
+            self.__shipping_last_name = response_body['shippingLastName']
+        if 'shippingCountryCode' in response_body:
+            self.__shipping_country_code = response_body['shippingCountryCode']

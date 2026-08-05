@@ -12,6 +12,7 @@ class AlipayInvoiceReviseRequest(AlipayRequest):
         self.__invoice_request_id = None  # type: str
         self.__invoice_revision_request_id = None  # type: str
         self.__void = None  # type: bool
+        self.__invoice_notify_url = None  # type: str
         
 
     @property
@@ -54,6 +55,16 @@ class AlipayInvoiceReviseRequest(AlipayRequest):
     @void.setter
     def void(self, value):
         self.__void = value
+    @property
+    def invoice_notify_url(self):
+        """
+        The URL that Antom uses to send the invoice payment status change notification to. Only HTTPS is supported. Maximum length: 2048 characters.
+        """
+        return self.__invoice_notify_url
+
+    @invoice_notify_url.setter
+    def invoice_notify_url(self, value):
+        self.__invoice_notify_url = value
 
 
     def to_ams_json(self): 
@@ -71,6 +82,8 @@ class AlipayInvoiceReviseRequest(AlipayRequest):
             params['invoiceRevisionRequestId'] = self.invoice_revision_request_id
         if hasattr(self, "void") and self.void is not None:
             params['void'] = self.void
+        if hasattr(self, "invoice_notify_url") and self.invoice_notify_url is not None:
+            params['invoiceNotifyUrl'] = self.invoice_notify_url
         return params
 
 
@@ -85,3 +98,5 @@ class AlipayInvoiceReviseRequest(AlipayRequest):
             self.__invoice_revision_request_id = response_body['invoiceRevisionRequestId']
         if 'void' in response_body:
             self.__void = response_body['void']
+        if 'invoiceNotifyUrl' in response_body:
+            self.__invoice_notify_url = response_body['invoiceNotifyUrl']

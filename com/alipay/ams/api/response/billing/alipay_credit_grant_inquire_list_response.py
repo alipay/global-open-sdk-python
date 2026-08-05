@@ -11,7 +11,7 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
         super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
-        self.__credit_grants = None  # type: CreditGrant
+        self.__credit_grants = None  # type: [CreditGrant]
         self.parse_rsp_body(rsp_body) 
 
 
@@ -27,8 +27,8 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
         self.__result = value
     @property
     def credit_grants(self):
-        """Gets the credit_grants of this AlipayCreditGrantInquireListResponse.
-        
+        """
+        The credit grants. Note: See documentation for details.
         """
         return self.__credit_grants
 
@@ -54,5 +54,8 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
             self.__result = Result()
             self.__result.parse_rsp_body(response_body['result'])
         if 'creditGrants' in response_body:
-            self.__credit_grants = CreditGrant()
-            self.__credit_grants.parse_rsp_body(response_body['creditGrants'])
+            self.__credit_grants = []
+            for item in response_body['creditGrants']:
+                obj = CreditGrant()
+                obj.parse_rsp_body(item)
+                self.__credit_grants.append(obj)
