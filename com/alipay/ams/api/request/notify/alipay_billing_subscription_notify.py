@@ -1,4 +1,5 @@
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
+from com.alipay.ams.api.model.amount import Amount
 
 
 class AlipayBillingSubscriptionNotify(AlipayNotify):
@@ -13,6 +14,7 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
         self.__reason = None  # type: str
         self.__reason_description = None  # type: str
         self.__previous_status = None  # type: str
+        self.__fixed_amount = None  # type: Amount
         self.__parse_notify_body(notify_body)
 
     @property
@@ -79,6 +81,15 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
     def previous_status(self, value):
         self.__previous_status = value
 
+    @property
+    def fixed_amount(self):
+        """The fixed subscription amount per period."""
+        return self.__fixed_amount
+
+    @fixed_amount.setter
+    def fixed_amount(self, value):
+        self.__fixed_amount = value
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayBillingSubscriptionNotify, self).parse_notify_body(notify_body)
         if "merchantRequestId" in notify:
@@ -97,3 +108,6 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
             self.__reason_description = notify["reasonDescription"]
         if "previousStatus" in notify:
             self.__previous_status = notify["previousStatus"]
+        if "fixedAmount" in notify:
+            self.__fixed_amount = Amount()
+            self.__fixed_amount.parse_rsp_body(notify["fixedAmount"])
