@@ -19,7 +19,7 @@ class Invoice:
         self.__status = None  # type: str
         self.__total_amount = None  # type: Amount
         self.__paid_amount = None  # type: Amount
-        self.__remaining_amount = None  # type: Amount
+        self.__remain_amount = None  # type: Amount
         self.__currency = None  # type: str
         self.__paid_time = None  # type: str
         self.__voided_time = None  # type: str
@@ -133,15 +133,15 @@ class Invoice:
     def paid_amount(self, value):
         self.__paid_amount = value
     @property
-    def remaining_amount(self):
-        """Gets the remaining_amount of this Invoice.
+    def remain_amount(self):
+        """Gets the remain_amount of this Invoice.
         
         """
-        return self.__remaining_amount
+        return self.__remain_amount
 
-    @remaining_amount.setter
-    def remaining_amount(self, value):
-        self.__remaining_amount = value
+    @remain_amount.setter
+    def remain_amount(self, value):
+        self.__remain_amount = value
     @property
     def currency(self):
         """
@@ -268,8 +268,8 @@ class Invoice:
             params['totalAmount'] = self.total_amount
         if hasattr(self, "paid_amount") and self.paid_amount is not None:
             params['paidAmount'] = self.paid_amount
-        if hasattr(self, "remaining_amount") and self.remaining_amount is not None:
-            params['remainingAmount'] = self.remaining_amount
+        if hasattr(self, "remain_amount") and self.remain_amount is not None:
+            params['remainAmount'] = self.remain_amount
         if hasattr(self, "currency") and self.currency is not None:
             params['currency'] = self.currency
         if hasattr(self, "paid_time") and self.paid_time is not None:
@@ -318,9 +318,9 @@ class Invoice:
         if 'paidAmount' in response_body:
             self.__paid_amount = Amount()
             self.__paid_amount.parse_rsp_body(response_body['paidAmount'])
-        if 'remainingAmount' in response_body:
-            self.__remaining_amount = Amount()
-            self.__remaining_amount.parse_rsp_body(response_body['remainingAmount'])
+        if 'remainAmount' in response_body:
+            self.__remain_amount = Amount()
+            self.__remain_amount.parse_rsp_body(response_body['remainAmount'])
         if 'currency' in response_body:
             self.__currency = response_body['currency']
         if 'paidTime' in response_body:

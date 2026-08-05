@@ -13,7 +13,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
         self.__active = None  # type: bool
         self.__starting_after = None  # type: str
         self.__ending_before = None  # type: str
-        self.__list = None  # type: int
+        self.__limit = None  # type: int
         self.__include_total = None  # type: bool
         
 
@@ -68,15 +68,15 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     def ending_before(self, value):
         self.__ending_before = value
     @property
-    def list(self):
+    def limit(self):
         """
-        The list. Maximum length: 32 characters.
+        The maximum number of prices returned per page. Value range: 1 - 100. Default value: 20.
         """
-        return self.__list
+        return self.__limit
 
-    @list.setter
-    def list(self, value):
-        self.__list = value
+    @limit.setter
+    def limit(self, value):
+        self.__limit = value
     @property
     def include_total(self):
         """
@@ -106,8 +106,8 @@ class AlipayPriceInquireListRequest(AlipayRequest):
             params['startingAfter'] = self.starting_after
         if hasattr(self, "ending_before") and self.ending_before is not None:
             params['endingBefore'] = self.ending_before
-        if hasattr(self, "list") and self.list is not None:
-            params['list'] = self.list
+        if hasattr(self, "limit") and self.limit is not None:
+            params['limit'] = self.limit
         if hasattr(self, "include_total") and self.include_total is not None:
             params['includeTotal'] = self.include_total
         return params
@@ -126,7 +126,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
             self.__starting_after = response_body['startingAfter']
         if 'endingBefore' in response_body:
             self.__ending_before = response_body['endingBefore']
-        if 'list' in response_body:
-            self.__list = response_body['list']
+        if 'limit' in response_body:
+            self.__limit = response_body['limit']
         if 'includeTotal' in response_body:
             self.__include_total = response_body['includeTotal']

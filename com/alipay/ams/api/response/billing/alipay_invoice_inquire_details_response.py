@@ -39,7 +39,7 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
         self.__discount_amount = None  # type: Amount
         self.__total_amount = None  # type: Amount
         self.__paid_amount = None  # type: Amount
-        self.__remaining_amount = None  # type: Amount
+        self.__remain_amount = None  # type: Amount
         self.__tax_amount = None  # type: Amount
         self.__payment_deducted_amount = None  # type: Amount
         self.__collection_method = None  # type: str
@@ -231,15 +231,15 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     def paid_amount(self, value):
         self.__paid_amount = value
     @property
-    def remaining_amount(self):
-        """Gets the remaining_amount of this AlipayInvoiceInquireDetailsResponse.
+    def remain_amount(self):
+        """Gets the remain_amount of this AlipayInvoiceInquireDetailsResponse.
         
         """
-        return self.__remaining_amount
+        return self.__remain_amount
 
-    @remaining_amount.setter
-    def remaining_amount(self, value):
-        self.__remaining_amount = value
+    @remain_amount.setter
+    def remain_amount(self, value):
+        self.__remain_amount = value
     @property
     def tax_amount(self):
         """Gets the tax_amount of this AlipayInvoiceInquireDetailsResponse.
@@ -450,8 +450,8 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
             params['totalAmount'] = self.total_amount
         if hasattr(self, "paid_amount") and self.paid_amount is not None:
             params['paidAmount'] = self.paid_amount
-        if hasattr(self, "remaining_amount") and self.remaining_amount is not None:
-            params['remainingAmount'] = self.remaining_amount
+        if hasattr(self, "remain_amount") and self.remain_amount is not None:
+            params['remainAmount'] = self.remain_amount
         if hasattr(self, "tax_amount") and self.tax_amount is not None:
             params['taxAmount'] = self.tax_amount
         if hasattr(self, "payment_deducted_amount") and self.payment_deducted_amount is not None:
@@ -530,9 +530,9 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
         if 'paidAmount' in response_body:
             self.__paid_amount = Amount()
             self.__paid_amount.parse_rsp_body(response_body['paidAmount'])
-        if 'remainingAmount' in response_body:
-            self.__remaining_amount = Amount()
-            self.__remaining_amount.parse_rsp_body(response_body['remainingAmount'])
+        if 'remainAmount' in response_body:
+            self.__remain_amount = Amount()
+            self.__remain_amount.parse_rsp_body(response_body['remainAmount'])
         if 'taxAmount' in response_body:
             self.__tax_amount = Amount()
             self.__tax_amount.parse_rsp_body(response_body['taxAmount'])

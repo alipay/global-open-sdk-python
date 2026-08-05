@@ -14,7 +14,12 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
         self.__include_total = None  # type: bool
         self.__status = None  # type: str
         self.__email = None  # type: str
-        self.__mobile_no = None  # type: str
+        self.__phone_no = None  # type: str
+        self.__country_code = None  # type: str
+        self.__billing_email = None  # type: str
+        self.__shipping_first_name = None  # type: str
+        self.__shipping_last_name = None  # type: str
+        self.__shipping_country_code = None  # type: str
         
 
     @property
@@ -78,15 +83,65 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     def email(self, value):
         self.__email = value
     @property
-    def mobile_no(self):
+    def phone_no(self):
         """
-        The mobile phone number. Maximum length: 32 characters.
+        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
         """
-        return self.__mobile_no
+        return self.__phone_no
 
-    @mobile_no.setter
-    def mobile_no(self, value):
-        self.__mobile_no = value
+    @phone_no.setter
+    def phone_no(self, value):
+        self.__phone_no = value
+    @property
+    def country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        """
+        return self.__country_code
+
+    @country_code.setter
+    def country_code(self, value):
+        self.__country_code = value
+    @property
+    def billing_email(self):
+        """
+        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        """
+        return self.__billing_email
+
+    @billing_email.setter
+    def billing_email(self, value):
+        self.__billing_email = value
+    @property
+    def shipping_first_name(self):
+        """
+        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_first_name
+
+    @shipping_first_name.setter
+    def shipping_first_name(self, value):
+        self.__shipping_first_name = value
+    @property
+    def shipping_last_name(self):
+        """
+        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        """
+        return self.__shipping_last_name
+
+    @shipping_last_name.setter
+    def shipping_last_name(self, value):
+        self.__shipping_last_name = value
+    @property
+    def shipping_country_code(self):
+        """
+        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        """
+        return self.__shipping_country_code
+
+    @shipping_country_code.setter
+    def shipping_country_code(self, value):
+        self.__shipping_country_code = value
 
 
     def to_ams_json(self): 
@@ -108,8 +163,18 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             params['status'] = self.status
         if hasattr(self, "email") and self.email is not None:
             params['email'] = self.email
-        if hasattr(self, "mobile_no") and self.mobile_no is not None:
-            params['mobileNo'] = self.mobile_no
+        if hasattr(self, "phone_no") and self.phone_no is not None:
+            params['phoneNo'] = self.phone_no
+        if hasattr(self, "country_code") and self.country_code is not None:
+            params['countryCode'] = self.country_code
+        if hasattr(self, "billing_email") and self.billing_email is not None:
+            params['billingEmail'] = self.billing_email
+        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
+            params['shippingFirstName'] = self.shipping_first_name
+        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
+            params['shippingLastName'] = self.shipping_last_name
+        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
+            params['shippingCountryCode'] = self.shipping_country_code
         return params
 
 
@@ -128,5 +193,15 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             self.__status = response_body['status']
         if 'email' in response_body:
             self.__email = response_body['email']
-        if 'mobileNo' in response_body:
-            self.__mobile_no = response_body['mobileNo']
+        if 'phoneNo' in response_body:
+            self.__phone_no = response_body['phoneNo']
+        if 'countryCode' in response_body:
+            self.__country_code = response_body['countryCode']
+        if 'billingEmail' in response_body:
+            self.__billing_email = response_body['billingEmail']
+        if 'shippingFirstName' in response_body:
+            self.__shipping_first_name = response_body['shippingFirstName']
+        if 'shippingLastName' in response_body:
+            self.__shipping_last_name = response_body['shippingLastName']
+        if 'shippingCountryCode' in response_body:
+            self.__shipping_country_code = response_body['shippingCountryCode']

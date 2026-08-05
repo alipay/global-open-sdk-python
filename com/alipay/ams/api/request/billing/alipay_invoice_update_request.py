@@ -16,6 +16,7 @@ class AlipayInvoiceUpdateRequest(AlipayRequest):
         self.__collection_method = None  # type: str
         self.__payment_method = None  # type: PaymentMethod
         self.__shipping = None  # type: InvoiceShipping
+        self.__invoice_notify_url = None  # type: str
         
 
     @property
@@ -78,6 +79,16 @@ class AlipayInvoiceUpdateRequest(AlipayRequest):
     @shipping.setter
     def shipping(self, value):
         self.__shipping = value
+    @property
+    def invoice_notify_url(self):
+        """
+        The URL that Antom uses to send the invoice payment status change notification to. Only HTTPS is supported. Maximum length: 2048 characters.
+        """
+        return self.__invoice_notify_url
+
+    @invoice_notify_url.setter
+    def invoice_notify_url(self, value):
+        self.__invoice_notify_url = value
 
 
     def to_ams_json(self): 
@@ -99,6 +110,8 @@ class AlipayInvoiceUpdateRequest(AlipayRequest):
             params['paymentMethod'] = self.payment_method
         if hasattr(self, "shipping") and self.shipping is not None:
             params['shipping'] = self.shipping
+        if hasattr(self, "invoice_notify_url") and self.invoice_notify_url is not None:
+            params['invoiceNotifyUrl'] = self.invoice_notify_url
         return params
 
 
@@ -119,3 +132,5 @@ class AlipayInvoiceUpdateRequest(AlipayRequest):
         if 'shipping' in response_body:
             self.__shipping = InvoiceShipping()
             self.__shipping.parse_rsp_body(response_body['shipping'])
+        if 'invoiceNotifyUrl' in response_body:
+            self.__invoice_notify_url = response_body['invoiceNotifyUrl']
