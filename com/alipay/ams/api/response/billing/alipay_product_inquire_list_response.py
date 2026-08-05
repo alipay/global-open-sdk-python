@@ -13,7 +13,7 @@ class AlipayProductInquireListResponse(AlipayResponse):
         self.__result = None  # type: Result
         self.__products = None  # type: [Product]
         self.__has_more = None  # type: bool
-        self.__total_count = None  # type: int
+        self.__total = None  # type: int
         self.parse_rsp_body(rsp_body) 
 
 
@@ -48,15 +48,15 @@ class AlipayProductInquireListResponse(AlipayResponse):
     def has_more(self, value):
         self.__has_more = value
     @property
-    def total_count(self):
+    def total(self):
         """
         The total number of records. Note: See documentation for details.
         """
-        return self.__total_count
+        return self.__total
 
-    @total_count.setter
-    def total_count(self, value):
-        self.__total_count = value
+    @total.setter
+    def total(self, value):
+        self.__total = value
 
 
     
@@ -69,8 +69,8 @@ class AlipayProductInquireListResponse(AlipayResponse):
             params['products'] = self.products
         if hasattr(self, "has_more") and self.has_more is not None:
             params['hasMore'] = self.has_more
-        if hasattr(self, "total_count") and self.total_count is not None:
-            params['totalCount'] = self.total_count
+        if hasattr(self, "total") and self.total is not None:
+            params['total'] = self.total
         return params
 
 
@@ -87,5 +87,5 @@ class AlipayProductInquireListResponse(AlipayResponse):
                 self.__products.append(obj)
         if 'hasMore' in response_body:
             self.__has_more = response_body['hasMore']
-        if 'totalCount' in response_body:
-            self.__total_count = response_body['totalCount']
+        if 'total' in response_body:
+            self.__total = response_body['total']

@@ -15,6 +15,7 @@ class AlipayProductInquireListRequest(AlipayRequest):
         self.__type = None  # type: str
         self.__keyword = None  # type: str
         self.__include_total = None  # type: bool
+        self.__usage_type = None  # type: str
         
 
     @property
@@ -87,6 +88,16 @@ class AlipayProductInquireListRequest(AlipayRequest):
     @include_total.setter
     def include_total(self, value):
         self.__include_total = value
+    @property
+    def usage_type(self):
+        """
+        Filter by usage type. Valid values: LICENSED, METERED. O - When provided, returns only products that have prices with matching usage type.
+        """
+        return self.__usage_type
+
+    @usage_type.setter
+    def usage_type(self, value):
+        self.__usage_type = value
 
 
     def to_ams_json(self): 
@@ -110,6 +121,8 @@ class AlipayProductInquireListRequest(AlipayRequest):
             params['keyword'] = self.keyword
         if hasattr(self, "include_total") and self.include_total is not None:
             params['includeTotal'] = self.include_total
+        if hasattr(self, "usage_type") and self.usage_type is not None:
+            params['usageType'] = self.usage_type
         return params
 
 
@@ -130,3 +143,5 @@ class AlipayProductInquireListRequest(AlipayRequest):
             self.__keyword = response_body['keyword']
         if 'includeTotal' in response_body:
             self.__include_total = response_body['includeTotal']
+        if 'usageType' in response_body:
+            self.__usage_type = response_body['usageType']
