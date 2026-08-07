@@ -147,10 +147,8 @@ class DefaultAlipayClient(object):
         "agent-token",
         "user-agent",
     }
-    _SANDBOX_PRODUCTION_PATH_PREFIXES = (
-        "/ams/api/v1/billing/",
-        "/ams/api/v1/meter/",
-    )
+    # Billing and Meter APIs now support sandbox. Keep the filter logic for future use.
+    _SANDBOX_PRODUCTION_PATH_PREFIXES = ()
 
     def execute_with_headers(self, request, extra_headers=None):
 
