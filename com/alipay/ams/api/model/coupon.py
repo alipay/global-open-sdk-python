@@ -14,13 +14,14 @@ class Coupon:
         self.__amount_off = None  # type: Amount
         self.__redeem_by = None  # type: str
         self.__status = None  # type: str
-        self.__create_time = None  # type: str
+        self.__max_redemptions = None  # type: int
+        self.__redeemed_count = None  # type: int
         
 
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters.
+        System-generated coupon ID.
         """
         return self.__coupon_id
 
@@ -30,7 +31,7 @@ class Coupon:
     @property
     def coupon_name(self):
         """
-        The coupon name. Maximum length: 128 characters.
+        Coupon display name.
         """
         return self.__coupon_name
 
@@ -40,7 +41,7 @@ class Coupon:
     @property
     def discount_type(self):
         """
-        The discount type. Maximum length: 16 characters.
+        Filter by discount type. Allowed values: &#x60;PERCENT&#x60;, &#x60;AMOUNT&#x60;. If not provided, returns all discount types.
         """
         return self.__discount_type
 
@@ -50,7 +51,7 @@ class Coupon:
     @property
     def percent_off(self):
         """
-        The percent off. Note: See documentation for details.
+        Percentage discount (up to 2 decimal places). Returned when &#x60;discountType&#x60; &#x3D; &#x60;PERCENT&#x60;.
         """
         return self.__percent_off
 
@@ -70,7 +71,7 @@ class Coupon:
     @property
     def redeem_by(self):
         """
-        The redeem by.
+        Redemption expiry time.
         """
         return self.__redeem_by
 
@@ -80,7 +81,7 @@ class Coupon:
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by coupon status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;INACTIVE&#x60;. If not provided, returns coupons of all statuses.
         """
         return self.__status
 
@@ -88,15 +89,25 @@ class Coupon:
     def status(self, value):
         self.__status = value
     @property
-    def create_time(self):
+    def max_redemptions(self):
         """
-        The create time.
+        The maximum redemption count.
         """
-        return self.__create_time
+        return self.__max_redemptions
 
-    @create_time.setter
-    def create_time(self, value):
-        self.__create_time = value
+    @max_redemptions.setter
+    def max_redemptions(self, value):
+        self.__max_redemptions = value
+    @property
+    def redeemed_count(self):
+        """
+        The number of times the coupon has been redeemed.
+        """
+        return self.__redeemed_count
+
+    @redeemed_count.setter
+    def redeemed_count(self, value):
+        self.__redeemed_count = value
 
 
     
@@ -117,8 +128,10 @@ class Coupon:
             params['redeemBy'] = self.redeem_by
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "create_time") and self.create_time is not None:
-            params['createTime'] = self.create_time
+        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
+            params['maxRedemptions'] = self.max_redemptions
+        if hasattr(self, "redeemed_count") and self.redeemed_count is not None:
+            params['redeemedCount'] = self.redeemed_count
         return params
 
 
@@ -140,5 +153,7 @@ class Coupon:
             self.__redeem_by = response_body['redeemBy']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'createTime' in response_body:
-            self.__create_time = response_body['createTime']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']
+        if 'redeemedCount' in response_body:
+            self.__redeemed_count = response_body['redeemedCount']

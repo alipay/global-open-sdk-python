@@ -13,7 +13,7 @@ class PromotionCodeCreateMinAmount:
     @property
     def value(self):
         """
-        The value of the amount as a positive integer in the smallest currency unit. Maximum length: 16 characters.
+        Amount value in the smallest currency unit (minor units, e.g. cents). No leading zeros. Cannot be empty.
         """
         return self.__value
 
@@ -23,7 +23,7 @@ class PromotionCodeCreateMinAmount:
     @property
     def currency(self):
         """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 3 characters.
+        ISO 4217 alpha-3 currency code.
         """
         return self.__currency
 

@@ -1,6 +1,5 @@
 import json
 from com.alipay.ams.api.model.result import Result
-from com.alipay.ams.api.model.error_stack import ErrorStack
 
 
 
@@ -15,8 +14,6 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
         self.__portal_url = None  # type: str
         self.__expires_at = None  # type: str
         self.__send_status = None  # type: str
-        self.__success = None  # type: bool
-        self.__error_context = None  # type: ErrorStack
         self.parse_rsp_body(rsp_body) 
 
 
@@ -33,7 +30,7 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
     @property
     def token(self):
         """
-        The encrypted token. Maximum length: 512 characters.
+        Opaque URL-safe bearer token. Treat it as a credential: do not log, parse, or store its internal structure - the format may change without notice. Returned only when result.resultCode is SUCCESS.
         """
         return self.__token
 
@@ -43,7 +40,7 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
     @property
     def portal_url(self):
         """
-        The portal access URL. Maximum length: 1024 characters. Note: See documentation for details.
+        Fully-qualified portal URL. Null when the portal base URL is not configured for the merchant - in that case build the URL from &#x60;token&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__portal_url
 
@@ -53,7 +50,7 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
     @property
     def expires_at(self):
         """
-        The expiration time.
+        Token expiration timestamp. Format: &#x60;yyyy-MM-dd HH:mm:ss&#x60; (NOT ISO 8601). Returned only when result.resultCode is SUCCESS.
         """
         return self.__expires_at
 
@@ -63,33 +60,13 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
     @property
     def send_status(self):
         """
-        The email sending status. Maximum length: 6 characters. Note: See documentation for details.
+        &#x60;SENT&#x60; / &#x60;FAILED&#x60;. Populated only when request &#x60;autoSend&#x3D;true&#x60;. Best-effort: failure never blocks link creation. Null when &#x60;autoSend&#x3D;false&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__send_status
 
     @send_status.setter
     def send_status(self, value):
         self.__send_status = value
-    @property
-    def success(self):
-        """
-        Indicates whether the operation is successful.
-        """
-        return self.__success
-
-    @success.setter
-    def success(self, value):
-        self.__success = value
-    @property
-    def error_context(self):
-        """Gets the error_context of this AlipayCustomerCreatePortalLinkResponse.
-        
-        """
-        return self.__error_context
-
-    @error_context.setter
-    def error_context(self, value):
-        self.__error_context = value
 
 
     
@@ -106,10 +83,6 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
             params['expiresAt'] = self.expires_at
         if hasattr(self, "send_status") and self.send_status is not None:
             params['sendStatus'] = self.send_status
-        if hasattr(self, "success") and self.success is not None:
-            params['success'] = self.success
-        if hasattr(self, "error_context") and self.error_context is not None:
-            params['errorContext'] = self.error_context
         return params
 
 
@@ -126,8 +99,3 @@ class AlipayCustomerCreatePortalLinkResponse(AlipayResponse):
             self.__expires_at = response_body['expiresAt']
         if 'sendStatus' in response_body:
             self.__send_status = response_body['sendStatus']
-        if 'success' in response_body:
-            self.__success = response_body['success']
-        if 'errorContext' in response_body:
-            self.__error_context = ErrorStack()
-            self.__error_context.parse_rsp_body(response_body['errorContext'])

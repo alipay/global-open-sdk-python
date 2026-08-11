@@ -15,12 +15,7 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
         self.__total = None  # type: int
         self.__has_more = None  # type: bool
         self.__next_cursor = None  # type: str
-        self.__phone_no = None  # type: str
-        self.__country_code = None  # type: str
-        self.__billing_email = None  # type: str
-        self.__shipping_first_name = None  # type: str
-        self.__shipping_last_name = None  # type: str
-        self.__shipping_country_code = None  # type: str
+        self.__previous_cursor = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -37,7 +32,7 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     @property
     def customers(self):
         """
-        The customers. Note: See documentation for details.
+        List of customer summary items. Maximum size: 100 elements (bounded by &#x60;limit&#x60;). Empty array if no results. Returned when resultCode is &#x60;SUCCESS&#x60;. Each item is a slim 9-field projection (see below).
         """
         return self.__customers
 
@@ -47,7 +42,7 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     @property
     def total(self):
         """
-        The total. Note: See documentation for details.
+        Total count of matching customers. Only returned when request has &#x60;includeTotal&#x3D;true&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__total
 
@@ -57,7 +52,7 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     @property
     def has_more(self):
         """
-        The has more. Note: See documentation for details.
+        Whether more results exist beyond the current page. &#x60;false&#x60; &#x3D; last page. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__has_more
 
@@ -67,7 +62,7 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     @property
     def next_cursor(self):
         """
-        The next cursor. Maximum length: 64 characters. Note: See documentation for details.
+        The &#x60;customerId&#x60; of the last element in the current page. Pass as &#x60;startingAfter&#x60; in the next request. Returned when &#x60;hasMore&#x60; is &#x60;true&#x60;. Absent when &#x60;hasMore&#x60; is &#x60;false&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__next_cursor
 
@@ -75,65 +70,15 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
     def next_cursor(self, value):
         self.__next_cursor = value
     @property
-    def phone_no(self):
+    def previous_cursor(self):
         """
-        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        Returned only in BACKWARD (&#x60;endingBefore&#x60;) navigation. The &#x60;customerId&#x60; of the first item in the current page. Pass as &#x60;endingBefore&#x60; in the previous-page request. Absent in forward navigation. Returned only when result.resultCode is SUCCESS.
         """
-        return self.__phone_no
+        return self.__previous_cursor
 
-    @phone_no.setter
-    def phone_no(self, value):
-        self.__phone_no = value
-    @property
-    def country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
-        """
-        return self.__country_code
-
-    @country_code.setter
-    def country_code(self, value):
-        self.__country_code = value
-    @property
-    def billing_email(self):
-        """
-        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
-        """
-        return self.__billing_email
-
-    @billing_email.setter
-    def billing_email(self, value):
-        self.__billing_email = value
-    @property
-    def shipping_first_name(self):
-        """
-        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
-        """
-        return self.__shipping_first_name
-
-    @shipping_first_name.setter
-    def shipping_first_name(self, value):
-        self.__shipping_first_name = value
-    @property
-    def shipping_last_name(self):
-        """
-        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
-        """
-        return self.__shipping_last_name
-
-    @shipping_last_name.setter
-    def shipping_last_name(self, value):
-        self.__shipping_last_name = value
-    @property
-    def shipping_country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
-        """
-        return self.__shipping_country_code
-
-    @shipping_country_code.setter
-    def shipping_country_code(self, value):
-        self.__shipping_country_code = value
+    @previous_cursor.setter
+    def previous_cursor(self, value):
+        self.__previous_cursor = value
 
 
     
@@ -150,18 +95,8 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
             params['hasMore'] = self.has_more
         if hasattr(self, "next_cursor") and self.next_cursor is not None:
             params['nextCursor'] = self.next_cursor
-        if hasattr(self, "phone_no") and self.phone_no is not None:
-            params['phoneNo'] = self.phone_no
-        if hasattr(self, "country_code") and self.country_code is not None:
-            params['countryCode'] = self.country_code
-        if hasattr(self, "billing_email") and self.billing_email is not None:
-            params['billingEmail'] = self.billing_email
-        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
-            params['shippingFirstName'] = self.shipping_first_name
-        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
-            params['shippingLastName'] = self.shipping_last_name
-        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
-            params['shippingCountryCode'] = self.shipping_country_code
+        if hasattr(self, "previous_cursor") and self.previous_cursor is not None:
+            params['previousCursor'] = self.previous_cursor
         return params
 
 
@@ -182,15 +117,5 @@ class AlipayCustomerInquireListResponse(AlipayResponse):
             self.__has_more = response_body['hasMore']
         if 'nextCursor' in response_body:
             self.__next_cursor = response_body['nextCursor']
-        if 'phoneNo' in response_body:
-            self.__phone_no = response_body['phoneNo']
-        if 'countryCode' in response_body:
-            self.__country_code = response_body['countryCode']
-        if 'billingEmail' in response_body:
-            self.__billing_email = response_body['billingEmail']
-        if 'shippingFirstName' in response_body:
-            self.__shipping_first_name = response_body['shippingFirstName']
-        if 'shippingLastName' in response_body:
-            self.__shipping_last_name = response_body['shippingLastName']
-        if 'shippingCountryCode' in response_body:
-            self.__shipping_country_code = response_body['shippingCountryCode']
+        if 'previousCursor' in response_body:
+            self.__previous_cursor = response_body['previousCursor']

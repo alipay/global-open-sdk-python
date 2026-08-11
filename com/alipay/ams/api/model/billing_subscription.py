@@ -13,11 +13,11 @@ class BillingSubscription:
         self.__payment_behavior = None  # type: str
         self.__collection_method = None  # type: str
         self.__days_until_due = None  # type: int
-        self.__billing_cycle_anchor = None  # type: str
         self.__cancel_at = None  # type: str
         self.__cancel_at_period_end = None  # type: bool
         self.__description = None  # type: str
         self.__discounts = None  # type: [BillingDiscount]
+        self.__default_payment_method = None  # type: str
         self.__allow_promotion_code = None  # type: bool
         self.__subscription_notify_url = None  # type: str
         
@@ -73,16 +73,6 @@ class BillingSubscription:
     def days_until_due(self, value):
         self.__days_until_due = value
     @property
-    def billing_cycle_anchor(self):
-        """
-        Billing cycle anchor time.
-        """
-        return self.__billing_cycle_anchor
-
-    @billing_cycle_anchor.setter
-    def billing_cycle_anchor(self, value):
-        self.__billing_cycle_anchor = value
-    @property
     def cancel_at(self):
         """
         Cancellation time.
@@ -123,6 +113,16 @@ class BillingSubscription:
     def discounts(self, value):
         self.__discounts = value
     @property
+    def default_payment_method(self):
+        """
+        The default payment method for this subscription. It takes precedence over the customer-level default. Maximum length: 64 characters.
+        """
+        return self.__default_payment_method
+
+    @default_payment_method.setter
+    def default_payment_method(self, value):
+        self.__default_payment_method = value
+    @property
     def allow_promotion_code(self):
         """
         Whether to allow promotion codes.
@@ -158,8 +158,6 @@ class BillingSubscription:
             params['collectionMethod'] = self.collection_method
         if hasattr(self, "days_until_due") and self.days_until_due is not None:
             params['daysUntilDue'] = self.days_until_due
-        if hasattr(self, "billing_cycle_anchor") and self.billing_cycle_anchor is not None:
-            params['billingCycleAnchor'] = self.billing_cycle_anchor
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
             params['cancelAt'] = self.cancel_at
         if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
@@ -168,6 +166,8 @@ class BillingSubscription:
             params['description'] = self.description
         if hasattr(self, "discounts") and self.discounts is not None:
             params['discounts'] = self.discounts
+        if hasattr(self, "default_payment_method") and self.default_payment_method is not None:
+            params['defaultPaymentMethod'] = self.default_payment_method
         if hasattr(self, "allow_promotion_code") and self.allow_promotion_code is not None:
             params['allowPromotionCode'] = self.allow_promotion_code
         if hasattr(self, "subscription_notify_url") and self.subscription_notify_url is not None:
@@ -189,8 +189,6 @@ class BillingSubscription:
             self.__collection_method = response_body['collectionMethod']
         if 'daysUntilDue' in response_body:
             self.__days_until_due = response_body['daysUntilDue']
-        if 'billingCycleAnchor' in response_body:
-            self.__billing_cycle_anchor = response_body['billingCycleAnchor']
         if 'cancelAt' in response_body:
             self.__cancel_at = response_body['cancelAt']
         if 'cancelAtPeriodEnd' in response_body:
@@ -203,6 +201,8 @@ class BillingSubscription:
                 obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
+        if 'defaultPaymentMethod' in response_body:
+            self.__default_payment_method = response_body['defaultPaymentMethod']
         if 'allowPromotionCode' in response_body:
             self.__allow_promotion_code = response_body['allowPromotionCode']
         if 'subscriptionNotifyUrl' in response_body:

@@ -7,12 +7,13 @@ class Product:
     def __init__(self):
         
         self.__product_id = None  # type: str
+        self.__product_request_id = None  # type: str
         self.__name = None  # type: str
         self.__type = None  # type: str
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
@@ -22,7 +23,7 @@ class Product:
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        System-generated product ID
         """
         return self.__product_id
 
@@ -30,9 +31,19 @@ class Product:
     def product_id(self, value):
         self.__product_id = value
     @property
+    def product_request_id(self):
+        """
+        The idempotency key supplied when the product was created. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__product_request_id
+
+    @product_request_id.setter
+    def product_request_id(self, value):
+        self.__product_request_id = value
+    @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name
         """
         return self.__name
 
@@ -42,7 +53,7 @@ class Product:
     @property
     def type(self):
         """
-        The type. Maximum length: 16 characters.
+        Filter by product type. O - When provided, returns only products of the specified type; when absent, returns all types. Enum: SERVICE, GOOD. Can be null; default null. Invalid values return PARAM_ILLEGAL error
         """
         return self.__type
 
@@ -52,7 +63,7 @@ class Product:
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Product description. O - May be null in the response when the value is not set
         """
         return self.__description
 
@@ -62,7 +73,7 @@ class Product:
     @property
     def images(self):
         """
-        The images.
+        Product image URLs
         """
         return self.__images
 
@@ -72,7 +83,7 @@ class Product:
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Product-level unit label. O - May be null in the response when the value is not set
         """
         return self.__unit_label
 
@@ -82,7 +93,7 @@ class Product:
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Custom key-value metadata stored as JSON string The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -92,7 +103,7 @@ class Product:
     @property
     def active(self):
         """
-        The active.
+        Filter by active status. O - true&#x3D;return only active products, false&#x3D;return only deactivated products, absent or null&#x3D;return all products. No default value
         """
         return self.__active
 
@@ -102,7 +113,7 @@ class Product:
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp
         """
         return self.__created_at
 
@@ -112,7 +123,7 @@ class Product:
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 deactivation timestamp. O - Returned when product has been deactivated (active&#x3D;false); absent when product is active
         """
         return self.__deactivated_at
 
@@ -122,7 +133,7 @@ class Product:
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters.
+        ISO 8601 last update timestamp. O - Returned when non-null; absent from response if never updated after creation
         """
         return self.__updated_at
 
@@ -137,6 +148,8 @@ class Product:
         params = dict()
         if hasattr(self, "product_id") and self.product_id is not None:
             params['productId'] = self.product_id
+        if hasattr(self, "product_request_id") and self.product_request_id is not None:
+            params['productRequestId'] = self.product_request_id
         if hasattr(self, "name") and self.name is not None:
             params['name'] = self.name
         if hasattr(self, "type") and self.type is not None:
@@ -165,6 +178,8 @@ class Product:
             response_body = json.loads(response_body)
         if 'productId' in response_body:
             self.__product_id = response_body['productId']
+        if 'productRequestId' in response_body:
+            self.__product_request_id = response_body['productRequestId']
         if 'name' in response_body:
             self.__name = response_body['name']
         if 'type' in response_body:

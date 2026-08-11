@@ -23,12 +23,13 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
         self.__end_date = None  # type: str
         self.__min_amount = None  # type: Amount
         self.__max_amount = None  # type: Amount
+        self.__exclude_draft = None  # type: bool
         
 
     @property
     def starting_after(self):
         """
-        The starting after. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for forward pagination - return invoices after this &#x60;invoiceId&#x60;. Think of it as a bookmark: pass the &#x60;nextCursor&#x60; from the previous response to get the next batch of invoices. Mutually exclusive with &#x60;endingBefore&#x60; (both -&gt; &#x60;INVALID_PARAMETER&#x60;). When omitted, returns the first page (newest invoices first). Always use the LAST invoice&#39;s ID from the current page - using the first ID will skip records. Can be null (first page).
         """
         return self.__starting_after
 
@@ -38,7 +39,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def ending_before(self):
         """
-        The ending before. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for backward pagination - return invoices before this &#x60;invoiceId&#x60;. Pass the first invoice&#39;s &#x60;invoiceId&#x60; from the current page to go back to the previous page. Mutually exclusive with &#x60;startingAfter&#x60;. Can be null (not used).
         """
         return self.__ending_before
 
@@ -48,7 +49,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def limit(self):
         """
-        The limit.
+        Maximum number of invoices per page. Integer value; range 1-100. Internally, &#x60;limit + 1&#x60; rows are fetched to determine &#x60;hasMore&#x60; - the extra row is not returned. Can be null (defaults to 20).
         """
         return self.__limit
 
@@ -58,7 +59,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def include_total(self):
         """
-        The include total.
+        Whether to include the &#x60;total&#x60; count of matching records in the response. When &#x60;true&#x60;, an additional &#x60;COUNT&#x60; query is executed. Default &#x60;false&#x60; to avoid the performance cost of counting when not needed. Can be null (defaults to false).
         """
         return self.__include_total
 
@@ -68,7 +69,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Filter invoices by associated subscription ID. Returns only invoices linked to this subscription. Can be null (no filter).
         """
         return self.__subscription_id
 
@@ -78,7 +79,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Filter invoices by customer ID. Returns only invoices belonging to this customer. Can be null (no filter).
         """
         return self.__customer_id
 
@@ -88,7 +89,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Filter by exact invoice ID. Returns the single matching invoice if found. Format: &#x60;inv_&#x60; + 10-char alphanumeric. Unlike the planned &#x60;invoiceNumber&#x60; fuzzy search, this is an exact match. Can be null (no filter).
         """
         return self.__invoice_id
 
@@ -98,7 +99,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by invoice status. Allowed values: &#x60;DRAFT&#x60;, &#x60;OPEN&#x60;, &#x60;PAID&#x60;, &#x60;&#x60;UNCOLLECTIBLE&#x60;&#x60;, &#x60;VOID&#x60;. Can be null (no filter).
         """
         return self.__status
 
@@ -108,7 +109,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def reason(self):
         """
-        The reason for the status change. Maximum length: 32 characters.
+        Filter by invoice reason. Allowed values: &#x60;SUBSCRIPTION_CREATION&#x60;, &#x60;SUBSCRIPTION_RECURRENCE&#x60;, &#x60;SUBSCRIPTION_UPDATE&#x60;. Can be null (no filter).
         """
         return self.__reason
 
@@ -118,7 +119,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def start_date(self):
         """
-        The start date. Maximum length: 24 characters.
+        Date range start for invoice creation time (ISO 8601 format, e.g., 2026-04-01T00:00:00+00:00). Can be null (no lower bound).
         """
         return self.__start_date
 
@@ -128,7 +129,7 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @property
     def end_date(self):
         """
-        The end date. Maximum length: 24 characters.
+        Date range end for invoice creation time (ISO 8601 format, e.g., 2026-04-30T23:59:59+00:00). Can be null (no upper bound).
         """
         return self.__end_date
 
@@ -155,6 +156,16 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
     @max_amount.setter
     def max_amount(self, value):
         self.__max_amount = value
+    @property
+    def exclude_draft(self):
+        """
+        When &#x60;true&#x60;, excludes &#x60;DRAFT&#x60; invoices from results. Can be null (defaults to false).
+        """
+        return self.__exclude_draft
+
+    @exclude_draft.setter
+    def exclude_draft(self, value):
+        self.__exclude_draft = value
 
 
     def to_ams_json(self): 
@@ -190,6 +201,8 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
             params['minAmount'] = self.min_amount
         if hasattr(self, "max_amount") and self.max_amount is not None:
             params['maxAmount'] = self.max_amount
+        if hasattr(self, "exclude_draft") and self.exclude_draft is not None:
+            params['excludeDraft'] = self.exclude_draft
         return params
 
 
@@ -224,3 +237,5 @@ class AlipayInvoiceInquireListRequest(AlipayRequest):
         if 'maxAmount' in response_body:
             self.__max_amount = Amount()
             self.__max_amount.parse_rsp_body(response_body['maxAmount'])
+        if 'excludeDraft' in response_body:
+            self.__exclude_draft = response_body['excludeDraft']

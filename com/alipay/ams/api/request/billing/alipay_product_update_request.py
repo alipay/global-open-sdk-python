@@ -10,19 +10,17 @@ class AlipayProductUpdateRequest(AlipayRequest):
 
         self.__product_id = None  # type: str
         self.__name = None  # type: str
-        self.__type = None  # type: str
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
-        self.__metadata_keys_to_remove = None  # type: [str]
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
         
 
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        Product ID to update. Cannot be null. Format: prod_ prefix + alphanumeric suffix. This field serves as the idempotent key for this operation
         """
         return self.__product_id
 
@@ -32,7 +30,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name. O - When provided, updates name. When null, rejected with PARAM_ILLEGAL error (name is mandatory and cannot be cleared). When absent, no change. Characters &amp; &#39; \&quot; are not allowed (XSS prevention - see Section 4.1.1 name field)
         """
         return self.__name
 
@@ -40,19 +38,9 @@ class AlipayProductUpdateRequest(AlipayRequest):
     def name(self, value):
         self.__name = value
     @property
-    def type(self):
-        """
-        The type. Maximum length: 16 characters. Note: See documentation for details.
-        """
-        return self.__type
-
-    @type.setter
-    def type(self, value):
-        self.__type = value
-    @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Product description. O - Present with value: update; present with null: clear; absent: no change. Can be null
         """
         return self.__description
 
@@ -62,7 +50,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @property
     def images(self):
         """
-        The images. Note: See documentation for details.
+        Product image URLs. O - Present with value: full-replacement of entire image list; present with null: clear all images; absent: no change. Each URL must start with http:// or https://, max 2048 characters. Full-replacement: providing images replaces the entire array, not appends. Merchants are responsible for availability of externally-hosted URLs; Antom does not validate external URL accessibility. See Section 6.13 for image management workflow
         """
         return self.__images
 
@@ -72,7 +60,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters. Note: See documentation for details.
+        Product-level unit label. O - Present with value: update; present with null: clear; absent: no change. Can be null
         """
         return self.__unit_label
 
@@ -82,7 +70,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Custom metadata encoded as a JSON object string. When provided, the value fully replaces the existing metadata; keys are not merged. When omitted, the existing value is unchanged. PII must not be stored.
         """
         return self.__metadata
 
@@ -90,19 +78,9 @@ class AlipayProductUpdateRequest(AlipayRequest):
     def metadata(self, value):
         self.__metadata = value
     @property
-    def metadata_keys_to_remove(self):
-        """
-        The metadata keys to remove. Note: See documentation for details.
-        """
-        return self.__metadata_keys_to_remove
-
-    @metadata_keys_to_remove.setter
-    def metadata_keys_to_remove(self, value):
-        self.__metadata_keys_to_remove = value
-    @property
     def active(self):
         """
-        The active. Note: See documentation for details.
+        Product active status. O - explicit true&#x3D;activate, explicit false&#x3D;deactivate, absent or null&#x3D;no change. There is no \&quot;clear\&quot; semantic for active - it is always either true or false. When deactivated (active&#x3D;false), the product cannot be used for new subscriptions; existing subscriptions continue using the product
         """
         return self.__active
 
@@ -122,8 +100,6 @@ class AlipayProductUpdateRequest(AlipayRequest):
             params['productId'] = self.product_id
         if hasattr(self, "name") and self.name is not None:
             params['name'] = self.name
-        if hasattr(self, "type") and self.type is not None:
-            params['type'] = self.type
         if hasattr(self, "description") and self.description is not None:
             params['description'] = self.description
         if hasattr(self, "images") and self.images is not None:
@@ -132,8 +108,6 @@ class AlipayProductUpdateRequest(AlipayRequest):
             params['unitLabel'] = self.unit_label
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
-        if hasattr(self, "metadata_keys_to_remove") and self.metadata_keys_to_remove is not None:
-            params['metadataKeysToRemove'] = self.metadata_keys_to_remove
         if hasattr(self, "active") and self.active is not None:
             params['active'] = self.active
         return params
@@ -146,8 +120,6 @@ class AlipayProductUpdateRequest(AlipayRequest):
             self.__product_id = response_body['productId']
         if 'name' in response_body:
             self.__name = response_body['name']
-        if 'type' in response_body:
-            self.__type = response_body['type']
         if 'description' in response_body:
             self.__description = response_body['description']
         if 'images' in response_body:
@@ -156,7 +128,5 @@ class AlipayProductUpdateRequest(AlipayRequest):
             self.__unit_label = response_body['unitLabel']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
-        if 'metadataKeysToRemove' in response_body:
-            self.__metadata_keys_to_remove = response_body['metadataKeysToRemove']
         if 'active' in response_body:
             self.__active = response_body['active']

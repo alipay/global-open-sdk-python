@@ -27,9 +27,10 @@ class AlipayPriceCreateResponse(AlipayResponse):
         self.__included_quantity = None  # type: int
         self.__tiers_mode = None  # type: str
         self.__tiers = None  # type: [Tier]
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__created_at = None  # type: str
         self.__updated_at = None  # type: str
+        self.__default_price = None  # type: bool
         self.parse_rsp_body(rsp_body) 
 
 
@@ -46,7 +47,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 32 characters.
+        System-generated price ID. Format: price_ prefix + alphanumeric suffix Returned only when result.resultCode is SUCCESS.
         """
         return self.__price_id
 
@@ -56,7 +57,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def price_request_id(self):
         """
-        The price request id. Maximum length: 64 characters.
+        Echo of the idempotent request key from the request. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__price_request_id
 
@@ -66,7 +67,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        Associated product ID Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_id
 
@@ -76,7 +77,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def name(self):
         """
-        The name. Maximum length: 128 characters.
+        Price name. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__name
 
@@ -86,7 +87,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def pricing_model(self):
         """
-        The pricing model. Maximum length: 24 characters.
+        Pricing model type. Always returned - either provided by merchant or derived per Default Derivation rules. Enum: PER_UNIT(per-unit pricing aligned with Stripe billing_scheme&#x3D;per_unit), TIERED(tiered pricing aligned with Stripe billing_scheme&#x3D;tiered). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break Returned only when result.resultCode is SUCCESS.
         """
         return self.__pricing_model
 
@@ -96,7 +97,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def usage_type(self):
         """
-        The usage type. Maximum length: 16 characters.
+        Usage type. O - May be null in the response when the value is not set. Enum: LICENSED(fixed license/per-seat - describes quantity tracking method), METERED(metered usage - describes quantity tracking method). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break Returned only when result.resultCode is SUCCESS.
         """
         return self.__usage_type
 
@@ -106,7 +107,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Price-level unit label. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__unit_label
 
@@ -116,7 +117,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 32 characters.
+        External meter reference. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__meter_id
 
@@ -146,7 +147,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def active(self):
         """
-        The active.
+        Price active status. true&#x3D;price is active and can be used for new subscriptions, false&#x3D;price is deactivated and cannot be used for new subscriptions. Default on creation: true. Cannot be null Returned only when result.resultCode is SUCCESS.
         """
         return self.__active
 
@@ -156,7 +157,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def included_quantity(self):
         """
-        The included quantity.
+        Included quantity for package pricing. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__included_quantity
 
@@ -166,7 +167,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def tiers_mode(self):
         """
-        The tiers mode. Maximum length: 16 characters.
+        Tiered pricing mode. O - May be null in the response when the value is not set. Enum: GRADUATED(graduated pricing - each tier priced independently, customer may cross tiers), VOLUME(volume pricing - single tier rate applies to entire quantity). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break Returned only when result.resultCode is SUCCESS.
         """
         return self.__tiers_mode
 
@@ -176,7 +177,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def tiers(self):
         """
-        The tiers.
+        Tier definitions. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__tiers
 
@@ -186,7 +187,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Metadata encoded as a JSON object string. Returned only when &#x60;result.resultCode&#x60; is &#x60;SUCCESS&#x60; and metadata was set. The SDK must expose the stored string unchanged.
         """
         return self.__metadata
 
@@ -196,7 +197,7 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp Returned only when result.resultCode is SUCCESS.
         """
         return self.__created_at
 
@@ -206,13 +207,23 @@ class AlipayPriceCreateResponse(AlipayResponse):
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters.
+        ISO 8601 last update timestamp. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__updated_at
 
     @updated_at.setter
     def updated_at(self, value):
         self.__updated_at = value
+    @property
+    def default_price(self):
+        """
+        Whether this price is the default price for the product. When true, this price is the primary price shown for the product Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__default_price
+
+    @default_price.setter
+    def default_price(self, value):
+        self.__default_price = value
 
 
     
@@ -255,6 +266,8 @@ class AlipayPriceCreateResponse(AlipayResponse):
             params['createdAt'] = self.created_at
         if hasattr(self, "updated_at") and self.updated_at is not None:
             params['updatedAt'] = self.updated_at
+        if hasattr(self, "default_price") and self.default_price is not None:
+            params['defaultPrice'] = self.default_price
         return params
 
 
@@ -303,3 +316,5 @@ class AlipayPriceCreateResponse(AlipayResponse):
             self.__created_at = response_body['createdAt']
         if 'updatedAt' in response_body:
             self.__updated_at = response_body['updatedAt']
+        if 'defaultPrice' in response_body:
+            self.__default_price = response_body['defaultPrice']

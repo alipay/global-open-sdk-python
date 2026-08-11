@@ -8,12 +8,13 @@ class BillingTrialSettings:
         
         self.__trial_period_days = None  # type: int
         self.__trial_end = None  # type: str
+        self.__trial_end_behavior = None  # type: str
         
 
     @property
     def trial_period_days(self):
         """
-        Number of trial period days.
+        Relative trial duration in days. Value range: 1-365. Exactly one of &#x60;trialPeriodDays&#x60; and &#x60;trialEnd&#x60; must be provided when trial settings are used.
         """
         return self.__trial_period_days
 
@@ -23,13 +24,23 @@ class BillingTrialSettings:
     @property
     def trial_end(self):
         """
-        Trial end time.
+        Absolute trial end time in ISO 8601 format with a timezone offset. Exactly one of &#x60;trialPeriodDays&#x60; and &#x60;trialEnd&#x60; must be provided when trial settings are used.
         """
         return self.__trial_end
 
     @trial_end.setter
     def trial_end(self, value):
         self.__trial_end = value
+    @property
+    def trial_end_behavior(self):
+        """
+        Behavior when the trial ends without an available payment method. Valid values are CANCEL and PAUSE.
+        """
+        return self.__trial_end_behavior
+
+    @trial_end_behavior.setter
+    def trial_end_behavior(self, value):
+        self.__trial_end_behavior = value
 
 
     
@@ -40,6 +51,8 @@ class BillingTrialSettings:
             params['trialPeriodDays'] = self.trial_period_days
         if hasattr(self, "trial_end") and self.trial_end is not None:
             params['trialEnd'] = self.trial_end
+        if hasattr(self, "trial_end_behavior") and self.trial_end_behavior is not None:
+            params['trialEndBehavior'] = self.trial_end_behavior
         return params
 
 
@@ -50,3 +63,5 @@ class BillingTrialSettings:
             self.__trial_period_days = response_body['trialPeriodDays']
         if 'trialEnd' in response_body:
             self.__trial_end = response_body['trialEnd']
+        if 'trialEndBehavior' in response_body:
+            self.__trial_end_behavior = response_body['trialEndBehavior']

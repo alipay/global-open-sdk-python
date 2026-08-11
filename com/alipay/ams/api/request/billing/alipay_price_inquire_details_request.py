@@ -14,7 +14,7 @@ class AlipayPriceInquireDetailsRequest(AlipayRequest):
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 32 characters.
+        Price ID to query. Cannot be null. Format: price_ prefix + alphanumeric suffix. This field serves as the idempotent key for this operation
         """
         return self.__price_id
 

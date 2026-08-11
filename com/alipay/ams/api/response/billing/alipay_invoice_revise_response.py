@@ -28,7 +28,7 @@ class AlipayInvoiceReviseResponse(AlipayResponse):
     @property
     def new_invoice_id(self):
         """
-        The new invoice id. Maximum length: 64 characters.
+        System-generated ID of the newly created invoice. Format: &#x60;inv_&#x60; + 10-char alphanumeric. Used for subsequent operations. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__new_invoice_id
 
@@ -38,7 +38,7 @@ class AlipayInvoiceReviseResponse(AlipayResponse):
     @property
     def voided_invoice_id(self):
         """
-        The voided invoice id. Maximum length: 64 characters. Note: See documentation for details.
+        ID of the original invoice that was voided. Only returned when &#x60;void&#x3D;true&#x60;, providing explicit confirmation that the original invoice has been voided. When &#x60;void&#x3D;false&#x60; (clone), this field is absent. Cannot be null when present. Returned only when result.resultCode is SUCCESS.
         """
         return self.__voided_invoice_id
 

@@ -17,7 +17,7 @@ class AlipayProductCreateResponse(AlipayResponse):
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
@@ -38,7 +38,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        System-generated product ID. Format: prod_ prefix + alphanumeric suffix (e.g., prod_2xK8mN3pQ7) Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_id
 
@@ -48,7 +48,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def product_request_id(self):
         """
-        The product request id. Maximum length: 64 characters.
+        Echo of the idempotent request key from the request. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_request_id
 
@@ -58,7 +58,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name. Echo of request value Returned only when result.resultCode is SUCCESS.
         """
         return self.__name
 
@@ -68,7 +68,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def type(self):
         """
-        The type. Maximum length: 16 characters.
+        Product type. Enum: SERVICE(intangible digital service or SaaS offering - checkout skips shipping address collection), GOOD(tangible physical product requiring delivery - checkout collects shipping address). Echo of request value (or default SERVICE if not provided). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break Returned only when result.resultCode is SUCCESS.
         """
         return self.__type
 
@@ -78,7 +78,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Product description. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__description
 
@@ -88,7 +88,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def images(self):
         """
-        The images.
+        Product image URLs. O - Returned when non-null and non-empty; absent if null or empty Returned only when result.resultCode is SUCCESS.
         """
         return self.__images
 
@@ -98,7 +98,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Product-level unit label. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__unit_label
 
@@ -108,7 +108,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Metadata encoded as a JSON object string. Returned only when &#x60;result.resultCode&#x60; is &#x60;SUCCESS&#x60; and metadata was set. The SDK must expose the stored string unchanged.
         """
         return self.__metadata
 
@@ -118,7 +118,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def active(self):
         """
-        The active.
+        Product active status. true&#x3D;product is active and can be used for new subscriptions, false&#x3D;product is deactivated and cannot be used for new subscriptions. Default: true. Cannot be null. Deactivated products can be reactivated via Update active&#x3D;true Returned only when result.resultCode is SUCCESS.
         """
         return self.__active
 
@@ -128,7 +128,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp. Cannot be null Returned only when result.resultCode is SUCCESS.
         """
         return self.__created_at
 
@@ -138,7 +138,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 deactivation timestamp. O - Returned when product has been deactivated (active&#x3D;false); absent when product is active Returned only when result.resultCode is SUCCESS.
         """
         return self.__deactivated_at
 
@@ -148,7 +148,7 @@ class AlipayProductCreateResponse(AlipayResponse):
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 last update timestamp. O - Returned when non-null; absent from response if never updated after creation Returned only when result.resultCode is SUCCESS.
         """
         return self.__updated_at
 

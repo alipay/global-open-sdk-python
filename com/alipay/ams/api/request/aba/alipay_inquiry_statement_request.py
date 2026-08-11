@@ -10,7 +10,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
 
         self.__customer_id = None  # type: str
         self.__access_token = None  # type: str
-        self.__start_time = None  # type: bool, date, datetime, dict, float, int, list, str, none_type
+        self.__start_time = None  # type: str
         self.__end_time = None  # type: str
         self.__transaction_type_list = None  # type: [str]
         self.__currency_list = None  # type: [str]
@@ -160,6 +160,7 @@ class AlipayInquiryStatementRequest(AlipayRequest):
         if 'accessToken' in response_body:
             self.__access_token = response_body['accessToken']
         if 'startTime' in response_body:
+            self.__start_time = response_body['startTime']
         if 'endTime' in response_body:
             self.__end_time = response_body['endTime']
         if 'transactionTypeList' in response_body:

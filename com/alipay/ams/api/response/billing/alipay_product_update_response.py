@@ -16,11 +16,12 @@ class AlipayProductUpdateResponse(AlipayResponse):
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
+        self.__product_request_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -37,7 +38,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        Updated product ID Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_id
 
@@ -47,7 +48,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name Returned only when result.resultCode is SUCCESS.
         """
         return self.__name
 
@@ -57,7 +58,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def type(self):
         """
-        The type. Maximum length: 16 characters.
+        Product type. Enum: SERVICE, GOOD. See Section 4.1.1 Create Product request for full behavioral descriptions Returned only when result.resultCode is SUCCESS.
         """
         return self.__type
 
@@ -67,7 +68,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Product description. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__description
 
@@ -77,7 +78,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def images(self):
         """
-        The images.
+        Product image URLs Returned only when result.resultCode is SUCCESS.
         """
         return self.__images
 
@@ -87,7 +88,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Product-level unit label. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__unit_label
 
@@ -97,7 +98,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Custom metadata encoded as a JSON object string. The returned value reflects the full stored metadata after replacement. PII must not be stored. Returned only when result.resultCode is SUCCESS.
         """
         return self.__metadata
 
@@ -107,7 +108,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def active(self):
         """
-        The active.
+        Product active status. true&#x3D;product is active and can be used for new subscriptions, false&#x3D;product is deactivated and cannot be used for new subscriptions. Cannot be null. Deactivated products can be reactivated via Update active&#x3D;true Returned only when result.resultCode is SUCCESS.
         """
         return self.__active
 
@@ -117,7 +118,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp Returned only when result.resultCode is SUCCESS.
         """
         return self.__created_at
 
@@ -127,7 +128,7 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 deactivation timestamp. O - Returned when product has been deactivated (active&#x3D;false); absent when product is active Returned only when result.resultCode is SUCCESS.
         """
         return self.__deactivated_at
 
@@ -137,13 +138,23 @@ class AlipayProductUpdateResponse(AlipayResponse):
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters.
+        ISO 8601 last update timestamp. O - Returned when non-null; absent from response if never updated after creation Returned only when result.resultCode is SUCCESS.
         """
         return self.__updated_at
 
     @updated_at.setter
     def updated_at(self, value):
         self.__updated_at = value
+    @property
+    def product_request_id(self):
+        """
+        Idempotency key. O - May be null in the response when the value is not set. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__product_request_id
+
+    @product_request_id.setter
+    def product_request_id(self, value):
+        self.__product_request_id = value
 
 
     
@@ -174,6 +185,8 @@ class AlipayProductUpdateResponse(AlipayResponse):
             params['deactivatedAt'] = self.deactivated_at
         if hasattr(self, "updated_at") and self.updated_at is not None:
             params['updatedAt'] = self.updated_at
+        if hasattr(self, "product_request_id") and self.product_request_id is not None:
+            params['productRequestId'] = self.product_request_id
         return params
 
 
@@ -204,3 +217,5 @@ class AlipayProductUpdateResponse(AlipayResponse):
             self.__deactivated_at = response_body['deactivatedAt']
         if 'updatedAt' in response_body:
             self.__updated_at = response_body['updatedAt']
+        if 'productRequestId' in response_body:
+            self.__product_request_id = response_body['productRequestId']

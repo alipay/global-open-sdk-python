@@ -11,15 +11,15 @@ class AlipayCouponUpdateRequest(AlipayRequest):
         self.__coupon_id = None  # type: str
         self.__coupon_name = None  # type: str
         self.__status = None  # type: str
-        self.__max_redemptions = None  # type: int
         self.__redeem_by = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
+        self.__max_redemptions = None  # type: int
         
 
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters.
+        System-generated coupon ID to update. Cannot be empty.
         """
         return self.__coupon_id
 
@@ -29,7 +29,7 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @property
     def coupon_name(self):
         """
-        The coupon name. Maximum length: 128 characters.
+        Updated display name. Maximum length: 128 characters.
         """
         return self.__coupon_name
 
@@ -39,7 +39,7 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Status transition. Accepted values: &#x60;ACTIVE&#x60; / &#x60;INACTIVE&#x60;. Drives an ACTIVE &lt;-&gt; INACTIVE state change. When null/blank, status is left unchanged. &#x60;EXPIRED&#x60; is system-derived and cannot be set via this API - passing &#x60;EXPIRED&#x60; returns &#x60;PARAM_ILLEGAL&#x60;.
         """
         return self.__status
 
@@ -47,19 +47,9 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     def status(self, value):
         self.__status = value
     @property
-    def max_redemptions(self):
-        """
-        The max redemptions. Note: See documentation for details.
-        """
-        return self.__max_redemptions
-
-    @max_redemptions.setter
-    def max_redemptions(self, value):
-        self.__max_redemptions = value
-    @property
     def redeem_by(self):
         """
-        The redeem by.
+        Updated redemption expiry time (UTC, ISO 8601). The new deadline must not be earlier than the current &#x60;redeemBy&#x60; - shortening is rejected with &#x60;PARAM_ILLEGAL&#x60;.
         """
         return self.__redeem_by
 
@@ -69,13 +59,23 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Updated merchant-defined key-value pairs. Full replacement semantics: the entire metadata object is replaced. The value must be a valid JSON object string.
         """
         return self.__metadata
 
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def max_redemptions(self):
+        """
+        Updated maximum redemption count. The new value must be greater than or equal to the number of times already redeemed (&#x60;redeemedCount&#x60;).
+        """
+        return self.__max_redemptions
+
+    @max_redemptions.setter
+    def max_redemptions(self, value):
+        self.__max_redemptions = value
 
 
     def to_ams_json(self): 
@@ -91,12 +91,12 @@ class AlipayCouponUpdateRequest(AlipayRequest):
             params['couponName'] = self.coupon_name
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
-            params['maxRedemptions'] = self.max_redemptions
         if hasattr(self, "redeem_by") and self.redeem_by is not None:
             params['redeemBy'] = self.redeem_by
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
+            params['maxRedemptions'] = self.max_redemptions
         return params
 
 
@@ -109,9 +109,9 @@ class AlipayCouponUpdateRequest(AlipayRequest):
             self.__coupon_name = response_body['couponName']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'maxRedemptions' in response_body:
-            self.__max_redemptions = response_body['maxRedemptions']
         if 'redeemBy' in response_body:
             self.__redeem_by = response_body['redeemBy']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']

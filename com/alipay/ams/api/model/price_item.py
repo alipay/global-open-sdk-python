@@ -13,7 +13,7 @@ class PriceItem:
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 64 characters.
+        Price ID referencing pre-created Recurring Price. Not null
         """
         return self.__price_id
 
@@ -23,7 +23,7 @@ class PriceItem:
     @property
     def quantity(self):
         """
-        The quantity.
+        Quantity for licensed type. Default: 1, Min: 1. Can be null (defaults to 1)
         """
         return self.__quantity
 

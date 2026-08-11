@@ -339,7 +339,7 @@ class AlipayPayRequest(AlipayRequest):
     @property
     def subscription_id(self):
         """
-        The existing subscription ID, pre-created via the create subscription API.
+        The existing subscription ID created by the Billing subscription API. It is mutually exclusive with subscriptionInfo. When provided, omit paymentAmount and order.
         """
         return self.__subscription_id
 

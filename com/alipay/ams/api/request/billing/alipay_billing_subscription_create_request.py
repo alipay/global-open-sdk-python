@@ -1,7 +1,7 @@
 import json
 from com.alipay.ams.api.model.price_item import PriceItem
-from com.alipay.ams.api.model.billing_subscription_create_trial_settings import BillingSubscriptionCreateTrialSettings
-from com.alipay.ams.api.model.billing_subscription_create_discount import BillingSubscriptionCreateDiscount
+from com.alipay.ams.api.model.billing_trial_settings import BillingTrialSettings
+from com.alipay.ams.api.model.billing_discount import BillingDiscount
 
 
 
@@ -15,23 +15,22 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
         self.__customer_id = None  # type: str
         self.__customer_email = None  # type: str
         self.__price_items = None  # type: [PriceItem]
-        self.__trial_settings = None  # type: BillingSubscriptionCreateTrialSettings
-        self.__discounts = None  # type: [BillingSubscriptionCreateDiscount]
+        self.__trial_settings = None  # type: BillingTrialSettings
+        self.__discounts = None  # type: [BillingDiscount]
         self.__payment_behavior = None  # type: str
         self.__collection_method = None  # type: str
         self.__days_until_due = None  # type: int
-        self.__billing_cycle_anchor = None  # type: str
         self.__cancel_at = None  # type: str
         self.__cancel_at_period_end = None  # type: bool
         self.__description = None  # type: str
         self.__subscription_notify_url = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         
 
     @property
     def subscription_request_id(self):
         """
-        The subscription request id. Maximum length: 64 characters.
+        Idempotency key. Unique per merchant. This field is an idempotent field. Not null. Idempotent replay (2026-08-06 code-verified): if a request is repeated with the same &#x60;subscriptionRequestId&#x60;, the API returns SUCCESS together with the previously created subscription and its latest invoice - no new subscription is created
         """
         return self.__subscription_request_id
 
@@ -41,7 +40,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters. Note: See documentation for details.
+        Existing customer ID. References a customer already created in your account. Mutually optional with &#x60;customerEmail&#x60; - you must provide at least one. If both are provided, &#x60;customerId&#x60; takes precedence. Can be null
         """
         return self.__customer_id
 
@@ -51,7 +50,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def customer_email(self):
         """
-        The email address of the customer. Maximum length: 256 characters. Note: See documentation for details.
+        Customer email address. Use this when you don&#39;t yet have a &#x60;customerId&#x60; - Antom will create a new customer with this email. If a customer with this email already exists under your merchant account, a &#x60;CUSTOMER_EMAIL_DUPLICATED&#x60; error is returned - use the existing customer&#39;s &#x60;customerId&#x60; instead. Mutually optional with &#x60;customerId&#x60;. Must be a valid email format. Can be null
         """
         return self.__customer_email
 
@@ -61,7 +60,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def price_items(self):
         """
-        The price items.
+        List of PriceItem objects. At least 1 item is required; there is no maximum limit on the number of items (the previous maximum of 20 no longer applies)
         """
         return self.__price_items
 
@@ -81,7 +80,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def discounts(self):
         """
-        The discounts applied. Note: See documentation for details.
+        Pre-bound discounts. Currently limited to exactly 1 item (the previous maximum of 10 no longer applies) - sending more than one discount item returns PARAM_ILLEGAL. Can be null
         """
         return self.__discounts
 
@@ -91,7 +90,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def payment_behavior(self):
         """
-        The payment behavior.
+        Payment attempt behavior. See Enum Behavior Reference for detailed behavior per value. Default: ALLOW_INCOMPLETE. Not null
         """
         return self.__payment_behavior
 
@@ -101,7 +100,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def collection_method(self):
         """
-        The collection method.
+        Collection method. CHARGE_AUTOMATICALLY - charges automatically at each billing cycle. SEND_INVOICE - emails invoice; customer pays manually. Default: CHARGE_AUTOMATICALLY. Not null
         """
         return self.__collection_method
 
@@ -111,7 +110,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def days_until_due(self):
         """
-        The days until due. Note: See documentation for details.
+        Days to pay invoices. Range: 1-365, default: 30. Can be null
         """
         return self.__days_until_due
 
@@ -119,19 +118,9 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     def days_until_due(self, value):
         self.__days_until_due = value
     @property
-    def billing_cycle_anchor(self):
-        """
-        The billing cycle anchor.
-        """
-        return self.__billing_cycle_anchor
-
-    @billing_cycle_anchor.setter
-    def billing_cycle_anchor(self, value):
-        self.__billing_cycle_anchor = value
-    @property
     def cancel_at(self):
         """
-        The cancel at.
+        Pre-schedule cancellation. ISO 8601 with timezone offset, must be future. Can be null
         """
         return self.__cancel_at
 
@@ -141,7 +130,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def cancel_at_period_end(self):
         """
-        The cancel at period end.
+        Whether to automatically cancel the subscription when the current billing period ends. If not specified, defaults to false. Can be null
         """
         return self.__cancel_at_period_end
 
@@ -151,7 +140,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def description(self):
         """
-        The description. Maximum length: 500 characters. Note: See documentation for details.
+        Subscription description, displayable to customer. PII caution: should not contain personal data (names, emails) - use structured fields for customer information. No HTML tags. Can be null. Server-side fallback (2026-07-29 SA): when blank, the WALLET payment paths send &#x60;Subscription {subscriptionId} payment&#x60; as the A+ APS &#x60;orderDescription&#x60; (mandatory downstream) - no contract change, field stays optional
         """
         return self.__description
 
@@ -161,7 +150,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def subscription_notify_url(self):
         """
-        The subscription notify url. Maximum length: 512 characters.
+        Subscription status notification URL. Valid URL. Can be null
         """
         return self.__subscription_notify_url
 
@@ -171,7 +160,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Note: See documentation for details.
+        Key-value extension data as a JSON-encoded string. Keys max 64 chars, values max 512 chars. Maximum size: 20 pairs. PII prohibition applies - must not contain personal data (names, emails, IDs). Use structured fields for PII. Can be null The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -205,8 +194,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
             params['collectionMethod'] = self.collection_method
         if hasattr(self, "days_until_due") and self.days_until_due is not None:
             params['daysUntilDue'] = self.days_until_due
-        if hasattr(self, "billing_cycle_anchor") and self.billing_cycle_anchor is not None:
-            params['billingCycleAnchor'] = self.billing_cycle_anchor
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
             params['cancelAt'] = self.cancel_at
         if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
@@ -236,12 +223,12 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
                 obj.parse_rsp_body(item)
                 self.__price_items.append(obj)
         if 'trialSettings' in response_body:
-            self.__trial_settings = BillingSubscriptionCreateTrialSettings()
+            self.__trial_settings = BillingTrialSettings()
             self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
         if 'discounts' in response_body:
             self.__discounts = []
             for item in response_body['discounts']:
-                obj = BillingSubscriptionCreateDiscount()
+                obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
         if 'paymentBehavior' in response_body:
@@ -250,8 +237,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
             self.__collection_method = response_body['collectionMethod']
         if 'daysUntilDue' in response_body:
             self.__days_until_due = response_body['daysUntilDue']
-        if 'billingCycleAnchor' in response_body:
-            self.__billing_cycle_anchor = response_body['billingCycleAnchor']
         if 'cancelAt' in response_body:
             self.__cancel_at = response_body['cancelAt']
         if 'cancelAtPeriodEnd' in response_body:
