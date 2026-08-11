@@ -15,7 +15,7 @@ class InvoiceNote:
     @property
     def note_id(self):
         """
-        The note id. Maximum length: 64 characters.
+        Unique identifier for this note within the array (UUID). Cannot be null.
         """
         return self.__note_id
 
@@ -25,7 +25,7 @@ class InvoiceNote:
     @property
     def note(self):
         """
-        The note. Maximum length: 512 characters.
+        The actual note content. Provided by the merchant when performing an action on the invoice. Cannot be null.
         """
         return self.__note
 
@@ -35,7 +35,7 @@ class InvoiceNote:
     @property
     def action(self):
         """
-        The action. Maximum length: 32 characters.
+        The action that triggered this note. Allowed values: &#x60;CREATE&#x60; - invoice created; &#x60;UPDATE&#x60; - invoice updated; &#x60;FINALIZE&#x60; - invoice finalized (DRAFT-&gt;OPEN); &#x60;VOID&#x60; - invoice voided; &#x60;MARK_UNCOLLECTIBLE&#x60; - invoice marked uncollectible; &#x60;PAID&#x60; - payment confirmed. Cannot be null.
         """
         return self.__action
 
@@ -45,7 +45,7 @@ class InvoiceNote:
     @property
     def note_time(self):
         """
-        The note time. Maximum length: 24 characters.
+        ISO 8601 timestamp of when the note was created. Cannot be null.
         """
         return self.__note_time
 

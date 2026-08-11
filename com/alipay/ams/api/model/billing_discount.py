@@ -13,7 +13,7 @@ class BillingDiscount:
     @property
     def coupon_id(self):
         """
-        Coupon ID.
+        Coupon ID associated with the discount. Exactly one of &#x60;couponId&#x60; and &#x60;promotionCodeId&#x60; can be provided in a discount request; responses return the identifier that was applied. Maximum length: 64 characters.
         """
         return self.__coupon_id
 
@@ -23,7 +23,7 @@ class BillingDiscount:
     @property
     def promotion_code_id(self):
         """
-        Promotion code ID.
+        Promotion code ID associated with the discount. Exactly one of &#x60;couponId&#x60; and &#x60;promotionCodeId&#x60; can be provided in a discount request; responses return the identifier that was applied. Maximum length: 64 characters.
         """
         return self.__promotion_code_id
 

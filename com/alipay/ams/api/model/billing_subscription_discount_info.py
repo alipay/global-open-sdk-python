@@ -10,7 +10,7 @@ class BillingSubscriptionDiscountInfo:
         self.__discount_id = None  # type: str
         self.__coupon_id = None  # type: str
         self.__type = None  # type: str
-        self.__percent_off = None  # type: int
+        self.__percent_off = None  # type: str
         self.__amount_off = None  # type: Amount
         self.__duration = None  # type: str
         self.__times = None  # type: int
@@ -50,7 +50,7 @@ class BillingSubscriptionDiscountInfo:
     @property
     def percent_off(self):
         """
-        The percent off. Note: See documentation for details.
+        Percentage discount as a decimal string.
         """
         return self.__percent_off
 

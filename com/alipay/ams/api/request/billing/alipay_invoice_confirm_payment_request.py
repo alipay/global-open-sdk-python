@@ -14,12 +14,13 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
         self.__reference = None  # type: str
         self.__auto_send = None  # type: bool
         self.__invoice_note = None  # type: str
+        self.__cc_emails = None  # type: [str]
         
 
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID to confirm payment for. Must be in OPEN or UNCOLLECTIBLE status and belong to the requesting merchant. Validated before any state transition. Cannot be null.
         """
         return self.__invoice_id
 
@@ -29,7 +30,7 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @property
     def confirmation_type(self):
         """
-        The confirmation type. Maximum length: 32 characters.
+        Payment confirmation type. Currently only &#x60;OFFLINE&#x60; is supported - indicates a manual offline payment (bank transfer, cash, check) was received by the merchant. This field is an extensibility point for future confirmation types (e.g., &#x60;CREDIT_NOTE_OFFSET&#x60;). Cannot be null. Allowed values: &#x60;OFFLINE&#x60;. Note: Future values may be added; merchants should handle unknown values gracefully.
         """
         return self.__confirmation_type
 
@@ -39,7 +40,7 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @property
     def payment_method(self):
         """
-        The payment method. Maximum length: 32 characters.
+        Offline payment method used by the customer. Must be one of: &#x60;BANK_TRANSFER&#x60; - payment received via bank/wire transfer; &#x60;CASH&#x60; - cash payment received in person; &#x60;CHECK&#x60; - payment by physical check; &#x60;WIRE_TRANSFER&#x60; - domestic or international wire transfer; &#x60;OTHER&#x60; - any other offline payment method not listed above. Validated against &#x60;OfflinePaymentMethodEnum&#x60; when provided. When not provided or blank, defaults to &#x60;OTHER&#x60;. Helps merchants categorize payments for reconciliation. Note: Future enum values may be added; merchants should handle unknown values as &#x60;OTHER&#x60;. Can be null.
         """
         return self.__payment_method
 
@@ -49,7 +50,7 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @property
     def reference(self):
         """
-        The reference. Maximum length: 256 characters.
+        Merchant-supplied payment reference for audit trail (e.g., bank transfer number, check number). Stored on the payment record for reconciliation. Can be null.
         """
         return self.__reference
 
@@ -59,7 +60,7 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @property
     def auto_send(self):
         """
-        Indicates whether to automatically send the notification.
+        Whether to automatically send the receipt email to the customer after successful payment confirmation. &#x60;true&#x60; &#x3D; send receipt email; &#x60;false&#x60; &#x3D; do not send; not set &#x3D; treat as &#x60;false&#x60;. Can be null (defaults to false).
         """
         return self.__auto_send
 
@@ -69,13 +70,23 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @property
     def invoice_note(self):
         """
-        The invoice note. Maximum length: 512 characters.
+        Optional note attached to the invoice for this payment confirmation action. Stored as an entry in the &#x60;invoiceNotes&#x60; array in the invoice metadata with &#x60;action&#x3D;paid&#x60;. Enables merchants to attach contextual notes (e.g., \&quot;Payment received via bank transfer\&quot;) to the invoice audit trail. Can be null (defaults to null - no note provided).
         """
         return self.__invoice_note
 
     @invoice_note.setter
     def invoice_note(self, value):
         self.__invoice_note = value
+    @property
+    def cc_emails(self):
+        """
+        CC email addresses for receipt notification. Optional. When &#x60;autoSend&#x60; is true, the receipt email is also sent to these addresses. Can be null.
+        """
+        return self.__cc_emails
+
+    @cc_emails.setter
+    def cc_emails(self, value):
+        self.__cc_emails = value
 
 
     def to_ams_json(self): 
@@ -97,6 +108,8 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
             params['autoSend'] = self.auto_send
         if hasattr(self, "invoice_note") and self.invoice_note is not None:
             params['invoiceNote'] = self.invoice_note
+        if hasattr(self, "cc_emails") and self.cc_emails is not None:
+            params['ccEmails'] = self.cc_emails
         return params
 
 
@@ -115,3 +128,5 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
             self.__auto_send = response_body['autoSend']
         if 'invoiceNote' in response_body:
             self.__invoice_note = response_body['invoiceNote']
+        if 'ccEmails' in response_body:
+            self.__cc_emails = response_body['ccEmails']

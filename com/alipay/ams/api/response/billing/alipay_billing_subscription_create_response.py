@@ -1,7 +1,8 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
+from com.alipay.ams.api.model.billing_subscription_trial_settings import BillingSubscriptionTrialSettings
 from com.alipay.ams.api.model.subscription_item import SubscriptionItem
-from com.alipay.ams.api.model.billing_subscription_create_discount import BillingSubscriptionCreateDiscount
+from com.alipay.ams.api.model.billing_discount import BillingDiscount
 
 
 
@@ -22,13 +23,13 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
         self.__billing_cycle_anchor = None  # type: str
         self.__trial_start = None  # type: str
         self.__trial_end = None  # type: str
+        self.__trial_settings = None  # type: BillingSubscriptionTrialSettings
         self.__cancel_at = None  # type: str
-        self.__cancel_at_period_end = None  # type: bool
         self.__description = None  # type: str
         self.__collection_method = None  # type: str
         self.__days_until_due = None  # type: int
         self.__subscription_items = None  # type: [SubscriptionItem]
-        self.__discounts = None  # type: [BillingSubscriptionCreateDiscount]
+        self.__discounts = None  # type: [BillingDiscount]
         self.__subscription_notify_url = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
@@ -46,7 +47,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def subscription_request_id(self):
         """
-        The subscription request id. Maximum length: 64 characters.
+        Idempotency key echo-back. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__subscription_request_id
 
@@ -56,7 +57,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Created subscription ID. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__subscription_id
 
@@ -66,7 +67,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        The customer this subscription belongs to. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__customer_id
 
@@ -76,7 +77,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters. Note: See documentation for details.
+        ID of the draft Invoice created alongside the subscription. Returned when subscription creation generates an invoice (i.e., non-zero amount or trial with invoice). Can be null Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 
@@ -86,7 +87,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 20 characters.
+        Subscription status after creation. Possible values at creation: INCOMPLETE (first payment pending), TRIALING (trial configured). ACTIVE can only appear after Step 2 (&#x60;payments/pay&#x60;) succeeds and is never returned at creation (2026-08-06 code-verified darksite audit). Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 
@@ -96,7 +97,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def current_period_start(self):
         """
-        The current period start.
+        Billing period start. ISO 8601 with timezone offset. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__current_period_start
 
@@ -106,7 +107,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def current_period_end(self):
         """
-        The current period end.
+        Billing period end. ISO 8601 with timezone offset. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__current_period_end
 
@@ -116,7 +117,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def billing_cycle_anchor(self):
         """
-        The billing cycle anchor. Note: See documentation for details.
+        Billing cycle anchor - the reference point all future billing periods are measured from. System-derived, not merchant-writable (it was withdrawn from the request; see the request table). Derivation: without a trial -&gt; the subscription creation timestamp (NOW); with a trial -&gt; the trial end date (&#x60;trialEnd&#x60;), so the first paid cycle begins when the trial ends. The anchor always describes the full, uncapped cycle - setting &#x60;cancelAt&#x60; inside the first period shortens &#x60;currentPeriodEnd&#x60; but leaves &#x60;billingCycleAnchor&#x60; unchanged. ISO 8601 with timezone offset. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__billing_cycle_anchor
 
@@ -126,7 +127,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def trial_start(self):
         """
-        The trial start. Maximum length: 32 characters. Note: See documentation for details.
+        Trial start. ISO 8601 with timezone offset Returned only when result.resultCode is SUCCESS.
         """
         return self.__trial_start
 
@@ -136,7 +137,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def trial_end(self):
         """
-        The trial end. Note: See documentation for details.
+        Trial end. ISO 8601 with timezone offset Returned only when result.resultCode is SUCCESS.
         """
         return self.__trial_end
 
@@ -144,9 +145,19 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     def trial_end(self, value):
         self.__trial_end = value
     @property
+    def trial_settings(self):
+        """Gets the trial_settings of this AlipayBillingSubscriptionCreateResponse.
+        
+        """
+        return self.__trial_settings
+
+    @trial_settings.setter
+    def trial_settings(self, value):
+        self.__trial_settings = value
+    @property
     def cancel_at(self):
         """
-        The cancel at. Note: See documentation for details.
+        Scheduled cancellation timestamp Returned only when result.resultCode is SUCCESS.
         """
         return self.__cancel_at
 
@@ -154,19 +165,9 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     def cancel_at(self, value):
         self.__cancel_at = value
     @property
-    def cancel_at_period_end(self):
-        """
-        The cancel at period end. Note: See documentation for details.
-        """
-        return self.__cancel_at_period_end
-
-    @cancel_at_period_end.setter
-    def cancel_at_period_end(self, value):
-        self.__cancel_at_period_end = value
-    @property
     def description(self):
         """
-        The description. Maximum length: 500 characters. Note: See documentation for details.
+        Subscription description echo-back. No HTML tags Returned only when result.resultCode is SUCCESS.
         """
         return self.__description
 
@@ -176,7 +177,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def collection_method(self):
         """
-        The collection method.
+        Collection method echo-back. Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__collection_method
 
@@ -186,7 +187,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def days_until_due(self):
         """
-        The days until due. Note: See documentation for details.
+        Days until invoice due Returned only when result.resultCode is SUCCESS.
         """
         return self.__days_until_due
 
@@ -196,7 +197,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def subscription_items(self):
         """
-        The subscription items.
+        Created subscription items - one per request &#x60;priceItems&#x60; entry. No maximum limit (matches the unbounded request &#x60;priceItems&#x60;). Not null Returned only when result.resultCode is SUCCESS.
         """
         return self.__subscription_items
 
@@ -206,7 +207,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def discounts(self):
         """
-        The discounts applied. Note: See documentation for details.
+        Discount preference echo-back from request - at most 1 item, matching the request limit. Not Antom-generated data - echoed as provided by merchant in request Returned only when result.resultCode is SUCCESS.
         """
         return self.__discounts
 
@@ -216,7 +217,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
     @property
     def subscription_notify_url(self):
         """
-        The subscription notify url. Maximum length: 512 characters. Note: See documentation for details.
+        Subscription notification URL echo-back Returned only when result.resultCode is SUCCESS.
         """
         return self.__subscription_notify_url
 
@@ -251,10 +252,10 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
             params['trialStart'] = self.trial_start
         if hasattr(self, "trial_end") and self.trial_end is not None:
             params['trialEnd'] = self.trial_end
+        if hasattr(self, "trial_settings") and self.trial_settings is not None:
+            params['trialSettings'] = self.trial_settings
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
             params['cancelAt'] = self.cancel_at
-        if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
-            params['cancelAtPeriodEnd'] = self.cancel_at_period_end
         if hasattr(self, "description") and self.description is not None:
             params['description'] = self.description
         if hasattr(self, "collection_method") and self.collection_method is not None:
@@ -295,10 +296,11 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
             self.__trial_start = response_body['trialStart']
         if 'trialEnd' in response_body:
             self.__trial_end = response_body['trialEnd']
+        if 'trialSettings' in response_body:
+            self.__trial_settings = BillingSubscriptionTrialSettings()
+            self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
         if 'cancelAt' in response_body:
             self.__cancel_at = response_body['cancelAt']
-        if 'cancelAtPeriodEnd' in response_body:
-            self.__cancel_at_period_end = response_body['cancelAtPeriodEnd']
         if 'description' in response_body:
             self.__description = response_body['description']
         if 'collectionMethod' in response_body:
@@ -314,7 +316,7 @@ class AlipayBillingSubscriptionCreateResponse(AlipayResponse):
         if 'discounts' in response_body:
             self.__discounts = []
             for item in response_body['discounts']:
-                obj = BillingSubscriptionCreateDiscount()
+                obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
         if 'subscriptionNotifyUrl' in response_body:

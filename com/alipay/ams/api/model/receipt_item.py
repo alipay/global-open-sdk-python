@@ -31,7 +31,7 @@ class ReceiptItem:
     @property
     def item_id(self):
         """
-        The item id. Maximum length: 64 characters.
+        Line item ID. Unique identifier.
         """
         return self.__item_id
 
@@ -41,7 +41,7 @@ class ReceiptItem:
     @property
     def description(self):
         """
-        The description. Maximum length: 512 characters.
+        Line item description (e.g., \&quot;1 x Pro Plan (at $10.00/month)\&quot;).
         """
         return self.__description
 
@@ -51,7 +51,7 @@ class ReceiptItem:
     @property
     def quantity(self):
         """
-        The quantity.
+        Quantity of the item. Default: 1.
         """
         return self.__quantity
 
@@ -91,7 +91,7 @@ class ReceiptItem:
     @property
     def usage_quantity(self):
         """
-        The usage quantity.
+        Metered usage quantity. Null if not metered.
         """
         return self.__usage_quantity
 
@@ -101,7 +101,7 @@ class ReceiptItem:
     @property
     def usage_unit(self):
         """
-        The usage unit. Maximum length: 32 characters.
+        Usage unit (e.g., &#x60;requests&#x60;, &#x60;gb&#x60;). Null if not metered.
         """
         return self.__usage_unit
 
@@ -131,7 +131,7 @@ class ReceiptItem:
     @property
     def period_start(self):
         """
-        The period start. Maximum length: 24 characters.
+        ISO 8601 timestamp of coverage period start. Null if not subscription-based.
         """
         return self.__period_start
 
@@ -141,7 +141,7 @@ class ReceiptItem:
     @property
     def period_end(self):
         """
-        The period end. Maximum length: 24 characters.
+        ISO 8601 timestamp of coverage period end. Null if not subscription-based.
         """
         return self.__period_end
 
@@ -151,7 +151,7 @@ class ReceiptItem:
     @property
     def proration(self):
         """
-        The proration.
+        Whether this is a proration adjustment. Default: false.
         """
         return self.__proration
 
@@ -161,7 +161,7 @@ class ReceiptItem:
     @property
     def gmt_create(self):
         """
-        The creation time. Maximum length: 24 characters.
+        ISO 8601 timestamp of line item creation. Maximum length: 29 characters.
         """
         return self.__gmt_create
 
@@ -171,7 +171,7 @@ class ReceiptItem:
     @property
     def gmt_update(self):
         """
-        The gmt update. Maximum length: 24 characters.
+        ISO 8601 timestamp of last line item update. Maximum length: 29 characters.
         """
         return self.__gmt_update
 

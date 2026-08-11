@@ -12,7 +12,7 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.receipt_item import ReceiptItem
-from com.alipay.ams.api.model.payment import Payment
+from com.alipay.ams.api.model.invoice_payment import InvoicePayment
 
 
 
@@ -61,11 +61,10 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
         self.__description = None  # type: str
         self.__file_url = None  # type: str
         self.__items = None  # type: [ReceiptItem]
-        self.__payments = None  # type: [Payment]
+        self.__payments = None  # type: [InvoicePayment]
         self.__gmt_create = None  # type: str
         self.__gmt_update = None  # type: str
         self.__payment_method_type = None  # type: str
-        self.__footer = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -82,7 +81,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def receipt_id(self):
         """
-        The receipt ID. Maximum length: 64 characters.
+        Receipt ID. Unique identifier for the receipt. Returned only when result.resultCode is SUCCESS.
         """
         return self.__receipt_id
 
@@ -92,7 +91,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def original_receipt_id(self):
         """
-        The original receipt id. Maximum length: 64 characters. Note: See documentation for details.
+        Original receipt ID for refund receipts (FK -&gt; ibilling_receipt.receipt_id). Only set when receiptType&#x3D;REFUND. Null for PAYMENT receipts. Returned only when result.resultCode is SUCCESS.
         """
         return self.__original_receipt_id
 
@@ -102,7 +101,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Associated Invoice ID. Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 
@@ -112,7 +111,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Associated Subscription ID. Null for standalone receipts not tied to a subscription. Returned only when result.resultCode is SUCCESS.
         """
         return self.__subscription_id
 
@@ -122,7 +121,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Customer ID. Returned only when result.resultCode is SUCCESS.
         """
         return self.__customer_id
 
@@ -132,7 +131,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def payment_id(self):
         """
-        The unique ID assigned by Antom to identify a payment. Maximum length: 64 characters.
+        Associated Payment transaction ID. Null for refund receipts. Returned only when result.resultCode is SUCCESS.
         """
         return self.__payment_id
 
@@ -142,7 +141,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def refund_id(self):
         """
-        The refund id. Maximum length: 64 characters.
+        Associated Refund transaction ID. Null for payment receipts. Returned only when result.resultCode is SUCCESS.
         """
         return self.__refund_id
 
@@ -152,7 +151,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def receipt_type(self):
         """
-        The receipt type. Maximum length: 16 characters.
+        Receipt type. Allowed values: &#x60;PAYMENT&#x60; - receipt for a payment transaction; &#x60;REFUND&#x60; - receipt for a refund transaction. Merchants should handle unknown enum values gracefully. Returned only when result.resultCode is SUCCESS.
         """
         return self.__receipt_type
 
@@ -162,7 +161,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 32 characters.
+        Receipt lifecycle status. Allowed values: &#x60;ACTIVE&#x60; - payment receipt with no refunds applied, receipt is final; &#x60;PARTIALLY_REFUNDED&#x60; - some amount has been refunded, receipt reflects partial refund; &#x60;REFUNDED&#x60; - fully refunded, no remaining balance. Merchants should handle unknown enum values gracefully. Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 
@@ -172,7 +171,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def reason(self):
         """
-        The reason for the status change. Maximum length: 32 characters.
+        Reason for receipt creation. Allowed values: &#x60;SUBSCRIPTION_CREATION&#x60; - receipt generated when a new subscription is first charged; &#x60;RECURRENCE&#x60; - receipt generated for a recurring billing cycle; &#x60;UPDATE&#x60; - receipt generated when a subscription change (upgrade, downgrade, or quantity change) triggers a proration charge or credit; &#x60;TRIAL_END&#x60; - receipt generated when a free trial ends and the first paid charge occurs; &#x60;REFUND&#x60; - receipt generated for a refund transaction. Merchants should handle unknown enum values gracefully. Returned only when result.resultCode is SUCCESS.
         """
         return self.__reason
 
@@ -182,7 +181,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def customer_first_name(self):
         """
-        The customer first name. Maximum length: 256 characters.
+        Customer&#39;s first name. Populated from the customer record at receipt creation time. Null if the customer record had no &#x60;firstName&#x60; at receipt creation time. Returned only when result.resultCode is SUCCESS.
         """
         return self.__customer_first_name
 
@@ -192,7 +191,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def customer_last_name(self):
         """
-        The customer last name. Maximum length: 256 characters.
+        Customer&#39;s last name. Populated from the customer record at receipt creation time. Null if the customer record had no &#x60;lastName&#x60; at receipt creation time. Returned only when result.resultCode is SUCCESS.
         """
         return self.__customer_last_name
 
@@ -202,7 +201,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def customer_email(self):
         """
-        The email address of the customer. Maximum length: 256 characters.
+        Customer&#39;s email address. Populated from the customer record at receipt creation time. Null if the customer record had no email at receipt creation time. Returned only when result.resultCode is SUCCESS.
         """
         return self.__customer_email
 
@@ -212,7 +211,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def collection_method(self):
         """
-        The collection method. Maximum length: 32 characters.
+        Payment collection method. Allowed values: &#x60;CHARGE_AUTOMATICALLY&#x60; - payment is collected automatically at billing cycle; &#x60;SEND_INVOICE&#x60; - payment is collected via a sent invoice. Null when not applicable (e.g., manual payment confirmation). Returned only when result.resultCode is SUCCESS.
         """
         return self.__collection_method
 
@@ -332,7 +331,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def fx_rate(self):
         """
-        The fx rate. Maximum length: 32 characters.
+        Foreign exchange rate applied when payment currency differs from settlement currency (e.g., &#x60;1.0600&#x60;). Null for same-currency transactions. Returned only when result.resultCode is SUCCESS.
         """
         return self.__fx_rate
 
@@ -342,7 +341,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def fx_rate_id(self):
         """
-        The fx rate id. Maximum length: 64 characters.
+        FX rate reference ID for audit and reconciliation. Null when no FX rate was applied. Returned only when result.resultCode is SUCCESS.
         """
         return self.__fx_rate_id
 
@@ -352,7 +351,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def payment_method(self):
         """
-        The payment method. Maximum length: 32 characters.
+        Payment method used. Allowed values: &#x60;CARD&#x60;, &#x60;BANK_TRANSFER&#x60;, &#x60;WALLET&#x60;, &#x60;OFFLINE&#x60;. Null for offline payment or when payment method is not available. Returned only when result.resultCode is SUCCESS.
         """
         return self.__payment_method
 
@@ -362,7 +361,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def period_start(self):
         """
-        The period start. Maximum length: 24 characters.
+        ISO 8601 timestamp of billing period start. Null if not subscription-based. Returned only when result.resultCode is SUCCESS.
         """
         return self.__period_start
 
@@ -372,7 +371,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def period_end(self):
         """
-        The period end. Maximum length: 24 characters.
+        ISO 8601 timestamp of billing period end. Null if not subscription-based. Returned only when result.resultCode is SUCCESS.
         """
         return self.__period_end
 
@@ -382,7 +381,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def paid_time(self):
         """
-        The paid time. Maximum length: 24 characters.
+        ISO 8601 timestamp of when payment was completed. Null for REFUND-type receipts or unpaid receipts. Returned only when result.resultCode is SUCCESS.
         """
         return self.__paid_time
 
@@ -392,7 +391,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def due_date(self):
         """
-        The due date. Maximum length: 24 characters.
+        ISO 8601 timestamp of payment due date. Null for receipts without a due date (e.g., auto-charged subscriptions). Returned only when result.resultCode is SUCCESS.
         """
         return self.__due_date
 
@@ -402,7 +401,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def payment_request_id(self):
         """
-        The unique ID assigned by a merchant to identify a payment request. Maximum length: 128 characters.
+        Outbound payment request ID used as idempotency key for the payment call. Null for offline confirmations or when no payment was initiated. Returned only when result.resultCode is SUCCESS.
         """
         return self.__payment_request_id
 
@@ -412,7 +411,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def pay_to_request_id(self):
         """
-        The pay to request id. Maximum length: 128 characters.
+        Payment order request ID. Null if not applicable. Returned only when result.resultCode is SUCCESS.
         """
         return self.__pay_to_request_id
 
@@ -422,7 +421,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def pay_to_id(self):
         """
-        The pay to id. Maximum length: 64 characters.
+        Payment order ID. Null if not applicable. Returned only when result.resultCode is SUCCESS.
         """
         return self.__pay_to_id
 
@@ -432,7 +431,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def description(self):
         """
-        The description. Maximum length: 512 characters.
+        Receipt description or narrative set by the merchant. Null if no description was provided. Returned only when result.resultCode is SUCCESS.
         """
         return self.__description
 
@@ -442,7 +441,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def file_url(self):
         """
-        The file url. Maximum length: 2048 characters.
+        URL to the hosted receipt page or downloadable receipt PDF. Null if receipt file has not been generated. Returned only when result.resultCode is SUCCESS.
         """
         return self.__file_url
 
@@ -452,7 +451,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def items(self):
         """
-        The items.
+        Line items from the associated invoice. Sorted by &#x60;periodStart&#x60; desc, then &#x60;itemId&#x60; desc. Invoices rarely exceed 100 line items; if truncated, use the Invoice Detail API for the full list. See LineItem Object below. Note: When the associated invoice has more than 100 items, only the 100 most recent items are returned. Check the Invoice Detail API for the complete list. Returned only when result.resultCode is SUCCESS.
         """
         return self.__items
 
@@ -462,7 +461,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def payments(self):
         """
-        The payments.
+        Payment attempt history for the associated invoice. Sorted by &#x60;attemptNo&#x60; asc (chronological). Invoices rarely exceed 50 payment attempts; if truncated, contact Antom support. See PaymentInfo Object below. Null if no payment attempts exist. Note: When there are more than 50 payment attempts, only the first 50 are returned. Contact Antom support for the complete list. Returned only when result.resultCode is SUCCESS.
         """
         return self.__payments
 
@@ -472,7 +471,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def gmt_create(self):
         """
-        The creation time. Maximum length: 24 characters.
+        ISO 8601 timestamp of receipt creation. Maximum length: 29 characters. Returned only when result.resultCode is SUCCESS.
         """
         return self.__gmt_create
 
@@ -482,7 +481,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def gmt_update(self):
         """
-        The gmt update. Maximum length: 24 characters.
+        ISO 8601 timestamp of last receipt update. Maximum length: 29 characters. Returned only when result.resultCode is SUCCESS.
         """
         return self.__gmt_update
 
@@ -492,23 +491,13 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
     @property
     def payment_method_type(self):
         """
-        The payment method type. Maximum length: 32 characters.
+        Payment method type (e.g., &#x60;CARD&#x60;, &#x60;WALLET&#x60;). Null if not set. Returned only when result.resultCode is SUCCESS.
         """
         return self.__payment_method_type
 
     @payment_method_type.setter
     def payment_method_type(self, value):
         self.__payment_method_type = value
-    @property
-    def footer(self):
-        """
-        The footer.
-        """
-        return self.__footer
-
-    @footer.setter
-    def footer(self, value):
-        self.__footer = value
 
 
     
@@ -601,8 +590,6 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
             params['gmtUpdate'] = self.gmt_update
         if hasattr(self, "payment_method_type") and self.payment_method_type is not None:
             params['paymentMethodType'] = self.payment_method_type
-        if hasattr(self, "footer") and self.footer is not None:
-            params['footer'] = self.footer
         return params
 
 
@@ -705,7 +692,7 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
         if 'payments' in response_body:
             self.__payments = []
             for item in response_body['payments']:
-                obj = Payment()
+                obj = InvoicePayment()
                 obj.parse_rsp_body(item)
                 self.__payments.append(obj)
         if 'gmtCreate' in response_body:
@@ -714,5 +701,3 @@ class AlipayReceiptInquireDetailsResponse(AlipayResponse):
             self.__gmt_update = response_body['gmtUpdate']
         if 'paymentMethodType' in response_body:
             self.__payment_method_type = response_body['paymentMethodType']
-        if 'footer' in response_body:
-            self.__footer = response_body['footer']

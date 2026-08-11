@@ -15,7 +15,7 @@ class AlipayInvoiceMarkUncollectibleRequest(AlipayRequest):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID to mark as uncollectible. Must be in OPEN status and belong to the requesting merchant. Format: &#x60;inv_&#x60; + 10-char alphanumeric. Validated before any state transition. Cannot be null.
         """
         return self.__invoice_id
 
@@ -25,7 +25,7 @@ class AlipayInvoiceMarkUncollectibleRequest(AlipayRequest):
     @property
     def invoice_note(self):
         """
-        The invoice note. Maximum length: 512 characters.
+        Optional note attached to the invoice for this mark uncollectible action. Stored as an entry in the &#x60;invoiceNotes&#x60; array in the invoice metadata with &#x60;action&#x3D;mark_uncollectible&#x60;. Enables merchants to attach contextual notes (e.g., \&quot;Customer declared bankruptcy\&quot;) to the invoice audit trail. Can be null (defaults to null - no note provided).
         """
         return self.__invoice_note
 

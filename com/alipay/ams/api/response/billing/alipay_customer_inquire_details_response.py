@@ -28,20 +28,21 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
         self.__shipping_city = None  # type: str
         self.__shipping_address = None  # type: str
         self.__shipping_address_detail = None  # type: str
-        self.__shipping_zip_code = None  # type: str
         self.__description = None  # type: str
         self.__currency = None  # type: str
         self.__preferred_locales = None  # type: [str]
         self.__default_payment_method = None  # type: str
         self.__status = None  # type: str
         self.__reference_customer_id = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__phone_no = None  # type: str
         self.__country_code = None  # type: str
         self.__billing_email = None  # type: str
         self.__shipping_first_name = None  # type: str
         self.__shipping_last_name = None  # type: str
         self.__shipping_country_code = None  # type: str
+        self.__shipping_zipcode = None  # type: str
+        self.__gmt_create = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -58,7 +59,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated customer ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__customer_id
 
@@ -68,7 +69,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def customer_request_id(self):
         """
-        The unique ID assigned by a merchant to identify a request. Maximum length: 64 characters. Note: See documentation for details.
+        Merchant-supplied idempotency key used at creation. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__customer_request_id
 
@@ -78,7 +79,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def alipay_user_id(self):
         """
-        The Alipay user ID. Maximum length: 64 characters. Note: See documentation for details.
+        Bound Alipay user ID for channel routing and risk control. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set; omitted (not returned as null) if not set.
         """
         return self.__alipay_user_id
 
@@ -88,7 +89,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def email(self):
         """
-        The email address. Maximum length: 256 characters. Note: See documentation for details.
+        Customer email address. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__email
 
@@ -98,7 +99,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def first_name(self):
         """
-        The first name. Maximum length: 256 characters. Note: See documentation for details.
+        Customer first name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__first_name
 
@@ -108,7 +109,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def last_name(self):
         """
-        The last name. Maximum length: 256 characters. Note: See documentation for details.
+        Customer last name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__last_name
 
@@ -118,7 +119,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def country(self):
         """
-        The country or region code. Maximum length: 8 characters. Note: See documentation for details.
+        Billing address country (ISO 3166-1 alpha-2). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__country
 
@@ -128,7 +129,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def state(self):
         """
-        The state or province. Maximum length: 128 characters. Note: See documentation for details.
+        Billing address state. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__state
 
@@ -138,7 +139,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def city(self):
         """
-        The city. Maximum length: 256 characters. Note: See documentation for details.
+        Billing address city. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__city
 
@@ -148,7 +149,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def address(self):
         """
-        The address. Maximum length: 1024 characters. Note: See documentation for details.
+        Billing address street line 1. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__address
 
@@ -158,7 +159,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def address_detail(self):
         """
-        The detailed address information. Maximum length: 2048 characters. Note: See documentation for details.
+        Billing address street line 2. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__address_detail
 
@@ -168,7 +169,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def zipcode(self):
         """
-        The ZIP or postal code. Maximum length: 32 characters. Note: See documentation for details.
+        Billing address postal code. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__zipcode
 
@@ -178,7 +179,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_phone(self):
         """
-        The shipping phone. Maximum length: 32 characters. Note: See documentation for details.
+        Shipping phone. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_phone
 
@@ -188,7 +189,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_country(self):
         """
-        The shipping country. Maximum length: 8 characters. Note: See documentation for details.
+        Shipping country (ISO 3166-1 alpha-2). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_country
 
@@ -198,7 +199,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_state(self):
         """
-        The shipping state. Maximum length: 128 characters. Note: See documentation for details.
+        Shipping state. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_state
 
@@ -208,7 +209,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_city(self):
         """
-        The shipping city. Maximum length: 256 characters. Note: See documentation for details.
+        Shipping city. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_city
 
@@ -218,7 +219,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_address(self):
         """
-        The shipping address. Maximum length: 1024 characters. Note: See documentation for details.
+        Shipping street line 1. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_address
 
@@ -228,7 +229,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_address_detail(self):
         """
-        The shipping address detail. Maximum length: 2048 characters. Note: See documentation for details.
+        Shipping street line 2. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_address_detail
 
@@ -236,19 +237,9 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     def shipping_address_detail(self, value):
         self.__shipping_address_detail = value
     @property
-    def shipping_zip_code(self):
-        """
-        The shipping zip code. Maximum length: 32 characters. Note: See documentation for details.
-        """
-        return self.__shipping_zip_code
-
-    @shipping_zip_code.setter
-    def shipping_zip_code(self, value):
-        self.__shipping_zip_code = value
-    @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters. Note: See documentation for details.
+        Free-text description. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__description
 
@@ -258,7 +249,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def currency(self):
         """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 8 characters. Note: See documentation for details.
+        Default currency (ISO 4217). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__currency
 
@@ -268,7 +259,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def preferred_locales(self):
         """
-        The preferred language or locale settings. Maximum length: 256 characters. Note: See documentation for details.
+        Preferred locale(s). Maximum size: 5 elements. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__preferred_locales
 
@@ -278,7 +269,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def default_payment_method(self):
         """
-        The default payment method token. Maximum length: 64 characters. Note: See documentation for details.
+        Default payment method token. Sourced from &#x60;defaultCustomerPaymentMethodId&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__default_payment_method
 
@@ -288,7 +279,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Customer status: &#x60;ACTIVE&#x60; / &#x60;DELETED&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__status
 
@@ -298,7 +289,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def reference_customer_id(self):
         """
-        The customer ID in the merchant system. Maximum length: 32 characters. Note: See documentation for details.
+        Merchant&#39;s internal customer ID reference. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__reference_customer_id
 
@@ -308,7 +299,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Note: See documentation for details.
+        Merchant-defined metadata encoded as a JSON object string. Maximum length: 500 characters. Returned only when result.resultCode is SUCCESS and the field was set.
         """
         return self.__metadata
 
@@ -318,7 +309,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def phone_no(self):
         """
-        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        Customer phone number (digits only). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__phone_no
 
@@ -328,7 +319,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def country_code(self):
         """
-        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__country_code
 
@@ -338,7 +329,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def billing_email(self):
         """
-        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        Invoice recipient email (independent of account &#x60;email&#x60;). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__billing_email
 
@@ -348,7 +339,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_first_name(self):
         """
-        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Shipping recipient first name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_first_name
 
@@ -358,7 +349,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_last_name(self):
         """
-        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Shipping recipient last name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_last_name
 
@@ -368,13 +359,33 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
     @property
     def shipping_country_code(self):
         """
-        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        Shipping address numeric calling code. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__shipping_country_code
 
     @shipping_country_code.setter
     def shipping_country_code(self, value):
         self.__shipping_country_code = value
+    @property
+    def shipping_zipcode(self):
+        """
+        Shipping postal code. Wire name: &#x60;shippingZipcode&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
+        """
+        return self.__shipping_zipcode
+
+    @shipping_zipcode.setter
+    def shipping_zipcode(self, value):
+        self.__shipping_zipcode = value
+    @property
+    def gmt_create(self):
+        """
+        Customer creation timestamp. Note: there is NO &#x60;updateTime&#x60; / &#x60;gmtModified&#x60; field on &#x60;CustomerQueryDetailsResult&#x60;. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__gmt_create
+
+    @gmt_create.setter
+    def gmt_create(self, value):
+        self.__gmt_create = value
 
 
     
@@ -419,8 +430,6 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
             params['shippingAddress'] = self.shipping_address
         if hasattr(self, "shipping_address_detail") and self.shipping_address_detail is not None:
             params['shippingAddressDetail'] = self.shipping_address_detail
-        if hasattr(self, "shipping_zip_code") and self.shipping_zip_code is not None:
-            params['shippingZipCode'] = self.shipping_zip_code
         if hasattr(self, "description") and self.description is not None:
             params['description'] = self.description
         if hasattr(self, "currency") and self.currency is not None:
@@ -447,6 +456,10 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
             params['shippingLastName'] = self.shipping_last_name
         if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
             params['shippingCountryCode'] = self.shipping_country_code
+        if hasattr(self, "shipping_zipcode") and self.shipping_zipcode is not None:
+            params['shippingZipcode'] = self.shipping_zipcode
+        if hasattr(self, "gmt_create") and self.gmt_create is not None:
+            params['gmtCreate'] = self.gmt_create
         return params
 
 
@@ -491,8 +504,6 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
             self.__shipping_address = response_body['shippingAddress']
         if 'shippingAddressDetail' in response_body:
             self.__shipping_address_detail = response_body['shippingAddressDetail']
-        if 'shippingZipCode' in response_body:
-            self.__shipping_zip_code = response_body['shippingZipCode']
         if 'description' in response_body:
             self.__description = response_body['description']
         if 'currency' in response_body:
@@ -519,3 +530,7 @@ class AlipayCustomerInquireDetailsResponse(AlipayResponse):
             self.__shipping_last_name = response_body['shippingLastName']
         if 'shippingCountryCode' in response_body:
             self.__shipping_country_code = response_body['shippingCountryCode']
+        if 'shippingZipcode' in response_body:
+            self.__shipping_zipcode = response_body['shippingZipcode']
+        if 'gmtCreate' in response_body:
+            self.__gmt_create = response_body['gmtCreate']

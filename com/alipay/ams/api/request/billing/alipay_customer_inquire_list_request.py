@@ -16,16 +16,17 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
         self.__email = None  # type: str
         self.__phone_no = None  # type: str
         self.__country_code = None  # type: str
-        self.__billing_email = None  # type: str
-        self.__shipping_first_name = None  # type: str
-        self.__shipping_last_name = None  # type: str
-        self.__shipping_country_code = None  # type: str
+        self.__gmt_create_end = None  # type: str
+        self.__customer_id = None  # type: str
+        self.__country = None  # type: [str]
+        self.__email_prefix = None  # type: str
+        self.__gmt_create_start = None  # type: str
         
 
     @property
     def starting_after(self):
         """
-        The starting after. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for forward pagination - return customers created before this &#x60;customerId&#x60; (older items). Pass the &#x60;nextCursor&#x60; from the previous response. Mutually exclusive with &#x60;endingBefore&#x60;.
         """
         return self.__starting_after
 
@@ -35,7 +36,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def ending_before(self):
         """
-        The ending before. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for backward pagination - return customers created after this &#x60;customerId&#x60; (newer items). Mutually exclusive with &#x60;startingAfter&#x60;.
         """
         return self.__ending_before
 
@@ -45,7 +46,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def limit(self):
         """
-        The limit.
+        Page size. Value range: 1-100. Default: 20.
         """
         return self.__limit
 
@@ -55,7 +56,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def include_total(self):
         """
-        The include total.
+        When &#x60;true&#x60;, an additional COUNT query is executed to populate &#x60;total&#x60; in the response. Default: &#x60;false&#x60;.
         """
         return self.__include_total
 
@@ -65,7 +66,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by customer status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;DELETED&#x60;. If not provided, returns customers of all statuses.
         """
         return self.__status
 
@@ -75,7 +76,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def email(self):
         """
-        The email address. Maximum length: 256 characters.
+        Filter by exact email address match. Maximum length: 256 characters.
         """
         return self.__email
 
@@ -85,7 +86,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def phone_no(self):
         """
-        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        Filter by phone number (canonical). Cross-field constraint: when &#x60;phoneNo&#x60; is provided, &#x60;countryCode&#x60; is REQUIRED - omitting it returns &#x60;PARAM_ILLEGAL&#x60;.
         """
         return self.__phone_no
 
@@ -95,7 +96,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @property
     def country_code(self):
         """
-        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;phoneNo&#x60; is provided.
         """
         return self.__country_code
 
@@ -103,45 +104,55 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     def country_code(self, value):
         self.__country_code = value
     @property
-    def billing_email(self):
+    def gmt_create_end(self):
         """
-        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        Inclusive end of the creation-timestamp range. Closed interval with &#x60;gmtCreateStart&#x60;.
         """
-        return self.__billing_email
+        return self.__gmt_create_end
 
-    @billing_email.setter
-    def billing_email(self, value):
-        self.__billing_email = value
+    @gmt_create_end.setter
+    def gmt_create_end(self, value):
+        self.__gmt_create_end = value
     @property
-    def shipping_first_name(self):
+    def customer_id(self):
         """
-        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Filter by exact customer ID (single exact match).
         """
-        return self.__shipping_first_name
+        return self.__customer_id
 
-    @shipping_first_name.setter
-    def shipping_first_name(self, value):
-        self.__shipping_first_name = value
+    @customer_id.setter
+    def customer_id(self, value):
+        self.__customer_id = value
     @property
-    def shipping_last_name(self):
+    def country(self):
         """
-        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Filter by billing country codes (ISO 3166-1 alpha-2) using SQL &#x60;IN&#x60; clause. Maximum size: 50 elements.
         """
-        return self.__shipping_last_name
+        return self.__country
 
-    @shipping_last_name.setter
-    def shipping_last_name(self, value):
-        self.__shipping_last_name = value
+    @country.setter
+    def country(self, value):
+        self.__country = value
     @property
-    def shipping_country_code(self):
+    def email_prefix(self):
         """
-        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        Filter by email LIKE prefix% (e.g. &#x60;\&quot;alice\&quot;&#x60; matches &#x60;alice@example.com&#x60;, &#x60;alice.smith@example.com&#x60;). Maximum length: 256 characters.
         """
-        return self.__shipping_country_code
+        return self.__email_prefix
 
-    @shipping_country_code.setter
-    def shipping_country_code(self, value):
-        self.__shipping_country_code = value
+    @email_prefix.setter
+    def email_prefix(self, value):
+        self.__email_prefix = value
+    @property
+    def gmt_create_start(self):
+        """
+        Inclusive start of the creation-timestamp range. Closed interval with &#x60;gmtCreateEnd&#x60;.
+        """
+        return self.__gmt_create_start
+
+    @gmt_create_start.setter
+    def gmt_create_start(self, value):
+        self.__gmt_create_start = value
 
 
     def to_ams_json(self): 
@@ -167,14 +178,16 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             params['phoneNo'] = self.phone_no
         if hasattr(self, "country_code") and self.country_code is not None:
             params['countryCode'] = self.country_code
-        if hasattr(self, "billing_email") and self.billing_email is not None:
-            params['billingEmail'] = self.billing_email
-        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
-            params['shippingFirstName'] = self.shipping_first_name
-        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
-            params['shippingLastName'] = self.shipping_last_name
-        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
-            params['shippingCountryCode'] = self.shipping_country_code
+        if hasattr(self, "gmt_create_end") and self.gmt_create_end is not None:
+            params['gmtCreateEnd'] = self.gmt_create_end
+        if hasattr(self, "customer_id") and self.customer_id is not None:
+            params['customerId'] = self.customer_id
+        if hasattr(self, "country") and self.country is not None:
+            params['country'] = self.country
+        if hasattr(self, "email_prefix") and self.email_prefix is not None:
+            params['emailPrefix'] = self.email_prefix
+        if hasattr(self, "gmt_create_start") and self.gmt_create_start is not None:
+            params['gmtCreateStart'] = self.gmt_create_start
         return params
 
 
@@ -197,11 +210,13 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             self.__phone_no = response_body['phoneNo']
         if 'countryCode' in response_body:
             self.__country_code = response_body['countryCode']
-        if 'billingEmail' in response_body:
-            self.__billing_email = response_body['billingEmail']
-        if 'shippingFirstName' in response_body:
-            self.__shipping_first_name = response_body['shippingFirstName']
-        if 'shippingLastName' in response_body:
-            self.__shipping_last_name = response_body['shippingLastName']
-        if 'shippingCountryCode' in response_body:
-            self.__shipping_country_code = response_body['shippingCountryCode']
+        if 'gmtCreateEnd' in response_body:
+            self.__gmt_create_end = response_body['gmtCreateEnd']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'country' in response_body:
+            self.__country = response_body['country']
+        if 'emailPrefix' in response_body:
+            self.__email_prefix = response_body['emailPrefix']
+        if 'gmtCreateStart' in response_body:
+            self.__gmt_create_start = response_body['gmtCreateStart']

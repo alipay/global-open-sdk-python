@@ -29,7 +29,7 @@ class AlipayPromotionCodeCreateResponse(AlipayResponse):
     @property
     def promotion_code_id(self):
         """
-        The promotion code ID. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated unique promotion code ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__promotion_code_id
 
@@ -39,7 +39,7 @@ class AlipayPromotionCodeCreateResponse(AlipayResponse):
     @property
     def code(self):
         """
-        The code. Maximum length: 128 characters. Note: See documentation for details.
+        The promotion code string (merchant-supplied or auto-generated). Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__code
 
@@ -49,7 +49,7 @@ class AlipayPromotionCodeCreateResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Promotion code status. Always &#x60;ACTIVE&#x60; on creation. Returned when resultCode is &#x60;SUCCESS&#x60;. Future status values may be added; merchants must handle unrecognized values gracefully (log and skip).
         """
         return self.__status
 

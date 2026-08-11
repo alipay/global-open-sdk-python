@@ -17,13 +17,13 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
         self.__prices = None  # type: [Price]
-        self.__has_more_prices = None  # type: bool
+        self.__product_request_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -40,7 +40,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        System-generated product ID Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_id
 
@@ -50,7 +50,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name Returned only when result.resultCode is SUCCESS.
         """
         return self.__name
 
@@ -60,7 +60,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def type(self):
         """
-        The type. Maximum length: 16 characters.
+        Product type. Enum: SERVICE(intangible digital service or SaaS offering - checkout skips shipping address collection), GOOD(tangible physical product requiring delivery - checkout collects shipping address) Returned only when result.resultCode is SUCCESS.
         """
         return self.__type
 
@@ -70,7 +70,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Product description. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__description
 
@@ -80,7 +80,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def images(self):
         """
-        The images.
+        Product image URLs. O - Returned when non-null and non-empty; absent if null or empty Returned only when result.resultCode is SUCCESS.
         """
         return self.__images
 
@@ -90,7 +90,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Product-level unit label. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__unit_label
 
@@ -100,7 +100,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Custom key-value metadata stored as JSON string. O - May be null in the response when the value is not set The value must be a valid JSON object string. Returned only when result.resultCode is SUCCESS.
         """
         return self.__metadata
 
@@ -110,7 +110,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def active(self):
         """
-        The active.
+        Product active status. true&#x3D;product is active and can be used for new subscriptions, false&#x3D;product is deactivated and cannot be used for new subscriptions. Cannot be null. Deactivated products can be reactivated via Update active&#x3D;true Returned only when result.resultCode is SUCCESS.
         """
         return self.__active
 
@@ -120,7 +120,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp Returned only when result.resultCode is SUCCESS.
         """
         return self.__created_at
 
@@ -130,7 +130,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 deactivation timestamp. O - Returned when product has been deactivated (active&#x3D;false); absent when product is active Returned only when result.resultCode is SUCCESS.
         """
         return self.__deactivated_at
 
@@ -140,7 +140,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 last update timestamp. O - Returned when non-null; absent from response if never updated after creation Returned only when result.resultCode is SUCCESS.
         """
         return self.__updated_at
 
@@ -150,7 +150,7 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     @property
     def prices(self):
         """
-        The prices. Note: See documentation for details.
+        Active default prices only for this product. O - Returned when the product has at least one active default price; absent when no active default prices exist. Only prices where &#x60;defaultPrice&#x3D;true&#x60; AND &#x60;active&#x3D;true&#x60; are included - non-default prices and deactivated prices are excluded. Callers must use the Price List API (&#x60;/ams/api/v1/billing/price/inquireList&#x60;) to retrieve non-default or inactive prices. When prices array contains items, each Price object&#39;s M fields (priceId, productId, pricingModel, active, createdAt) are mandatory Returned only when result.resultCode is SUCCESS.
         """
         return self.__prices
 
@@ -158,15 +158,15 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
     def prices(self, value):
         self.__prices = value
     @property
-    def has_more_prices(self):
+    def product_request_id(self):
         """
-        The has more prices. Note: See documentation for details.
+        Idempotency key. O - May be null in the response when the value is not set. Returned only when result.resultCode is SUCCESS.
         """
-        return self.__has_more_prices
+        return self.__product_request_id
 
-    @has_more_prices.setter
-    def has_more_prices(self, value):
-        self.__has_more_prices = value
+    @product_request_id.setter
+    def product_request_id(self, value):
+        self.__product_request_id = value
 
 
     
@@ -199,8 +199,8 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
             params['updatedAt'] = self.updated_at
         if hasattr(self, "prices") and self.prices is not None:
             params['prices'] = self.prices
-        if hasattr(self, "has_more_prices") and self.has_more_prices is not None:
-            params['hasMorePrices'] = self.has_more_prices
+        if hasattr(self, "product_request_id") and self.product_request_id is not None:
+            params['productRequestId'] = self.product_request_id
         return params
 
 
@@ -237,5 +237,5 @@ class AlipayProductInquireDetailsResponse(AlipayResponse):
                 obj = Price()
                 obj.parse_rsp_body(item)
                 self.__prices.append(obj)
-        if 'hasMorePrices' in response_body:
-            self.__has_more_prices = response_body['hasMorePrices']
+        if 'productRequestId' in response_body:
+            self.__product_request_id = response_body['productRequestId']

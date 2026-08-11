@@ -10,15 +10,15 @@ class AlipayPriceUpdateRequest(AlipayRequest):
 
         self.__price_id = None  # type: str
         self.__name = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
-        self.__metadata_keys_to_remove = None  # type: str
+        self.__metadata = None  # type: str
         self.__active = None  # type: bool
+        self.__default_price = None  # type: bool
         
 
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 32 characters.
+        Price ID to update. Cannot be null. Format: price_ prefix + alphanumeric suffix. This field serves as the idempotent key for this operation
         """
         return self.__price_id
 
@@ -28,7 +28,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @property
     def name(self):
         """
-        The name. Maximum length: 128 characters.
+        Price name. O - Present with value: update; present with null: clear; absent: no change. Can be null
         """
         return self.__name
 
@@ -38,7 +38,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 20 characters. Note: See documentation for details.
+        Custom metadata encoded as a JSON object string. When provided, the value fully replaces the existing metadata; keys are not merged. When omitted, the existing value is unchanged. PII must not be stored.
         """
         return self.__metadata
 
@@ -46,25 +46,25 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     def metadata(self, value):
         self.__metadata = value
     @property
-    def metadata_keys_to_remove(self):
-        """
-        The metadata keys to remove. Maximum length: 20 characters.
-        """
-        return self.__metadata_keys_to_remove
-
-    @metadata_keys_to_remove.setter
-    def metadata_keys_to_remove(self, value):
-        self.__metadata_keys_to_remove = value
-    @property
     def active(self):
         """
-        The active.
+        Price active status. O - explicit true&#x3D;activate, explicit false&#x3D;deactivate, absent or null&#x3D;no change. There is no \&quot;clear\&quot; semantic for active - it is always either true or false. For Boolean fields on update APIs, null/absent means \&quot;no change\&quot; (not \&quot;set to null\&quot;). See Section 6.8 Update API Null/Absent Semantics for the authoritative definition. When deactivated (active&#x3D;false), the price cannot be used for new subscriptions; existing subscriptions continue using the price
         """
         return self.__active
 
     @active.setter
     def active(self, value):
         self.__active = value
+    @property
+    def default_price(self):
+        """
+        Whether this price is the default price for the product. O - Only &#x60;true&#x60; is accepted; &#x60;false&#x60; or absent means no change. When set to true, this price becomes the default price of the product and any previous default price of that product is automatically un-defaulted. Cannot be combined with active&#x3D;false in the same request - a default price must remain active
+        """
+        return self.__default_price
+
+    @default_price.setter
+    def default_price(self, value):
+        self.__default_price = value
 
 
     def to_ams_json(self): 
@@ -80,10 +80,10 @@ class AlipayPriceUpdateRequest(AlipayRequest):
             params['name'] = self.name
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
-        if hasattr(self, "metadata_keys_to_remove") and self.metadata_keys_to_remove is not None:
-            params['metadataKeysToRemove'] = self.metadata_keys_to_remove
         if hasattr(self, "active") and self.active is not None:
             params['active'] = self.active
+        if hasattr(self, "default_price") and self.default_price is not None:
+            params['defaultPrice'] = self.default_price
         return params
 
 
@@ -96,7 +96,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
             self.__name = response_body['name']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
-        if 'metadataKeysToRemove' in response_body:
-            self.__metadata_keys_to_remove = response_body['metadataKeysToRemove']
         if 'active' in response_body:
             self.__active = response_body['active']
+        if 'defaultPrice' in response_body:
+            self.__default_price = response_body['defaultPrice']

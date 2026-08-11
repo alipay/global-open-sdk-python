@@ -51,6 +51,7 @@ class AlipayPayResponse(AlipayResponse):
         self.__acquirer_info = None  # type: AcquirerInfo
         self.__promotion_result = None  # type: [PromotionResult]
         self.__subscription_id = None  # type: str
+        self.__invoice_id = None  # type: str
         self.__status = None  # type: str
         self.__current_period_start = None  # type: str
         self.__current_period_end = None  # type: str
@@ -330,7 +331,7 @@ class AlipayPayResponse(AlipayResponse):
     @property
     def subscription_id(self):
         """
-        The subscription ID echo.
+        The subscription ID echo. Returned only when subscriptionId was provided in the request and result.resultCode is SUCCESS.
         """
         return self.__subscription_id
 
@@ -338,9 +339,19 @@ class AlipayPayResponse(AlipayResponse):
     def subscription_id(self, value):
         self.__subscription_id = value
     @property
+    def invoice_id(self):
+        """
+        The invoice ID being paid. Returned only when subscriptionId was provided in the request and result.resultCode is SUCCESS.
+        """
+        return self.__invoice_id
+
+    @invoice_id.setter
+    def invoice_id(self, value):
+        self.__invoice_id = value
+    @property
     def status(self):
         """
-        The subscription status after payment/token binding.
+        The subscription status after payment or token binding. Expected values include INCOMPLETE, TRIALING, and ACTIVE. Handle unknown values without failing. Returned only when subscriptionId was provided in the request and result.resultCode is SUCCESS.
         """
         return self.__status
 
@@ -350,7 +361,7 @@ class AlipayPayResponse(AlipayResponse):
     @property
     def current_period_start(self):
         """
-        The start time of the billing cycle.
+        The billing period start in ISO 8601 format. Returned only when subscriptionId was provided in the request and result.resultCode is SUCCESS.
         """
         return self.__current_period_start
 
@@ -360,7 +371,7 @@ class AlipayPayResponse(AlipayResponse):
     @property
     def current_period_end(self):
         """
-        The end time of the billing cycle.
+        The billing period end in ISO 8601 format. Returned only when subscriptionId was provided in the request and result.resultCode is SUCCESS.
         """
         return self.__current_period_end
 
@@ -429,6 +440,8 @@ class AlipayPayResponse(AlipayResponse):
             params['promotionResult'] = self.promotion_result
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
             params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "invoice_id") and self.invoice_id is not None:
+            params['invoiceId'] = self.invoice_id
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
         if hasattr(self, "current_period_start") and self.current_period_start is not None:
@@ -514,6 +527,8 @@ class AlipayPayResponse(AlipayResponse):
                 self.__promotion_result.append(obj)
         if 'subscriptionId' in response_body:
             self.__subscription_id = response_body['subscriptionId']
+        if 'invoiceId' in response_body:
+            self.__invoice_id = response_body['invoiceId']
         if 'status' in response_body:
             self.__status = response_body['status']
         if 'currentPeriodStart' in response_body:

@@ -21,13 +21,13 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
         self.__duration_type = None  # type: str
         self.__duration_value = None  # type: int
         self.__duration_unit = None  # type: str
-        self.__max_redemptions = None  # type: int
-        self.__redeemed_count = None  # type: int
         self.__redeem_by = None  # type: str
         self.__applies_to = None  # type: CouponInquireDetailsAppliesTo
         self.__status = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
-        self.__create_time = None  # type: str
+        self.__metadata = None  # type: str
+        self.__gmt_create = None  # type: str
+        self.__max_redemptions = None  # type: int
+        self.__redeemed_count = None  # type: int
         self.parse_rsp_body(rsp_body) 
 
 
@@ -44,7 +44,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated coupon ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__coupon_id
 
@@ -54,7 +54,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def coupon_request_id(self):
         """
-        The coupon request id. Maximum length: 64 characters. Note: See documentation for details.
+        Merchant-supplied idempotency key used at creation. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__coupon_request_id
 
@@ -64,7 +64,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def coupon_name(self):
         """
-        The coupon name. Maximum length: 128 characters. Note: See documentation for details.
+        Coupon display name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__coupon_name
 
@@ -74,7 +74,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def discount_type(self):
         """
-        The discount type. Maximum length: 16 characters. Note: See documentation for details.
+        Discount type: &#x60;PERCENT&#x60; or &#x60;AMOUNT&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__discount_type
 
@@ -84,7 +84,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def percent_off(self):
         """
-        The percent off. Note: See documentation for details.
+        Percentage discount value (up to 2 decimal places). Returned when &#x60;discountType&#x60; &#x3D; &#x60;PERCENT&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__percent_off
 
@@ -104,7 +104,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def duration_type(self):
         """
-        The duration type. Maximum length: 16 characters. Note: See documentation for details.
+        Duration type: &#x60;ONCE&#x60; / &#x60;REPEATING&#x60; / &#x60;FOREVER&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__duration_type
 
@@ -114,7 +114,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def duration_value(self):
         """
-        The duration value. Note: See documentation for details.
+        Duration value. Returned when &#x60;durationType&#x60; &#x3D; &#x60;REPEATING&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__duration_value
 
@@ -124,7 +124,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def duration_unit(self):
         """
-        The duration unit. Maximum length: 16 characters. Note: See documentation for details.
+        Duration unit. Returned when &#x60;durationType&#x60; &#x3D; &#x60;REPEATING&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__duration_unit
 
@@ -132,29 +132,9 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     def duration_unit(self, value):
         self.__duration_unit = value
     @property
-    def max_redemptions(self):
-        """
-        The max redemptions. Note: See documentation for details.
-        """
-        return self.__max_redemptions
-
-    @max_redemptions.setter
-    def max_redemptions(self, value):
-        self.__max_redemptions = value
-    @property
-    def redeemed_count(self):
-        """
-        The redeemed count. Note: See documentation for details.
-        """
-        return self.__redeemed_count
-
-    @redeemed_count.setter
-    def redeemed_count(self, value):
-        self.__redeemed_count = value
-    @property
     def redeem_by(self):
         """
-        The redeem by. Note: See documentation for details.
+        Redemption expiry time. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__redeem_by
 
@@ -174,7 +154,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Coupon status: &#x60;ACTIVE&#x60; / &#x60;INACTIVE&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60;. EXPIRED note (D-3): the system persists only &#x60;ACTIVE&#x60;/&#x60;INACTIVE&#x60;; EXPIRED has no read-time derivation today. When &#x60;status&#x60; is &#x60;ACTIVE&#x60;, compare &#x60;redeemBy&#x60; with the current time to detect an expired coupon.
         """
         return self.__status
 
@@ -184,7 +164,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters. Note: See documentation for details.
+        Merchant-defined key-value pairs. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set. The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -192,15 +172,35 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     def metadata(self, value):
         self.__metadata = value
     @property
-    def create_time(self):
+    def gmt_create(self):
         """
-        The create time. Note: See documentation for details.
+        Creation time (UTC, ISO 8601). Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
-        return self.__create_time
+        return self.__gmt_create
 
-    @create_time.setter
-    def create_time(self, value):
-        self.__create_time = value
+    @gmt_create.setter
+    def gmt_create(self, value):
+        self.__gmt_create = value
+    @property
+    def max_redemptions(self):
+        """
+        Maximum redemption count. Returned when resultCode is &#x60;SUCCESS&#x60;.
+        """
+        return self.__max_redemptions
+
+    @max_redemptions.setter
+    def max_redemptions(self, value):
+        self.__max_redemptions = value
+    @property
+    def redeemed_count(self):
+        """
+        Number of times the coupon has been redeemed. Returned when resultCode is &#x60;SUCCESS&#x60;.
+        """
+        return self.__redeemed_count
+
+    @redeemed_count.setter
+    def redeemed_count(self, value):
+        self.__redeemed_count = value
 
 
     
@@ -227,10 +227,6 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
             params['durationValue'] = self.duration_value
         if hasattr(self, "duration_unit") and self.duration_unit is not None:
             params['durationUnit'] = self.duration_unit
-        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
-            params['maxRedemptions'] = self.max_redemptions
-        if hasattr(self, "redeemed_count") and self.redeemed_count is not None:
-            params['redeemedCount'] = self.redeemed_count
         if hasattr(self, "redeem_by") and self.redeem_by is not None:
             params['redeemBy'] = self.redeem_by
         if hasattr(self, "applies_to") and self.applies_to is not None:
@@ -239,8 +235,12 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
             params['status'] = self.status
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
-        if hasattr(self, "create_time") and self.create_time is not None:
-            params['createTime'] = self.create_time
+        if hasattr(self, "gmt_create") and self.gmt_create is not None:
+            params['gmtCreate'] = self.gmt_create
+        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
+            params['maxRedemptions'] = self.max_redemptions
+        if hasattr(self, "redeemed_count") and self.redeemed_count is not None:
+            params['redeemedCount'] = self.redeemed_count
         return params
 
 
@@ -268,10 +268,6 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
             self.__duration_value = response_body['durationValue']
         if 'durationUnit' in response_body:
             self.__duration_unit = response_body['durationUnit']
-        if 'maxRedemptions' in response_body:
-            self.__max_redemptions = response_body['maxRedemptions']
-        if 'redeemedCount' in response_body:
-            self.__redeemed_count = response_body['redeemedCount']
         if 'redeemBy' in response_body:
             self.__redeem_by = response_body['redeemBy']
         if 'appliesTo' in response_body:
@@ -281,5 +277,9 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
             self.__status = response_body['status']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
-        if 'createTime' in response_body:
-            self.__create_time = response_body['createTime']
+        if 'gmtCreate' in response_body:
+            self.__gmt_create = response_body['gmtCreate']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']
+        if 'redeemedCount' in response_body:
+            self.__redeemed_count = response_body['redeemedCount']

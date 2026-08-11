@@ -24,7 +24,7 @@ class ResultInfo:
     @property
     def result_status(self):
         """
-        Result status. Valid values are: S (success), F (failed), U (unknown). Maximum length: 1 characters.
+        Result status. Valid values are: S (success), F (failed), U (unknown). Maximum length: 1 character.
         """
         return self.__result_status
 

@@ -18,7 +18,7 @@ class PromotionCodeInfo:
     @property
     def promotion_code_id(self):
         """
-        The promotion code ID. Maximum length: 64 characters.
+        System-generated promotion code ID.
         """
         return self.__promotion_code_id
 
@@ -28,7 +28,7 @@ class PromotionCodeInfo:
     @property
     def code(self):
         """
-        The code. Maximum length: 128 characters.
+        The promotion code string.
         """
         return self.__code
 
@@ -38,7 +38,7 @@ class PromotionCodeInfo:
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Filter by promotion code status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;INACTIVE&#x60;. If not provided, returns all statuses.
         """
         return self.__status
 
@@ -48,7 +48,7 @@ class PromotionCodeInfo:
     @property
     def max_redemptions(self):
         """
-        The max redemptions.
+        Maximum redemption count. Value range: 0-999999.
         """
         return self.__max_redemptions
 
@@ -58,7 +58,7 @@ class PromotionCodeInfo:
     @property
     def redeemed_count(self):
         """
-        The redeemed count.
+        Number of times redeemed. Value range: 0-999999.
         """
         return self.__redeemed_count
 
@@ -68,7 +68,7 @@ class PromotionCodeInfo:
     @property
     def expiry_time(self):
         """
-        The expiry time. Note: See documentation for details.
+        Expiry time. Returned when the field was set.
         """
         return self.__expiry_time
 
@@ -78,7 +78,7 @@ class PromotionCodeInfo:
     @property
     def create_time(self):
         """
-        The create time.
+        Creation time (UTC, ISO 8601).
         """
         return self.__create_time
 

@@ -1,9 +1,11 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
-from com.alipay.ams.api.model.billing_subscription_inquire_details_trial_settings import BillingSubscriptionInquireDetailsTrialSettings
-from com.alipay.ams.api.model.billing_subscription_inquire_details_pause_collection import BillingSubscriptionInquireDetailsPauseCollection
+from com.alipay.ams.api.model.billing_subscription_trial_settings import BillingSubscriptionTrialSettings
 from com.alipay.ams.api.model.billing_subscription_inquire_details_cancellation_details import BillingSubscriptionInquireDetailsCancellationDetails
-from com.alipay.ams.api.model.subscription_item import SubscriptionItem
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.billing_subscription_price_item import BillingSubscriptionPriceItem
 from com.alipay.ams.api.model.billing_subscription_discount_info import BillingSubscriptionDiscountInfo
 
 
@@ -17,8 +19,10 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
         self.__result = None  # type: ResultInfo
         self.__subscription_id = None  # type: str
         self.__subscription_request_id = None  # type: str
-        self.__created_at = None  # type: str
+        self.__create_time = None  # type: str
         self.__status = None  # type: str
+        self.__billing_mode = None  # type: str
+        self.__payment_behavior = None  # type: str
         self.__current_period_start = None  # type: str
         self.__current_period_end = None  # type: str
         self.__billing_cycle_anchor = None  # type: str
@@ -26,8 +30,7 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
         self.__canceled_at = None  # type: str
         self.__trial_start = None  # type: str
         self.__trial_end = None  # type: str
-        self.__trial_settings = None  # type: BillingSubscriptionInquireDetailsTrialSettings
-        self.__pause_collection = None  # type: BillingSubscriptionInquireDetailsPauseCollection
+        self.__trial_settings = None  # type: BillingSubscriptionTrialSettings
         self.__cancel_at = None  # type: str
         self.__collection_method = None  # type: str
         self.__days_until_due = None  # type: int
@@ -35,9 +38,12 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
         self.__termination_reason = None  # type: str
         self.__description = None  # type: str
         self.__default_payment_method = None  # type: str
-        self.__subscription_items = None  # type: [SubscriptionItem]
+        self.__subtotal = None  # type: Amount
+        self.__discount_amount = None  # type: Amount
+        self.__total_amount = None  # type: Amount
+        self.__price_items = None  # type: [BillingSubscriptionPriceItem]
         self.__discounts = None  # type: [BillingSubscriptionDiscountInfo]
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -72,15 +78,15 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     def subscription_request_id(self, value):
         self.__subscription_request_id = value
     @property
-    def created_at(self):
+    def create_time(self):
         """
-        The created at.
+        The subscription creation time in ISO 8601 format. Returned only when result.resultCode is SUCCESS.
         """
-        return self.__created_at
+        return self.__create_time
 
-    @created_at.setter
-    def created_at(self, value):
-        self.__created_at = value
+    @create_time.setter
+    def create_time(self, value):
+        self.__create_time = value
     @property
     def status(self):
         """
@@ -91,6 +97,26 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     @status.setter
     def status(self, value):
         self.__status = value
+    @property
+    def billing_mode(self):
+        """
+        The billing mode. Valid values are LICENSED, METERED, and MIXED. Maximum length: 8 characters.
+        """
+        return self.__billing_mode
+
+    @billing_mode.setter
+    def billing_mode(self, value):
+        self.__billing_mode = value
+    @property
+    def payment_behavior(self):
+        """
+        The payment behavior used for the initial subscription payment. Valid values are ALLOW_INCOMPLETE, ERROR_IF_INCOMPLETE, and PENDING_IF_INCOMPLETE.
+        """
+        return self.__payment_behavior
+
+    @payment_behavior.setter
+    def payment_behavior(self, value):
+        self.__payment_behavior = value
     @property
     def current_period_start(self):
         """
@@ -172,16 +198,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     def trial_settings(self, value):
         self.__trial_settings = value
     @property
-    def pause_collection(self):
-        """Gets the pause_collection of this AlipayBillingSubscriptionInquireDetailsResponse.
-        
-        """
-        return self.__pause_collection
-
-    @pause_collection.setter
-    def pause_collection(self, value):
-        self.__pause_collection = value
-    @property
     def cancel_at(self):
         """
         The cancel at. Note: See documentation for details.
@@ -252,15 +268,45 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     def default_payment_method(self, value):
         self.__default_payment_method = value
     @property
-    def subscription_items(self):
+    def subtotal(self):
+        """Gets the subtotal of this AlipayBillingSubscriptionInquireDetailsResponse.
+        
         """
-        The subscription items. Maximum length: 20 characters.
-        """
-        return self.__subscription_items
+        return self.__subtotal
 
-    @subscription_items.setter
-    def subscription_items(self, value):
-        self.__subscription_items = value
+    @subtotal.setter
+    def subtotal(self, value):
+        self.__subtotal = value
+    @property
+    def discount_amount(self):
+        """Gets the discount_amount of this AlipayBillingSubscriptionInquireDetailsResponse.
+        
+        """
+        return self.__discount_amount
+
+    @discount_amount.setter
+    def discount_amount(self, value):
+        self.__discount_amount = value
+    @property
+    def total_amount(self):
+        """Gets the total_amount of this AlipayBillingSubscriptionInquireDetailsResponse.
+        
+        """
+        return self.__total_amount
+
+    @total_amount.setter
+    def total_amount(self, value):
+        self.__total_amount = value
+    @property
+    def price_items(self):
+        """
+        The subscription price items. Maximum size: 100.
+        """
+        return self.__price_items
+
+    @price_items.setter
+    def price_items(self, value):
+        self.__price_items = value
     @property
     def discounts(self):
         """
@@ -274,7 +320,7 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Note: See documentation for details.
+        Custom metadata for special use cases. Note: See documentation for details. The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -293,10 +339,14 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "subscription_request_id") and self.subscription_request_id is not None:
             params['subscriptionRequestId'] = self.subscription_request_id
-        if hasattr(self, "created_at") and self.created_at is not None:
-            params['createdAt'] = self.created_at
+        if hasattr(self, "create_time") and self.create_time is not None:
+            params['createTime'] = self.create_time
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
+        if hasattr(self, "billing_mode") and self.billing_mode is not None:
+            params['billingMode'] = self.billing_mode
+        if hasattr(self, "payment_behavior") and self.payment_behavior is not None:
+            params['paymentBehavior'] = self.payment_behavior
         if hasattr(self, "current_period_start") and self.current_period_start is not None:
             params['currentPeriodStart'] = self.current_period_start
         if hasattr(self, "current_period_end") and self.current_period_end is not None:
@@ -313,8 +363,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             params['trialEnd'] = self.trial_end
         if hasattr(self, "trial_settings") and self.trial_settings is not None:
             params['trialSettings'] = self.trial_settings
-        if hasattr(self, "pause_collection") and self.pause_collection is not None:
-            params['pauseCollection'] = self.pause_collection
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
             params['cancelAt'] = self.cancel_at
         if hasattr(self, "collection_method") and self.collection_method is not None:
@@ -329,8 +377,14 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             params['description'] = self.description
         if hasattr(self, "default_payment_method") and self.default_payment_method is not None:
             params['defaultPaymentMethod'] = self.default_payment_method
-        if hasattr(self, "subscription_items") and self.subscription_items is not None:
-            params['subscriptionItems'] = self.subscription_items
+        if hasattr(self, "subtotal") and self.subtotal is not None:
+            params['subtotal'] = self.subtotal
+        if hasattr(self, "discount_amount") and self.discount_amount is not None:
+            params['discountAmount'] = self.discount_amount
+        if hasattr(self, "total_amount") and self.total_amount is not None:
+            params['totalAmount'] = self.total_amount
+        if hasattr(self, "price_items") and self.price_items is not None:
+            params['priceItems'] = self.price_items
         if hasattr(self, "discounts") and self.discounts is not None:
             params['discounts'] = self.discounts
         if hasattr(self, "metadata") and self.metadata is not None:
@@ -347,10 +401,14 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             self.__subscription_id = response_body['subscriptionId']
         if 'subscriptionRequestId' in response_body:
             self.__subscription_request_id = response_body['subscriptionRequestId']
-        if 'createdAt' in response_body:
-            self.__created_at = response_body['createdAt']
+        if 'createTime' in response_body:
+            self.__create_time = response_body['createTime']
         if 'status' in response_body:
             self.__status = response_body['status']
+        if 'billingMode' in response_body:
+            self.__billing_mode = response_body['billingMode']
+        if 'paymentBehavior' in response_body:
+            self.__payment_behavior = response_body['paymentBehavior']
         if 'currentPeriodStart' in response_body:
             self.__current_period_start = response_body['currentPeriodStart']
         if 'currentPeriodEnd' in response_body:
@@ -366,11 +424,8 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
         if 'trialEnd' in response_body:
             self.__trial_end = response_body['trialEnd']
         if 'trialSettings' in response_body:
-            self.__trial_settings = BillingSubscriptionInquireDetailsTrialSettings()
+            self.__trial_settings = BillingSubscriptionTrialSettings()
             self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
-        if 'pauseCollection' in response_body:
-            self.__pause_collection = BillingSubscriptionInquireDetailsPauseCollection()
-            self.__pause_collection.parse_rsp_body(response_body['pauseCollection'])
         if 'cancelAt' in response_body:
             self.__cancel_at = response_body['cancelAt']
         if 'collectionMethod' in response_body:
@@ -386,12 +441,21 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             self.__description = response_body['description']
         if 'defaultPaymentMethod' in response_body:
             self.__default_payment_method = response_body['defaultPaymentMethod']
-        if 'subscriptionItems' in response_body:
-            self.__subscription_items = []
-            for item in response_body['subscriptionItems']:
-                obj = SubscriptionItem()
+        if 'subtotal' in response_body:
+            self.__subtotal = Amount()
+            self.__subtotal.parse_rsp_body(response_body['subtotal'])
+        if 'discountAmount' in response_body:
+            self.__discount_amount = Amount()
+            self.__discount_amount.parse_rsp_body(response_body['discountAmount'])
+        if 'totalAmount' in response_body:
+            self.__total_amount = Amount()
+            self.__total_amount.parse_rsp_body(response_body['totalAmount'])
+        if 'priceItems' in response_body:
+            self.__price_items = []
+            for item in response_body['priceItems']:
+                obj = BillingSubscriptionPriceItem()
                 obj.parse_rsp_body(item)
-                self.__subscription_items.append(obj)
+                self.__price_items.append(obj)
         if 'discounts' in response_body:
             self.__discounts = []
             for item in response_body['discounts']:

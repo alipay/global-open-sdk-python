@@ -30,7 +30,7 @@ class AlipayProductInquireListResponse(AlipayResponse):
     @property
     def products(self):
         """
-        The products.
+        Product list. Always present; empty array &#x60;[]&#x60; when no results. When products array contains items, each Product object&#39;s M fields (productId, name, type, active, createdAt) are mandatory Returned only when result.resultCode is SUCCESS.
         """
         return self.__products
 
@@ -40,7 +40,7 @@ class AlipayProductInquireListResponse(AlipayResponse):
     @property
     def has_more(self):
         """
-        The has more.
+        Whether more results exist beyond the current page. &#x60;true&#x60; if more results exist, &#x60;false&#x60; otherwise. Detection logic: &#x60;hasMore &#x3D; (fetchedRows &#x3D;&#x3D; limit + 1)&#x60; - the server fetches limit+1 rows; if the extra row exists, hasMore&#x3D;true and only &#x60;limit&#x60; rows are returned. Aligned with Stripe cursor-based pagination pattern Returned only when result.resultCode is SUCCESS.
         """
         return self.__has_more
 
@@ -50,7 +50,7 @@ class AlipayProductInquireListResponse(AlipayResponse):
     @property
     def total(self):
         """
-        The total number of records. Note: See documentation for details.
+        Total product count matching the query. O - Returned by default (includeTotal defaults to true). Set includeTotal&#x3D;false to omit and avoid COUNT query latency. When present, enables UI page navigation; when absent, use hasMore for \&quot;Load More\&quot; / infinite scroll patterns Returned only when result.resultCode is SUCCESS.
         """
         return self.__total
 
