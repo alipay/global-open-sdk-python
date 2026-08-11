@@ -12,18 +12,18 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
         self.__promotion_code_request_id = None  # type: str
         self.__coupon_id = None  # type: str
         self.__code = None  # type: str
-        self.__max_redeem_size = None  # type: int
         self.__expiry_time = None  # type: str
         self.__min_amount = None  # type: PromotionCodeCreateMinAmount
         self.__one_time_only = None  # type: bool
         self.__customer_id = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
+        self.__max_redemptions = None  # type: int
         
 
     @property
     def promotion_code_request_id(self):
         """
-        The promotion code request id. Maximum length: 64 characters.
+        Merchant-supplied idempotency key for this create request. Must be unique per merchant. Cannot be empty. Maximum length: 64 characters. Idempotent replay: if a request is repeated with the same &#x60;promotionCodeRequestId&#x60; and the same parameters, the API returns &#x60;SUCCESS&#x60; together with the previously created promotion code. Replaying the same &#x60;promotionCodeRequestId&#x60; with different parameters returns &#x60;PARAM_ILLEGAL&#x60;.
         """
         return self.__promotion_code_request_id
 
@@ -33,7 +33,7 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters.
+        ID of the parent coupon this promotion code is associated with. The coupon must exist and be ACTIVE. Cannot be empty. Maximum length: 64 characters.
         """
         return self.__coupon_id
 
@@ -43,7 +43,7 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     @property
     def code(self):
         """
-        The code. Maximum length: 128 characters.
+        The customer-facing promotion code string (e.g. &#x60;SUMMER20&#x60;). Must be unique per merchant. Allowed characters for merchant-supplied codes: uppercase letters (A-Z), digits (0-9), hyphens (-), and underscores (_). If not provided, the server auto-generates a 12-character readable code (uppercase letters + digits; ambiguous characters O/0/I/1/L removed; uniqueness guaranteed with up to 5 retry attempts). If the supplied code collides with an existing code of the merchant, &#x60;PROMOTION_CODE_DUPLICATED&#x60; is returned. Maximum length: 128 characters.
         """
         return self.__code
 
@@ -51,19 +51,9 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     def code(self, value):
         self.__code = value
     @property
-    def max_redeem_size(self):
-        """
-        The max redeem size.
-        """
-        return self.__max_redeem_size
-
-    @max_redeem_size.setter
-    def max_redeem_size(self, value):
-        self.__max_redeem_size = value
-    @property
     def expiry_time(self):
         """
-        The expiry time.
+        UTC timestamp (ISO 8601) after which the promotion code can no longer be redeemed. Must be a future time; a past value returns &#x60;PARAM_ILLEGAL&#x60;. If not set, the code has no independent expiry (subject to parent coupon&#39;s &#x60;redeemBy&#x60;).
         """
         return self.__expiry_time
 
@@ -83,7 +73,7 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     @property
     def one_time_only(self):
         """
-        The one time only.
+        If &#x60;true&#x60;, each customer can only redeem this promotion code once. Default: &#x60;false&#x60;.
         """
         return self.__one_time_only
 
@@ -93,7 +83,7 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        If set, restricts this promotion code to a specific customer. Must be a valid &#x60;customerId&#x60; in the system. Maximum length: 64 characters.
         """
         return self.__customer_id
 
@@ -103,13 +93,23 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters.
+        Merchant-defined key-value pairs stored as JSON string. Enforced constraints: max 50 keys; each key max 40 characters; each value max 500 characters. Requests exceeding these limits return &#x60;PARAM_ILLEGAL&#x60;. The value must be a valid JSON object string.
         """
         return self.__metadata
 
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def max_redemptions(self):
+        """
+        Maximum number of times this promotion code can be redeemed. If not set or 0, redemptions are unlimited. Value range: 0-999999.
+        """
+        return self.__max_redemptions
+
+    @max_redemptions.setter
+    def max_redemptions(self, value):
+        self.__max_redemptions = value
 
 
     def to_ams_json(self): 
@@ -125,8 +125,6 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
             params['couponId'] = self.coupon_id
         if hasattr(self, "code") and self.code is not None:
             params['code'] = self.code
-        if hasattr(self, "max_redeem_size") and self.max_redeem_size is not None:
-            params['maxRedeemSize'] = self.max_redeem_size
         if hasattr(self, "expiry_time") and self.expiry_time is not None:
             params['expiryTime'] = self.expiry_time
         if hasattr(self, "min_amount") and self.min_amount is not None:
@@ -137,6 +135,8 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
             params['customerId'] = self.customer_id
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
+            params['maxRedemptions'] = self.max_redemptions
         return params
 
 
@@ -149,8 +149,6 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
             self.__coupon_id = response_body['couponId']
         if 'code' in response_body:
             self.__code = response_body['code']
-        if 'maxRedeemSize' in response_body:
-            self.__max_redeem_size = response_body['maxRedeemSize']
         if 'expiryTime' in response_body:
             self.__expiry_time = response_body['expiryTime']
         if 'minAmount' in response_body:
@@ -162,3 +160,5 @@ class AlipayPromotionCodeCreateRequest(AlipayRequest):
             self.__customer_id = response_body['customerId']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']

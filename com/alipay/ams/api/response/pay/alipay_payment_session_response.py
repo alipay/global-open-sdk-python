@@ -83,7 +83,7 @@ class AlipayPaymentSessionResponse(AlipayResponse):
     @property
     def subscription_id(self):
         """
-        The system-created subscription ID. Always returned when subscription is provided in the request.
+        The created subscription ID. Returned only when the request contains subscription and result.resultCode is SUCCESS.
         """
         return self.__subscription_id
 
@@ -93,7 +93,7 @@ class AlipayPaymentSessionResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        The draft invoice ID created for the first billing cycle. Empty for trial subscriptions.
+        The invoice ID generated at subscription creation. Returned only for a non-trial subscription when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 

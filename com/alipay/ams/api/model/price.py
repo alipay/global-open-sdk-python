@@ -14,6 +14,7 @@ class Price:
         self.__name = None  # type: str
         self.__pricing_model = None  # type: str
         self.__usage_type = None  # type: str
+        self.__default_price = None  # type: bool
         self.__unit_label = None  # type: str
         self.__meter_id = None  # type: str
         self.__unit_amount = None  # type: Amount
@@ -22,7 +23,7 @@ class Price:
         self.__included_quantity = None  # type: int
         self.__tiers_mode = None  # type: str
         self.__tiers = None  # type: [Tier]
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
@@ -31,7 +32,7 @@ class Price:
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 32 characters.
+        System-generated price ID
         """
         return self.__price_id
 
@@ -41,7 +42,7 @@ class Price:
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        System-generated product ID
         """
         return self.__product_id
 
@@ -51,7 +52,7 @@ class Price:
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name
         """
         return self.__name
 
@@ -61,7 +62,7 @@ class Price:
     @property
     def pricing_model(self):
         """
-        The pricing model. Maximum length: 24 characters.
+        Pricing model type. Aligned with Price API. Enum: PER_UNIT(per-unit pricing - charge is unitAmount x quantity; when includedQuantity is present, charge &#x3D; ceil(quantity / includedQuantity) x unitAmount for package pricing), TIERED(tiered pricing - tier-based pricing with tiersMode GRADUATED or VOLUME; actual pricing comes from tier definitions). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break
         """
         return self.__pricing_model
 
@@ -71,7 +72,7 @@ class Price:
     @property
     def usage_type(self):
         """
-        The usage type. Maximum length: 16 characters.
+        Usage type. O - May be null in the response when the value is not set. Enum: LICENSED(fixed quantity billing - subscription item quantity is set at subscription creation and changed manually via update API), METERED(metered usage billing - quantity is tracked by external metering system and reported via Usage Report API). Forward compatibility: If a new value is added in the future, clients that do not recognize it should treat it as an unknown value and not break. Full structure definitions for recurring, includedQuantity, tiersMode, tiers are documented in price-apis.md
         """
         return self.__usage_type
 
@@ -79,9 +80,19 @@ class Price:
     def usage_type(self, value):
         self.__usage_type = value
     @property
+    def default_price(self):
+        """
+        Whether this price is the default price for the product. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__default_price
+
+    @default_price.setter
+    def default_price(self, value):
+        self.__default_price = value
+    @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Product-level unit label. O - May be null in the response when the value is not set
         """
         return self.__unit_label
 
@@ -91,7 +102,7 @@ class Price:
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 32 characters.
+        External meter reference. O - May be null in the response when the value is not set
         """
         return self.__meter_id
 
@@ -121,7 +132,7 @@ class Price:
     @property
     def active(self):
         """
-        The active.
+        Product active status. true&#x3D;product is active and can be used for new subscriptions, false&#x3D;product is deactivated and cannot be used for new subscriptions. Cannot be null. Deactivated products can be reactivated via Update active&#x3D;true
         """
         return self.__active
 
@@ -131,7 +142,7 @@ class Price:
     @property
     def included_quantity(self):
         """
-        The included quantity.
+        Included quantity for package pricing. O - May be null in the response when the value is not set. See price-apis.md for includedQuantity semantics
         """
         return self.__included_quantity
 
@@ -141,7 +152,7 @@ class Price:
     @property
     def tiers_mode(self):
         """
-        The tiers mode. Maximum length: 16 characters.
+        Tiered pricing mode. O - May be null in the response when the value is not set. Enum: GRADUATED(graduated volume pricing), VOLUME(flat-tier volume pricing). See price-apis.md for tier structure definition
         """
         return self.__tiers_mode
 
@@ -151,7 +162,7 @@ class Price:
     @property
     def tiers(self):
         """
-        The tiers.
+        Tier definitions. O - May be null in the response when the value is not set. Structure defined in price-apis.md
         """
         return self.__tiers
 
@@ -161,7 +172,7 @@ class Price:
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Custom key-value metadata stored as JSON string. O - May be null in the response when the value is not set The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -171,7 +182,7 @@ class Price:
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp
         """
         return self.__created_at
 
@@ -181,7 +192,7 @@ class Price:
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters. Note: See documentation for details.
+        ISO 8601 deactivation timestamp. O - Returned when product has been deactivated (active&#x3D;false); absent when product is active
         """
         return self.__deactivated_at
 
@@ -191,7 +202,7 @@ class Price:
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters.
+        ISO 8601 last update timestamp. O - Returned when non-null; absent from response if never updated after creation
         """
         return self.__updated_at
 
@@ -214,6 +225,8 @@ class Price:
             params['pricingModel'] = self.pricing_model
         if hasattr(self, "usage_type") and self.usage_type is not None:
             params['usageType'] = self.usage_type
+        if hasattr(self, "default_price") and self.default_price is not None:
+            params['defaultPrice'] = self.default_price
         if hasattr(self, "unit_label") and self.unit_label is not None:
             params['unitLabel'] = self.unit_label
         if hasattr(self, "meter_id") and self.meter_id is not None:
@@ -254,6 +267,8 @@ class Price:
             self.__pricing_model = response_body['pricingModel']
         if 'usageType' in response_body:
             self.__usage_type = response_body['usageType']
+        if 'defaultPrice' in response_body:
+            self.__default_price = response_body['defaultPrice']
         if 'unitLabel' in response_body:
             self.__unit_label = response_body['unitLabel']
         if 'meterId' in response_body:

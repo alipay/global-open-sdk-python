@@ -22,9 +22,8 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
         self.__min_amount = None  # type: PromotionCodeInquireDetailsMinAmount
         self.__one_time_only = None  # type: bool
         self.__customer_id = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__create_time = None  # type: str
-        self.__update_time = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -41,7 +40,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def promotion_code_id(self):
         """
-        The promotion code ID. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated promotion code ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__promotion_code_id
 
@@ -51,7 +50,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def promotion_code_request_id(self):
         """
-        The promotion code request id. Maximum length: 64 characters. Note: See documentation for details.
+        Merchant-supplied idempotency key used at creation. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__promotion_code_request_id
 
@@ -61,7 +60,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def code(self):
         """
-        The code. Maximum length: 128 characters. Note: See documentation for details.
+        The promotion code string. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__code
 
@@ -71,7 +70,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters. Note: See documentation for details.
+        Parent coupon&#39;s ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__coupon_id
 
@@ -81,7 +80,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Promotion code status: &#x60;ACTIVE&#x60; / &#x60;INACTIVE&#x60; only - the DB persists these two values and no &#x60;EXPIRED&#x60; status is derived at read time. A promotion code past its &#x60;expiryTime&#x60; is no longer redeemable; compare &#x60;expiryTime&#x60; to the current time to detect expiry. Future status values may be added; merchants must handle unrecognized values gracefully (log and skip). Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 
@@ -91,7 +90,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def max_redemptions(self):
         """
-        The max redemptions. Note: See documentation for details.
+        Maximum redemption count. Value range: 0-999999. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__max_redemptions
 
@@ -101,7 +100,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def redeemed_count(self):
         """
-        The redeemed count. Note: See documentation for details.
+        Number of times the promotion code has been redeemed. Value range: 0-999999. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__redeemed_count
 
@@ -111,7 +110,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def expiry_time(self):
         """
-        The expiry time. Note: See documentation for details.
+        Expiry time (UTC, ISO 8601). Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__expiry_time
 
@@ -131,7 +130,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def one_time_only(self):
         """
-        The one time only. Note: See documentation for details.
+        Whether code is one-time per customer. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__one_time_only
 
@@ -141,7 +140,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters. Note: See documentation for details.
+        Restricted customer&#39;s ID. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__customer_id
 
@@ -151,7 +150,7 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters. Note: See documentation for details.
+        Merchant-defined key-value pairs. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set. The value must be a valid JSON object string.
         """
         return self.__metadata
 
@@ -161,23 +160,13 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
     @property
     def create_time(self):
         """
-        The create time. Note: See documentation for details.
+        Creation time (UTC, ISO 8601). Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__create_time
 
     @create_time.setter
     def create_time(self, value):
         self.__create_time = value
-    @property
-    def update_time(self):
-        """
-        The update time. Note: See documentation for details.
-        """
-        return self.__update_time
-
-    @update_time.setter
-    def update_time(self, value):
-        self.__update_time = value
 
 
     
@@ -212,8 +201,6 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
             params['metadata'] = self.metadata
         if hasattr(self, "create_time") and self.create_time is not None:
             params['createTime'] = self.create_time
-        if hasattr(self, "update_time") and self.update_time is not None:
-            params['updateTime'] = self.update_time
         return params
 
 
@@ -249,5 +236,3 @@ class AlipayPromotionCodeInquireDetailsResponse(AlipayResponse):
             self.__metadata = response_body['metadata']
         if 'createTime' in response_body:
             self.__create_time = response_body['createTime']
-        if 'updateTime' in response_body:
-            self.__update_time = response_body['updateTime']

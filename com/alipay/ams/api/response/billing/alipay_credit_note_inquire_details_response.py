@@ -1,7 +1,8 @@
 import json
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.credit_note_inquire_details_items import CreditNoteInquireDetailsItems
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.credit_note_item import CreditNoteItem
 
 
 
@@ -19,6 +20,7 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
         self.__type = None  # type: str
         self.__status = None  # type: str
         self.__total_amount = None  # type: Amount
+        self.__refund_amount = None  # type: Amount
         self.__refund_status = None  # type: str
         self.__refund_id = None  # type: str
         self.__reason = None  # type: str
@@ -26,7 +28,7 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
         self.__refund_destination = None  # type: str
         self.__effective_date = None  # type: str
         self.__memo = None  # type: str
-        self.__items = None  # type: CreditNoteInquireDetailsItems
+        self.__items = None  # type: [CreditNoteItem]
         self.__issued_at = None  # type: str
         self.__refunded_at = None  # type: str
         self.__voided_at = None  # type: str
@@ -115,6 +117,16 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
     def total_amount(self, value):
         self.__total_amount = value
     @property
+    def refund_amount(self):
+        """Gets the refund_amount of this AlipayCreditNoteInquireDetailsResponse.
+        
+        """
+        return self.__refund_amount
+
+    @refund_amount.setter
+    def refund_amount(self, value):
+        self.__refund_amount = value
+    @property
     def refund_status(self):
         """
         The refund status. Maximum length: 32 characters. Note: See documentation for details.
@@ -186,8 +198,8 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
         self.__memo = value
     @property
     def items(self):
-        """Gets the items of this AlipayCreditNoteInquireDetailsResponse.
-        
+        """
+        The credit note items.
         """
         return self.__items
 
@@ -256,6 +268,8 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
             params['status'] = self.status
         if hasattr(self, "total_amount") and self.total_amount is not None:
             params['totalAmount'] = self.total_amount
+        if hasattr(self, "refund_amount") and self.refund_amount is not None:
+            params['refundAmount'] = self.refund_amount
         if hasattr(self, "refund_status") and self.refund_status is not None:
             params['refundStatus'] = self.refund_status
         if hasattr(self, "refund_id") and self.refund_id is not None:
@@ -303,6 +317,9 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
         if 'totalAmount' in response_body:
             self.__total_amount = Amount()
             self.__total_amount.parse_rsp_body(response_body['totalAmount'])
+        if 'refundAmount' in response_body:
+            self.__refund_amount = Amount()
+            self.__refund_amount.parse_rsp_body(response_body['refundAmount'])
         if 'refundStatus' in response_body:
             self.__refund_status = response_body['refundStatus']
         if 'refundId' in response_body:
@@ -318,8 +335,11 @@ class AlipayCreditNoteInquireDetailsResponse(AlipayResponse):
         if 'memo' in response_body:
             self.__memo = response_body['memo']
         if 'items' in response_body:
-            self.__items = CreditNoteInquireDetailsItems()
-            self.__items.parse_rsp_body(response_body['items'])
+            self.__items = []
+            for item in response_body['items']:
+                obj = CreditNoteItem()
+                obj.parse_rsp_body(item)
+                self.__items.append(obj)
         if 'issuedAt' in response_body:
             self.__issued_at = response_body['issuedAt']
         if 'refundedAt' in response_body:

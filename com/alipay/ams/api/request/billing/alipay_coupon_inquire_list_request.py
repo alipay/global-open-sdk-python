@@ -19,7 +19,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 32 characters.
+        Filter by coupon status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;INACTIVE&#x60;. If not provided, returns coupons of all statuses.
         """
         return self.__status
 
@@ -29,7 +29,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def discount_type(self):
         """
-        The discount type. Maximum length: 16 characters.
+        Filter by discount type. Allowed values: &#x60;PERCENT&#x60;, &#x60;AMOUNT&#x60;. If not provided, returns all discount types.
         """
         return self.__discount_type
 
@@ -39,7 +39,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def starting_after(self):
         """
-        The starting after. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for forward pagination - return coupons created before this couponId (older items). Pass the &#x60;nextCursor&#x60; from the previous response. Mutually exclusive with &#x60;endingBefore&#x60;.
         """
         return self.__starting_after
 
@@ -49,7 +49,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def ending_before(self):
         """
-        The ending before. Maximum length: 64 characters. Note: See documentation for details.
+        Cursor for backward pagination - return coupons created after this couponId (newer items). Mutually exclusive with &#x60;startingAfter&#x60;.
         """
         return self.__ending_before
 
@@ -59,7 +59,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def limit(self):
         """
-        The limit.
+        Number of records per page. Value range: 1-100. Defaults to 20 if not provided.
         """
         return self.__limit
 
@@ -69,7 +69,7 @@ class AlipayCouponInquireListRequest(AlipayRequest):
     @property
     def include_total(self):
         """
-        The include total.
+        When &#x60;true&#x60;, an additional COUNT query is executed to populate &#x60;total&#x60; in the response. Default: &#x60;false&#x60;.
         """
         return self.__include_total
 

@@ -1,6 +1,4 @@
 import json
-from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -10,32 +8,22 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     def __init__(self):
         super(AlipayInvoiceExportRequest, self).__init__("/ams/api/v1/billing/invoice/export") 
 
-        self.__limit = None  # type: int
         self.__customer_id = None  # type: str
         self.__status = None  # type: str
         self.__subscription_id = None  # type: str
         self.__invoice_ids = None  # type: [str]
-        self.__reason = None  # type: str
         self.__start_date = None  # type: str
         self.__end_date = None  # type: str
-        self.__min_amount = None  # type: Amount
-        self.__max_amount = None  # type: Amount
+        self.__file_format = None  # type: str
+        self.__language = None  # type: str
+        self.__download_type = None  # type: str
+        self.__column_preset = None  # type: str
         
 
     @property
-    def limit(self):
-        """
-        The limit. Note: See documentation for details.
-        """
-        return self.__limit
-
-    @limit.setter
-    def limit(self, value):
-        self.__limit = value
-    @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Filter by customer ID. Returns only invoices belonging to this customer. Can be null (no filter).
         """
         return self.__customer_id
 
@@ -45,7 +33,7 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by invoice status. Allowed values: &#x60;DRAFT&#x60;, &#x60;OPEN&#x60;, &#x60;PAID&#x60;, &#x60;UNCOLLECTIBLE&#x60;, &#x60;VOID&#x60;. Can be null (no filter).
         """
         return self.__status
 
@@ -55,7 +43,7 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Filter invoices by associated subscription ID. Returns only invoices linked to this subscription. Can be null (no filter).
         """
         return self.__subscription_id
 
@@ -65,7 +53,7 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     @property
     def invoice_ids(self):
         """
-        The invoice ids.
+        Filter by exact list of invoice IDs. Max 1000 elements. When provided, other filters (&#x60;status&#x60;, &#x60;customerId&#x60;, &#x60;subscriptionId&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;) are ignored. Can be null (no filter).
         """
         return self.__invoice_ids
 
@@ -73,19 +61,9 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     def invoice_ids(self, value):
         self.__invoice_ids = value
     @property
-    def reason(self):
-        """
-        The reason for the status change. Maximum length: 32 characters.
-        """
-        return self.__reason
-
-    @reason.setter
-    def reason(self, value):
-        self.__reason = value
-    @property
     def start_date(self):
         """
-        The start date. Maximum length: 24 characters.
+        Date range start for invoice creation time (ISO 8601 format, e.g., &#x60;2026-04-01T00:00:00+00:00&#x60;). Can be null (no lower bound).
         """
         return self.__start_date
 
@@ -95,7 +73,7 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     @property
     def end_date(self):
         """
-        The end date. Maximum length: 24 characters.
+        Date range end for invoice creation time (ISO 8601 format, e.g., &#x60;2026-04-30T23:59:59+00:00&#x60;). Can be null (no upper bound).
         """
         return self.__end_date
 
@@ -103,25 +81,45 @@ class AlipayInvoiceExportRequest(AlipayRequest):
     def end_date(self, value):
         self.__end_date = value
     @property
-    def min_amount(self):
-        """Gets the min_amount of this AlipayInvoiceExportRequest.
-        
+    def file_format(self):
         """
-        return self.__min_amount
+        Output file format. Allowed values: &#x60;csv&#x60; (default), &#x60;xlsx&#x60;. Can be null (defaults to &#x60;csv&#x60;).
+        """
+        return self.__file_format
 
-    @min_amount.setter
-    def min_amount(self, value):
-        self.__min_amount = value
+    @file_format.setter
+    def file_format(self, value):
+        self.__file_format = value
     @property
-    def max_amount(self):
-        """Gets the max_amount of this AlipayInvoiceExportRequest.
-        
+    def language(self):
         """
-        return self.__max_amount
+        BCP-47 language code for localized column headers (e.g., &#x60;en&#x60;, &#x60;zh&#x60;). Can be null (defaults to &#x60;en&#x60;).
+        """
+        return self.__language
 
-    @max_amount.setter
-    def max_amount(self, value):
-        self.__max_amount = value
+    @language.setter
+    def language(self, value):
+        self.__language = value
+    @property
+    def download_type(self):
+        """
+        Type of entity to export. Must be &#x60;INVOICE&#x60;. Required - no default.
+        """
+        return self.__download_type
+
+    @download_type.setter
+    def download_type(self, value):
+        self.__download_type = value
+    @property
+    def column_preset(self):
+        """
+        Column selection preset. Allowed values: &#x60;DEFAULT&#x60; (standard columns), &#x60;ALL&#x60; (all available columns). Can be null (defaults to &#x60;DEFAULT&#x60;).
+        """
+        return self.__column_preset
+
+    @column_preset.setter
+    def column_preset(self, value):
+        self.__column_preset = value
 
 
     def to_ams_json(self): 
@@ -131,8 +129,6 @@ class AlipayInvoiceExportRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "limit") and self.limit is not None:
-            params['limit'] = self.limit
         if hasattr(self, "customer_id") and self.customer_id is not None:
             params['customerId'] = self.customer_id
         if hasattr(self, "status") and self.status is not None:
@@ -141,24 +137,24 @@ class AlipayInvoiceExportRequest(AlipayRequest):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "invoice_ids") and self.invoice_ids is not None:
             params['invoiceIds'] = self.invoice_ids
-        if hasattr(self, "reason") and self.reason is not None:
-            params['reason'] = self.reason
         if hasattr(self, "start_date") and self.start_date is not None:
             params['startDate'] = self.start_date
         if hasattr(self, "end_date") and self.end_date is not None:
             params['endDate'] = self.end_date
-        if hasattr(self, "min_amount") and self.min_amount is not None:
-            params['minAmount'] = self.min_amount
-        if hasattr(self, "max_amount") and self.max_amount is not None:
-            params['maxAmount'] = self.max_amount
+        if hasattr(self, "file_format") and self.file_format is not None:
+            params['fileFormat'] = self.file_format
+        if hasattr(self, "language") and self.language is not None:
+            params['language'] = self.language
+        if hasattr(self, "download_type") and self.download_type is not None:
+            params['downloadType'] = self.download_type
+        if hasattr(self, "column_preset") and self.column_preset is not None:
+            params['columnPreset'] = self.column_preset
         return params
 
 
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'limit' in response_body:
-            self.__limit = response_body['limit']
         if 'customerId' in response_body:
             self.__customer_id = response_body['customerId']
         if 'status' in response_body:
@@ -167,15 +163,15 @@ class AlipayInvoiceExportRequest(AlipayRequest):
             self.__subscription_id = response_body['subscriptionId']
         if 'invoiceIds' in response_body:
             self.__invoice_ids = response_body['invoiceIds']
-        if 'reason' in response_body:
-            self.__reason = response_body['reason']
         if 'startDate' in response_body:
             self.__start_date = response_body['startDate']
         if 'endDate' in response_body:
             self.__end_date = response_body['endDate']
-        if 'minAmount' in response_body:
-            self.__min_amount = Amount()
-            self.__min_amount.parse_rsp_body(response_body['minAmount'])
-        if 'maxAmount' in response_body:
-            self.__max_amount = Amount()
-            self.__max_amount.parse_rsp_body(response_body['maxAmount'])
+        if 'fileFormat' in response_body:
+            self.__file_format = response_body['fileFormat']
+        if 'language' in response_body:
+            self.__language = response_body['language']
+        if 'downloadType' in response_body:
+            self.__download_type = response_body['downloadType']
+        if 'columnPreset' in response_body:
+            self.__column_preset = response_body['columnPreset']

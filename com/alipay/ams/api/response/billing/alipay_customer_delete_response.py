@@ -28,7 +28,7 @@ class AlipayCustomerDeleteResponse(AlipayResponse):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters. Note: See documentation for details.
+        The deleted customer&#39;s ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__customer_id
 
@@ -38,7 +38,7 @@ class AlipayCustomerDeleteResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Always &#x60;DELETED&#x60; when resultCode is &#x60;SUCCESS&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 

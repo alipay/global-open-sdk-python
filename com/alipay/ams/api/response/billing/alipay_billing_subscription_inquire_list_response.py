@@ -14,8 +14,7 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
         self.__subscriptions = None  # type: [Subscription]
         self.__has_more = None  # type: bool
         self.__next_cursor = None  # type: str
-        self.__prev_cursor = None  # type: str
-        self.__total = None  # type: int
+        self.__previous_cursor = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -32,7 +31,7 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
     @property
     def subscriptions(self):
         """
-        The subscriptions.
+        The subscription summaries returned when result.resultCode is SUCCESS. The array contains at most 100 items.
         """
         return self.__subscriptions
 
@@ -42,7 +41,7 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
     @property
     def has_more(self):
         """
-        The has more.
+        Whether more results are available after the current page.
         """
         return self.__has_more
 
@@ -52,7 +51,7 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
     @property
     def next_cursor(self):
         """
-        The next cursor. Maximum length: 64 characters. Note: See documentation for details.
+        The ID of the last record on the current page. Pass it as &#x60;startingAfter&#x60; to retrieve the next page. Returned only when &#x60;hasMore&#x60; is true. Maximum length: 64 characters.
         """
         return self.__next_cursor
 
@@ -60,25 +59,15 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
     def next_cursor(self, value):
         self.__next_cursor = value
     @property
-    def prev_cursor(self):
+    def previous_cursor(self):
         """
-        The prev cursor. Maximum length: 64 characters. Note: See documentation for details.
+        The ID of the first record on the current page. Pass it as &#x60;endingBefore&#x60; to retrieve the previous page. Returned when the request used &#x60;endingBefore&#x60;. Maximum length: 64 characters.
         """
-        return self.__prev_cursor
+        return self.__previous_cursor
 
-    @prev_cursor.setter
-    def prev_cursor(self, value):
-        self.__prev_cursor = value
-    @property
-    def total(self):
-        """
-        The total. Note: See documentation for details.
-        """
-        return self.__total
-
-    @total.setter
-    def total(self, value):
-        self.__total = value
+    @previous_cursor.setter
+    def previous_cursor(self, value):
+        self.__previous_cursor = value
 
 
     
@@ -93,10 +82,8 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
             params['hasMore'] = self.has_more
         if hasattr(self, "next_cursor") and self.next_cursor is not None:
             params['nextCursor'] = self.next_cursor
-        if hasattr(self, "prev_cursor") and self.prev_cursor is not None:
-            params['prevCursor'] = self.prev_cursor
-        if hasattr(self, "total") and self.total is not None:
-            params['total'] = self.total
+        if hasattr(self, "previous_cursor") and self.previous_cursor is not None:
+            params['previousCursor'] = self.previous_cursor
         return params
 
 
@@ -115,7 +102,5 @@ class AlipayBillingSubscriptionInquireListResponse(AlipayResponse):
             self.__has_more = response_body['hasMore']
         if 'nextCursor' in response_body:
             self.__next_cursor = response_body['nextCursor']
-        if 'prevCursor' in response_body:
-            self.__prev_cursor = response_body['prevCursor']
-        if 'total' in response_body:
-            self.__total = response_body['total']
+        if 'previousCursor' in response_body:
+            self.__previous_cursor = response_body['previousCursor']

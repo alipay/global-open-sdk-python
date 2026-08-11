@@ -1,6 +1,6 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.line_item import LineItem
+from com.alipay.ams.api.model.credit_note_create_item import CreditNoteCreateItem
 from com.alipay.ams.api.model.amount import Amount
 
 
@@ -15,7 +15,7 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
         self.__invoice_id = None  # type: str
         self.__type = None  # type: str
         self.__total_amount = None  # type: Amount
-        self.__items = None  # type: [LineItem]
+        self.__items = None  # type: [CreditNoteCreateItem]
         self.__refund_amount = None  # type: Amount
         self.__refund_destination = None  # type: str
         self.__reason = None  # type: str
@@ -24,7 +24,8 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
         self.__email_type = None  # type: str
         self.__language = None  # type: str
         self.__effective_date = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
+        self.__credit_note_notify_url = None  # type: str
         
 
     @property
@@ -70,7 +71,7 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
     @property
     def items(self):
         """
-        The items. Note: See documentation for details.
+        The credit note items. Item-level quantity and itemAmount follow the conditional rules documented by CreditNoteCreateItem.
         """
         return self.__items
 
@@ -160,13 +161,23 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters.
+        Custom metadata for special use cases. Maximum length: 65535 characters. The value must be a valid JSON object string.
         """
         return self.__metadata
 
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def credit_note_notify_url(self):
+        """
+        The URL that receives credit note notifications. Maximum length: 2048 characters.
+        """
+        return self.__credit_note_notify_url
+
+    @credit_note_notify_url.setter
+    def credit_note_notify_url(self, value):
+        self.__credit_note_notify_url = value
 
 
     def to_ams_json(self): 
@@ -204,6 +215,8 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
             params['effectiveDate'] = self.effective_date
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "credit_note_notify_url") and self.credit_note_notify_url is not None:
+            params['creditNoteNotifyUrl'] = self.credit_note_notify_url
         return params
 
 
@@ -222,7 +235,7 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
         if 'items' in response_body:
             self.__items = []
             for item in response_body['items']:
-                obj = LineItem()
+                obj = CreditNoteCreateItem()
                 obj.parse_rsp_body(item)
                 self.__items.append(obj)
         if 'refundAmount' in response_body:
@@ -244,3 +257,5 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
             self.__effective_date = response_body['effectiveDate']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'creditNoteNotifyUrl' in response_body:
+            self.__credit_note_notify_url = response_body['creditNoteNotifyUrl']

@@ -1,7 +1,5 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
-from com.alipay.ams.api.model.billing_subscription_update_pause_collection import BillingSubscriptionUpdatePauseCollection
-from com.alipay.ams.api.model.billing_subscription_update_trial_settings import BillingSubscriptionUpdateTrialSettings
 from com.alipay.ams.api.model.subscription_item import SubscriptionItem
 
 
@@ -15,15 +13,14 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
         self.__result = None  # type: ResultInfo
         self.__subscription_id = None  # type: str
         self.__status = None  # type: str
-        self.__billing_cycle_anchor = None  # type: str
-        self.__pause_collection = None  # type: BillingSubscriptionUpdatePauseCollection
-        self.__trial_settings = None  # type: BillingSubscriptionUpdateTrialSettings
         self.__subscription_items = None  # type: [SubscriptionItem]
         self.__proration_invoice_id = None  # type: str
+        self.__proration_invoice_amount = None  # type: int
+        self.__proration_invoice_currency = None  # type: str
         self.__credit_note_id = None  # type: str
-        self.__cancel_at_period_end = None  # type: bool
-        self.__canceled_at = None  # type: str
-        self.__proration_date = None  # type: str
+        self.__credit_note_amount = None  # type: int
+        self.__credit_note_currency = None  # type: str
+        self.__pending_update = None  # type: bool
         self.parse_rsp_body(rsp_body) 
 
 
@@ -58,36 +55,6 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     def status(self, value):
         self.__status = value
     @property
-    def billing_cycle_anchor(self):
-        """
-        The billing cycle anchor. Note: See documentation for details.
-        """
-        return self.__billing_cycle_anchor
-
-    @billing_cycle_anchor.setter
-    def billing_cycle_anchor(self, value):
-        self.__billing_cycle_anchor = value
-    @property
-    def pause_collection(self):
-        """Gets the pause_collection of this AlipayBillingSubscriptionUpdateResponse.
-        
-        """
-        return self.__pause_collection
-
-    @pause_collection.setter
-    def pause_collection(self, value):
-        self.__pause_collection = value
-    @property
-    def trial_settings(self):
-        """Gets the trial_settings of this AlipayBillingSubscriptionUpdateResponse.
-        
-        """
-        return self.__trial_settings
-
-    @trial_settings.setter
-    def trial_settings(self, value):
-        self.__trial_settings = value
-    @property
     def subscription_items(self):
         """
         The subscription items. Note: See documentation for details.
@@ -108,6 +75,26 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     def proration_invoice_id(self, value):
         self.__proration_invoice_id = value
     @property
+    def proration_invoice_amount(self):
+        """
+        The proration invoice amount in the smallest currency unit. Returned together with prorationInvoiceId.
+        """
+        return self.__proration_invoice_amount
+
+    @proration_invoice_amount.setter
+    def proration_invoice_amount(self, value):
+        self.__proration_invoice_amount = value
+    @property
+    def proration_invoice_currency(self):
+        """
+        The currency of prorationInvoiceAmount as a three-letter ISO 4217 code.
+        """
+        return self.__proration_invoice_currency
+
+    @proration_invoice_currency.setter
+    def proration_invoice_currency(self, value):
+        self.__proration_invoice_currency = value
+    @property
     def credit_note_id(self):
         """
         The credit note ID. Maximum length: 64 characters. Note: See documentation for details.
@@ -118,35 +105,35 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     def credit_note_id(self, value):
         self.__credit_note_id = value
     @property
-    def cancel_at_period_end(self):
+    def credit_note_amount(self):
         """
-        The cancel at period end. Note: See documentation for details.
+        The credit note amount in the smallest currency unit. Returned together with creditNoteId.
         """
-        return self.__cancel_at_period_end
+        return self.__credit_note_amount
 
-    @cancel_at_period_end.setter
-    def cancel_at_period_end(self, value):
-        self.__cancel_at_period_end = value
+    @credit_note_amount.setter
+    def credit_note_amount(self, value):
+        self.__credit_note_amount = value
     @property
-    def canceled_at(self):
+    def credit_note_currency(self):
         """
-        The canceled at. Note: See documentation for details.
+        The currency of creditNoteAmount as a three-letter ISO 4217 code.
         """
-        return self.__canceled_at
+        return self.__credit_note_currency
 
-    @canceled_at.setter
-    def canceled_at(self, value):
-        self.__canceled_at = value
+    @credit_note_currency.setter
+    def credit_note_currency(self, value):
+        self.__credit_note_currency = value
     @property
-    def proration_date(self):
+    def pending_update(self):
         """
-        The proration date. Note: See documentation for details.
+        Whether a payment-gated upgrade or quantity increase is staged but not yet effective. When true, subscriptionItems can still describe the currently effective items.
         """
-        return self.__proration_date
+        return self.__pending_update
 
-    @proration_date.setter
-    def proration_date(self, value):
-        self.__proration_date = value
+    @pending_update.setter
+    def pending_update(self, value):
+        self.__pending_update = value
 
 
     
@@ -159,24 +146,22 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "billing_cycle_anchor") and self.billing_cycle_anchor is not None:
-            params['billingCycleAnchor'] = self.billing_cycle_anchor
-        if hasattr(self, "pause_collection") and self.pause_collection is not None:
-            params['pauseCollection'] = self.pause_collection
-        if hasattr(self, "trial_settings") and self.trial_settings is not None:
-            params['trialSettings'] = self.trial_settings
         if hasattr(self, "subscription_items") and self.subscription_items is not None:
             params['subscriptionItems'] = self.subscription_items
         if hasattr(self, "proration_invoice_id") and self.proration_invoice_id is not None:
             params['prorationInvoiceId'] = self.proration_invoice_id
+        if hasattr(self, "proration_invoice_amount") and self.proration_invoice_amount is not None:
+            params['prorationInvoiceAmount'] = self.proration_invoice_amount
+        if hasattr(self, "proration_invoice_currency") and self.proration_invoice_currency is not None:
+            params['prorationInvoiceCurrency'] = self.proration_invoice_currency
         if hasattr(self, "credit_note_id") and self.credit_note_id is not None:
             params['creditNoteId'] = self.credit_note_id
-        if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
-            params['cancelAtPeriodEnd'] = self.cancel_at_period_end
-        if hasattr(self, "canceled_at") and self.canceled_at is not None:
-            params['canceledAt'] = self.canceled_at
-        if hasattr(self, "proration_date") and self.proration_date is not None:
-            params['prorationDate'] = self.proration_date
+        if hasattr(self, "credit_note_amount") and self.credit_note_amount is not None:
+            params['creditNoteAmount'] = self.credit_note_amount
+        if hasattr(self, "credit_note_currency") and self.credit_note_currency is not None:
+            params['creditNoteCurrency'] = self.credit_note_currency
+        if hasattr(self, "pending_update") and self.pending_update is not None:
+            params['pendingUpdate'] = self.pending_update
         return params
 
 
@@ -189,14 +174,6 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
             self.__subscription_id = response_body['subscriptionId']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'billingCycleAnchor' in response_body:
-            self.__billing_cycle_anchor = response_body['billingCycleAnchor']
-        if 'pauseCollection' in response_body:
-            self.__pause_collection = BillingSubscriptionUpdatePauseCollection()
-            self.__pause_collection.parse_rsp_body(response_body['pauseCollection'])
-        if 'trialSettings' in response_body:
-            self.__trial_settings = BillingSubscriptionUpdateTrialSettings()
-            self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
         if 'subscriptionItems' in response_body:
             self.__subscription_items = []
             for item in response_body['subscriptionItems']:
@@ -205,11 +182,15 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
                 self.__subscription_items.append(obj)
         if 'prorationInvoiceId' in response_body:
             self.__proration_invoice_id = response_body['prorationInvoiceId']
+        if 'prorationInvoiceAmount' in response_body:
+            self.__proration_invoice_amount = response_body['prorationInvoiceAmount']
+        if 'prorationInvoiceCurrency' in response_body:
+            self.__proration_invoice_currency = response_body['prorationInvoiceCurrency']
         if 'creditNoteId' in response_body:
             self.__credit_note_id = response_body['creditNoteId']
-        if 'cancelAtPeriodEnd' in response_body:
-            self.__cancel_at_period_end = response_body['cancelAtPeriodEnd']
-        if 'canceledAt' in response_body:
-            self.__canceled_at = response_body['canceledAt']
-        if 'prorationDate' in response_body:
-            self.__proration_date = response_body['prorationDate']
+        if 'creditNoteAmount' in response_body:
+            self.__credit_note_amount = response_body['creditNoteAmount']
+        if 'creditNoteCurrency' in response_body:
+            self.__credit_note_currency = response_body['creditNoteCurrency']
+        if 'pendingUpdate' in response_body:
+            self.__pending_update = response_body['pendingUpdate']

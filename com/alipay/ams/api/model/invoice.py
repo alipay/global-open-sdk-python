@@ -21,8 +21,6 @@ class Invoice:
         self.__paid_amount = None  # type: Amount
         self.__remain_amount = None  # type: Amount
         self.__currency = None  # type: str
-        self.__paid_time = None  # type: str
-        self.__voided_time = None  # type: str
         self.__period_start = None  # type: str
         self.__period_end = None  # type: str
         self.__due_date = None  # type: str
@@ -35,7 +33,7 @@ class Invoice:
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        System-generated invoice ID. Format: &#x60;inv_&#x60; + 10-char alphanumeric. Cannot be null.
         """
         return self.__invoice_id
 
@@ -45,7 +43,7 @@ class Invoice:
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Associated subscription ID. May be null for standalone manual invoices. Can be null.
         """
         return self.__subscription_id
 
@@ -55,7 +53,7 @@ class Invoice:
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Customer ID this invoice belongs to. Cannot be null.
         """
         return self.__customer_id
 
@@ -65,7 +63,7 @@ class Invoice:
     @property
     def customer_first_name(self):
         """
-        The customer first name. Maximum length: 256 characters.
+        Customer&#39;s first name. Populated from the customer record at invoice creation time. Displayed on merchant portal list view. Can be null.
         """
         return self.__customer_first_name
 
@@ -75,7 +73,7 @@ class Invoice:
     @property
     def customer_last_name(self):
         """
-        The customer last name. Maximum length: 256 characters.
+        Customer&#39;s last name. Populated from the customer record at invoice creation time. Displayed on merchant portal list view. Can be null.
         """
         return self.__customer_last_name
 
@@ -85,7 +83,7 @@ class Invoice:
     @property
     def customer_email(self):
         """
-        The email address of the customer. Maximum length: 256 characters.
+        Customer&#39;s email address. Populated from the customer record at invoice creation time. Displayed on merchant portal list view. Can be null.
         """
         return self.__customer_email
 
@@ -95,7 +93,7 @@ class Invoice:
     @property
     def reason(self):
         """
-        The reason for the status change. Maximum length: 32 characters.
+        Invoice creation reason: &#x60;SUBSCRIPTION_CREATION&#x60;, &#x60;SUBSCRIPTION_RECURRENCE&#x60;, &#x60;SUBSCRIPTION_UPDATE&#x60;. Cannot be null.
         """
         return self.__reason
 
@@ -105,7 +103,7 @@ class Invoice:
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Current invoice status: &#x60;DRAFT&#x60;, &#x60;OPEN&#x60;, &#x60;PAID&#x60;, &#x60;UNCOLLECTIBLE&#x60;, &#x60;VOID&#x60;. Cannot be null.
         """
         return self.__status
 
@@ -145,7 +143,7 @@ class Invoice:
     @property
     def currency(self):
         """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 3 characters.
+        Three-letter ISO currency code in uppercase (e.g., &#x60;\&quot;USD\&quot;&#x60;). The invoice currency. Cannot be null.
         """
         return self.__currency
 
@@ -153,29 +151,9 @@ class Invoice:
     def currency(self, value):
         self.__currency = value
     @property
-    def paid_time(self):
-        """
-        The paid time. Maximum length: 24 characters.
-        """
-        return self.__paid_time
-
-    @paid_time.setter
-    def paid_time(self, value):
-        self.__paid_time = value
-    @property
-    def voided_time(self):
-        """
-        The voided time. Maximum length: 24 characters.
-        """
-        return self.__voided_time
-
-    @voided_time.setter
-    def voided_time(self, value):
-        self.__voided_time = value
-    @property
     def period_start(self):
         """
-        The period start. Maximum length: 24 characters.
+        Billing period start timestamp (ISO 8601). Cannot be null.
         """
         return self.__period_start
 
@@ -185,7 +163,7 @@ class Invoice:
     @property
     def period_end(self):
         """
-        The period end. Maximum length: 24 characters.
+        Billing period end timestamp (ISO 8601). Cannot be null.
         """
         return self.__period_end
 
@@ -195,7 +173,7 @@ class Invoice:
     @property
     def due_date(self):
         """
-        The due date. Maximum length: 24 characters.
+        Payment due date (ISO 8601). Cannot be null.
         """
         return self.__due_date
 
@@ -205,7 +183,7 @@ class Invoice:
     @property
     def gmt_create(self):
         """
-        The creation time. Maximum length: 24 characters.
+        ISO 8601 timestamp of invoice creation. Cannot be null.
         """
         return self.__gmt_create
 
@@ -215,7 +193,7 @@ class Invoice:
     @property
     def gmt_update(self):
         """
-        The gmt update. Maximum length: 24 characters.
+        ISO 8601 timestamp of last invoice update. Cannot be null.
         """
         return self.__gmt_update
 
@@ -225,7 +203,7 @@ class Invoice:
     @property
     def description(self):
         """
-        The description. Maximum length: 512 characters.
+        Invoice description text. Can be null.
         """
         return self.__description
 
@@ -235,7 +213,7 @@ class Invoice:
     @property
     def pdf_file_url(self):
         """
-        The pdf file url. Maximum length: 2048 characters.
+        URL of the generated PDF file for download. Can be null (PDF not yet generated).
         """
         return self.__pdf_file_url
 
@@ -272,10 +250,6 @@ class Invoice:
             params['remainAmount'] = self.remain_amount
         if hasattr(self, "currency") and self.currency is not None:
             params['currency'] = self.currency
-        if hasattr(self, "paid_time") and self.paid_time is not None:
-            params['paidTime'] = self.paid_time
-        if hasattr(self, "voided_time") and self.voided_time is not None:
-            params['voidedTime'] = self.voided_time
         if hasattr(self, "period_start") and self.period_start is not None:
             params['periodStart'] = self.period_start
         if hasattr(self, "period_end") and self.period_end is not None:
@@ -323,10 +297,6 @@ class Invoice:
             self.__remain_amount.parse_rsp_body(response_body['remainAmount'])
         if 'currency' in response_body:
             self.__currency = response_body['currency']
-        if 'paidTime' in response_body:
-            self.__paid_time = response_body['paidTime']
-        if 'voidedTime' in response_body:
-            self.__voided_time = response_body['voidedTime']
         if 'periodStart' in response_body:
             self.__period_start = response_body['periodStart']
         if 'periodEnd' in response_body:

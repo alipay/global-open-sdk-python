@@ -9,13 +9,13 @@ class AlipayReceiptSendRequest(AlipayRequest):
         super(AlipayReceiptSendRequest, self).__init__("/ams/api/v1/billing/receipt/send") 
 
         self.__receipt_id = None  # type: str
-        self.__send_request_id = None  # type: str
+        self.__cc_emails = None  # type: [str]
         
 
     @property
     def receipt_id(self):
         """
-        The receipt ID. Maximum length: 64 characters.
+        Receipt ID to send. Must belong to the merchant. Cannot be null.
         """
         return self.__receipt_id
 
@@ -23,15 +23,15 @@ class AlipayReceiptSendRequest(AlipayRequest):
     def receipt_id(self, value):
         self.__receipt_id = value
     @property
-    def send_request_id(self):
+    def cc_emails(self):
         """
-        The send request id. Maximum length: 64 characters.
+        CC email addresses to receive a copy of the receipt email in addition to the customer&#39;s registered email. Can be null.
         """
-        return self.__send_request_id
+        return self.__cc_emails
 
-    @send_request_id.setter
-    def send_request_id(self, value):
-        self.__send_request_id = value
+    @cc_emails.setter
+    def cc_emails(self, value):
+        self.__cc_emails = value
 
 
     def to_ams_json(self): 
@@ -43,8 +43,8 @@ class AlipayReceiptSendRequest(AlipayRequest):
         params = dict()
         if hasattr(self, "receipt_id") and self.receipt_id is not None:
             params['receiptId'] = self.receipt_id
-        if hasattr(self, "send_request_id") and self.send_request_id is not None:
-            params['sendRequestId'] = self.send_request_id
+        if hasattr(self, "cc_emails") and self.cc_emails is not None:
+            params['ccEmails'] = self.cc_emails
         return params
 
 
@@ -53,5 +53,5 @@ class AlipayReceiptSendRequest(AlipayRequest):
             response_body = json.loads(response_body)
         if 'receiptId' in response_body:
             self.__receipt_id = response_body['receiptId']
-        if 'sendRequestId' in response_body:
-            self.__send_request_id = response_body['sendRequestId']
+        if 'ccEmails' in response_body:
+            self.__cc_emails = response_body['ccEmails']

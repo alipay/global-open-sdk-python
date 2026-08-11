@@ -14,13 +14,13 @@ class AlipayProductCreateRequest(AlipayRequest):
         self.__description = None  # type: str
         self.__images = None  # type: [str]
         self.__unit_label = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         
 
     @property
     def product_request_id(self):
         """
-        The product request id. Maximum length: 64 characters. Note: See documentation for details.
+        Optional idempotency key for product creation. Maximum length: 64 characters; letters, digits, hyphens, and underscores are allowed. A retry with the same key and request body returns the original result. Reusing the key with a different request body returns &#x60;BIZ_DUPLICATE_PRODUCT_REQUEST&#x60;. Omitting the key allows network retries to create duplicate products.
         """
         return self.__product_request_id
 
@@ -30,7 +30,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def name(self):
         """
-        The name. Maximum length: 100 characters.
+        Product name. Required. Maximum length: 128 characters. Characters &#x60;&lt;&#x60;, &#x60;&gt;&#x60;, &#x60;&amp;&#x60;, &#x60;&#39;&#x60;, and &#x60;\&quot;&#x60; are not allowed.
         """
         return self.__name
 
@@ -40,7 +40,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def type(self):
         """
-        The type. Maximum length: 16 characters.
+        Product type. O - Default: SERVICE. Enum: SERVICE(intangible digital service or SaaS offering - checkout skips shipping address collection), GOOD(tangible physical product requiring delivery - checkout collects shipping address). Cannot be null when present; if absent, defaults to SERVICE
         """
         return self.__type
 
@@ -50,7 +50,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Optional product description. Maximum length: 256 characters. Characters &#x60;&lt;&#x60;, &#x60;&gt;&#x60;, &#x60;&amp;&#x60;, &#x60;&#39;&#x60;, and &#x60;\&quot;&#x60; are not allowed.
         """
         return self.__description
 
@@ -60,7 +60,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def images(self):
         """
-        The images. Note: See documentation for details.
+        Optional initial product image URLs. Maximum size: 8 elements; maximum length: 2048 characters per URL. Each URL must use HTTP or HTTPS. Characters &#x60;&lt;&#x60;, &#x60;&gt;&#x60;, &#x60;&amp;&#x60;, &#x60;&#39;&#x60;, and &#x60;\&quot;&#x60; are not allowed.
         """
         return self.__images
 
@@ -70,7 +70,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters. Note: See documentation for details.
+        Product-level unit label (e.g., \&quot;seat\&quot;, \&quot;API call\&quot;). C - Optional at creation; required when any linked price uses usageType&#x3D;LICENSED or METERED (if absent at that point, Price-level unitLabel must provide the value). Price-level unitLabel overrides Product-level unitLabel when both are set; if Price-level is absent, Product-level is inherited. Can be null; default null. Characters &amp; &#39; \&quot; are not allowed
         """
         return self.__unit_label
 
@@ -80,7 +80,7 @@ class AlipayProductCreateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Note: See documentation for details.
+        Optional metadata encoded as a JSON object string. The SDK must forward the string unchanged. Maximum size: 20 entries. Keys must use lowerCamelCase alphanumeric text and be at most 40 characters. Values are at most 500 characters and cannot contain &#x60;&lt;&#x60;, &#x60;&gt;&#x60;, &#x60;&amp;&#x60;, &#x60;&#39;&#x60;, or &#x60;\&quot;&#x60;. PII must not be stored. Invalid keys, values, or entry counts return &#x60;INVALID_METADATA_KEY&#x60;, &#x60;INVALID_METADATA_VALUE&#x60;, or &#x60;INVALID_METADATA_SIZE&#x60;.
         """
         return self.__metadata
 

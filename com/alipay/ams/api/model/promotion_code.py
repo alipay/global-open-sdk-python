@@ -9,18 +9,18 @@ class PromotionCode:
         
         self.__promotion_code_request_id = None  # type: str
         self.__code = None  # type: str
-        self.__max_redemptions = None  # type: int
         self.__expiry_time = None  # type: str
         self.__min_amount = None  # type: Amount
         self.__one_time_only = None  # type: bool
         self.__customer_id = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
+        self.__max_redemptions = None  # type: int
         
 
     @property
     def promotion_code_request_id(self):
         """
-        The promotion code request id. Maximum length: 128 characters.
+        Idempotency key for the nested promotion code. Must be unique per merchant. Independent of the coupon&#39;s &#x60;couponRequestId&#x60;.
         """
         return self.__promotion_code_request_id
 
@@ -30,7 +30,7 @@ class PromotionCode:
     @property
     def code(self):
         """
-        The code. Maximum length: 128 characters.
+        Public promotion code string. If not provided, the server auto-generates a 12-character readable code (uppercase letters + digits, ambiguous chars O/0/I/1/L removed). Must be unique per merchant.
         """
         return self.__code
 
@@ -38,19 +38,9 @@ class PromotionCode:
     def code(self, value):
         self.__code = value
     @property
-    def max_redemptions(self):
-        """
-        The max redemptions.
-        """
-        return self.__max_redemptions
-
-    @max_redemptions.setter
-    def max_redemptions(self, value):
-        self.__max_redemptions = value
-    @property
     def expiry_time(self):
         """
-        The expiry time. Maximum length: 24 characters.
+        UTC timestamp (ISO 8601) after which the code expires.
         """
         return self.__expiry_time
 
@@ -70,7 +60,7 @@ class PromotionCode:
     @property
     def one_time_only(self):
         """
-        The one time only.
+        If &#x60;true&#x60;, each customer can only redeem this code once. Default: &#x60;false&#x60;.
         """
         return self.__one_time_only
 
@@ -80,7 +70,7 @@ class PromotionCode:
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        If set, restricts this code to a specific customer. Must be a valid customerId in the system.
         """
         return self.__customer_id
 
@@ -90,13 +80,23 @@ class PromotionCode:
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases.
+        Merchant-defined key-value pairs stored as JSON string. Enforced constraints: max 50 keys; each key max 40 characters; each value max 500 characters. Requests exceeding these limits return &#x60;PARAM_ILLEGAL&#x60;. The value must be a valid JSON object string.
         """
         return self.__metadata
 
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+    @property
+    def max_redemptions(self):
+        """
+        Maximum redemption count for this code. If not set or 0, unlimited. Value range: 0-999999.
+        """
+        return self.__max_redemptions
+
+    @max_redemptions.setter
+    def max_redemptions(self, value):
+        self.__max_redemptions = value
 
 
     
@@ -107,8 +107,6 @@ class PromotionCode:
             params['promotionCodeRequestId'] = self.promotion_code_request_id
         if hasattr(self, "code") and self.code is not None:
             params['code'] = self.code
-        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
-            params['maxRedemptions'] = self.max_redemptions
         if hasattr(self, "expiry_time") and self.expiry_time is not None:
             params['expiryTime'] = self.expiry_time
         if hasattr(self, "min_amount") and self.min_amount is not None:
@@ -119,6 +117,8 @@ class PromotionCode:
             params['customerId'] = self.customer_id
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
+        if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
+            params['maxRedemptions'] = self.max_redemptions
         return params
 
 
@@ -129,8 +129,6 @@ class PromotionCode:
             self.__promotion_code_request_id = response_body['promotionCodeRequestId']
         if 'code' in response_body:
             self.__code = response_body['code']
-        if 'maxRedemptions' in response_body:
-            self.__max_redemptions = response_body['maxRedemptions']
         if 'expiryTime' in response_body:
             self.__expiry_time = response_body['expiryTime']
         if 'minAmount' in response_body:
@@ -142,3 +140,5 @@ class PromotionCode:
             self.__customer_id = response_body['customerId']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']

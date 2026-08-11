@@ -10,7 +10,6 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
         super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
-        self.__void_request_id = None  # type: str
         self.__invoice_id = None  # type: str
         self.__status = None  # type: str
         self.__voided_at = None  # type: str
@@ -29,19 +28,9 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
     def result(self, value):
         self.__result = value
     @property
-    def void_request_id(self):
-        """
-        The void request id. Maximum length: 64 characters.
-        """
-        return self.__void_request_id
-
-    @void_request_id.setter
-    def void_request_id(self, value):
-        self.__void_request_id = value
-    @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID that was voided (echo-back of request). Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 
@@ -51,7 +40,7 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        New invoice status after void: &#x60;VOID&#x60;. The invoice is now in a terminal cancelled state and cannot be modified or paid. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 
@@ -61,7 +50,7 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
     @property
     def voided_at(self):
         """
-        The voided at. Maximum length: 24 characters.
+        ISO 8601 timestamp of when the invoice was voided (e.g., &#x60;2026-05-10T09:15:00+00:00&#x60;). This is the official time the invoice entered the VOID state. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__voided_at
 
@@ -71,7 +60,7 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
     @property
     def invoice_note(self):
         """
-        The invoice note. Maximum length: 512 characters.
+        Echo-back of the &#x60;invoiceNote&#x60; provided in the request, if any. The note is stored in the &#x60;invoiceNotes&#x60; array in the invoice metadata with &#x60;action&#x3D;void&#x60;. Can be null (no note provided). Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_note
 
@@ -86,8 +75,6 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
             params['result'] = self.result
-        if hasattr(self, "void_request_id") and self.void_request_id is not None:
-            params['voidRequestId'] = self.void_request_id
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
             params['invoiceId'] = self.invoice_id
         if hasattr(self, "status") and self.status is not None:
@@ -104,8 +91,6 @@ class AlipayInvoiceVoidResponse(AlipayResponse):
         if 'result' in response_body:
             self.__result = Result()
             self.__result.parse_rsp_body(response_body['result'])
-        if 'voidRequestId' in response_body:
-            self.__void_request_id = response_body['voidRequestId']
         if 'invoiceId' in response_body:
             self.__invoice_id = response_body['invoiceId']
         if 'status' in response_body:

@@ -26,10 +26,11 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
         self.__included_quantity = None  # type: int
         self.__tiers_mode = None  # type: str
         self.__tiers = None  # type: [Tier]
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
+        self.__default_price = None  # type: bool
         self.parse_rsp_body(rsp_body) 
 
 
@@ -46,7 +47,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def price_id(self):
         """
-        The price ID. Maximum length: 32 characters.
+        System-generated price ID Returned only when result.resultCode is SUCCESS.
         """
         return self.__price_id
 
@@ -56,7 +57,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        Associated product ID Returned only when result.resultCode is SUCCESS.
         """
         return self.__product_id
 
@@ -66,7 +67,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def name(self):
         """
-        The name. Maximum length: 128 characters.
+        Price name. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__name
 
@@ -76,7 +77,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def pricing_model(self):
         """
-        The pricing model. Maximum length: 24 characters.
+        Pricing model type. Always returned. Enum: PER_UNIT/TIERED. See Section 4.1.3 Create Price request for full behavioral descriptions and Section 6.11 for pricing model semantics Returned only when result.resultCode is SUCCESS.
         """
         return self.__pricing_model
 
@@ -86,7 +87,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def usage_type(self):
         """
-        The usage type. Maximum length: 16 characters.
+        Usage type. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__usage_type
 
@@ -96,7 +97,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def unit_label(self):
         """
-        The unit label. Maximum length: 64 characters.
+        Price-level unit label. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__unit_label
 
@@ -106,7 +107,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 32 characters.
+        External meter reference. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__meter_id
 
@@ -136,7 +137,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def active(self):
         """
-        The active.
+        Price active status. true&#x3D;active, false&#x3D;deactivated. Cannot be null Returned only when result.resultCode is SUCCESS.
         """
         return self.__active
 
@@ -146,7 +147,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def included_quantity(self):
         """
-        The included quantity.
+        Included quantity for package pricing. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__included_quantity
 
@@ -156,7 +157,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def tiers_mode(self):
         """
-        The tiers mode. Maximum length: 16 characters.
+        Tiered pricing mode. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__tiers_mode
 
@@ -166,7 +167,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def tiers(self):
         """
-        The tiers.
+        Tier definitions. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__tiers
 
@@ -176,7 +177,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 20 characters.
+        Custom key-value metadata. O - May be null in the response when the value is not set The value must be a valid JSON object string. Returned only when result.resultCode is SUCCESS.
         """
         return self.__metadata
 
@@ -186,7 +187,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def created_at(self):
         """
-        The created at. Maximum length: 29 characters.
+        ISO 8601 creation timestamp Returned only when result.resultCode is SUCCESS.
         """
         return self.__created_at
 
@@ -196,7 +197,7 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def deactivated_at(self):
         """
-        The deactivated at. Maximum length: 29 characters.
+        ISO 8601 deactivation timestamp. O - Returned when price has been deactivated (active&#x3D;false); absent when price is active Returned only when result.resultCode is SUCCESS.
         """
         return self.__deactivated_at
 
@@ -206,13 +207,23 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
     @property
     def updated_at(self):
         """
-        The updated at. Maximum length: 29 characters.
+        ISO 8601 last update timestamp. O - May be null in the response when the value is not set Returned only when result.resultCode is SUCCESS.
         """
         return self.__updated_at
 
     @updated_at.setter
     def updated_at(self, value):
         self.__updated_at = value
+    @property
+    def default_price(self):
+        """
+        Whether this price is the default price for the product. When true, this price is the primary price shown for the product Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__default_price
+
+    @default_price.setter
+    def default_price(self, value):
+        self.__default_price = value
 
 
     
@@ -255,6 +266,8 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
             params['deactivatedAt'] = self.deactivated_at
         if hasattr(self, "updated_at") and self.updated_at is not None:
             params['updatedAt'] = self.updated_at
+        if hasattr(self, "default_price") and self.default_price is not None:
+            params['defaultPrice'] = self.default_price
         return params
 
 
@@ -303,3 +316,5 @@ class AlipayPriceInquireDetailsResponse(AlipayResponse):
             self.__deactivated_at = response_body['deactivatedAt']
         if 'updatedAt' in response_body:
             self.__updated_at = response_body['updatedAt']
+        if 'defaultPrice' in response_body:
+            self.__default_price = response_body['defaultPrice']

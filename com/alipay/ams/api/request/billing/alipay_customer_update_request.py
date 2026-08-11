@@ -31,7 +31,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
         self.__currency = None  # type: str
         self.__preferred_locales = None  # type: [str]
         self.__default_payment_method = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         self.__phone_no = None  # type: str
         self.__country_code = None  # type: str
         self.__billing_email = None  # type: str
@@ -43,7 +43,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        System-generated customer ID to update. Cannot be empty.
         """
         return self.__customer_id
 
@@ -53,7 +53,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def reference_customer_id(self):
         """
-        The customer ID in the merchant system. Maximum length: 32 characters.
+        Update merchant&#39;s own customer reference ID. Maximum length: 32 characters.
         """
         return self.__reference_customer_id
 
@@ -63,7 +63,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def alipay_user_id(self):
         """
-        The Alipay user ID. Maximum length: 64 characters.
+        Update bound Alipay user ID. Antom-specific field for channel routing and risk identification. Maximum length: 64 characters.
         """
         return self.__alipay_user_id
 
@@ -73,7 +73,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def email(self):
         """
-        The email address. Maximum length: 256 characters.
+        Updated email address. Optional - &#x60;null&#x60;/omitted means no change (PATCH semantics). No email-format validation is applied. Maximum length: 256 characters.
         """
         return self.__email
 
@@ -83,7 +83,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def first_name(self):
         """
-        The first name. Maximum length: 256 characters.
+        Updated first name. Maximum length: 256 characters.
         """
         return self.__first_name
 
@@ -93,7 +93,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def last_name(self):
         """
-        The last name. Maximum length: 256 characters.
+        Updated last name. Maximum length: 256 characters.
         """
         return self.__last_name
 
@@ -103,7 +103,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def country(self):
         """
-        The country or region code. Maximum length: 8 characters.
+        Updated billing address country. Format: ISO 3166-1 alpha-2. Maximum length: 2 characters.
         """
         return self.__country
 
@@ -113,7 +113,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def state(self):
         """
-        The state or province. Maximum length: 128 characters.
+        Updated billing address state. Maximum length: 128 characters.
         """
         return self.__state
 
@@ -123,7 +123,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def city(self):
         """
-        The city. Maximum length: 256 characters.
+        Updated billing address city. Maximum length: 256 characters.
         """
         return self.__city
 
@@ -133,7 +133,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def address(self):
         """
-        The address. Maximum length: 1024 characters.
+        Updated billing address street. Maximum length: 1024 characters.
         """
         return self.__address
 
@@ -143,7 +143,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def address_detail(self):
         """
-        The detailed address information. Maximum length: 2048 characters.
+        Updated billing address detail. Maximum length: 2048 characters.
         """
         return self.__address_detail
 
@@ -153,7 +153,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def zipcode(self):
         """
-        The ZIP or postal code. Maximum length: 32 characters.
+        Updated billing postal code. Maximum length: 32 characters.
         """
         return self.__zipcode
 
@@ -163,7 +163,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_phone(self):
         """
-        The shipping phone. Maximum length: 32 characters.
+        Updated shipping phone. Maximum length: 32 characters.
         """
         return self.__shipping_phone
 
@@ -173,7 +173,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_country(self):
         """
-        The shipping country. Maximum length: 8 characters.
+        Updated shipping country. Format: ISO 3166-1 alpha-2. Maximum length: 2 characters.
         """
         return self.__shipping_country
 
@@ -183,7 +183,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_state(self):
         """
-        The shipping state. Maximum length: 128 characters.
+        Updated shipping state. Maximum length: 128 characters.
         """
         return self.__shipping_state
 
@@ -193,7 +193,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_city(self):
         """
-        The shipping city. Maximum length: 256 characters.
+        Updated shipping city. Maximum length: 256 characters.
         """
         return self.__shipping_city
 
@@ -203,7 +203,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_address(self):
         """
-        The shipping address. Maximum length: 1024 characters.
+        Updated shipping address. Maximum length: 1024 characters.
         """
         return self.__shipping_address
 
@@ -213,7 +213,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_address_detail(self):
         """
-        The shipping address detail. Maximum length: 2048 characters.
+        Updated shipping address detail. Maximum length: 2048 characters.
         """
         return self.__shipping_address_detail
 
@@ -223,7 +223,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_zipcode(self):
         """
-        The shipping zipcode. Maximum length: 32 characters.
+        Updated shipping postal code. Maximum length: 32 characters.
         """
         return self.__shipping_zipcode
 
@@ -233,7 +233,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def description(self):
         """
-        The description. Maximum length: 1024 characters.
+        Updated free-text description. Maximum length: 1024 characters.
         """
         return self.__description
 
@@ -243,7 +243,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def currency(self):
         """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 8 characters.
+        Updated default currency. Format: ISO 4217 alphabetic code. Maximum length: 3 characters.
         """
         return self.__currency
 
@@ -253,7 +253,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def preferred_locales(self):
         """
-        The preferred language or locale settings.
+        Updated preferred locale(s) (e.g. &#x60;[\&quot;en-US\&quot;, \&quot;fr-FR\&quot;]&#x60;). Maximum size: 5 elements.
         """
         return self.__preferred_locales
 
@@ -263,7 +263,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def default_payment_method(self):
         """
-        The default payment method token. Maximum length: 64 characters.
+        Updated default payment method token. The payment method must exist, belong to this customer, and be in an available state; otherwise &#x60;PARAM_ILLEGAL&#x60; is returned. Maximum length: 64 characters.
         """
         return self.__default_payment_method
 
@@ -273,7 +273,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters. Note: See documentation for details.
+        Merchant-defined metadata encoded as a JSON object string. Maximum length: 500 characters. A non-empty value fully replaces the existing metadata and must contain a valid JSON object string. An empty string clears all metadata. Omitted or null means no change.
         """
         return self.__metadata
 
@@ -283,7 +283,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def phone_no(self):
         """
-        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
+        Updated phone number (digits only). Cross-field constraint: when &#x60;phoneNo&#x60; is provided, &#x60;countryCode&#x60; is required; omitting it returns &#x60;PARAM_ILLEGAL&#x60;. Maximum length: 32 characters.
         """
         return self.__phone_no
 
@@ -293,7 +293,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def country_code(self):
         """
-        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
+        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;phoneNo&#x60; is provided. Maximum length: 2 characters.
         """
         return self.__country_code
 
@@ -303,7 +303,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def billing_email(self):
         """
-        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        Updated invoice recipient email. Maximum length: 256 characters.
         """
         return self.__billing_email
 
@@ -313,7 +313,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_first_name(self):
         """
-        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Updated shipping recipient first name. Maximum length: 256 characters.
         """
         return self.__shipping_first_name
 
@@ -323,7 +323,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_last_name(self):
         """
-        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Updated shipping recipient last name. Maximum length: 256 characters.
         """
         return self.__shipping_last_name
 
@@ -333,7 +333,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def shipping_country_code(self):
         """
-        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
+        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;shippingPhone&#x60; is provided. Maximum length: 2 characters.
         """
         return self.__shipping_country_code
 

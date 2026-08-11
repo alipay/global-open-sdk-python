@@ -1,5 +1,6 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -13,6 +14,7 @@ class CreditNoteSummary:
         self.__type = None  # type: str
         self.__status = None  # type: str
         self.__total_amount = None  # type: Amount
+        self.__refund_amount = None  # type: Amount
         self.__reason = None  # type: str
         self.__effective_date = None  # type: str
         self.__refund_status = None  # type: str
@@ -81,6 +83,16 @@ class CreditNoteSummary:
     @total_amount.setter
     def total_amount(self, value):
         self.__total_amount = value
+    @property
+    def refund_amount(self):
+        """Gets the refund_amount of this CreditNoteSummary.
+        
+        """
+        return self.__refund_amount
+
+    @refund_amount.setter
+    def refund_amount(self, value):
+        self.__refund_amount = value
     @property
     def reason(self):
         """
@@ -159,6 +171,8 @@ class CreditNoteSummary:
             params['status'] = self.status
         if hasattr(self, "total_amount") and self.total_amount is not None:
             params['totalAmount'] = self.total_amount
+        if hasattr(self, "refund_amount") and self.refund_amount is not None:
+            params['refundAmount'] = self.refund_amount
         if hasattr(self, "reason") and self.reason is not None:
             params['reason'] = self.reason
         if hasattr(self, "effective_date") and self.effective_date is not None:
@@ -190,6 +204,9 @@ class CreditNoteSummary:
         if 'totalAmount' in response_body:
             self.__total_amount = Amount()
             self.__total_amount.parse_rsp_body(response_body['totalAmount'])
+        if 'refundAmount' in response_body:
+            self.__refund_amount = Amount()
+            self.__refund_amount.parse_rsp_body(response_body['refundAmount'])
         if 'reason' in response_body:
             self.__reason = response_body['reason']
         if 'effectiveDate' in response_body:

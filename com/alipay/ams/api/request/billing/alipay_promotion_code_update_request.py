@@ -12,13 +12,13 @@ class AlipayPromotionCodeUpdateRequest(AlipayRequest):
         self.__status = None  # type: str
         self.__max_redemptions = None  # type: int
         self.__expiry_time = None  # type: str
-        self.__metadata = None  # type: {str: (str,)}
+        self.__metadata = None  # type: str
         
 
     @property
     def promotion_code_id(self):
         """
-        The promotion code ID. Maximum length: 64 characters.
+        System-generated promotion code ID to update. Cannot be empty.
         """
         return self.__promotion_code_id
 
@@ -28,7 +28,7 @@ class AlipayPromotionCodeUpdateRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Status transition. Accepted values: &#x60;ACTIVE&#x60; / &#x60;INACTIVE&#x60;. Drives an ACTIVE &lt;-&gt; INACTIVE state change. When null/blank, status is left unchanged.
         """
         return self.__status
 
@@ -38,7 +38,7 @@ class AlipayPromotionCodeUpdateRequest(AlipayRequest):
     @property
     def max_redemptions(self):
         """
-        The max redemptions.
+        Updated maximum redemption count. Value range: 0-999999 (same as create).
         """
         return self.__max_redemptions
 
@@ -48,7 +48,7 @@ class AlipayPromotionCodeUpdateRequest(AlipayRequest):
     @property
     def expiry_time(self):
         """
-        The expiry time.
+        Updated expiry time (UTC, ISO 8601). Must be a future time; a past value returns &#x60;PARAM_ILLEGAL&#x60;.
         """
         return self.__expiry_time
 
@@ -58,7 +58,7 @@ class AlipayPromotionCodeUpdateRequest(AlipayRequest):
     @property
     def metadata(self):
         """
-        Custom metadata for special use cases. Maximum length: 65535 characters.
+        Updated merchant-defined key-value pairs. Full replacement semantics. Enforced constraints: up to 50 keys; each key up to 40 characters; each value up to 500 characters (in addition to the 65535 max length). The value must be a valid JSON object string.
         """
         return self.__metadata
 

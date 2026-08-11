@@ -14,8 +14,8 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
         self.__promotion_codes = None  # type: [PromotionCodeInfo]
         self.__has_more = None  # type: bool
         self.__next_cursor = None  # type: str
-        self.__prev_cursor = None  # type: str
         self.__total = None  # type: int
+        self.__previous_cursor = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -32,7 +32,7 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
     @property
     def promotion_codes(self):
         """
-        The promotion codes. Note: See documentation for details.
+        List of promotion code summary items. Maximum size: 100 elements per page (governed by request &#x60;limit&#x60; max value 100). Empty array if no results. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__promotion_codes
 
@@ -42,7 +42,7 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
     @property
     def has_more(self):
         """
-        The has more. Note: See documentation for details.
+        Whether more results exist beyond the current page. &#x60;false&#x60; &#x3D; last page. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__has_more
 
@@ -52,7 +52,7 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
     @property
     def next_cursor(self):
         """
-        The next cursor. Maximum length: 64 characters. Note: See documentation for details.
+        Entity ID of the last element. Pass as &#x60;startingAfter&#x60; in the next request. Returned when &#x60;hasMore&#x60; is &#x60;true&#x60;. Absent when &#x60;hasMore&#x60; is &#x60;false&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__next_cursor
 
@@ -60,25 +60,25 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
     def next_cursor(self, value):
         self.__next_cursor = value
     @property
-    def prev_cursor(self):
-        """
-        The prev cursor. Maximum length: 64 characters. Note: See documentation for details.
-        """
-        return self.__prev_cursor
-
-    @prev_cursor.setter
-    def prev_cursor(self, value):
-        self.__prev_cursor = value
-    @property
     def total(self):
         """
-        The total. Note: See documentation for details.
+        Total count of matching promotion codes. Only returned when request has &#x60;includeTotal&#x3D;true&#x60;. Returned only when result.resultCode is SUCCESS.
         """
         return self.__total
 
     @total.setter
     def total(self, value):
         self.__total = value
+    @property
+    def previous_cursor(self):
+        """
+        Entity ID of the first element. Pass as &#x60;endingBefore&#x60; to navigate backward. Only returned when request used &#x60;endingBefore&#x60;. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__previous_cursor
+
+    @previous_cursor.setter
+    def previous_cursor(self, value):
+        self.__previous_cursor = value
 
 
     
@@ -93,10 +93,10 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
             params['hasMore'] = self.has_more
         if hasattr(self, "next_cursor") and self.next_cursor is not None:
             params['nextCursor'] = self.next_cursor
-        if hasattr(self, "prev_cursor") and self.prev_cursor is not None:
-            params['prevCursor'] = self.prev_cursor
         if hasattr(self, "total") and self.total is not None:
             params['total'] = self.total
+        if hasattr(self, "previous_cursor") and self.previous_cursor is not None:
+            params['previousCursor'] = self.previous_cursor
         return params
 
 
@@ -115,7 +115,7 @@ class AlipayPromotionCodeInquireListResponse(AlipayResponse):
             self.__has_more = response_body['hasMore']
         if 'nextCursor' in response_body:
             self.__next_cursor = response_body['nextCursor']
-        if 'prevCursor' in response_body:
-            self.__prev_cursor = response_body['prevCursor']
         if 'total' in response_body:
             self.__total = response_body['total']
+        if 'previousCursor' in response_body:
+            self.__previous_cursor = response_body['previousCursor']

@@ -29,7 +29,7 @@ class AlipayInvoiceSendResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID that was sent (echo-back of the request). Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 
@@ -39,7 +39,7 @@ class AlipayInvoiceSendResponse(AlipayResponse):
     @property
     def send_status(self):
         """
-        The email sending status. Maximum length: 16 characters. Note: See documentation for details.
+        Email delivery status. Returned only when &#x60;result.resultCode&#x3D;SUCCESS&#x60;. Allowed values: &#x60;SENT&#x60; - email dispatched successfully to the customer; &#x60;FAILED&#x60; - email service unavailable or dispatch failed, retry is allowed. Cannot be null when present. Returned only when result.resultCode is SUCCESS.
         """
         return self.__send_status
 
@@ -49,7 +49,7 @@ class AlipayInvoiceSendResponse(AlipayResponse):
     @property
     def hosted_invoice_url(self):
         """
-        The hosted invoice url. Maximum length: 2048 characters.
+        URL to the hosted invoice page where the customer can view and pay the invoice online. This is the same hosted page returned by the Create Invoice API. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__hosted_invoice_url
 

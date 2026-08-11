@@ -12,18 +12,15 @@ class Customer:
         self.__first_name = None  # type: str
         self.__last_name = None  # type: str
         self.__status = None  # type: str
-        self.__phone_no = None  # type: str
-        self.__country_code = None  # type: str
         self.__billing_email = None  # type: str
-        self.__shipping_first_name = None  # type: str
-        self.__shipping_last_name = None  # type: str
-        self.__shipping_country_code = None  # type: str
+        self.__country = None  # type: str
+        self.__gmt_create = None  # type: str
         
 
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Filter by exact customer ID (single exact match).
         """
         return self.__customer_id
 
@@ -33,7 +30,7 @@ class Customer:
     @property
     def customer_request_id(self):
         """
-        The unique ID assigned by a merchant to identify a request. Maximum length: 64 characters.
+        Merchant-supplied idempotency key.
         """
         return self.__customer_request_id
 
@@ -43,7 +40,7 @@ class Customer:
     @property
     def email(self):
         """
-        The email address. Maximum length: 256 characters. Note: See documentation for details.
+        Filter by exact email address match. Maximum length: 256 characters.
         """
         return self.__email
 
@@ -53,7 +50,7 @@ class Customer:
     @property
     def first_name(self):
         """
-        The first name. Maximum length: 256 characters. Note: See documentation for details.
+        Customer first name. Returned when the field was set.
         """
         return self.__first_name
 
@@ -63,7 +60,7 @@ class Customer:
     @property
     def last_name(self):
         """
-        The last name. Maximum length: 256 characters. Note: See documentation for details.
+        Customer last name. Returned when the field was set.
         """
         return self.__last_name
 
@@ -73,7 +70,7 @@ class Customer:
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by customer status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;DELETED&#x60;. If not provided, returns customers of all statuses.
         """
         return self.__status
 
@@ -81,29 +78,9 @@ class Customer:
     def status(self, value):
         self.__status = value
     @property
-    def phone_no(self):
-        """
-        The customer&#39;s phone number (digits only). Replaces deprecated mobileNo. Maximum length: 32 characters.
-        """
-        return self.__phone_no
-
-    @phone_no.setter
-    def phone_no(self, value):
-        self.__phone_no = value
-    @property
-    def country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with phoneNo. Required when phoneNo is provided. Maximum length: 2 characters.
-        """
-        return self.__country_code
-
-    @country_code.setter
-    def country_code(self, value):
-        self.__country_code = value
-    @property
     def billing_email(self):
         """
-        Invoice recipient email address (independent of account email). Maximum length: 256 characters.
+        Invoice recipient email (independent of account email). Returned when the field was set.
         """
         return self.__billing_email
 
@@ -111,35 +88,25 @@ class Customer:
     def billing_email(self, value):
         self.__billing_email = value
     @property
-    def shipping_first_name(self):
+    def country(self):
         """
-        Shipping recipient first name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Filter by billing country codes (ISO 3166-1 alpha-2) using SQL &#x60;IN&#x60; clause. Maximum size: 50 elements.
         """
-        return self.__shipping_first_name
+        return self.__country
 
-    @shipping_first_name.setter
-    def shipping_first_name(self, value):
-        self.__shipping_first_name = value
+    @country.setter
+    def country(self, value):
+        self.__country = value
     @property
-    def shipping_last_name(self):
+    def gmt_create(self):
         """
-        Shipping recipient last name. Replaces deprecated shippingName. Maximum length: 256 characters.
+        Customer creation timestamp.
         """
-        return self.__shipping_last_name
+        return self.__gmt_create
 
-    @shipping_last_name.setter
-    def shipping_last_name(self, value):
-        self.__shipping_last_name = value
-    @property
-    def shipping_country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with shippingPhone. Maximum length: 8 characters.
-        """
-        return self.__shipping_country_code
-
-    @shipping_country_code.setter
-    def shipping_country_code(self, value):
-        self.__shipping_country_code = value
+    @gmt_create.setter
+    def gmt_create(self, value):
+        self.__gmt_create = value
 
 
     
@@ -158,18 +125,12 @@ class Customer:
             params['lastName'] = self.last_name
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "phone_no") and self.phone_no is not None:
-            params['phoneNo'] = self.phone_no
-        if hasattr(self, "country_code") and self.country_code is not None:
-            params['countryCode'] = self.country_code
         if hasattr(self, "billing_email") and self.billing_email is not None:
             params['billingEmail'] = self.billing_email
-        if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
-            params['shippingFirstName'] = self.shipping_first_name
-        if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
-            params['shippingLastName'] = self.shipping_last_name
-        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
-            params['shippingCountryCode'] = self.shipping_country_code
+        if hasattr(self, "country") and self.country is not None:
+            params['country'] = self.country
+        if hasattr(self, "gmt_create") and self.gmt_create is not None:
+            params['gmtCreate'] = self.gmt_create
         return params
 
 
@@ -188,15 +149,9 @@ class Customer:
             self.__last_name = response_body['lastName']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'phoneNo' in response_body:
-            self.__phone_no = response_body['phoneNo']
-        if 'countryCode' in response_body:
-            self.__country_code = response_body['countryCode']
         if 'billingEmail' in response_body:
             self.__billing_email = response_body['billingEmail']
-        if 'shippingFirstName' in response_body:
-            self.__shipping_first_name = response_body['shippingFirstName']
-        if 'shippingLastName' in response_body:
-            self.__shipping_last_name = response_body['shippingLastName']
-        if 'shippingCountryCode' in response_body:
-            self.__shipping_country_code = response_body['shippingCountryCode']
+        if 'country' in response_body:
+            self.__country = response_body['country']
+        if 'gmtCreate' in response_body:
+            self.__gmt_create = response_body['gmtCreate']

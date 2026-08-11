@@ -20,7 +20,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @property
     def page_num(self):
         """
-        The page num.
+        The page number. The value must be at least 1. The default value is 1. A page beyond the last page returns SUCCESS with an empty &#x60;meters&#x60; array.
         """
         return self.__page_num
 
@@ -30,7 +30,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @property
     def page_size(self):
         """
-        The number of records per page.
+        The number of records per page. Value range: 1-100. The default value is 10.
         """
         return self.__page_size
 

@@ -1,6 +1,6 @@
 import json
-from com.alipay.ams.api.model.coupon_create_result import CouponCreateResult
-from com.alipay.ams.api.model.promotion_code import PromotionCode
+from com.alipay.ams.api.model.result_info import ResultInfo
+from com.alipay.ams.api.model.coupon_promotion_code import CouponPromotionCode
 
 
 
@@ -10,12 +10,12 @@ class AlipayCouponCreateResponse(AlipayResponse):
     def __init__(self, rsp_body):
         super(AlipayResponse, self).__init__() 
 
-        self.__result = None  # type: CouponCreateResult
+        self.__result = None  # type: ResultInfo
         self.__coupon_id = None  # type: str
         self.__coupon_name = None  # type: str
         self.__discount_type = None  # type: str
         self.__status = None  # type: str
-        self.__promotion_codes = None  # type: [PromotionCode]
+        self.__promotion_codes = None  # type: [CouponPromotionCode]
         self.parse_rsp_body(rsp_body) 
 
 
@@ -32,7 +32,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated unique coupon ID. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__coupon_id
 
@@ -42,7 +42,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     @property
     def coupon_name(self):
         """
-        The coupon name. Maximum length: 128 characters. Note: See documentation for details.
+        Coupon display name. Returned when resultCode is &#x60;SUCCESS&#x60; and the field was set.
         """
         return self.__coupon_name
 
@@ -52,7 +52,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     @property
     def discount_type(self):
         """
-        The discount type. Maximum length: 16 characters. Note: See documentation for details.
+        Discount type: &#x60;PERCENT&#x60; or &#x60;AMOUNT&#x60;. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__discount_type
 
@@ -62,7 +62,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Coupon status. Always &#x60;ACTIVE&#x60; on initial creation. Returned when resultCode is &#x60;SUCCESS&#x60;.
         """
         return self.__status
 
@@ -72,7 +72,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     @property
     def promotion_codes(self):
         """
-        The promotion codes. Note: See documentation for details.
+        Nested promotion codes created atomically. Non-empty only when the request carried &#x60;promotionCodes&#x60; AND all were created successfully. Null/empty when the field was omitted. Maximum size: 10 elements. Returned only when result.resultCode is SUCCESS.
         """
         return self.__promotion_codes
 
@@ -103,7 +103,7 @@ class AlipayCouponCreateResponse(AlipayResponse):
     def parse_rsp_body(self, response_body):
         response_body = super(AlipayCouponCreateResponse, self).parse_rsp_body(response_body)
         if 'result' in response_body:
-            self.__result = CouponCreateResult()
+            self.__result = ResultInfo()
             self.__result.parse_rsp_body(response_body['result'])
         if 'couponId' in response_body:
             self.__coupon_id = response_body['couponId']
@@ -116,6 +116,6 @@ class AlipayCouponCreateResponse(AlipayResponse):
         if 'promotionCodes' in response_body:
             self.__promotion_codes = []
             for item in response_body['promotionCodes']:
-                obj = PromotionCode()
+                obj = CouponPromotionCode()
                 obj.parse_rsp_body(item)
                 self.__promotion_codes.append(obj)

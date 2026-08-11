@@ -10,12 +10,13 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
 
         self.__status = None  # type: str
         self.__customer_id = None  # type: str
-        self.__expires_before = None  # type: str
-        self.__expires_after = None  # type: str
+        self.__subscription_id = None  # type: str
+        self.__gmt_create_start = None  # type: str
+        self.__gmt_create_end = None  # type: str
+        self.__sort_order = None  # type: str
         self.__starting_after = None  # type: str
         self.__ending_before = None  # type: str
         self.__limit = None  # type: int
-        self.__include_total = None  # type: bool
         
 
     @property
@@ -39,29 +40,49 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
     def customer_id(self, value):
         self.__customer_id = value
     @property
-    def expires_before(self):
+    def subscription_id(self):
         """
-        The expires before.
+        Filters by an exact subscription ID. Maximum length: 64 characters.
         """
-        return self.__expires_before
+        return self.__subscription_id
 
-    @expires_before.setter
-    def expires_before(self, value):
-        self.__expires_before = value
+    @subscription_id.setter
+    def subscription_id(self, value):
+        self.__subscription_id = value
     @property
-    def expires_after(self):
+    def gmt_create_start(self):
         """
-        The expires after.
+        Filters subscriptions whose &#x60;createTime&#x60; is greater than or equal to this ISO 8601 date-time.
         """
-        return self.__expires_after
+        return self.__gmt_create_start
 
-    @expires_after.setter
-    def expires_after(self, value):
-        self.__expires_after = value
+    @gmt_create_start.setter
+    def gmt_create_start(self, value):
+        self.__gmt_create_start = value
+    @property
+    def gmt_create_end(self):
+        """
+        Filters subscriptions whose &#x60;createTime&#x60; is less than or equal to this ISO 8601 date-time.
+        """
+        return self.__gmt_create_end
+
+    @gmt_create_end.setter
+    def gmt_create_end(self, value):
+        self.__gmt_create_end = value
+    @property
+    def sort_order(self):
+        """
+        The creation-time sort order. Valid values are ASC and DESC. The default value is DESC. Maximum length: 4 characters.
+        """
+        return self.__sort_order
+
+    @sort_order.setter
+    def sort_order(self, value):
+        self.__sort_order = value
     @property
     def starting_after(self):
         """
-        The starting after. Maximum length: 64 characters. Note: See documentation for details.
+        The forward-pagination cursor. This field is mutually exclusive with &#x60;endingBefore&#x60;. Maximum length: 64 characters.
         """
         return self.__starting_after
 
@@ -71,7 +92,7 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
     @property
     def ending_before(self):
         """
-        The ending before. Maximum length: 64 characters. Note: See documentation for details.
+        The backward-pagination cursor. This field is mutually exclusive with &#x60;startingAfter&#x60;. Maximum length: 64 characters.
         """
         return self.__ending_before
 
@@ -81,23 +102,13 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
     @property
     def limit(self):
         """
-        The limit.
+        The maximum number of results per page. Value range: 1-100. The default value is 20.
         """
         return self.__limit
 
     @limit.setter
     def limit(self, value):
         self.__limit = value
-    @property
-    def include_total(self):
-        """
-        The include total.
-        """
-        return self.__include_total
-
-    @include_total.setter
-    def include_total(self, value):
-        self.__include_total = value
 
 
     def to_ams_json(self): 
@@ -111,18 +122,20 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
             params['status'] = self.status
         if hasattr(self, "customer_id") and self.customer_id is not None:
             params['customerId'] = self.customer_id
-        if hasattr(self, "expires_before") and self.expires_before is not None:
-            params['expiresBefore'] = self.expires_before
-        if hasattr(self, "expires_after") and self.expires_after is not None:
-            params['expiresAfter'] = self.expires_after
+        if hasattr(self, "subscription_id") and self.subscription_id is not None:
+            params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "gmt_create_start") and self.gmt_create_start is not None:
+            params['gmtCreateStart'] = self.gmt_create_start
+        if hasattr(self, "gmt_create_end") and self.gmt_create_end is not None:
+            params['gmtCreateEnd'] = self.gmt_create_end
+        if hasattr(self, "sort_order") and self.sort_order is not None:
+            params['sortOrder'] = self.sort_order
         if hasattr(self, "starting_after") and self.starting_after is not None:
             params['startingAfter'] = self.starting_after
         if hasattr(self, "ending_before") and self.ending_before is not None:
             params['endingBefore'] = self.ending_before
         if hasattr(self, "limit") and self.limit is not None:
             params['limit'] = self.limit
-        if hasattr(self, "include_total") and self.include_total is not None:
-            params['includeTotal'] = self.include_total
         return params
 
 
@@ -133,15 +146,17 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
             self.__status = response_body['status']
         if 'customerId' in response_body:
             self.__customer_id = response_body['customerId']
-        if 'expiresBefore' in response_body:
-            self.__expires_before = response_body['expiresBefore']
-        if 'expiresAfter' in response_body:
-            self.__expires_after = response_body['expiresAfter']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'gmtCreateStart' in response_body:
+            self.__gmt_create_start = response_body['gmtCreateStart']
+        if 'gmtCreateEnd' in response_body:
+            self.__gmt_create_end = response_body['gmtCreateEnd']
+        if 'sortOrder' in response_body:
+            self.__sort_order = response_body['sortOrder']
         if 'startingAfter' in response_body:
             self.__starting_after = response_body['startingAfter']
         if 'endingBefore' in response_body:
             self.__ending_before = response_body['endingBefore']
         if 'limit' in response_body:
             self.__limit = response_body['limit']
-        if 'includeTotal' in response_body:
-            self.__include_total = response_body['includeTotal']
