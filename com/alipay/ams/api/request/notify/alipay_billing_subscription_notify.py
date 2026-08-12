@@ -6,7 +6,7 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
 
     def __init__(self, notify_body):
         super(AlipayBillingSubscriptionNotify, self).__init__()
-        self.__merchant_request_id = None  # type: str
+        self.__subscription_request_id = None  # type: str
         self.__event_time = None  # type: str
         self.__subscription_id = None  # type: str
         self.__invoice_id = None  # type: str
@@ -18,12 +18,13 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
         self.__parse_notify_body(notify_body)
 
     @property
-    def merchant_request_id(self):
-        return self.__merchant_request_id
+    def subscription_request_id(self):
+        """The original subscription request ID and merchant-side idempotency key used for notification deduplication."""
+        return self.__subscription_request_id
 
-    @merchant_request_id.setter
-    def merchant_request_id(self, value):
-        self.__merchant_request_id = value
+    @subscription_request_id.setter
+    def subscription_request_id(self, value):
+        self.__subscription_request_id = value
 
     @property
     def event_time(self):
@@ -92,8 +93,8 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
 
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayBillingSubscriptionNotify, self).parse_notify_body(notify_body)
-        if "merchantRequestId" in notify:
-            self.__merchant_request_id = notify["merchantRequestId"]
+        if "subscriptionRequestId" in notify:
+            self.__subscription_request_id = notify["subscriptionRequestId"]
         if "eventTime" in notify:
             self.__event_time = notify["eventTime"]
         if "subscriptionId" in notify:
