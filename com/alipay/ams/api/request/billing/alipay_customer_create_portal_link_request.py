@@ -10,7 +10,6 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
 
         self.__customer_id = None  # type: str
         self.__email = None  # type: str
-        self.__expiry_days = None  # type: int
         self.__features = None  # type: [str]
         self.__auto_send = None  # type: bool
         self.__setting_id = None  # type: str
@@ -19,7 +18,7 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters. Note: See documentation for details.
+        Customer ID to target. When both &#x60;customerId&#x60; and &#x60;email&#x60; are supplied, &#x60;customerId&#x60; takes precedence.
         """
         return self.__customer_id
 
@@ -29,7 +28,7 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
     @property
     def email(self):
         """
-        The email address. Maximum length: 254 characters. Note: See documentation for details.
+        Customer email for lookup. When multiple customers share the email, the most recently created (by &#x60;gmtCreate DESC&#x60;) is selected. Maximum length: 254 characters (RFC 5322).
         """
         return self.__email
 
@@ -37,19 +36,9 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
     def email(self, value):
         self.__email = value
     @property
-    def expiry_days(self):
-        """
-        The token validity period in days.
-        """
-        return self.__expiry_days
-
-    @expiry_days.setter
-    def expiry_days(self, value):
-        self.__expiry_days = value
-    @property
     def features(self):
         """
-        The feature list. Note: See documentation for details.
+        Feature set enabled for this portal session. Allowed values: &#x60;SUBSCRIPTION&#x60;, &#x60;INVOICE&#x60;, &#x60;PAYMENT_METHOD&#x60;. Empty/absent list -&gt; ALL features enabled by default (NOT an intersection with settingId features, as previously documented). The portal settings referenced by &#x60;settingId&#x60; may further restrict which features are shown at render time.
         """
         return self.__features
 
@@ -59,7 +48,7 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
     @property
     def auto_send(self):
         """
-        Indicates whether to automatically send the notification.
+        When &#x60;true&#x60;, best-effort email the portal URL to the customer. Default: &#x60;false&#x60;. Failure never blocks link creation.
         """
         return self.__auto_send
 
@@ -69,7 +58,7 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
     @property
     def setting_id(self):
         """
-        The setting configuration ID. Maximum length: 64 characters.
+        Portal setting configuration ID. Passed through token payload, parsed by iexpfront.
         """
         return self.__setting_id
 
@@ -89,8 +78,6 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
             params['customerId'] = self.customer_id
         if hasattr(self, "email") and self.email is not None:
             params['email'] = self.email
-        if hasattr(self, "expiry_days") and self.expiry_days is not None:
-            params['expiryDays'] = self.expiry_days
         if hasattr(self, "features") and self.features is not None:
             params['features'] = self.features
         if hasattr(self, "auto_send") and self.auto_send is not None:
@@ -107,8 +94,6 @@ class AlipayCustomerCreatePortalLinkRequest(AlipayRequest):
             self.__customer_id = response_body['customerId']
         if 'email' in response_body:
             self.__email = response_body['email']
-        if 'expiryDays' in response_body:
-            self.__expiry_days = response_body['expiryDays']
         if 'features' in response_body:
             self.__features = response_body['features']
         if 'autoSend' in response_body:

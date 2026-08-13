@@ -46,6 +46,7 @@ class AlipayCaptureResultNotify(AlipayNotify):
 
     @property
     def tax_calculation_id(self):
+        """The tax association ID used for reconciliation and refunds; it does not indicate tax posting, and absence means the payment is not subject to tax."""
         return self.__tax_calculation_id
 
     @tax_calculation_id.setter

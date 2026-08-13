@@ -2,7 +2,7 @@ import json
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.credit_note_create_items import CreditNoteCreateItems
+from com.alipay.ams.api.model.credit_note_item import CreditNoteItem
 
 
 
@@ -26,12 +26,11 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
         self.__reason = None  # type: str
         self.__reason_description = None  # type: str
         self.__refund_destination = None  # type: str
-        self.__items = None  # type: CreditNoteCreateItems
+        self.__items = None  # type: [CreditNoteItem]
         self.__memo = None  # type: str
         self.__effective_date = None  # type: str
         self.__issued_at = None  # type: str
         self.__refunded_at = None  # type: str
-        self.__voided_at = None  # type: str
         self.__created_at = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
@@ -178,8 +177,8 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
         self.__refund_destination = value
     @property
     def items(self):
-        """Gets the items of this AlipayCreditNoteCreateResponse.
-        
+        """
+        The credit note items returned when the credit note is created successfully.
         """
         return self.__items
 
@@ -226,16 +225,6 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
     @refunded_at.setter
     def refunded_at(self, value):
         self.__refunded_at = value
-    @property
-    def voided_at(self):
-        """
-        The voided at. Maximum length: 29 characters. Note: See documentation for details.
-        """
-        return self.__voided_at
-
-    @voided_at.setter
-    def voided_at(self, value):
-        self.__voided_at = value
     @property
     def created_at(self):
         """
@@ -290,8 +279,6 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
             params['issuedAt'] = self.issued_at
         if hasattr(self, "refunded_at") and self.refunded_at is not None:
             params['refundedAt'] = self.refunded_at
-        if hasattr(self, "voided_at") and self.voided_at is not None:
-            params['voidedAt'] = self.voided_at
         if hasattr(self, "created_at") and self.created_at is not None:
             params['createdAt'] = self.created_at
         return params
@@ -331,8 +318,11 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
         if 'refundDestination' in response_body:
             self.__refund_destination = response_body['refundDestination']
         if 'items' in response_body:
-            self.__items = CreditNoteCreateItems()
-            self.__items.parse_rsp_body(response_body['items'])
+            self.__items = []
+            for item in response_body['items']:
+                obj = CreditNoteItem()
+                obj.parse_rsp_body(item)
+                self.__items.append(obj)
         if 'memo' in response_body:
             self.__memo = response_body['memo']
         if 'effectiveDate' in response_body:
@@ -341,7 +331,5 @@ class AlipayCreditNoteCreateResponse(AlipayResponse):
             self.__issued_at = response_body['issuedAt']
         if 'refundedAt' in response_body:
             self.__refunded_at = response_body['refundedAt']
-        if 'voidedAt' in response_body:
-            self.__voided_at = response_body['voidedAt']
         if 'createdAt' in response_body:
             self.__created_at = response_body['createdAt']

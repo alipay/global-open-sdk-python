@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.receipt_payment_method import ReceiptPaymentMethod
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
@@ -26,7 +27,7 @@ class Receipt:
         self.__status = None  # type: str
         self.__reason = None  # type: str
         self.__collection_method = None  # type: str
-        self.__payment_method = None  # type: str
+        self.__payment_method = None  # type: ReceiptPaymentMethod
         self.__subtotal = None  # type: Amount
         self.__total_amount = None  # type: Amount
         self.__paid_amount = None  # type: Amount
@@ -39,9 +40,6 @@ class Receipt:
         self.__description = None  # type: str
         self.__gmt_create = None  # type: str
         self.__gmt_update = None  # type: str
-        self.__customer_first_name = None  # type: str
-        self.__customer_last_name = None  # type: str
-        self.__customer_email = None  # type: str
         self.__payment_method_type = None  # type: str
         self.__discount_amount = None  # type: Amount
         self.__tax_amount = None  # type: Amount
@@ -61,7 +59,7 @@ class Receipt:
     @property
     def receipt_id(self):
         """
-        The receipt ID. Maximum length: 64 characters.
+        Receipt ID. Unique identifier.
         """
         return self.__receipt_id
 
@@ -71,7 +69,7 @@ class Receipt:
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Filter by associated invoice ID. Returns receipts linked to this invoice. Can be null (no filter).
         """
         return self.__invoice_id
 
@@ -81,7 +79,7 @@ class Receipt:
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Filter by customer ID. Returns only receipts belonging to this customer. Can be null (no filter).
         """
         return self.__customer_id
 
@@ -91,7 +89,7 @@ class Receipt:
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Filter by associated subscription ID. Returns receipts linked to this subscription. Can be null (no filter).
         """
         return self.__subscription_id
 
@@ -101,7 +99,7 @@ class Receipt:
     @property
     def original_receipt_id(self):
         """
-        The original receipt id. Maximum length: 64 characters. Note: See documentation for details.
+        Original receipt ID for refund receipts. Only set when receiptType&#x3D;REFUND. Null for PAYMENT receipts.
         """
         return self.__original_receipt_id
 
@@ -111,7 +109,7 @@ class Receipt:
     @property
     def receipt_type(self):
         """
-        The receipt type. Maximum length: 16 characters.
+        Filter by receipt type. Allowed values: &#x60;PAYMENT&#x60; (receipt for a payment), &#x60;REFUND&#x60; (receipt for a refund). Unknown type values are silently ignored (treated as no filter for that value). Can be null (no filter).
         """
         return self.__receipt_type
 
@@ -121,7 +119,7 @@ class Receipt:
     @property
     def status(self):
         """
-        The current status. Maximum length: 32 characters.
+        Filter by receipt status. Allowed values: &#x60;ACTIVE&#x60; (payment receipt with no refunds), &#x60;PARTIALLY_REFUNDED&#x60; (some amount refunded), &#x60;REFUNDED&#x60; (fully refunded). Unknown status values are silently ignored (treated as no filter for that value). Can be null (no filter).
         """
         return self.__status
 
@@ -131,7 +129,7 @@ class Receipt:
     @property
     def reason(self):
         """
-        The reason for the status change. Maximum length: 32 characters.
+        Reason for receipt creation. Allowed values: &#x60;SUBSCRIPTION_CREATION&#x60;, &#x60;RECURRENCE&#x60;, &#x60;UPDATE&#x60;, &#x60;TRIAL_END&#x60;, &#x60;REFUND&#x60;. Merchants should handle unknown enum values gracefully (e.g., log for review); new values may be added without version change.
         """
         return self.__reason
 
@@ -141,7 +139,7 @@ class Receipt:
     @property
     def collection_method(self):
         """
-        The collection method. Maximum length: 32 characters. Note: See documentation for details.
+        Payment collection method: &#x60;CHARGE_AUTOMATICALLY&#x60; or &#x60;SEND_INVOICE&#x60;. Returned when the receipt has an associated collection method; null when not applicable (e.g., manual payment confirmation).
         """
         return self.__collection_method
 
@@ -150,8 +148,8 @@ class Receipt:
         self.__collection_method = value
     @property
     def payment_method(self):
-        """
-        The payment method. Maximum length: 32 characters. Note: See documentation for details.
+        """Gets the payment_method of this Receipt.
+        
         """
         return self.__payment_method
 
@@ -231,7 +229,7 @@ class Receipt:
     @property
     def period_start(self):
         """
-        The period start. Maximum length: 24 characters.
+        ISO 8601 timestamp of billing period start. Null if not subscription-based.
         """
         return self.__period_start
 
@@ -241,7 +239,7 @@ class Receipt:
     @property
     def period_end(self):
         """
-        The period end. Maximum length: 24 characters.
+        ISO 8601 timestamp of billing period end. Null if not subscription-based.
         """
         return self.__period_end
 
@@ -251,7 +249,7 @@ class Receipt:
     @property
     def description(self):
         """
-        The description. Maximum length: 512 characters.
+        Receipt narrative. Returned when merchant set a receipt narrative; null if no description was provided.
         """
         return self.__description
 
@@ -261,7 +259,7 @@ class Receipt:
     @property
     def gmt_create(self):
         """
-        The creation time. Maximum length: 24 characters.
+        ISO 8601 timestamp of receipt creation.
         """
         return self.__gmt_create
 
@@ -271,7 +269,7 @@ class Receipt:
     @property
     def gmt_update(self):
         """
-        The gmt update. Maximum length: 24 characters.
+        ISO 8601 timestamp of last receipt update.
         """
         return self.__gmt_update
 
@@ -279,39 +277,9 @@ class Receipt:
     def gmt_update(self, value):
         self.__gmt_update = value
     @property
-    def customer_first_name(self):
-        """
-        The customer first name. Maximum length: 256 characters.
-        """
-        return self.__customer_first_name
-
-    @customer_first_name.setter
-    def customer_first_name(self, value):
-        self.__customer_first_name = value
-    @property
-    def customer_last_name(self):
-        """
-        The customer last name. Maximum length: 256 characters.
-        """
-        return self.__customer_last_name
-
-    @customer_last_name.setter
-    def customer_last_name(self, value):
-        self.__customer_last_name = value
-    @property
-    def customer_email(self):
-        """
-        The email address of the customer. Maximum length: 256 characters.
-        """
-        return self.__customer_email
-
-    @customer_email.setter
-    def customer_email(self, value):
-        self.__customer_email = value
-    @property
     def payment_method_type(self):
         """
-        The payment method type. Maximum length: 32 characters.
+        Payment method type (e.g., &#x60;CARD&#x60;, &#x60;WALLET&#x60;). Can be null.
         """
         return self.__payment_method_type
 
@@ -361,7 +329,7 @@ class Receipt:
     @property
     def fx_rate(self):
         """
-        The fx rate. Maximum length: 32 characters.
+        Foreign exchange rate applied when payment currency differs from settlement currency. Null for same-currency transactions.
         """
         return self.__fx_rate
 
@@ -371,7 +339,7 @@ class Receipt:
     @property
     def fx_rate_id(self):
         """
-        The fx rate id. Maximum length: 64 characters.
+        FX rate reference ID for audit and reconciliation. Null when no FX rate was applied.
         """
         return self.__fx_rate_id
 
@@ -381,7 +349,7 @@ class Receipt:
     @property
     def due_date(self):
         """
-        The due date. Maximum length: 24 characters.
+        ISO 8601 timestamp of payment due date. Null for receipts without a due date.
         """
         return self.__due_date
 
@@ -391,7 +359,7 @@ class Receipt:
     @property
     def paid_time(self):
         """
-        The paid time. Maximum length: 24 characters.
+        ISO 8601 timestamp of when payment was completed. Null for unpaid receipts.
         """
         return self.__paid_time
 
@@ -401,7 +369,7 @@ class Receipt:
     @property
     def payment_request_id(self):
         """
-        The unique ID assigned by a merchant to identify a payment request. Maximum length: 128 characters.
+        Outbound payment request ID used as idempotency key. Null for offline confirmations.
         """
         return self.__payment_request_id
 
@@ -411,7 +379,7 @@ class Receipt:
     @property
     def pay_to_request_id(self):
         """
-        The pay to request id. Maximum length: 128 characters.
+        Payment order request ID. Null if not applicable.
         """
         return self.__pay_to_request_id
 
@@ -421,7 +389,7 @@ class Receipt:
     @property
     def pay_to_id(self):
         """
-        The pay to id. Maximum length: 64 characters.
+        Payment order ID. Null if not applicable.
         """
         return self.__pay_to_id
 
@@ -431,7 +399,7 @@ class Receipt:
     @property
     def footer(self):
         """
-        The footer. Maximum length: 256 characters.
+        Receipt footer text. Can be null.
         """
         return self.__footer
 
@@ -441,7 +409,7 @@ class Receipt:
     @property
     def file_url(self):
         """
-        The file url. Maximum length: 2048 characters.
+        URL to the receipt PDF file. Can be null (PDF not yet generated).
         """
         return self.__file_url
 
@@ -498,12 +466,6 @@ class Receipt:
             params['gmtCreate'] = self.gmt_create
         if hasattr(self, "gmt_update") and self.gmt_update is not None:
             params['gmtUpdate'] = self.gmt_update
-        if hasattr(self, "customer_first_name") and self.customer_first_name is not None:
-            params['customerFirstName'] = self.customer_first_name
-        if hasattr(self, "customer_last_name") and self.customer_last_name is not None:
-            params['customerLastName'] = self.customer_last_name
-        if hasattr(self, "customer_email") and self.customer_email is not None:
-            params['customerEmail'] = self.customer_email
         if hasattr(self, "payment_method_type") and self.payment_method_type is not None:
             params['paymentMethodType'] = self.payment_method_type
         if hasattr(self, "discount_amount") and self.discount_amount is not None:
@@ -557,7 +519,8 @@ class Receipt:
         if 'collectionMethod' in response_body:
             self.__collection_method = response_body['collectionMethod']
         if 'paymentMethod' in response_body:
-            self.__payment_method = response_body['paymentMethod']
+            self.__payment_method = ReceiptPaymentMethod()
+            self.__payment_method.parse_rsp_body(response_body['paymentMethod'])
         if 'subtotal' in response_body:
             self.__subtotal = Amount()
             self.__subtotal.parse_rsp_body(response_body['subtotal'])
@@ -589,12 +552,6 @@ class Receipt:
             self.__gmt_create = response_body['gmtCreate']
         if 'gmtUpdate' in response_body:
             self.__gmt_update = response_body['gmtUpdate']
-        if 'customerFirstName' in response_body:
-            self.__customer_first_name = response_body['customerFirstName']
-        if 'customerLastName' in response_body:
-            self.__customer_last_name = response_body['customerLastName']
-        if 'customerEmail' in response_body:
-            self.__customer_email = response_body['customerEmail']
         if 'paymentMethodType' in response_body:
             self.__payment_method_type = response_body['paymentMethodType']
         if 'discountAmount' in response_body:

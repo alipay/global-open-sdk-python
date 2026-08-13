@@ -14,7 +14,7 @@ class AlipayCouponInquireDetailsRequest(AlipayRequest):
     @property
     def coupon_id(self):
         """
-        The coupon ID. Maximum length: 64 characters.
+        System-generated coupon ID to query. Cannot be empty. Maximum length: 64 characters.
         """
         return self.__coupon_id
 

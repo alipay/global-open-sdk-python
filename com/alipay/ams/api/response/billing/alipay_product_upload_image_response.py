@@ -12,6 +12,7 @@ class AlipayProductUploadImageResponse(AlipayResponse):
         self.__result = None  # type: Result
         self.__image_url = None  # type: str
         self.__image_name = None  # type: str
+        self.__product_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -46,6 +47,15 @@ class AlipayProductUploadImageResponse(AlipayResponse):
     def image_name(self, value):
         self.__image_name = value
 
+    @property
+    def product_id(self):
+        """The product ID echoed from the request."""
+        return self.__product_id
+
+    @product_id.setter
+    def product_id(self, value):
+        self.__product_id = value
+
 
     
 
@@ -57,6 +67,8 @@ class AlipayProductUploadImageResponse(AlipayResponse):
             params['imageUrl'] = self.image_url
         if hasattr(self, "image_name") and self.image_name is not None:
             params['imageName'] = self.image_name
+        if hasattr(self, "product_id") and self.product_id is not None:
+            params['productId'] = self.product_id
         return params
 
 
@@ -69,3 +81,5 @@ class AlipayProductUploadImageResponse(AlipayResponse):
             self.__image_url = response_body['imageUrl']
         if 'imageName' in response_body:
             self.__image_name = response_body['imageName']
+        if 'productId' in response_body:
+            self.__product_id = response_body['productId']

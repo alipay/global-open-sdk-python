@@ -19,7 +19,7 @@ class AlipayBillingSubscriptionCancelRequest(AlipayRequest):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        The target subscription ID. Repeated cancellation requests for the same subscription return the existing cancellation result. Maximum length: 64 characters.
         """
         return self.__subscription_id
 
@@ -39,7 +39,7 @@ class AlipayBillingSubscriptionCancelRequest(AlipayRequest):
     @property
     def cancellation_reason(self):
         """
-        The cancellation reason. Maximum length: 64 characters. Note: See documentation for details.
+        A free-text cancellation reason. Do not include personally identifiable information. At least one of &#x60;cancellationReason&#x60; and &#x60;cancellationDetails.feedback&#x60; must be provided. Maximum length: 64 characters.
         """
         return self.__cancellation_reason
 
@@ -59,7 +59,7 @@ class AlipayBillingSubscriptionCancelRequest(AlipayRequest):
     @property
     def proration_behavior(self):
         """
-        The proration behavior. Maximum length: 18 characters.
+        The proration behavior for immediate termination. Valid values are CREATE_PRORATIONS, NONE, and ALWAYS_INVOICE. Maximum length: 18 characters.
         """
         return self.__proration_behavior
 

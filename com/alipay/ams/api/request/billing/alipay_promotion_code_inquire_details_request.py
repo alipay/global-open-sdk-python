@@ -14,7 +14,7 @@ class AlipayPromotionCodeInquireDetailsRequest(AlipayRequest):
     @property
     def promotion_code_id(self):
         """
-        The promotion code ID. Maximum length: 64 characters.
+        System-generated promotion code ID to query. Cannot be empty. Maximum length: 64 characters.
         """
         return self.__promotion_code_id
 

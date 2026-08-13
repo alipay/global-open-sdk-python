@@ -8,31 +8,22 @@ class AlipayReceiptExportRequest(AlipayRequest):
     def __init__(self):
         super(AlipayReceiptExportRequest, self).__init__("/ams/api/v1/billing/receipt/export") 
 
-        self.__limit = None  # type: int
         self.__status = None  # type: str
-        self.__receipt_type = None  # type: str
-        self.__invoice_id = None  # type: str
         self.__subscription_id = None  # type: str
         self.__customer_id = None  # type: str
         self.__start_date = None  # type: str
         self.__end_date = None  # type: str
         self.__receipt_ids = None  # type: [str]
+        self.__file_format = None  # type: str
+        self.__language = None  # type: str
+        self.__download_type = None  # type: str
+        self.__column_preset = None  # type: str
         
 
     @property
-    def limit(self):
-        """
-        The limit.
-        """
-        return self.__limit
-
-    @limit.setter
-    def limit(self, value):
-        self.__limit = value
-    @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters.
+        Filter by receipt status. Allowed values: &#x60;ACTIVE&#x60;, &#x60;PARTIALLY_REFUNDED&#x60;, &#x60;REFUNDED&#x60;. Can be null (no filter).
         """
         return self.__status
 
@@ -40,29 +31,9 @@ class AlipayReceiptExportRequest(AlipayRequest):
     def status(self, value):
         self.__status = value
     @property
-    def receipt_type(self):
-        """
-        The receipt type. Maximum length: 16 characters.
-        """
-        return self.__receipt_type
-
-    @receipt_type.setter
-    def receipt_type(self, value):
-        self.__receipt_type = value
-    @property
-    def invoice_id(self):
-        """
-        The invoice ID. Maximum length: 64 characters.
-        """
-        return self.__invoice_id
-
-    @invoice_id.setter
-    def invoice_id(self, value):
-        self.__invoice_id = value
-    @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        Filter receipts by associated subscription ID. Returns only receipts linked to this subscription. Can be null (no filter).
         """
         return self.__subscription_id
 
@@ -72,7 +43,7 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        Filter by customer ID. Returns only receipts belonging to this customer. Can be null (no filter).
         """
         return self.__customer_id
 
@@ -82,7 +53,7 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @property
     def start_date(self):
         """
-        The start date. Maximum length: 24 characters.
+        Date range start for receipt creation time (ISO 8601 format, e.g., &#x60;2026-04-01T00:00:00+00:00&#x60;). Can be null (no lower bound).
         """
         return self.__start_date
 
@@ -92,7 +63,7 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @property
     def end_date(self):
         """
-        The end date. Maximum length: 24 characters.
+        Date range end for receipt creation time (ISO 8601 format, e.g., &#x60;2026-04-30T23:59:59+00:00&#x60;). Can be null (no upper bound).
         """
         return self.__end_date
 
@@ -102,13 +73,53 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @property
     def receipt_ids(self):
         """
-        The receipt ids.
+        Filter by exact list of receipt IDs. Max 1000 elements. When provided, other filters (&#x60;status&#x60;, &#x60;customerId&#x60;, &#x60;subscriptionId&#x60;, &#x60;startDate&#x60;, &#x60;endDate&#x60;) are ignored. Can be null (no filter).
         """
         return self.__receipt_ids
 
     @receipt_ids.setter
     def receipt_ids(self, value):
         self.__receipt_ids = value
+    @property
+    def file_format(self):
+        """
+        Output file format. Allowed values: &#x60;csv&#x60; (default), &#x60;xlsx&#x60;. Can be null (defaults to &#x60;csv&#x60;).
+        """
+        return self.__file_format
+
+    @file_format.setter
+    def file_format(self, value):
+        self.__file_format = value
+    @property
+    def language(self):
+        """
+        BCP-47 language code for localized column headers (e.g., &#x60;en&#x60;, &#x60;zh&#x60;). Can be null (defaults to &#x60;en&#x60;).
+        """
+        return self.__language
+
+    @language.setter
+    def language(self, value):
+        self.__language = value
+    @property
+    def download_type(self):
+        """
+        Type of entity to export. Must be &#x60;RECEIPT&#x60;. Required - no default.
+        """
+        return self.__download_type
+
+    @download_type.setter
+    def download_type(self, value):
+        self.__download_type = value
+    @property
+    def column_preset(self):
+        """
+        Column selection preset. Allowed values: &#x60;DEFAULT&#x60; (standard columns), &#x60;ALL&#x60; (all available columns). Can be null (defaults to &#x60;DEFAULT&#x60;).
+        """
+        return self.__column_preset
+
+    @column_preset.setter
+    def column_preset(self, value):
+        self.__column_preset = value
 
 
     def to_ams_json(self): 
@@ -118,14 +129,8 @@ class AlipayReceiptExportRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "limit") and self.limit is not None:
-            params['limit'] = self.limit
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "receipt_type") and self.receipt_type is not None:
-            params['receiptType'] = self.receipt_type
-        if hasattr(self, "invoice_id") and self.invoice_id is not None:
-            params['invoiceId'] = self.invoice_id
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
@@ -136,20 +141,22 @@ class AlipayReceiptExportRequest(AlipayRequest):
             params['endDate'] = self.end_date
         if hasattr(self, "receipt_ids") and self.receipt_ids is not None:
             params['receiptIds'] = self.receipt_ids
+        if hasattr(self, "file_format") and self.file_format is not None:
+            params['fileFormat'] = self.file_format
+        if hasattr(self, "language") and self.language is not None:
+            params['language'] = self.language
+        if hasattr(self, "download_type") and self.download_type is not None:
+            params['downloadType'] = self.download_type
+        if hasattr(self, "column_preset") and self.column_preset is not None:
+            params['columnPreset'] = self.column_preset
         return params
 
 
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'limit' in response_body:
-            self.__limit = response_body['limit']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'receiptType' in response_body:
-            self.__receipt_type = response_body['receiptType']
-        if 'invoiceId' in response_body:
-            self.__invoice_id = response_body['invoiceId']
         if 'subscriptionId' in response_body:
             self.__subscription_id = response_body['subscriptionId']
         if 'customerId' in response_body:
@@ -160,3 +167,11 @@ class AlipayReceiptExportRequest(AlipayRequest):
             self.__end_date = response_body['endDate']
         if 'receiptIds' in response_body:
             self.__receipt_ids = response_body['receiptIds']
+        if 'fileFormat' in response_body:
+            self.__file_format = response_body['fileFormat']
+        if 'language' in response_body:
+            self.__language = response_body['language']
+        if 'downloadType' in response_body:
+            self.__download_type = response_body['downloadType']
+        if 'columnPreset' in response_body:
+            self.__column_preset = response_body['columnPreset']

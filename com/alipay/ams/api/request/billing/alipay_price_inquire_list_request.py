@@ -20,7 +20,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def product_id(self):
         """
-        The product ID. Maximum length: 32 characters.
+        M - Product ID to filter by. Cannot be null.
         """
         return self.__product_id
 
@@ -30,7 +30,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def pricing_model(self):
         """
-        The pricing model. Maximum length: 24 characters.
+        Filter by pricing model. O - When provided, returns only prices with the specified pricing model; when absent, returns all pricing models. Enum: PER_UNIT, TIERED. Can be null; default null. Invalid values return PARAM_ILLEGAL error
         """
         return self.__pricing_model
 
@@ -40,7 +40,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def active(self):
         """
-        The active.
+        Filter by active status. O - true&#x3D;return only active prices, false&#x3D;return only deactivated prices, absent or null&#x3D;return all prices. No default value
         """
         return self.__active
 
@@ -50,7 +50,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def starting_after(self):
         """
-        The starting after. Maximum length: 32 characters. Note: See documentation for details.
+        Cursor: price ID after which to return results (forward pagination). O - When provided, returns prices sorted by createdAt DESC, priceId DESC whose createdAt is strictly before the price identified by startingAfter. Can be null; default null. Must not be combined with endingBefore (returns PARAM_ILLEGAL). The cursor price ID must exist and belong to the merchant (returns PARAM_ILLEGAL if not found). Sort order: primary createdAt DESC, secondary priceId DESC (tiebreaker for prices with identical timestamps). Aligned with Stripe cursor-based pagination pattern
         """
         return self.__starting_after
 
@@ -60,7 +60,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def ending_before(self):
         """
-        The ending before. Maximum length: 32 characters. Note: See documentation for details.
+        Cursor: price ID before which to return results (backward pagination). O - When provided, returns prices sorted by createdAt DESC, priceId DESC whose createdAt is strictly after the price identified by endingBefore. Can be null; default null. Must not be combined with startingAfter (returns PARAM_ILLEGAL). The cursor price ID must exist and belong to the merchant (returns PARAM_ILLEGAL if not found). Sort order: primary createdAt DESC, secondary priceId DESC (tiebreaker for prices with identical timestamps). Aligned with Stripe cursor-based pagination pattern
         """
         return self.__ending_before
 
@@ -70,7 +70,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def limit(self):
         """
-        The maximum number of prices returned per page. Value range: 1 - 100. Default value: 20.
+        Maximum number of prices to return per page. O - Default: 10. Can be null; default 10. Out-of-range values (e.g., 0, negative, or &gt;100) return PARAM_ILLEGAL error. Aligned with Stripe cursor-based pagination pattern
         """
         return self.__limit
 
@@ -80,7 +80,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @property
     def include_total(self):
         """
-        The include total.
+        Request total count in response. O - When explicitly set to false, the response omits the total field. Default: true. Setting to false avoids a COUNT query which may reduce latency. Can be null; default true
         """
         return self.__include_total
 

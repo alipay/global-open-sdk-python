@@ -14,7 +14,7 @@ class AlipayCustomerDeleteRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        System-generated customer ID to delete. Cannot be empty. Maximum length: 64 characters.
         """
         return self.__customer_id
 

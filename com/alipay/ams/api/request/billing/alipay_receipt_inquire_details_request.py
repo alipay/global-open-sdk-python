@@ -15,7 +15,7 @@ class AlipayReceiptInquireDetailsRequest(AlipayRequest):
     @property
     def receipt_id(self):
         """
-        The receipt ID. Maximum length: 64 characters. Note: See documentation for details.
+        Receipt ID. When provided, looks up the receipt directly. Can be null (when &#x60;invoiceId&#x60; is provided instead).
         """
         return self.__receipt_id
 
@@ -25,7 +25,7 @@ class AlipayReceiptInquireDetailsRequest(AlipayRequest):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters. Note: See documentation for details.
+        Alternative lookup by associated invoice ID. When provided, finds the receipt associated with this invoice. Can be null (when &#x60;receiptId&#x60; is provided instead).
         """
         return self.__invoice_id
 

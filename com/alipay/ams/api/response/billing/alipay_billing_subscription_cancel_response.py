@@ -1,6 +1,5 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
-from com.alipay.ams.api.model.billing_subscription_cancel_cancellation_details import BillingSubscriptionCancelCancellationDetails
 
 
 
@@ -13,11 +12,11 @@ class AlipayBillingSubscriptionCancelResponse(AlipayResponse):
         self.__result = None  # type: ResultInfo
         self.__subscription_id = None  # type: str
         self.__status = None  # type: str
-        self.__cancellation_reason = None  # type: str
-        self.__cancellation_details = None  # type: BillingSubscriptionCancelCancellationDetails
         self.__canceled_at = None  # type: str
         self.__cancel_at_period_end = None  # type: bool
         self.__credit_note_id = None  # type: str
+        self.__credit_note_amount = None  # type: int
+        self.__credit_note_currency = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -52,26 +51,6 @@ class AlipayBillingSubscriptionCancelResponse(AlipayResponse):
     def status(self, value):
         self.__status = value
     @property
-    def cancellation_reason(self):
-        """
-        The cancellation reason. Maximum length: 64 characters. Note: See documentation for details.
-        """
-        return self.__cancellation_reason
-
-    @cancellation_reason.setter
-    def cancellation_reason(self, value):
-        self.__cancellation_reason = value
-    @property
-    def cancellation_details(self):
-        """Gets the cancellation_details of this AlipayBillingSubscriptionCancelResponse.
-        
-        """
-        return self.__cancellation_details
-
-    @cancellation_details.setter
-    def cancellation_details(self, value):
-        self.__cancellation_details = value
-    @property
     def canceled_at(self):
         """
         The canceled at.
@@ -94,13 +73,33 @@ class AlipayBillingSubscriptionCancelResponse(AlipayResponse):
     @property
     def credit_note_id(self):
         """
-        The credit note ID. Maximum length: 64 characters. Note: See documentation for details.
+        The generated credit note ID. Returned for an immediate termination that generates prorated credit. Maximum length: 64 characters.
         """
         return self.__credit_note_id
 
     @credit_note_id.setter
     def credit_note_id(self, value):
         self.__credit_note_id = value
+    @property
+    def credit_note_amount(self):
+        """
+        The credit amount in the smallest currency unit. Returned together with &#x60;creditNoteId&#x60; and &#x60;creditNoteCurrency&#x60;.
+        """
+        return self.__credit_note_amount
+
+    @credit_note_amount.setter
+    def credit_note_amount(self, value):
+        self.__credit_note_amount = value
+    @property
+    def credit_note_currency(self):
+        """
+        The three-letter ISO 4217 currency code for &#x60;creditNoteAmount&#x60;. Returned together with &#x60;creditNoteId&#x60;. Maximum length: 3 characters.
+        """
+        return self.__credit_note_currency
+
+    @credit_note_currency.setter
+    def credit_note_currency(self, value):
+        self.__credit_note_currency = value
 
 
     
@@ -113,16 +112,16 @@ class AlipayBillingSubscriptionCancelResponse(AlipayResponse):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
-        if hasattr(self, "cancellation_reason") and self.cancellation_reason is not None:
-            params['cancellationReason'] = self.cancellation_reason
-        if hasattr(self, "cancellation_details") and self.cancellation_details is not None:
-            params['cancellationDetails'] = self.cancellation_details
         if hasattr(self, "canceled_at") and self.canceled_at is not None:
             params['canceledAt'] = self.canceled_at
         if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
             params['cancelAtPeriodEnd'] = self.cancel_at_period_end
         if hasattr(self, "credit_note_id") and self.credit_note_id is not None:
             params['creditNoteId'] = self.credit_note_id
+        if hasattr(self, "credit_note_amount") and self.credit_note_amount is not None:
+            params['creditNoteAmount'] = self.credit_note_amount
+        if hasattr(self, "credit_note_currency") and self.credit_note_currency is not None:
+            params['creditNoteCurrency'] = self.credit_note_currency
         return params
 
 
@@ -135,14 +134,13 @@ class AlipayBillingSubscriptionCancelResponse(AlipayResponse):
             self.__subscription_id = response_body['subscriptionId']
         if 'status' in response_body:
             self.__status = response_body['status']
-        if 'cancellationReason' in response_body:
-            self.__cancellation_reason = response_body['cancellationReason']
-        if 'cancellationDetails' in response_body:
-            self.__cancellation_details = BillingSubscriptionCancelCancellationDetails()
-            self.__cancellation_details.parse_rsp_body(response_body['cancellationDetails'])
         if 'canceledAt' in response_body:
             self.__canceled_at = response_body['canceledAt']
         if 'cancelAtPeriodEnd' in response_body:
             self.__cancel_at_period_end = response_body['cancelAtPeriodEnd']
         if 'creditNoteId' in response_body:
             self.__credit_note_id = response_body['creditNoteId']
+        if 'creditNoteAmount' in response_body:
+            self.__credit_note_amount = response_body['creditNoteAmount']
+        if 'creditNoteCurrency' in response_body:
+            self.__credit_note_currency = response_body['creditNoteCurrency']

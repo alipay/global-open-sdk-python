@@ -13,8 +13,6 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
         self.__subscription_id = None  # type: str
         self.__status = None  # type: str
         self.__billing_cycle_anchor = None  # type: str
-        self.__proration_invoice_id = None  # type: str
-        self.__proration_date = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -31,7 +29,7 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
     @property
     def subscription_id(self):
         """
-        The subscription ID. Maximum length: 64 characters.
+        The resumed subscription ID. Returned only when result.resultCode is SUCCESS or PAYMENT_IN_PROCESSING. Maximum length: 64 characters.
         """
         return self.__subscription_id
 
@@ -41,7 +39,7 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 20 characters.
+        The subscription status after the resume attempt. ACTIVE indicates that payment succeeded; PAUSED indicates that payment is still processing or failed. Returned only when the operation produced a subscription result. Maximum length: 20 characters.
         """
         return self.__status
 
@@ -51,33 +49,13 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
     @property
     def billing_cycle_anchor(self):
         """
-        The billing cycle anchor. Note: See documentation for details.
+        The effective billing cycle anchor after the subscription is resumed, represented as an ISO 8601 date-time string with a timezone offset. Returned when the billing cycle is reset.
         """
         return self.__billing_cycle_anchor
 
     @billing_cycle_anchor.setter
     def billing_cycle_anchor(self, value):
         self.__billing_cycle_anchor = value
-    @property
-    def proration_invoice_id(self):
-        """
-        The proration invoice id. Maximum length: 64 characters. Note: See documentation for details.
-        """
-        return self.__proration_invoice_id
-
-    @proration_invoice_id.setter
-    def proration_invoice_id(self, value):
-        self.__proration_invoice_id = value
-    @property
-    def proration_date(self):
-        """
-        The proration date. Note: See documentation for details.
-        """
-        return self.__proration_date
-
-    @proration_date.setter
-    def proration_date(self, value):
-        self.__proration_date = value
 
 
     
@@ -92,10 +70,6 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
             params['status'] = self.status
         if hasattr(self, "billing_cycle_anchor") and self.billing_cycle_anchor is not None:
             params['billingCycleAnchor'] = self.billing_cycle_anchor
-        if hasattr(self, "proration_invoice_id") and self.proration_invoice_id is not None:
-            params['prorationInvoiceId'] = self.proration_invoice_id
-        if hasattr(self, "proration_date") and self.proration_date is not None:
-            params['prorationDate'] = self.proration_date
         return params
 
 
@@ -110,7 +84,3 @@ class AlipayBillingSubscriptionResumeResponse(AlipayResponse):
             self.__status = response_body['status']
         if 'billingCycleAnchor' in response_body:
             self.__billing_cycle_anchor = response_body['billingCycleAnchor']
-        if 'prorationInvoiceId' in response_body:
-            self.__proration_invoice_id = response_body['prorationInvoiceId']
-        if 'prorationDate' in response_body:
-            self.__proration_date = response_body['prorationDate']

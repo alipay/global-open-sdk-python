@@ -16,7 +16,7 @@ class AlipayInvoiceCreateViewLinkRequest(AlipayRequest):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters. Note: See documentation for details.
+        System-generated invoice ID returned at invoice creation time. Can be null if &#x60;invoiceRequestId&#x60; is provided. Format: alphanumeric with hyphens and underscores, max 64 characters (e.g., &#x60;inv_20260413_000123&#x60;).
         """
         return self.__invoice_id
 
@@ -26,7 +26,7 @@ class AlipayInvoiceCreateViewLinkRequest(AlipayRequest):
     @property
     def invoice_request_id(self):
         """
-        The invoice request id. Maximum length: 64 characters. Note: See documentation for details.
+        Merchant-supplied idempotency key used when the invoice was originally created. Can be null if &#x60;invoiceId&#x60; is provided. Maximum length: 64 characters.
         """
         return self.__invoice_request_id
 
@@ -36,7 +36,7 @@ class AlipayInvoiceCreateViewLinkRequest(AlipayRequest):
     @property
     def link_expiry_days(self):
         """
-        The link expiry days.
+        Number of days until the link expires. Defaults to 7 days if not provided. Cannot be zero or negative. Range: 1-365. Can be null (defaults to 7).
         """
         return self.__link_expiry_days
 

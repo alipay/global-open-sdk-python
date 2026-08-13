@@ -8,25 +8,14 @@ class AlipayInvoiceVoidRequest(AlipayRequest):
     def __init__(self):
         super(AlipayInvoiceVoidRequest, self).__init__("/ams/api/v1/billing/invoice/void") 
 
-        self.__void_request_id = None  # type: str
         self.__invoice_id = None  # type: str
         self.__invoice_note = None  # type: str
         
 
     @property
-    def void_request_id(self):
-        """
-        The void request id. Maximum length: 64 characters.
-        """
-        return self.__void_request_id
-
-    @void_request_id.setter
-    def void_request_id(self, value):
-        self.__void_request_id = value
-    @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID to void. Must belong to the requesting merchant. Format: &#x60;inv_&#x60; + 10-char alphanumeric. Validated before any state transition. Cannot be null.
         """
         return self.__invoice_id
 
@@ -36,7 +25,7 @@ class AlipayInvoiceVoidRequest(AlipayRequest):
     @property
     def invoice_note(self):
         """
-        The invoice note. Maximum length: 512 characters.
+        Optional note attached to the invoice for this void action. Stored as an entry in the &#x60;invoiceNotes&#x60; array in the invoice metadata with &#x60;action&#x3D;void&#x60;. Enables merchants to attach contextual notes (e.g., \&quot;Voided due to customer request\&quot;) to the invoice audit trail. Can be null (defaults to null - no note provided).
         """
         return self.__invoice_note
 
@@ -52,8 +41,6 @@ class AlipayInvoiceVoidRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "void_request_id") and self.void_request_id is not None:
-            params['voidRequestId'] = self.void_request_id
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
             params['invoiceId'] = self.invoice_id
         if hasattr(self, "invoice_note") and self.invoice_note is not None:
@@ -64,8 +51,6 @@ class AlipayInvoiceVoidRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'voidRequestId' in response_body:
-            self.__void_request_id = response_body['voidRequestId']
         if 'invoiceId' in response_body:
             self.__invoice_id = response_body['invoiceId']
         if 'invoiceNote' in response_body:

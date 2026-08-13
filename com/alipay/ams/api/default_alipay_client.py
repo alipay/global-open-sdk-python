@@ -23,6 +23,30 @@ class DefaultAlipayClient(object):
         self.__alipay_public_key = alipay_public_key
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
         self.__agent_token = agent_token
+        self.__upload_gateway_url = None
+
+    def set_upload_gateway_url(self, upload_gateway_url):
+        from com.alipay.ams.api.file_upload_executor import (
+            normalize_explicit_upload_gateway,
+        )
+
+        self.__upload_gateway_url = normalize_explicit_upload_gateway(
+            upload_gateway_url
+        )
+        return self
+
+    def upload_file(self, request):
+        from com.alipay.ams.api.file_upload_executor import execute_file_upload
+
+        return execute_file_upload(
+            request=request,
+            gateway_url=self.__gateway_url,
+            upload_gateway_url=self.__upload_gateway_url,
+            client_id=self.__client_id,
+            merchant_private_key=self.__merchant_private_key,
+            alipay_public_key=self.__alipay_public_key,
+            agent_token=self.__agent_token,
+        )
 
     """
     内部方法，生成请求签名

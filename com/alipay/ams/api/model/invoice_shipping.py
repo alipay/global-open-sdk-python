@@ -1,6 +1,6 @@
 import json
 from com.alipay.ams.api.model.user_name import UserName
-from com.alipay.ams.api.model.address import Address
+from com.alipay.ams.api.model.invoice_address import InvoiceAddress
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.delivery_estimate import DeliveryEstimate
 
@@ -11,7 +11,7 @@ class InvoiceShipping:
     def __init__(self):
         
         self.__shipping_name = None  # type: UserName
-        self.__shipping_address = None  # type: Address
+        self.__shipping_address = None  # type: InvoiceAddress
         self.__shipping_carrier = None  # type: str
         self.__shipping_number = None  # type: str
         self.__shipping_phone_no = None  # type: str
@@ -48,7 +48,7 @@ class InvoiceShipping:
     @property
     def shipping_carrier(self):
         """
-        The shipping carrier. Maximum length: 128 characters.
+        Delivery service provider (e.g., FedEx, UPS, USPS). Characters &#x60;&lt;&#x60;, &#x60;&gt;&#x60;, and &#x60;&amp;&#x60; are not allowed.
         """
         return self.__shipping_carrier
 
@@ -58,7 +58,7 @@ class InvoiceShipping:
     @property
     def shipping_number(self):
         """
-        The shipping number. Maximum length: 128 characters.
+        Tracking number.
         """
         return self.__shipping_number
 
@@ -68,7 +68,7 @@ class InvoiceShipping:
     @property
     def shipping_phone_no(self):
         """
-        The shipping phone no. Maximum length: 16 characters.
+        Recipient phone number.
         """
         return self.__shipping_phone_no
 
@@ -78,7 +78,7 @@ class InvoiceShipping:
     @property
     def ship_to_email(self):
         """
-        The ship to email. Maximum length: 256 characters.
+        Recipient email address. Must be a valid email format.
         """
         return self.__ship_to_email
 
@@ -148,7 +148,7 @@ class InvoiceShipping:
     @property
     def shipping_method_indicator(self):
         """
-        The shipping method indicator. Maximum length: 32 characters.
+        Shipping method indicator for 3DS risk assessment. Allowed EMVCo values: &#x60;01&#x60;, &#x60;02&#x60;, &#x60;03&#x60;, &#x60;04&#x60;, &#x60;05&#x60;, &#x60;06&#x60;, and &#x60;07&#x60;. Use &#x60;07&#x60; when no other value applies and provide details in &#x60;notes&#x60;. Maximum length: 32 characters.
         """
         return self.__shipping_method_indicator
 
@@ -197,7 +197,7 @@ class InvoiceShipping:
             self.__shipping_name = UserName()
             self.__shipping_name.parse_rsp_body(response_body['shippingName'])
         if 'shippingAddress' in response_body:
-            self.__shipping_address = Address()
+            self.__shipping_address = InvoiceAddress()
             self.__shipping_address.parse_rsp_body(response_body['shippingAddress'])
         if 'shippingCarrier' in response_body:
             self.__shipping_carrier = response_body['shippingCarrier']

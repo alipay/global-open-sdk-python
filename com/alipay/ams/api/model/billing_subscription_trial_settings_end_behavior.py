@@ -3,7 +3,7 @@ import json
 
 
 
-class BillingSubscriptionInquireDetailsTrialSettingsEndBehavior:
+class BillingSubscriptionTrialSettingsEndBehavior:
     def __init__(self):
         
         self.__missing_payment_method = None  # type: str
@@ -12,7 +12,7 @@ class BillingSubscriptionInquireDetailsTrialSettingsEndBehavior:
     @property
     def missing_payment_method(self):
         """
-        The missing payment method. Maximum length: 14 characters.
+        The behavior applied when the trial ends without an available payment method. Valid values are CANCEL, CREATE_INVOICE, and PAUSE. Maximum length: 14 characters.
         """
         return self.__missing_payment_method
 

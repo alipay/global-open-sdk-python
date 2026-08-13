@@ -29,7 +29,7 @@ class AlipayReceiptSendResponse(AlipayResponse):
     @property
     def receipt_id(self):
         """
-        The receipt ID. Maximum length: 64 characters.
+        Receipt ID (echo-back). Returned only when result.resultCode is SUCCESS.
         """
         return self.__receipt_id
 
@@ -39,7 +39,7 @@ class AlipayReceiptSendResponse(AlipayResponse):
     @property
     def send_status(self):
         """
-        The email sending status. Maximum length: 32 characters. Note: See documentation for details.
+        Email delivery status. Returned when &#x60;result.resultCode&#x3D;SUCCESS&#x60;. &#x60;SENT&#x60; - email successfully dispatched to the customer&#39;s registered email address; &#x60;FAILED&#x60; - email dispatch failed (e.g., email service unavailable). Merchant may retry. Returned only when result.resultCode is SUCCESS.
         """
         return self.__send_status
 
@@ -49,7 +49,7 @@ class AlipayReceiptSendResponse(AlipayResponse):
     @property
     def hosted_receipt_url(self):
         """
-        The hosted receipt url. Maximum length: 2048 characters.
+        URL to the hosted receipt page where the customer can view and download the receipt online. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__hosted_receipt_url
 

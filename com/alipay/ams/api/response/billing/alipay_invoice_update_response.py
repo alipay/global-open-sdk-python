@@ -12,6 +12,7 @@ class AlipayInvoiceUpdateResponse(AlipayResponse):
         self.__result = None  # type: Result
         self.__invoice_id = None  # type: str
         self.__status = None  # type: str
+        self.__previous_invoice_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -28,7 +29,7 @@ class AlipayInvoiceUpdateResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        The invoice ID. Maximum length: 64 characters.
+        Invoice ID (echo-back). Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__invoice_id
 
@@ -38,13 +39,23 @@ class AlipayInvoiceUpdateResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        Invoice status after edit: always &#x60;DRAFT&#x60;. The edit API only operates on DRAFT invoices - successful edits always return &#x60;DRAFT&#x60; status. This confirms the invoice remains in editable state. See enum table below. Cannot be null. Returned only when result.resultCode is SUCCESS.
         """
         return self.__status
 
     @status.setter
     def status(self, value):
         self.__status = value
+    @property
+    def previous_invoice_id(self):
+        """
+        Previous invoice ID when customer reassignment occurred (soft-delete + recreate). Null for normal updates. Populated only when &#x60;customerId&#x60; was changed, causing the invoice to be recreated with a new ID in a different shard. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__previous_invoice_id
+
+    @previous_invoice_id.setter
+    def previous_invoice_id(self, value):
+        self.__previous_invoice_id = value
 
 
     
@@ -57,6 +68,8 @@ class AlipayInvoiceUpdateResponse(AlipayResponse):
             params['invoiceId'] = self.invoice_id
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
+        if hasattr(self, "previous_invoice_id") and self.previous_invoice_id is not None:
+            params['previousInvoiceId'] = self.previous_invoice_id
         return params
 
 
@@ -69,3 +82,5 @@ class AlipayInvoiceUpdateResponse(AlipayResponse):
             self.__invoice_id = response_body['invoiceId']
         if 'status' in response_body:
             self.__status = response_body['status']
+        if 'previousInvoiceId' in response_body:
+            self.__previous_invoice_id = response_body['previousInvoiceId']
