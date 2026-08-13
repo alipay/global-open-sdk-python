@@ -1,4 +1,4 @@
-from com.alipay.ams.api.model.Statement import Statement
+from com.alipay.ams.api.model.statement import Statement
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 
