@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+  - Add the HTTP/2 session transport required by `meter/uploadEvent`.
+  - `meter/uploadEvent` requires Python 3.9 or later and the optional `http2` dependencies. Install the SDK with `pip install "global-open-sdk-python[http2]"`. Other SDK APIs retain the existing Python compatibility.
+
 ## 1.4.21 - 2025-12-01
   - update20251201
 
