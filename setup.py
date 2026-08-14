@@ -31,6 +31,12 @@ setup(
     include_package_data=True,
     platforms="any",
     install_requires=requires,
+    extras_require={
+        "http2": [
+            "httpx>=0.27,<1; python_version >= '3.9'",
+            "h2>=4.3,<5; python_version >= '3.9'",
+        ],
+    },
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",

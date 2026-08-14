@@ -5,6 +5,7 @@ from com.alipay.ams.api._version import USER_AGENT
 from com.alipay.ams.api.tools.signature_tool import *
 from com.alipay.ams.api.tools.date_tools import *
 from com.alipay.ams.api.net.default_http_rpc import *
+from com.alipay.ams.api.request_transport_resolver import requires_session_http2
 
 
 class DefaultAlipayClient(object):
@@ -179,10 +180,19 @@ class DefaultAlipayClient(object):
         if not hasattr(request, "path") or not request.path:
             raise AlipayApiException("invalid path")
 
+        http_method = request.http_method.value
+        if requires_session_http2(http_method, request.path):
+            from com.alipay.ams.api.session_http2_executor import (
+                execute_session_http2,
+            )
+
+            return execute_session_http2(
+                self.__gateway_url, request, extra_headers
+            )
+
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
         self.adjust_sandbox_url(request)
-        http_method = request.http_method.value
         path = request.path
         req_time = get_cur_iso8601_time()
         req_body = request.to_ams_json()
