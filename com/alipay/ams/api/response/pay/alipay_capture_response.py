@@ -17,6 +17,7 @@ class AlipayCaptureResponse(AlipayResponse):
         self.__capture_amount = None  # type: Amount
         self.__capture_time = None  # type: str
         self.__acquirer_reference_no = None  # type: str
+        self.__yimutestopenapi = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -90,6 +91,16 @@ class AlipayCaptureResponse(AlipayResponse):
     @acquirer_reference_no.setter
     def acquirer_reference_no(self, value):
         self.__acquirer_reference_no = value
+    @property
+    def yimutestopenapi(self):
+        """
+        5.11号测试
+        """
+        return self.__yimutestopenapi
+
+    @yimutestopenapi.setter
+    def yimutestopenapi(self, value):
+        self.__yimutestopenapi = value
 
 
     
@@ -110,6 +121,8 @@ class AlipayCaptureResponse(AlipayResponse):
             params['captureTime'] = self.capture_time
         if hasattr(self, "acquirer_reference_no") and self.acquirer_reference_no is not None:
             params['acquirerReferenceNo'] = self.acquirer_reference_no
+        if hasattr(self, "yimutestopenapi") and self.yimutestopenapi is not None:
+            params['yimutestopenapi'] = self.yimutestopenapi
         return params
 
 
@@ -131,3 +144,5 @@ class AlipayCaptureResponse(AlipayResponse):
             self.__capture_time = response_body['captureTime']
         if 'acquirerReferenceNo' in response_body:
             self.__acquirer_reference_no = response_body['acquirerReferenceNo']
+        if 'yimutestopenapi' in response_body:
+            self.__yimutestopenapi = response_body['yimutestopenapi']
