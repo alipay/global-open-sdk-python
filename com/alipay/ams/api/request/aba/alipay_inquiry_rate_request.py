@@ -10,6 +10,7 @@ class AlipayInquiryRateRequest(AlipayRequest):
         super(AlipayInquiryRateRequest, self).__init__("/ams/api/v1/aba/funds/inquireRate") 
 
         self.__rate_condition_list = None  # type: [InquiryRateCondition]
+        self.__test_request_id = None  # type: str
         
 
     @property
@@ -22,6 +23,16 @@ class AlipayInquiryRateRequest(AlipayRequest):
     @rate_condition_list.setter
     def rate_condition_list(self, value):
         self.__rate_condition_list = value
+    @property
+    def test_request_id(self):
+        """
+        5.14测试
+        """
+        return self.__test_request_id
+
+    @test_request_id.setter
+    def test_request_id(self, value):
+        self.__test_request_id = value
 
 
     def to_ams_json(self): 
@@ -33,6 +44,8 @@ class AlipayInquiryRateRequest(AlipayRequest):
         params = dict()
         if hasattr(self, "rate_condition_list") and self.rate_condition_list is not None:
             params['rateConditionList'] = self.rate_condition_list
+        if hasattr(self, "test_request_id") and self.test_request_id is not None:
+            params['testRequestId'] = self.test_request_id
         return params
 
 
@@ -45,3 +58,5 @@ class AlipayInquiryRateRequest(AlipayRequest):
                 obj = InquiryRateCondition()
                 obj.parse_rsp_body(item)
                 self.__rate_condition_list.append(obj)
+        if 'testRequestId' in response_body:
+            self.__test_request_id = response_body['testRequestId']
