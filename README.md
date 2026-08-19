@@ -1,4 +1,18 @@
 ```
+
+#### Exact amount conversion
+
+```python
+from com.alipay.ams.api.tools.amount_util import from_amount, to_amount, validate
+
+value = to_amount("10.25", "USD")  # "1025"
+major = from_amount(value, "USD")  # "10.25"
+validate(value, "USD")
+```
+
+The functions accept strings, convert with the ISO 4217 minor unit, and never
+round. Extra non-zero decimal places are rejected. Payment-method currency
+support and minimum amounts remain subject to the relevant Antom API docs.
 Language：Python  
 Python version：2.7+  
 Release ^1.5.5
