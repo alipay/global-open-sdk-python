@@ -15,6 +15,7 @@ class AlipayReceiptInquireListResponse(AlipayResponse):
         self.__total = None  # type: int
         self.__has_more = None  # type: bool
         self.__next_cursor = None  # type: str
+        self.__previous_cursor = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -68,6 +69,16 @@ class AlipayReceiptInquireListResponse(AlipayResponse):
     @next_cursor.setter
     def next_cursor(self, value):
         self.__next_cursor = value
+    @property
+    def previous_cursor(self):
+        """
+        The &#x60;receiptId&#x60; of the first receipt in the current page. Use this value as &#x60;endingBefore&#x60; in the next request to continue paging backward to earlier data. Returned only when &#x60;endingBefore&#x60; is used. Maximum length: 64 characters. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__previous_cursor
+
+    @previous_cursor.setter
+    def previous_cursor(self, value):
+        self.__previous_cursor = value
 
 
     
@@ -84,6 +95,8 @@ class AlipayReceiptInquireListResponse(AlipayResponse):
             params['hasMore'] = self.has_more
         if hasattr(self, "next_cursor") and self.next_cursor is not None:
             params['nextCursor'] = self.next_cursor
+        if hasattr(self, "previous_cursor") and self.previous_cursor is not None:
+            params['previousCursor'] = self.previous_cursor
         return params
 
 
@@ -104,3 +117,5 @@ class AlipayReceiptInquireListResponse(AlipayResponse):
             self.__has_more = response_body['hasMore']
         if 'nextCursor' in response_body:
             self.__next_cursor = response_body['nextCursor']
+        if 'previousCursor' in response_body:
+            self.__previous_cursor = response_body['previousCursor']

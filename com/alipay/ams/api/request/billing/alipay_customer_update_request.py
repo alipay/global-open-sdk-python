@@ -73,7 +73,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def email(self):
         """
-        Updated email address. Optional - &#x60;null&#x60;/omitted means no change (PATCH semantics). No email-format validation is applied. Maximum length: 256 characters.
+        Updated account email address. Optional - &#x60;null&#x60; or omitted means no change (PATCH semantics). Updating this field does not change &#x60;billingEmail&#x60;, including when &#x60;billingEmail&#x60; originally defaulted from &#x60;email&#x60; during customer creation. No email-format validation is applied. Maximum length: 256 characters.
         """
         return self.__email
 
@@ -303,7 +303,7 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @property
     def billing_email(self):
         """
-        Updated invoice recipient email. Maximum length: 256 characters.
+        Updated email address used to receive bills and invoices. Send this field explicitly when the invoice-recipient email must change; updating &#x60;email&#x60; alone does not change it. Maximum length: 256 characters.
         """
         return self.__billing_email
 
