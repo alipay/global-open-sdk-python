@@ -18,7 +18,7 @@ class AlipayTaxInitializeSettingsRequest(AlipayRequest):
     @property
     def settings_request_id(self):
         """
-        The unique ID assigned by a merchant to identify a tax settings initialization request. Maximum length: 64 characters. Note: See documentation for details.
+        The unique ID assigned by a merchant to identify a tax settings initialization request. Reuse it only with the original request body when recovering an unknown result. Maximum length: 64 characters.
         """
         return self.__settings_request_id
 

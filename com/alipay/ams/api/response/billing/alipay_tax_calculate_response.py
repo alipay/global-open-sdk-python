@@ -3,6 +3,7 @@ from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.tax_calculated_line_item import TaxCalculatedLineItem
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 from com.alipay.ams.api.model.tax_calculated_shipping_cost import TaxCalculatedShippingCost
+from com.alipay.ams.api.model.tax_calculated_customer_details import TaxCalculatedCustomerDetails
 
 
 
@@ -23,6 +24,7 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         self.__expire_at = None  # type: str
         self.__tax_date = None  # type: str
         self.__shipping_cost = None  # type: TaxCalculatedShippingCost
+        self.__customer_details = None  # type: TaxCalculatedCustomerDetails
         self.parse_rsp_body(rsp_body) 
 
 
@@ -136,6 +138,16 @@ class AlipayTaxCalculateResponse(AlipayResponse):
     @shipping_cost.setter
     def shipping_cost(self, value):
         self.__shipping_cost = value
+    @property
+    def customer_details(self):
+        """Gets the customer_details of this AlipayTaxCalculateResponse.
+        
+        """
+        return self.__customer_details
+
+    @customer_details.setter
+    def customer_details(self, value):
+        self.__customer_details = value
 
 
     
@@ -164,6 +176,8 @@ class AlipayTaxCalculateResponse(AlipayResponse):
             params['taxDate'] = self.tax_date
         if hasattr(self, "shipping_cost") and self.shipping_cost is not None:
             params['shippingCost'] = self.shipping_cost
+        if hasattr(self, "customer_details") and self.customer_details is not None:
+            params['customerDetails'] = self.customer_details
         return params
 
 
@@ -201,3 +215,6 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         if 'shippingCost' in response_body:
             self.__shipping_cost = TaxCalculatedShippingCost()
             self.__shipping_cost.parse_rsp_body(response_body['shippingCost'])
+        if 'customerDetails' in response_body:
+            self.__customer_details = TaxCalculatedCustomerDetails()
+            self.__customer_details.parse_rsp_body(response_body['customerDetails'])
