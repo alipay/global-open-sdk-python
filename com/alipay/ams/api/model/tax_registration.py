@@ -30,7 +30,7 @@ class TaxRegistration:
     @property
     def tax_type(self):
         """
-        The tax type. Maximum length: 16 characters.
+        The tax type. Supported values include CUIT, GST, VAT, CBS, IBS, HST, PST, RST, QST, JCT, SERVICE_TAX, IGV, SALES_TAX, and PERSONAL_PROPERTY_LEASE_TRANSACTION_TAX.
         """
         return self.__tax_type
 
@@ -50,7 +50,7 @@ class TaxRegistration:
     @property
     def registration_type(self):
         """
-        The tax registration type. Maximum length: 32 characters.
+        The tax registration type. Supported values are OSS_NON_UNION, STANDARD_LOCAL_TAX, SINGLE_LOCAL_USE_TAX_RATE, SIMPLIFIED_SELLERS_USE_TAX, STANDARD_SALES_AND_USE_TAX, NORMAL_GST_HST, and SIMPLIFIED_GST_HST. Maximum length: 32 characters.
         """
         return self.__registration_type
 

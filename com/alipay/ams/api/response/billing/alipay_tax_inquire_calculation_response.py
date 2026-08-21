@@ -1,5 +1,7 @@
 import json
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.tax_calculated_customer_details import TaxCalculatedCustomerDetails
+from com.alipay.ams.api.model.tax_calculated_ship_from_details import TaxCalculatedShipFromDetails
 from com.alipay.ams.api.model.tax_calculated_line_item import TaxCalculatedLineItem
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 from com.alipay.ams.api.model.tax_calculated_shipping_cost import TaxCalculatedShippingCost
@@ -15,6 +17,8 @@ class AlipayTaxInquireCalculationResponse(AlipayResponse):
         self.__result = None  # type: Result
         self.__tax_calculation_id = None  # type: str
         self.__currency = None  # type: str
+        self.__customer_details = None  # type: TaxCalculatedCustomerDetails
+        self.__ship_from_details = None  # type: TaxCalculatedShipFromDetails
         self.__total_amount = None  # type: str
         self.__exclusive_tax_amount = None  # type: str
         self.__inclusive_tax_amount = None  # type: str
@@ -56,6 +60,26 @@ class AlipayTaxInquireCalculationResponse(AlipayResponse):
     @currency.setter
     def currency(self, value):
         self.__currency = value
+    @property
+    def customer_details(self):
+        """Gets the customer_details of this AlipayTaxInquireCalculationResponse.
+        
+        """
+        return self.__customer_details
+
+    @customer_details.setter
+    def customer_details(self, value):
+        self.__customer_details = value
+    @property
+    def ship_from_details(self):
+        """Gets the ship_from_details of this AlipayTaxInquireCalculationResponse.
+        
+        """
+        return self.__ship_from_details
+
+    @ship_from_details.setter
+    def ship_from_details(self, value):
+        self.__ship_from_details = value
     @property
     def total_amount(self):
         """
@@ -148,6 +172,10 @@ class AlipayTaxInquireCalculationResponse(AlipayResponse):
             params['taxCalculationId'] = self.tax_calculation_id
         if hasattr(self, "currency") and self.currency is not None:
             params['currency'] = self.currency
+        if hasattr(self, "customer_details") and self.customer_details is not None:
+            params['customerDetails'] = self.customer_details
+        if hasattr(self, "ship_from_details") and self.ship_from_details is not None:
+            params['shipFromDetails'] = self.ship_from_details
         if hasattr(self, "total_amount") and self.total_amount is not None:
             params['totalAmount'] = self.total_amount
         if hasattr(self, "exclusive_tax_amount") and self.exclusive_tax_amount is not None:
@@ -176,6 +204,12 @@ class AlipayTaxInquireCalculationResponse(AlipayResponse):
             self.__tax_calculation_id = response_body['taxCalculationId']
         if 'currency' in response_body:
             self.__currency = response_body['currency']
+        if 'customerDetails' in response_body:
+            self.__customer_details = TaxCalculatedCustomerDetails()
+            self.__customer_details.parse_rsp_body(response_body['customerDetails'])
+        if 'shipFromDetails' in response_body:
+            self.__ship_from_details = TaxCalculatedShipFromDetails()
+            self.__ship_from_details.parse_rsp_body(response_body['shipFromDetails'])
         if 'totalAmount' in response_body:
             self.__total_amount = response_body['totalAmount']
         if 'exclusiveTaxAmount' in response_body:

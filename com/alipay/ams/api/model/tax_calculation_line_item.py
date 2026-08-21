@@ -7,7 +7,7 @@ class TaxCalculationLineItem:
     def __init__(self):
         
         self.__goods_reference_id = None  # type: str
-        self.__unit_amount = None  # type: str
+        self.__amount = None  # type: str
         self.__quantity = None  # type: int
         self.__tax_code = None  # type: str
         self.__product_id = None  # type: str
@@ -25,19 +25,19 @@ class TaxCalculationLineItem:
     def goods_reference_id(self, value):
         self.__goods_reference_id = value
     @property
-    def unit_amount(self):
+    def amount(self):
         """
-        The unit amount. Maximum length: 19 characters.
+        The total amount of the line item in the smallest currency unit. Maximum length: 19 characters.
         """
-        return self.__unit_amount
+        return self.__amount
 
-    @unit_amount.setter
-    def unit_amount(self, value):
-        self.__unit_amount = value
+    @amount.setter
+    def amount(self, value):
+        self.__amount = value
     @property
     def quantity(self):
         """
-        The quantity.
+        The quantity. Valid range: 1 to 10000.
         """
         return self.__quantity
 
@@ -82,8 +82,8 @@ class TaxCalculationLineItem:
         params = dict()
         if hasattr(self, "goods_reference_id") and self.goods_reference_id is not None:
             params['goodsReferenceId'] = self.goods_reference_id
-        if hasattr(self, "unit_amount") and self.unit_amount is not None:
-            params['unitAmount'] = self.unit_amount
+        if hasattr(self, "amount") and self.amount is not None:
+            params['amount'] = self.amount
         if hasattr(self, "quantity") and self.quantity is not None:
             params['quantity'] = self.quantity
         if hasattr(self, "tax_code") and self.tax_code is not None:
@@ -100,8 +100,8 @@ class TaxCalculationLineItem:
             response_body = json.loads(response_body)
         if 'goodsReferenceId' in response_body:
             self.__goods_reference_id = response_body['goodsReferenceId']
-        if 'unitAmount' in response_body:
-            self.__unit_amount = response_body['unitAmount']
+        if 'amount' in response_body:
+            self.__amount = response_body['amount']
         if 'quantity' in response_body:
             self.__quantity = response_body['quantity']
         if 'taxCode' in response_body:

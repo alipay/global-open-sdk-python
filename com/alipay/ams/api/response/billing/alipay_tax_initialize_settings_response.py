@@ -61,7 +61,7 @@ class AlipayTaxInitializeSettingsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        The tax settings status. Valid values are ACTIVE and PENDING. Do not treat an unknown value as ACTIVE. Maximum length: 16 characters.
         """
         return self.__status
 
