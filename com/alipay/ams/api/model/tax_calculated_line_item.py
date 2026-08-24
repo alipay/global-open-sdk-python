@@ -8,7 +8,6 @@ class TaxCalculatedLineItem:
     def __init__(self):
         
         self.__goods_reference_id = None  # type: str
-        self.__unit_amount = None  # type: str
         self.__amount = None  # type: str
         self.__quantity = None  # type: int
         self.__tax_code = None  # type: str
@@ -27,16 +26,6 @@ class TaxCalculatedLineItem:
     @goods_reference_id.setter
     def goods_reference_id(self, value):
         self.__goods_reference_id = value
-    @property
-    def unit_amount(self):
-        """
-        The unit amount. Maximum length: 19 characters.
-        """
-        return self.__unit_amount
-
-    @unit_amount.setter
-    def unit_amount(self, value):
-        self.__unit_amount = value
     @property
     def amount(self):
         """
@@ -105,8 +94,6 @@ class TaxCalculatedLineItem:
         params = dict()
         if hasattr(self, "goods_reference_id") and self.goods_reference_id is not None:
             params['goodsReferenceId'] = self.goods_reference_id
-        if hasattr(self, "unit_amount") and self.unit_amount is not None:
-            params['unitAmount'] = self.unit_amount
         if hasattr(self, "amount") and self.amount is not None:
             params['amount'] = self.amount
         if hasattr(self, "quantity") and self.quantity is not None:
@@ -127,8 +114,6 @@ class TaxCalculatedLineItem:
             response_body = json.loads(response_body)
         if 'goodsReferenceId' in response_body:
             self.__goods_reference_id = response_body['goodsReferenceId']
-        if 'unitAmount' in response_body:
-            self.__unit_amount = response_body['unitAmount']
         if 'amount' in response_body:
             self.__amount = response_body['amount']
         if 'quantity' in response_body:

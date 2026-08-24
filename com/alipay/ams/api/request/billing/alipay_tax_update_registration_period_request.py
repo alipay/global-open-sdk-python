@@ -37,7 +37,7 @@ class AlipayTaxUpdateRegistrationPeriodRequest(AlipayRequest):
     @property
     def active_from(self):
         """
-        The time from which the tax registration is active. Maximum length: 32 characters. Note: See documentation for details.
+        The new activation time for a SCHEDULED registration. The value must be later than the current time. Maximum length: 32 characters.
         """
         return self.__active_from
 
@@ -47,7 +47,7 @@ class AlipayTaxUpdateRegistrationPeriodRequest(AlipayRequest):
     @property
     def expire_at(self):
         """
-        The expiration time. Maximum length: 32 characters. Note: See documentation for details.
+        The new expiration time for an ACTIVE or SCHEDULED registration. The value must be later than the current time and, for a scheduled registration, later than the effective activeFrom. Maximum length: 32 characters.
         """
         return self.__expire_at
 
