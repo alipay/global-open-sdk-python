@@ -14,6 +14,7 @@ class AuthorizationControl:
         self.__allowed_merchant_category_list = None  # type: [str]
         self.__allowed_auth_times = None  # type: int
         self.__allowed_currencies = None  # type: [str]
+        self.__payment_preference_currencies = None  # type: [str]
         self.__card_limit_detail = None  # type: CardLimitDetail
         self.__card_limit_info = None  # type: CardLimitInfo
         self.__refund_preference = None  # type: RefundPreference
@@ -22,7 +23,7 @@ class AuthorizationControl:
     @property
     def card_active_time(self):
         """
-        If not present, It will be activated when the card is created. Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601
+        The card activation time in ISO 8601 format.
         """
         return self.__card_active_time
 
@@ -32,7 +33,7 @@ class AuthorizationControl:
     @property
     def card_cancel_time(self):
         """
-        Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601
+        The card cancellation time in ISO 8601 format.
         """
         return self.__card_cancel_time
 
@@ -42,7 +43,7 @@ class AuthorizationControl:
     @property
     def allowed_merchant_category_list(self):
         """
-        Allowed MCC (Merchant Category Code) list. If not set or left empty, all transactions are allowed.
+        The allowed merchant category code list.
         """
         return self.__allowed_merchant_category_list
 
@@ -52,7 +53,7 @@ class AuthorizationControl:
     @property
     def allowed_auth_times(self):
         """
-        Indicates the number of allowed authorization times. If not set or left empty, all transactions are allowed.
+        The number of allowed authorization attempts.
         """
         return self.__allowed_auth_times
 
@@ -62,13 +63,23 @@ class AuthorizationControl:
     @property
     def allowed_currencies(self):
         """
-        Allowed transaction currencies (ISO 4217 three-letter codes). If not set, no currency restriction applies.
+        The allowed transaction currencies as ISO 4217 codes.
         """
         return self.__allowed_currencies
 
     @allowed_currencies.setter
     def allowed_currencies(self, value):
         self.__allowed_currencies = value
+    @property
+    def payment_preference_currencies(self):
+        """
+        The card-level ordered balance-consumption preference. For a whitelisted merchant, the stored list is returned when configured and this child field is omitted when no card-level preference is configured. For a non-whitelisted merchant, the parent cardDetail object is omitted.
+        """
+        return self.__payment_preference_currencies
+
+    @payment_preference_currencies.setter
+    def payment_preference_currencies(self, value):
+        self.__payment_preference_currencies = value
     @property
     def card_limit_detail(self):
         """Gets the card_limit_detail of this AuthorizationControl.
@@ -115,6 +126,8 @@ class AuthorizationControl:
             params['allowedAuthTimes'] = self.allowed_auth_times
         if hasattr(self, "allowed_currencies") and self.allowed_currencies is not None:
             params['allowedCurrencies'] = self.allowed_currencies
+        if hasattr(self, "payment_preference_currencies") and self.payment_preference_currencies is not None:
+            params['paymentPreferenceCurrencies'] = self.payment_preference_currencies
         if hasattr(self, "card_limit_detail") and self.card_limit_detail is not None:
             params['cardLimitDetail'] = self.card_limit_detail
         if hasattr(self, "card_limit_info") and self.card_limit_info is not None:
@@ -137,6 +150,8 @@ class AuthorizationControl:
             self.__allowed_auth_times = response_body['allowedAuthTimes']
         if 'allowedCurrencies' in response_body:
             self.__allowed_currencies = response_body['allowedCurrencies']
+        if 'paymentPreferenceCurrencies' in response_body:
+            self.__payment_preference_currencies = response_body['paymentPreferenceCurrencies']
         if 'cardLimitDetail' in response_body:
             self.__card_limit_detail = CardLimitDetail()
             self.__card_limit_detail.parse_rsp_body(response_body['cardLimitDetail'])

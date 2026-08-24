@@ -36,7 +36,7 @@ class CardholderInfo:
     @property
     def display_name(self):
         """
-        The name that is displayed on the card
+        The name displayed on the card.
         """
         return self.__display_name
 
