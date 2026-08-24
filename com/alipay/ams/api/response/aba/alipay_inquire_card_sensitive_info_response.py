@@ -1,5 +1,6 @@
 import json
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.alipay_inquire_card_detail_response import AlipayInquireCardDetailResponse
 
 
 
@@ -15,6 +16,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
         self.__card_no = None  # type: str
         self.__expired_month = None  # type: str
         self.__expired_year = None  # type: str
+        self.__card_detail = None  # type: AlipayInquireCardDetailResponse
         self.parse_rsp_body(rsp_body) 
 
 
@@ -78,6 +80,16 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @expired_year.setter
     def expired_year(self, value):
         self.__expired_year = value
+    @property
+    def card_detail(self):
+        """Gets the card_detail of this AlipayInquireCardSensitiveInfoResponse.
+        
+        """
+        return self.__card_detail
+
+    @card_detail.setter
+    def card_detail(self, value):
+        self.__card_detail = value
 
 
     
@@ -96,6 +108,8 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
             params['expiredMonth'] = self.expired_month
         if hasattr(self, "expired_year") and self.expired_year is not None:
             params['expiredYear'] = self.expired_year
+        if hasattr(self, "card_detail") and self.card_detail is not None:
+            params['cardDetail'] = self.card_detail
         return params
 
 
@@ -114,3 +128,6 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
             self.__expired_month = response_body['expiredMonth']
         if 'expiredYear' in response_body:
             self.__expired_year = response_body['expiredYear']
+        if 'cardDetail' in response_body:
+            self.__card_detail = AlipayInquireCardDetailResponse()
+            self.__card_detail.parse_rsp_body(response_body['cardDetail'])
