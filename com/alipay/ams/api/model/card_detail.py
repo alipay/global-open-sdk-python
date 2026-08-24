@@ -1,17 +1,13 @@
 import json
-from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.authorization_control import AuthorizationControl
 from com.alipay.ams.api.model.cardholder_info import CardholderInfo
 
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
-class AlipayInquireCardDetailResponse(AlipayResponse):
-    def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__() 
-
-        self.__result = None  # type: Result
+class CardDetail:
+    def __init__(self):
+        
         self.__asset_id = None  # type: str
         self.__card_nick_name = None  # type: str
         self.__card_status = None  # type: str
@@ -24,19 +20,8 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
         self.__metadata = None  # type: {str: (str,)}
         self.__authorization_control = None  # type: AuthorizationControl
         self.__cardholderinfo = None  # type: CardholderInfo
-        self.parse_rsp_body(rsp_body) 
-
-
-    @property
-    def result(self):
-        """Gets the result of this AlipayInquireCardDetailResponse.
         
-        """
-        return self.__result
 
-    @result.setter
-    def result(self, value):
-        self.__result = value
     @property
     def asset_id(self):
         """
@@ -139,7 +124,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
         self.__metadata = value
     @property
     def authorization_control(self):
-        """Gets the authorization_control of this AlipayInquireCardDetailResponse.
+        """Gets the authorization_control of this CardDetail.
         
         """
         return self.__authorization_control
@@ -149,7 +134,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
         self.__authorization_control = value
     @property
     def cardholderinfo(self):
-        """Gets the cardholderinfo of this AlipayInquireCardDetailResponse.
+        """Gets the cardholderinfo of this CardDetail.
         
         """
         return self.__cardholderinfo
@@ -163,8 +148,6 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "result") and self.result is not None:
-            params['result'] = self.result
         if hasattr(self, "asset_id") and self.asset_id is not None:
             params['assetId'] = self.asset_id
         if hasattr(self, "card_nick_name") and self.card_nick_name is not None:
@@ -193,10 +176,8 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
 
 
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayInquireCardDetailResponse, self).parse_rsp_body(response_body)
-        if 'result' in response_body:
-            self.__result = Result()
-            self.__result.parse_rsp_body(response_body['result'])
+        if isinstance(response_body, str): 
+            response_body = json.loads(response_body)
         if 'assetId' in response_body:
             self.__asset_id = response_body['assetId']
         if 'cardNickName' in response_body:
