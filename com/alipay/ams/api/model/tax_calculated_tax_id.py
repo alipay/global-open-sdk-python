@@ -3,7 +3,7 @@ import json
 
 
 
-class TaxId:
+class TaxCalculatedTaxId:
     def __init__(self):
         
         self.__value = None  # type: str
@@ -15,7 +15,7 @@ class TaxId:
     @property
     def value(self):
         """
-        The value of the amount as a positive integer in the smallest currency unit. Maximum length: 64 characters.
+        The customer tax ID value. Maximum length: 64 characters.
         """
         return self.__value
 
@@ -35,7 +35,7 @@ class TaxId:
     @property
     def region(self):
         """
-        The region. Maximum length: 10 characters. Note: See documentation for details.
+        The region. Maximum length: 10 characters.
         """
         return self.__region
 
@@ -45,7 +45,7 @@ class TaxId:
     @property
     def name(self):
         """
-        The customer name recorded for tax purposes. Maximum length: 128 characters.
+        The customer name recorded for tax purposes. Maximum length: 256 characters.
         """
         return self.__name
 

@@ -1,26 +1,26 @@
 import json
-from com.alipay.ams.api.model.tax_business_details import TaxBusinessDetails
-from com.alipay.ams.api.model.tax_address import TaxAddress
-from com.alipay.ams.api.model.tax_address import TaxAddress
-from com.alipay.ams.api.model.tax_id import TaxId
-from com.alipay.ams.api.model.tax_exemption import TaxExemption
+from com.alipay.ams.api.model.tax_calculated_business_details import TaxCalculatedBusinessDetails
+from com.alipay.ams.api.model.tax_calculated_address import TaxCalculatedAddress
+from com.alipay.ams.api.model.tax_calculated_address import TaxCalculatedAddress
+from com.alipay.ams.api.model.tax_calculated_tax_id import TaxCalculatedTaxId
+from com.alipay.ams.api.model.tax_calculated_exemption import TaxCalculatedExemption
 
 
 
 
-class TaxCustomerDetails:
+class TaxCalculatedCustomerDetails:
     def __init__(self):
         
-        self.__business_details = None  # type: TaxBusinessDetails
-        self.__shipping_address = None  # type: TaxAddress
-        self.__billing_address = None  # type: TaxAddress
-        self.__tax_ids = None  # type: [TaxId]
-        self.__tax_exemptions = None  # type: [TaxExemption]
+        self.__business_details = None  # type: TaxCalculatedBusinessDetails
+        self.__shipping_address = None  # type: TaxCalculatedAddress
+        self.__billing_address = None  # type: TaxCalculatedAddress
+        self.__tax_ids = None  # type: [TaxCalculatedTaxId]
+        self.__tax_exemptions = None  # type: [TaxCalculatedExemption]
         
 
     @property
     def business_details(self):
-        """Gets the business_details of this TaxCustomerDetails.
+        """Gets the business_details of this TaxCalculatedCustomerDetails.
         
         """
         return self.__business_details
@@ -30,7 +30,7 @@ class TaxCustomerDetails:
         self.__business_details = value
     @property
     def shipping_address(self):
-        """Gets the shipping_address of this TaxCustomerDetails.
+        """Gets the shipping_address of this TaxCalculatedCustomerDetails.
         
         """
         return self.__shipping_address
@@ -40,7 +40,7 @@ class TaxCustomerDetails:
         self.__shipping_address = value
     @property
     def billing_address(self):
-        """Gets the billing_address of this TaxCustomerDetails.
+        """Gets the billing_address of this TaxCalculatedCustomerDetails.
         
         """
         return self.__billing_address
@@ -51,7 +51,7 @@ class TaxCustomerDetails:
     @property
     def tax_ids(self):
         """
-        The customer tax ID list. Maximum size: 10.
+        The effective customer tax ID list. Maximum size: 10.
         """
         return self.__tax_ids
 
@@ -61,7 +61,7 @@ class TaxCustomerDetails:
     @property
     def tax_exemptions(self):
         """
-        The customer tax exemption list. Maximum size: 10.
+        The effective customer tax exemption list. Maximum size: 10.
         """
         return self.__tax_exemptions
 
@@ -91,23 +91,23 @@ class TaxCustomerDetails:
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'businessDetails' in response_body:
-            self.__business_details = TaxBusinessDetails()
+            self.__business_details = TaxCalculatedBusinessDetails()
             self.__business_details.parse_rsp_body(response_body['businessDetails'])
         if 'shippingAddress' in response_body:
-            self.__shipping_address = TaxAddress()
+            self.__shipping_address = TaxCalculatedAddress()
             self.__shipping_address.parse_rsp_body(response_body['shippingAddress'])
         if 'billingAddress' in response_body:
-            self.__billing_address = TaxAddress()
+            self.__billing_address = TaxCalculatedAddress()
             self.__billing_address.parse_rsp_body(response_body['billingAddress'])
         if 'taxIds' in response_body:
             self.__tax_ids = []
             for item in response_body['taxIds']:
-                obj = TaxId()
+                obj = TaxCalculatedTaxId()
                 obj.parse_rsp_body(item)
                 self.__tax_ids.append(obj)
         if 'taxExemptions' in response_body:
             self.__tax_exemptions = []
             for item in response_body['taxExemptions']:
-                obj = TaxExemption()
+                obj = TaxCalculatedExemption()
                 obj.parse_rsp_body(item)
                 self.__tax_exemptions.append(obj)
