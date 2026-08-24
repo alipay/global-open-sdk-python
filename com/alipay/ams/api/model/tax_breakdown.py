@@ -18,7 +18,7 @@ class TaxBreakdown:
     @property
     def tax_type(self):
         """
-        The tax type. Maximum length: 32 characters.
+        The tax type. Supported values include CUIT, GST, VAT, CBS, IBS, HST, PST, RST, QST, JCT, SERVICE_TAX, IGV, SALES_TAX, and PERSONAL_PROPERTY_LEASE_TRANSACTION_TAX.
         """
         return self.__tax_type
 
