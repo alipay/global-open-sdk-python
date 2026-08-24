@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.price_item_change import PriceItemChange
 from com.alipay.ams.api.model.billing_trial_settings import BillingTrialSettings
+from com.alipay.ams.api.model.billing_subscription_status_change import BillingSubscriptionStatusChange
 from com.alipay.ams.api.model.billing_subscription_cancellation_details import BillingSubscriptionCancellationDetails
 
 
@@ -16,6 +17,7 @@ class AlipayBillingSubscriptionUpdateRequest(AlipayRequest):
         self.__proration_behavior = None  # type: str
         self.__reset_billing_cycle_anchor = None  # type: bool
         self.__trial_settings = None  # type: BillingTrialSettings
+        self.__status_change = None  # type: BillingSubscriptionStatusChange
         self.__cancel_at_period_end = None  # type: bool
         self.__cancel_at = None  # type: str
         self.__cancellation_details = None  # type: BillingSubscriptionCancellationDetails
@@ -75,6 +77,16 @@ class AlipayBillingSubscriptionUpdateRequest(AlipayRequest):
     @trial_settings.setter
     def trial_settings(self, value):
         self.__trial_settings = value
+    @property
+    def status_change(self):
+        """Gets the status_change of this AlipayBillingSubscriptionUpdateRequest.
+        
+        """
+        return self.__status_change
+
+    @status_change.setter
+    def status_change(self, value):
+        self.__status_change = value
     @property
     def cancel_at_period_end(self):
         """
@@ -164,6 +176,8 @@ class AlipayBillingSubscriptionUpdateRequest(AlipayRequest):
             params['resetBillingCycleAnchor'] = self.reset_billing_cycle_anchor
         if hasattr(self, "trial_settings") and self.trial_settings is not None:
             params['trialSettings'] = self.trial_settings
+        if hasattr(self, "status_change") and self.status_change is not None:
+            params['statusChange'] = self.status_change
         if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
             params['cancelAtPeriodEnd'] = self.cancel_at_period_end
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
@@ -199,6 +213,9 @@ class AlipayBillingSubscriptionUpdateRequest(AlipayRequest):
         if 'trialSettings' in response_body:
             self.__trial_settings = BillingTrialSettings()
             self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
+        if 'statusChange' in response_body:
+            self.__status_change = BillingSubscriptionStatusChange()
+            self.__status_change.parse_rsp_body(response_body['statusChange'])
         if 'cancelAtPeriodEnd' in response_body:
             self.__cancel_at_period_end = response_body['cancelAtPeriodEnd']
         if 'cancelAt' in response_body:

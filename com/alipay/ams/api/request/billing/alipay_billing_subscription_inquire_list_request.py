@@ -22,7 +22,7 @@ class AlipayBillingSubscriptionInquireListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 20 characters.
+        Filters subscriptions by status. To provide multiple values, use a comma-separated string such as ACTIVE,PAUSED. Up to eight values are supported. Valid values are INCOMPLETE, TRIALING, ACTIVE, PAST_DUE, PAUSED, CANCELLED, TERMINATED, and UNPAID. Each status value has a maximum length of 20 characters.
         """
         return self.__status
 
