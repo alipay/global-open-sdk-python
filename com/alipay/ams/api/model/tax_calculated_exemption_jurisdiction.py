@@ -3,25 +3,15 @@ import json
 
 
 
-class TaxId:
+class TaxCalculatedExemptionJurisdiction:
     def __init__(self):
         
-        self.__value = None  # type: str
         self.__country = None  # type: str
         self.__region = None  # type: str
-        self.__name = None  # type: str
+        self.__city = None  # type: str
+        self.__effective_from = None  # type: str
         
 
-    @property
-    def value(self):
-        """
-        The value of the amount as a positive integer in the smallest currency unit. Maximum length: 64 characters.
-        """
-        return self.__value
-
-    @value.setter
-    def value(self, value):
-        self.__value = value
     @property
     def country(self):
         """
@@ -35,7 +25,7 @@ class TaxId:
     @property
     def region(self):
         """
-        The region. Maximum length: 10 characters. Note: See documentation for details.
+        The region. Maximum length: 10 characters.
         """
         return self.__region
 
@@ -43,40 +33,50 @@ class TaxId:
     def region(self, value):
         self.__region = value
     @property
-    def name(self):
+    def city(self):
         """
-        The customer name recorded for tax purposes. Maximum length: 128 characters.
+        The city. Maximum length: 64 characters.
         """
-        return self.__name
+        return self.__city
 
-    @name.setter
-    def name(self, value):
-        self.__name = value
+    @city.setter
+    def city(self, value):
+        self.__city = value
+    @property
+    def effective_from(self):
+        """
+        The time when the tax exemption becomes effective. Maximum length: 32 characters.
+        """
+        return self.__effective_from
+
+    @effective_from.setter
+    def effective_from(self, value):
+        self.__effective_from = value
 
 
     
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "value") and self.value is not None:
-            params['value'] = self.value
         if hasattr(self, "country") and self.country is not None:
             params['country'] = self.country
         if hasattr(self, "region") and self.region is not None:
             params['region'] = self.region
-        if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
+        if hasattr(self, "city") and self.city is not None:
+            params['city'] = self.city
+        if hasattr(self, "effective_from") and self.effective_from is not None:
+            params['effectiveFrom'] = self.effective_from
         return params
 
 
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'value' in response_body:
-            self.__value = response_body['value']
         if 'country' in response_body:
             self.__country = response_body['country']
         if 'region' in response_body:
             self.__region = response_body['region']
-        if 'name' in response_body:
-            self.__name = response_body['name']
+        if 'city' in response_body:
+            self.__city = response_body['city']
+        if 'effectiveFrom' in response_body:
+            self.__effective_from = response_body['effectiveFrom']

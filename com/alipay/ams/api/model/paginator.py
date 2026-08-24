@@ -15,7 +15,7 @@ class Paginator:
     @property
     def current_page(self):
         """
-        The current page number, start from 1.
+        The current page number, starting from 1.
         """
         return self.__current_page
 
@@ -25,7 +25,7 @@ class Paginator:
     @property
     def page_size(self):
         """
-        The maximum records returned per page.
+        The number of records returned per page.
         """
         return self.__page_size
 
@@ -35,7 +35,7 @@ class Paginator:
     @property
     def total_page(self):
         """
-        Total number of pages.
+        The total number of pages.
         """
         return self.__total_page
 
@@ -45,7 +45,7 @@ class Paginator:
     @property
     def total_count(self):
         """
-        Total items that match the criteria.
+        The total number of records that match the query criteria.
         """
         return self.__total_count
 
