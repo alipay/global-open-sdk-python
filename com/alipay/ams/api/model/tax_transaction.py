@@ -52,7 +52,7 @@ class TaxTransaction:
     @property
     def tax_amount(self):
         """
-        The tax amount. Maximum length: 19 characters.
+        The non-negative tax amount in the smallest currency unit, without leading zeros. For TRANSACTION and REVERSAL records, this value is always a positive absolute amount. Reconcile a business scope by subtracting the sum of REVERSAL amounts from the sum of TRANSACTION amounts. Maximum length: 19 characters.
         """
         return self.__tax_amount
 
@@ -62,7 +62,7 @@ class TaxTransaction:
     @property
     def currency(self):
         """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 3 characters.
+        The 3-letter currency code that follows the ISO 4217 standard. This field is returned together with taxAmount. Maximum length: 3 characters.
         """
         return self.__currency
 
