@@ -31,7 +31,7 @@ class AlipayTaxInquireSettingsResponse(AlipayResponse):
     @property
     def default_tax_code(self):
         """
-        The default tax code. Maximum length: 32 characters.
+        The default tax code. Returned only when the API call succeeds. Maximum length: 32 characters.
         """
         return self.__default_tax_code
 
@@ -41,7 +41,7 @@ class AlipayTaxInquireSettingsResponse(AlipayResponse):
     @property
     def default_tax_behavior(self):
         """
-        The default tax behavior. Maximum length: 16 characters.
+        The default tax behavior. Returned only when the API call succeeds. Maximum length: 16 characters.
         """
         return self.__default_tax_behavior
 
@@ -61,7 +61,7 @@ class AlipayTaxInquireSettingsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        The tax settings status. Valid values are ACTIVE and PENDING. Returned only when the API call succeeds. Maximum length: 16 characters.
         """
         return self.__status
 
