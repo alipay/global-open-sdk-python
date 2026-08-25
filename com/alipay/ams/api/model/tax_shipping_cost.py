@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -6,13 +7,13 @@ import json
 class TaxShippingCost:
     def __init__(self):
         
-        self.__amount = None  # type: str
+        self.__amount = None  # type: Amount
         
 
     @property
     def amount(self):
-        """
-        The amount. Maximum length: 19 characters. Note: See documentation for details.
+        """Gets the amount of this TaxShippingCost.
+        
         """
         return self.__amount
 
@@ -34,4 +35,5 @@ class TaxShippingCost:
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'amount' in response_body:
-            self.__amount = response_body['amount']
+            self.__amount = Amount()
+            self.__amount.parse_rsp_body(response_body['amount'])
