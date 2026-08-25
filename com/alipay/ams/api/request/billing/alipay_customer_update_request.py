@@ -20,7 +20,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
         self.__address = None  # type: str
         self.__address_detail = None  # type: str
         self.__zipcode = None  # type: str
-        self.__shipping_phone = None  # type: str
         self.__shipping_country = None  # type: str
         self.__shipping_state = None  # type: str
         self.__shipping_city = None  # type: str
@@ -32,12 +31,9 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
         self.__preferred_locales = None  # type: [str]
         self.__default_payment_method = None  # type: str
         self.__metadata = None  # type: str
-        self.__phone_no = None  # type: str
-        self.__country_code = None  # type: str
         self.__billing_email = None  # type: str
         self.__shipping_first_name = None  # type: str
         self.__shipping_last_name = None  # type: str
-        self.__shipping_country_code = None  # type: str
         
 
     @property
@@ -161,16 +157,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     def zipcode(self, value):
         self.__zipcode = value
     @property
-    def shipping_phone(self):
-        """
-        Updated shipping phone. Maximum length: 32 characters.
-        """
-        return self.__shipping_phone
-
-    @shipping_phone.setter
-    def shipping_phone(self, value):
-        self.__shipping_phone = value
-    @property
     def shipping_country(self):
         """
         Updated shipping country. Format: ISO 3166-1 alpha-2. Maximum length: 2 characters.
@@ -281,26 +267,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     def metadata(self, value):
         self.__metadata = value
     @property
-    def phone_no(self):
-        """
-        Updated phone number (digits only). Cross-field constraint: when &#x60;phoneNo&#x60; is provided, &#x60;countryCode&#x60; is required; omitting it returns &#x60;PARAM_ILLEGAL&#x60;. Maximum length: 32 characters.
-        """
-        return self.__phone_no
-
-    @phone_no.setter
-    def phone_no(self, value):
-        self.__phone_no = value
-    @property
-    def country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;phoneNo&#x60; is provided. Maximum length: 2 characters.
-        """
-        return self.__country_code
-
-    @country_code.setter
-    def country_code(self, value):
-        self.__country_code = value
-    @property
     def billing_email(self):
         """
         Updated email address used to receive bills and invoices. Send this field explicitly when the invoice-recipient email must change; updating &#x60;email&#x60; alone does not change it. Maximum length: 256 characters.
@@ -330,16 +296,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
     @shipping_last_name.setter
     def shipping_last_name(self, value):
         self.__shipping_last_name = value
-    @property
-    def shipping_country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;shippingPhone&#x60; is provided. Maximum length: 2 characters.
-        """
-        return self.__shipping_country_code
-
-    @shipping_country_code.setter
-    def shipping_country_code(self, value):
-        self.__shipping_country_code = value
 
 
     def to_ams_json(self): 
@@ -373,8 +329,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
             params['addressDetail'] = self.address_detail
         if hasattr(self, "zipcode") and self.zipcode is not None:
             params['zipcode'] = self.zipcode
-        if hasattr(self, "shipping_phone") and self.shipping_phone is not None:
-            params['shippingPhone'] = self.shipping_phone
         if hasattr(self, "shipping_country") and self.shipping_country is not None:
             params['shippingCountry'] = self.shipping_country
         if hasattr(self, "shipping_state") and self.shipping_state is not None:
@@ -397,18 +351,12 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
             params['defaultPaymentMethod'] = self.default_payment_method
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
-        if hasattr(self, "phone_no") and self.phone_no is not None:
-            params['phoneNo'] = self.phone_no
-        if hasattr(self, "country_code") and self.country_code is not None:
-            params['countryCode'] = self.country_code
         if hasattr(self, "billing_email") and self.billing_email is not None:
             params['billingEmail'] = self.billing_email
         if hasattr(self, "shipping_first_name") and self.shipping_first_name is not None:
             params['shippingFirstName'] = self.shipping_first_name
         if hasattr(self, "shipping_last_name") and self.shipping_last_name is not None:
             params['shippingLastName'] = self.shipping_last_name
-        if hasattr(self, "shipping_country_code") and self.shipping_country_code is not None:
-            params['shippingCountryCode'] = self.shipping_country_code
         return params
 
 
@@ -439,8 +387,6 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
             self.__address_detail = response_body['addressDetail']
         if 'zipcode' in response_body:
             self.__zipcode = response_body['zipcode']
-        if 'shippingPhone' in response_body:
-            self.__shipping_phone = response_body['shippingPhone']
         if 'shippingCountry' in response_body:
             self.__shipping_country = response_body['shippingCountry']
         if 'shippingState' in response_body:
@@ -463,15 +409,9 @@ class AlipayCustomerUpdateRequest(AlipayRequest):
             self.__default_payment_method = response_body['defaultPaymentMethod']
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
-        if 'phoneNo' in response_body:
-            self.__phone_no = response_body['phoneNo']
-        if 'countryCode' in response_body:
-            self.__country_code = response_body['countryCode']
         if 'billingEmail' in response_body:
             self.__billing_email = response_body['billingEmail']
         if 'shippingFirstName' in response_body:
             self.__shipping_first_name = response_body['shippingFirstName']
         if 'shippingLastName' in response_body:
             self.__shipping_last_name = response_body['shippingLastName']
-        if 'shippingCountryCode' in response_body:
-            self.__shipping_country_code = response_body['shippingCountryCode']

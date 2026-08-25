@@ -30,7 +30,7 @@ class AlipayTaxInquireTransactionListResponse(AlipayResponse):
     @property
     def transactions(self):
         """
-        The transactions. Note: See documentation for details.
+        The tax transaction list returned for a successful query. The list is empty or omitted when no matching transaction exists. Maximum size: 100.
         """
         return self.__transactions
 

@@ -1,5 +1,6 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.tier import Tier
 from com.alipay.ams.api.model.amount import Amount
 
 
@@ -16,13 +17,17 @@ class BillingSubscriptionPriceItem:
         self.__price_id = None  # type: str
         self.__price_type = None  # type: str
         self.__pricing_model = None  # type: str
+        self.__tiers_mode = None  # type: str
+        self.__tiers = None  # type: [Tier]
         self.__product_id = None  # type: str
         self.__product_name = None  # type: str
+        self.__product_description = None  # type: str
         self.__quantity = None  # type: int
         self.__recurring_interval = None  # type: str
         self.__recurring_interval_count = None  # type: int
         self.__unit_amount = None  # type: Amount
         self.__usage_type = None  # type: str
+        self.__meter_id = None  # type: str
         
 
     @property
@@ -106,6 +111,26 @@ class BillingSubscriptionPriceItem:
     def pricing_model(self, value):
         self.__pricing_model = value
     @property
+    def tiers_mode(self):
+        """
+        The tiered pricing mode. Valid values are GRADUATED and VOLUME.
+        """
+        return self.__tiers_mode
+
+    @tiers_mode.setter
+    def tiers_mode(self, value):
+        self.__tiers_mode = value
+    @property
+    def tiers(self):
+        """
+        The tiered pricing details.
+        """
+        return self.__tiers
+
+    @tiers.setter
+    def tiers(self, value):
+        self.__tiers = value
+    @property
     def product_id(self):
         """
         The associated product ID. Maximum length: 64 characters.
@@ -125,6 +150,16 @@ class BillingSubscriptionPriceItem:
     @product_name.setter
     def product_name(self, value):
         self.__product_name = value
+    @property
+    def product_description(self):
+        """
+        The product description resolved from the product ID of this price item.
+        """
+        return self.__product_description
+
+    @product_description.setter
+    def product_description(self, value):
+        self.__product_description = value
     @property
     def quantity(self):
         """
@@ -175,6 +210,16 @@ class BillingSubscriptionPriceItem:
     @usage_type.setter
     def usage_type(self, value):
         self.__usage_type = value
+    @property
+    def meter_id(self):
+        """
+        The external meter reference ID.
+        """
+        return self.__meter_id
+
+    @meter_id.setter
+    def meter_id(self, value):
+        self.__meter_id = value
 
 
     
@@ -197,10 +242,16 @@ class BillingSubscriptionPriceItem:
             params['priceType'] = self.price_type
         if hasattr(self, "pricing_model") and self.pricing_model is not None:
             params['pricingModel'] = self.pricing_model
+        if hasattr(self, "tiers_mode") and self.tiers_mode is not None:
+            params['tiersMode'] = self.tiers_mode
+        if hasattr(self, "tiers") and self.tiers is not None:
+            params['tiers'] = self.tiers
         if hasattr(self, "product_id") and self.product_id is not None:
             params['productId'] = self.product_id
         if hasattr(self, "product_name") and self.product_name is not None:
             params['productName'] = self.product_name
+        if hasattr(self, "product_description") and self.product_description is not None:
+            params['productDescription'] = self.product_description
         if hasattr(self, "quantity") and self.quantity is not None:
             params['quantity'] = self.quantity
         if hasattr(self, "recurring_interval") and self.recurring_interval is not None:
@@ -211,6 +262,8 @@ class BillingSubscriptionPriceItem:
             params['unitAmount'] = self.unit_amount
         if hasattr(self, "usage_type") and self.usage_type is not None:
             params['usageType'] = self.usage_type
+        if hasattr(self, "meter_id") and self.meter_id is not None:
+            params['meterId'] = self.meter_id
         return params
 
 
@@ -234,10 +287,20 @@ class BillingSubscriptionPriceItem:
             self.__price_type = response_body['priceType']
         if 'pricingModel' in response_body:
             self.__pricing_model = response_body['pricingModel']
+        if 'tiersMode' in response_body:
+            self.__tiers_mode = response_body['tiersMode']
+        if 'tiers' in response_body:
+            self.__tiers = []
+            for item in response_body['tiers']:
+                obj = Tier()
+                obj.parse_rsp_body(item)
+                self.__tiers.append(obj)
         if 'productId' in response_body:
             self.__product_id = response_body['productId']
         if 'productName' in response_body:
             self.__product_name = response_body['productName']
+        if 'productDescription' in response_body:
+            self.__product_description = response_body['productDescription']
         if 'quantity' in response_body:
             self.__quantity = response_body['quantity']
         if 'recurringInterval' in response_body:
@@ -249,3 +312,5 @@ class BillingSubscriptionPriceItem:
             self.__unit_amount.parse_rsp_body(response_body['unitAmount'])
         if 'usageType' in response_body:
             self.__usage_type = response_body['usageType']
+        if 'meterId' in response_body:
+            self.__meter_id = response_body['meterId']
