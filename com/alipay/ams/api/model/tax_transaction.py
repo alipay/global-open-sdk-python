@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -9,8 +10,7 @@ class TaxTransaction:
         self.__tax_transaction_id = None  # type: str
         self.__tax_calculation_id = None  # type: str
         self.__type = None  # type: str
-        self.__tax_amount = None  # type: str
-        self.__currency = None  # type: str
+        self.__tax_amount = None  # type: Amount
         self.__status = None  # type: str
         self.__failure_reason = None  # type: str
         self.__tax_date = None  # type: str
@@ -51,24 +51,14 @@ class TaxTransaction:
         self.__type = value
     @property
     def tax_amount(self):
-        """
-        The non-negative tax amount in the smallest currency unit, without leading zeros. For TRANSACTION and REVERSAL records, this value is always a positive absolute amount. Reconcile a business scope by subtracting the sum of REVERSAL amounts from the sum of TRANSACTION amounts. Maximum length: 19 characters.
+        """Gets the tax_amount of this TaxTransaction.
+        
         """
         return self.__tax_amount
 
     @tax_amount.setter
     def tax_amount(self, value):
         self.__tax_amount = value
-    @property
-    def currency(self):
-        """
-        The 3-letter currency code that follows the ISO 4217 standard. This field is returned together with taxAmount. Maximum length: 3 characters.
-        """
-        return self.__currency
-
-    @currency.setter
-    def currency(self, value):
-        self.__currency = value
     @property
     def status(self):
         """
@@ -143,8 +133,6 @@ class TaxTransaction:
             params['type'] = self.type
         if hasattr(self, "tax_amount") and self.tax_amount is not None:
             params['taxAmount'] = self.tax_amount
-        if hasattr(self, "currency") and self.currency is not None:
-            params['currency'] = self.currency
         if hasattr(self, "status") and self.status is not None:
             params['status'] = self.status
         if hasattr(self, "failure_reason") and self.failure_reason is not None:
@@ -170,9 +158,8 @@ class TaxTransaction:
         if 'type' in response_body:
             self.__type = response_body['type']
         if 'taxAmount' in response_body:
-            self.__tax_amount = response_body['taxAmount']
-        if 'currency' in response_body:
-            self.__currency = response_body['currency']
+            self.__tax_amount = Amount()
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
         if 'status' in response_body:
             self.__status = response_body['status']
         if 'failureReason' in response_body:

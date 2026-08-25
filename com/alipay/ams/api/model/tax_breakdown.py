@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -9,8 +11,8 @@ class TaxBreakdown:
         self.__tax_type = None  # type: str
         self.__authority_name = None  # type: str
         self.__tax_rate = None  # type: str
-        self.__tax_amount = None  # type: str
-        self.__taxable_amount = None  # type: str
+        self.__tax_amount = None  # type: Amount
+        self.__taxable_amount = None  # type: Amount
         self.__taxability_reason = None  # type: str
         self.__inclusive = None  # type: bool
         
@@ -18,7 +20,7 @@ class TaxBreakdown:
     @property
     def tax_type(self):
         """
-        The tax type. Supported values include CUIT, GST, VAT, CBS, IBS, HST, PST, RST, QST, JCT, SERVICE_TAX, IGV, SALES_TAX, and PERSONAL_PROPERTY_LEASE_TRANSACTION_TAX.
+        The tax type. Supported values are SALES_TAX, VAT, GST, and OTHER.
         """
         return self.__tax_type
 
@@ -47,8 +49,8 @@ class TaxBreakdown:
         self.__tax_rate = value
     @property
     def tax_amount(self):
-        """
-        The tax amount. Maximum length: 19 characters.
+        """Gets the tax_amount of this TaxBreakdown.
+        
         """
         return self.__tax_amount
 
@@ -57,8 +59,8 @@ class TaxBreakdown:
         self.__tax_amount = value
     @property
     def taxable_amount(self):
-        """
-        The taxable amount. Maximum length: 19 characters.
+        """Gets the taxable_amount of this TaxBreakdown.
+        
         """
         return self.__taxable_amount
 
@@ -68,7 +70,7 @@ class TaxBreakdown:
     @property
     def taxability_reason(self):
         """
-        The taxability reason. Maximum length: 32 characters.
+        The taxability reason. Supported values are NOT_COLLECTING, PRODUCT_EXEMPT, REVERSE_CHARGE, CUSTOMER_EXEMPT, NOT_SUPPORTED, NOT_SUBJECT_TO_TAX, PRODUCT_EXEMPT_HOLIDAY, PORTION_PRODUCT_EXEMPT, ZERO_RATED, STANDARD_RATED, and UNKNOWN_ZERO_TAX.
         """
         return self.__taxability_reason
 
@@ -118,9 +120,11 @@ class TaxBreakdown:
         if 'taxRate' in response_body:
             self.__tax_rate = response_body['taxRate']
         if 'taxAmount' in response_body:
-            self.__tax_amount = response_body['taxAmount']
+            self.__tax_amount = Amount()
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
         if 'taxableAmount' in response_body:
-            self.__taxable_amount = response_body['taxableAmount']
+            self.__taxable_amount = Amount()
+            self.__taxable_amount.parse_rsp_body(response_body['taxableAmount'])
         if 'taxabilityReason' in response_body:
             self.__taxability_reason = response_body['taxabilityReason']
         if 'inclusive' in response_body:
