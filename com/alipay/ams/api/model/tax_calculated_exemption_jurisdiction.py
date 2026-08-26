@@ -9,7 +9,6 @@ class TaxCalculatedExemptionJurisdiction:
         self.__country = None  # type: str
         self.__region = None  # type: str
         self.__city = None  # type: str
-        self.__effective_from = None  # type: str
         
 
     @property
@@ -42,16 +41,6 @@ class TaxCalculatedExemptionJurisdiction:
     @city.setter
     def city(self, value):
         self.__city = value
-    @property
-    def effective_from(self):
-        """
-        The time when the tax exemption becomes effective. Maximum length: 32 characters.
-        """
-        return self.__effective_from
-
-    @effective_from.setter
-    def effective_from(self, value):
-        self.__effective_from = value
 
 
     
@@ -64,8 +53,6 @@ class TaxCalculatedExemptionJurisdiction:
             params['region'] = self.region
         if hasattr(self, "city") and self.city is not None:
             params['city'] = self.city
-        if hasattr(self, "effective_from") and self.effective_from is not None:
-            params['effectiveFrom'] = self.effective_from
         return params
 
 
@@ -78,5 +65,3 @@ class TaxCalculatedExemptionJurisdiction:
             self.__region = response_body['region']
         if 'city' in response_body:
             self.__city = response_body['city']
-        if 'effectiveFrom' in response_body:
-            self.__effective_from = response_body['effectiveFrom']
