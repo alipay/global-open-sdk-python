@@ -9,7 +9,6 @@ class TaxId:
         self.__value = None  # type: str
         self.__country = None  # type: str
         self.__region = None  # type: str
-        self.__name = None  # type: str
         
 
     @property
@@ -42,16 +41,6 @@ class TaxId:
     @region.setter
     def region(self, value):
         self.__region = value
-    @property
-    def name(self):
-        """
-        The customer name recorded for tax purposes. Maximum length: 128 characters.
-        """
-        return self.__name
-
-    @name.setter
-    def name(self, value):
-        self.__name = value
 
 
     
@@ -64,8 +53,6 @@ class TaxId:
             params['country'] = self.country
         if hasattr(self, "region") and self.region is not None:
             params['region'] = self.region
-        if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
         return params
 
 
@@ -78,5 +65,3 @@ class TaxId:
             self.__country = response_body['country']
         if 'region' in response_body:
             self.__region = response_body['region']
-        if 'name' in response_body:
-            self.__name = response_body['name']

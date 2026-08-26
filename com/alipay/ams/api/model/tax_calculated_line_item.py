@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 
 
@@ -8,11 +10,11 @@ class TaxCalculatedLineItem:
     def __init__(self):
         
         self.__goods_reference_id = None  # type: str
-        self.__amount = None  # type: str
+        self.__amount = None  # type: Amount
         self.__quantity = None  # type: int
         self.__tax_code = None  # type: str
         self.__tax_behavior = None  # type: str
-        self.__tax_amount = None  # type: str
+        self.__tax_amount = None  # type: Amount
         self.__tax_breakdown = None  # type: [TaxBreakdown]
         
 
@@ -28,8 +30,8 @@ class TaxCalculatedLineItem:
         self.__goods_reference_id = value
     @property
     def amount(self):
-        """
-        The amount. Maximum length: 19 characters.
+        """Gets the amount of this TaxCalculatedLineItem.
+        
         """
         return self.__amount
 
@@ -68,8 +70,8 @@ class TaxCalculatedLineItem:
         self.__tax_behavior = value
     @property
     def tax_amount(self):
-        """
-        The tax amount. Maximum length: 19 characters.
+        """Gets the tax_amount of this TaxCalculatedLineItem.
+        
         """
         return self.__tax_amount
 
@@ -115,7 +117,8 @@ class TaxCalculatedLineItem:
         if 'goodsReferenceId' in response_body:
             self.__goods_reference_id = response_body['goodsReferenceId']
         if 'amount' in response_body:
-            self.__amount = response_body['amount']
+            self.__amount = Amount()
+            self.__amount.parse_rsp_body(response_body['amount'])
         if 'quantity' in response_body:
             self.__quantity = response_body['quantity']
         if 'taxCode' in response_body:
@@ -123,7 +126,8 @@ class TaxCalculatedLineItem:
         if 'taxBehavior' in response_body:
             self.__tax_behavior = response_body['taxBehavior']
         if 'taxAmount' in response_body:
-            self.__tax_amount = response_body['taxAmount']
+            self.__tax_amount = Amount()
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
         if 'taxBreakdown' in response_body:
             self.__tax_breakdown = []
             for item in response_body['taxBreakdown']:

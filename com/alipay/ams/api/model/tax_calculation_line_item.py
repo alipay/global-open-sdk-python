@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -7,7 +8,7 @@ class TaxCalculationLineItem:
     def __init__(self):
         
         self.__goods_reference_id = None  # type: str
-        self.__amount = None  # type: str
+        self.__amount = None  # type: Amount
         self.__quantity = None  # type: int
         self.__tax_code = None  # type: str
         self.__product_id = None  # type: str
@@ -26,8 +27,8 @@ class TaxCalculationLineItem:
         self.__goods_reference_id = value
     @property
     def amount(self):
-        """
-        The total amount of the line item in the smallest currency unit. Maximum length: 19 characters.
+        """Gets the amount of this TaxCalculationLineItem.
+        
         """
         return self.__amount
 
@@ -101,7 +102,8 @@ class TaxCalculationLineItem:
         if 'goodsReferenceId' in response_body:
             self.__goods_reference_id = response_body['goodsReferenceId']
         if 'amount' in response_body:
-            self.__amount = response_body['amount']
+            self.__amount = Amount()
+            self.__amount.parse_rsp_body(response_body['amount'])
         if 'quantity' in response_body:
             self.__quantity = response_body['quantity']
         if 'taxCode' in response_body:

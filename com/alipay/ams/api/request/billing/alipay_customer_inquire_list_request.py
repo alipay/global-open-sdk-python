@@ -14,8 +14,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
         self.__include_total = None  # type: bool
         self.__status = None  # type: str
         self.__email = None  # type: str
-        self.__phone_no = None  # type: str
-        self.__country_code = None  # type: str
         self.__gmt_create_end = None  # type: str
         self.__customer_id = None  # type: str
         self.__country = None  # type: [str]
@@ -83,26 +81,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @email.setter
     def email(self, value):
         self.__email = value
-    @property
-    def phone_no(self):
-        """
-        Filter by phone number (canonical). Cross-field constraint: when &#x60;phoneNo&#x60; is provided, &#x60;countryCode&#x60; is REQUIRED - omitting it returns &#x60;PARAM_ILLEGAL&#x60;.
-        """
-        return self.__phone_no
-
-    @phone_no.setter
-    def phone_no(self, value):
-        self.__phone_no = value
-    @property
-    def country_code(self):
-        """
-        ISO 3166-1 alpha-2 country code paired with &#x60;phoneNo&#x60;. Required when &#x60;phoneNo&#x60; is provided.
-        """
-        return self.__country_code
-
-    @country_code.setter
-    def country_code(self, value):
-        self.__country_code = value
     @property
     def gmt_create_end(self):
         """
@@ -174,10 +152,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             params['status'] = self.status
         if hasattr(self, "email") and self.email is not None:
             params['email'] = self.email
-        if hasattr(self, "phone_no") and self.phone_no is not None:
-            params['phoneNo'] = self.phone_no
-        if hasattr(self, "country_code") and self.country_code is not None:
-            params['countryCode'] = self.country_code
         if hasattr(self, "gmt_create_end") and self.gmt_create_end is not None:
             params['gmtCreateEnd'] = self.gmt_create_end
         if hasattr(self, "customer_id") and self.customer_id is not None:
@@ -206,10 +180,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
             self.__status = response_body['status']
         if 'email' in response_body:
             self.__email = response_body['email']
-        if 'phoneNo' in response_body:
-            self.__phone_no = response_body['phoneNo']
-        if 'countryCode' in response_body:
-            self.__country_code = response_body['countryCode']
         if 'gmtCreateEnd' in response_body:
             self.__gmt_create_end = response_body['gmtCreateEnd']
         if 'customerId' in response_body:
