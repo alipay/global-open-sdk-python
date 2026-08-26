@@ -48,7 +48,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def current_page(self):
         """
-        The current page number.
+        The current page number, starting from 1. The default value is 1.
         """
         return self.__current_page
 
@@ -58,7 +58,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def page_size(self):
         """
-        The number of records per page.
+        The number of records returned per page. The default value is 20.
         """
         return self.__page_size
 

@@ -13,7 +13,6 @@ class AlipayTaxCalculateRequest(AlipayRequest):
         super(AlipayTaxCalculateRequest, self).__init__("/ams/api/v1/tax/calculate") 
 
         self.__tax_calculation_request_id = None  # type: str
-        self.__currency = None  # type: str
         self.__line_items = None  # type: [TaxCalculationLineItem]
         self.__customer_id = None  # type: str
         self.__customer_details = None  # type: TaxCustomerDetails
@@ -32,16 +31,6 @@ class AlipayTaxCalculateRequest(AlipayRequest):
     @tax_calculation_request_id.setter
     def tax_calculation_request_id(self, value):
         self.__tax_calculation_request_id = value
-    @property
-    def currency(self):
-        """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 3 characters.
-        """
-        return self.__currency
-
-    @currency.setter
-    def currency(self, value):
-        self.__currency = value
     @property
     def line_items(self):
         """
@@ -113,8 +102,6 @@ class AlipayTaxCalculateRequest(AlipayRequest):
         params = dict()
         if hasattr(self, "tax_calculation_request_id") and self.tax_calculation_request_id is not None:
             params['taxCalculationRequestId'] = self.tax_calculation_request_id
-        if hasattr(self, "currency") and self.currency is not None:
-            params['currency'] = self.currency
         if hasattr(self, "line_items") and self.line_items is not None:
             params['lineItems'] = self.line_items
         if hasattr(self, "customer_id") and self.customer_id is not None:
@@ -135,8 +122,6 @@ class AlipayTaxCalculateRequest(AlipayRequest):
             response_body = json.loads(response_body)
         if 'taxCalculationRequestId' in response_body:
             self.__tax_calculation_request_id = response_body['taxCalculationRequestId']
-        if 'currency' in response_body:
-            self.__currency = response_body['currency']
         if 'lineItems' in response_body:
             self.__line_items = []
             for item in response_body['lineItems']:

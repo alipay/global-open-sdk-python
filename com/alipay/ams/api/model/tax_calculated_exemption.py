@@ -10,6 +10,7 @@ class TaxCalculatedExemption:
         self.__certificate_number = None  # type: str
         self.__exemption_type = None  # type: str
         self.__jurisdiction = None  # type: TaxCalculatedExemptionJurisdiction
+        self.__effective_from = None  # type: str
         
 
     @property
@@ -42,6 +43,16 @@ class TaxCalculatedExemption:
     @jurisdiction.setter
     def jurisdiction(self, value):
         self.__jurisdiction = value
+    @property
+    def effective_from(self):
+        """
+        The ISO 8601 time with a timezone when the tax exemption becomes effective. Maximum length: 32 characters.
+        """
+        return self.__effective_from
+
+    @effective_from.setter
+    def effective_from(self, value):
+        self.__effective_from = value
 
 
     
@@ -54,6 +65,8 @@ class TaxCalculatedExemption:
             params['exemptionType'] = self.exemption_type
         if hasattr(self, "jurisdiction") and self.jurisdiction is not None:
             params['jurisdiction'] = self.jurisdiction
+        if hasattr(self, "effective_from") and self.effective_from is not None:
+            params['effectiveFrom'] = self.effective_from
         return params
 
 
@@ -67,3 +80,5 @@ class TaxCalculatedExemption:
         if 'jurisdiction' in response_body:
             self.__jurisdiction = TaxCalculatedExemptionJurisdiction()
             self.__jurisdiction.parse_rsp_body(response_body['jurisdiction'])
+        if 'effectiveFrom' in response_body:
+            self.__effective_from = response_body['effectiveFrom']
