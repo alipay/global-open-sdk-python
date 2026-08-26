@@ -12,6 +12,7 @@ class TaxCalculatedCustomerDetails:
     def __init__(self):
         
         self.__business_details = None  # type: TaxCalculatedBusinessDetails
+        self.__name = None  # type: str
         self.__shipping_address = None  # type: TaxCalculatedAddress
         self.__billing_address = None  # type: TaxCalculatedAddress
         self.__tax_ids = None  # type: [TaxCalculatedTaxId]
@@ -28,6 +29,16 @@ class TaxCalculatedCustomerDetails:
     @business_details.setter
     def business_details(self, value):
         self.__business_details = value
+    @property
+    def name(self):
+        """
+        The customer name recorded for tax purposes. Maximum length: 256 characters.
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        self.__name = value
     @property
     def shipping_address(self):
         """Gets the shipping_address of this TaxCalculatedCustomerDetails.
@@ -76,6 +87,8 @@ class TaxCalculatedCustomerDetails:
         params = dict()
         if hasattr(self, "business_details") and self.business_details is not None:
             params['businessDetails'] = self.business_details
+        if hasattr(self, "name") and self.name is not None:
+            params['name'] = self.name
         if hasattr(self, "shipping_address") and self.shipping_address is not None:
             params['shippingAddress'] = self.shipping_address
         if hasattr(self, "billing_address") and self.billing_address is not None:
@@ -93,6 +106,8 @@ class TaxCalculatedCustomerDetails:
         if 'businessDetails' in response_body:
             self.__business_details = TaxCalculatedBusinessDetails()
             self.__business_details.parse_rsp_body(response_body['businessDetails'])
+        if 'name' in response_body:
+            self.__name = response_body['name']
         if 'shippingAddress' in response_body:
             self.__shipping_address = TaxCalculatedAddress()
             self.__shipping_address.parse_rsp_body(response_body['shippingAddress'])

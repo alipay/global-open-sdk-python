@@ -1,5 +1,8 @@
 import json
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.tax_calculated_line_item import TaxCalculatedLineItem
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 from com.alipay.ams.api.model.tax_calculated_shipping_cost import TaxCalculatedShippingCost
@@ -15,10 +18,9 @@ class AlipayTaxCalculateResponse(AlipayResponse):
 
         self.__result = None  # type: Result
         self.__tax_calculation_id = None  # type: str
-        self.__currency = None  # type: str
-        self.__total_amount = None  # type: str
-        self.__exclusive_tax_amount = None  # type: str
-        self.__inclusive_tax_amount = None  # type: str
+        self.__total_amount = None  # type: Amount
+        self.__exclusive_tax_amount = None  # type: Amount
+        self.__inclusive_tax_amount = None  # type: Amount
         self.__line_items = None  # type: [TaxCalculatedLineItem]
         self.__tax_breakdown = None  # type: [TaxBreakdown]
         self.__expire_at = None  # type: str
@@ -49,19 +51,9 @@ class AlipayTaxCalculateResponse(AlipayResponse):
     def tax_calculation_id(self, value):
         self.__tax_calculation_id = value
     @property
-    def currency(self):
-        """
-        The 3-letter currency code that follows the ISO 4217 standard. Maximum length: 3 characters.
-        """
-        return self.__currency
-
-    @currency.setter
-    def currency(self, value):
-        self.__currency = value
-    @property
     def total_amount(self):
-        """
-        The total amount. Maximum length: 19 characters. Note: See documentation for details.
+        """Gets the total_amount of this AlipayTaxCalculateResponse.
+        
         """
         return self.__total_amount
 
@@ -70,8 +62,8 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         self.__total_amount = value
     @property
     def exclusive_tax_amount(self):
-        """
-        The exclusive tax amount. Maximum length: 19 characters. Note: See documentation for details.
+        """Gets the exclusive_tax_amount of this AlipayTaxCalculateResponse.
+        
         """
         return self.__exclusive_tax_amount
 
@@ -80,8 +72,8 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         self.__exclusive_tax_amount = value
     @property
     def inclusive_tax_amount(self):
-        """
-        The inclusive tax amount. Maximum length: 19 characters. Note: See documentation for details.
+        """Gets the inclusive_tax_amount of this AlipayTaxCalculateResponse.
+        
         """
         return self.__inclusive_tax_amount
 
@@ -158,8 +150,6 @@ class AlipayTaxCalculateResponse(AlipayResponse):
             params['result'] = self.result
         if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
             params['taxCalculationId'] = self.tax_calculation_id
-        if hasattr(self, "currency") and self.currency is not None:
-            params['currency'] = self.currency
         if hasattr(self, "total_amount") and self.total_amount is not None:
             params['totalAmount'] = self.total_amount
         if hasattr(self, "exclusive_tax_amount") and self.exclusive_tax_amount is not None:
@@ -188,14 +178,15 @@ class AlipayTaxCalculateResponse(AlipayResponse):
             self.__result.parse_rsp_body(response_body['result'])
         if 'taxCalculationId' in response_body:
             self.__tax_calculation_id = response_body['taxCalculationId']
-        if 'currency' in response_body:
-            self.__currency = response_body['currency']
         if 'totalAmount' in response_body:
-            self.__total_amount = response_body['totalAmount']
+            self.__total_amount = Amount()
+            self.__total_amount.parse_rsp_body(response_body['totalAmount'])
         if 'exclusiveTaxAmount' in response_body:
-            self.__exclusive_tax_amount = response_body['exclusiveTaxAmount']
+            self.__exclusive_tax_amount = Amount()
+            self.__exclusive_tax_amount.parse_rsp_body(response_body['exclusiveTaxAmount'])
         if 'inclusiveTaxAmount' in response_body:
-            self.__inclusive_tax_amount = response_body['inclusiveTaxAmount']
+            self.__inclusive_tax_amount = Amount()
+            self.__inclusive_tax_amount.parse_rsp_body(response_body['inclusiveTaxAmount'])
         if 'lineItems' in response_body:
             self.__line_items = []
             for item in response_body['lineItems']:

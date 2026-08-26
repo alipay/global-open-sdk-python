@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 
 
@@ -7,15 +9,15 @@ from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 class TaxCalculatedShippingCost:
     def __init__(self):
         
-        self.__amount = None  # type: str
-        self.__tax_amount = None  # type: str
+        self.__amount = None  # type: Amount
+        self.__tax_amount = None  # type: Amount
         self.__tax_breakdown = None  # type: [TaxBreakdown]
         
 
     @property
     def amount(self):
-        """
-        The amount. Maximum length: 19 characters.
+        """Gets the amount of this TaxCalculatedShippingCost.
+        
         """
         return self.__amount
 
@@ -24,8 +26,8 @@ class TaxCalculatedShippingCost:
         self.__amount = value
     @property
     def tax_amount(self):
-        """
-        The tax amount. Maximum length: 19 characters.
+        """Gets the tax_amount of this TaxCalculatedShippingCost.
+        
         """
         return self.__tax_amount
 
@@ -61,9 +63,11 @@ class TaxCalculatedShippingCost:
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'amount' in response_body:
-            self.__amount = response_body['amount']
+            self.__amount = Amount()
+            self.__amount.parse_rsp_body(response_body['amount'])
         if 'taxAmount' in response_body:
-            self.__tax_amount = response_body['taxAmount']
+            self.__tax_amount = Amount()
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
         if 'taxBreakdown' in response_body:
             self.__tax_breakdown = []
             for item in response_body['taxBreakdown']:
