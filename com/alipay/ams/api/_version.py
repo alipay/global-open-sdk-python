@@ -1,2 +1,2 @@
-VERSION = "1.5.6"
+VERSION = "1.5.7"
 USER_AGENT = "global-open-sdk-python/" + VERSION
