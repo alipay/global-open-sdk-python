@@ -16,6 +16,8 @@ class ThreeDSResult:
         self.__challenged = None  # type: bool
         self.__exemption_type = None  # type: str
         self.__three_ds_offered = None  # type: bool
+        self.__pa_res_status = None  # type: str
+        self.__liability_shift = None  # type: int
         
 
     @property
@@ -118,6 +120,26 @@ class ThreeDSResult:
     @three_ds_offered.setter
     def three_ds_offered(self, value):
         self.__three_ds_offered = value
+    @property
+    def pa_res_status(self):
+        """
+        Payer Authentication Response Status returned by the issuer or authentication system during 3D Secure authentication. Valid values are: Y (successful authentication), N (failed authentication or transaction denied), U (unable to complete authentication), A (successful attempts transaction), C (challenge required), R (authentication rejected; authorization must not be attempted), D (decoupled authentication challenge confirmed), and I (informational only). D and I are intermediate authentication states and require no merchant action; use paymentStatus and resultCode as the authoritative payment outcome. This field is returned only when paymentMethodType is CARD, threeDSOffered is true, and threeDSResult is returned. If these conditions are met but the channel does not provide a value, the JSON value can be null; otherwise the property is omitted.
+        """
+        return self.__pa_res_status
+
+    @pa_res_status.setter
+    def pa_res_status(self, value):
+        self.__pa_res_status = value
+    @property
+    def liability_shift(self):
+        """
+        Indicates whether liability has shifted for the transaction. Valid values are: 1 (yes), 0 (no), and -1 (unknown). The upstream channel value is passed through when available; otherwise Antom calculates the value from CAVV and ECI according to card-network rules, and returns -1 only when the value cannot be determined. Treat -1 as liability not shifted for chargeback decisions. This field does not determine the payment outcome and is returned only when paymentMethodType is CARD, threeDSOffered is true, and threeDSResult is returned; otherwise the property is omitted.
+        """
+        return self.__liability_shift
+
+    @liability_shift.setter
+    def liability_shift(self, value):
+        self.__liability_shift = value
 
 
     
@@ -144,6 +166,10 @@ class ThreeDSResult:
             params['exemptionType'] = self.exemption_type
         if hasattr(self, "three_ds_offered") and self.three_ds_offered is not None:
             params['threeDSOffered'] = self.three_ds_offered
+        if hasattr(self, "pa_res_status") and self.pa_res_status is not None:
+            params['paResStatus'] = self.pa_res_status
+        if hasattr(self, "liability_shift") and self.liability_shift is not None:
+            params['liabilityShift'] = self.liability_shift
         return params
 
 
@@ -170,3 +196,7 @@ class ThreeDSResult:
             self.__exemption_type = response_body['exemptionType']
         if 'threeDSOffered' in response_body:
             self.__three_ds_offered = response_body['threeDSOffered']
+        if 'paResStatus' in response_body:
+            self.__pa_res_status = response_body['paResStatus']
+        if 'liabilityShift' in response_body:
+            self.__liability_shift = response_body['liabilityShift']

@@ -22,6 +22,8 @@ class Leg:
         self.__coupon_number = None  # type: str
         self.__flight_number = None  # type: str
         self.__passenger_name_record = None  # type: str
+        self.__ticket_delivery_method = None  # type: str
+        self.__ticket_delivery_recipient = None  # type: str
         
 
     @property
@@ -154,6 +156,26 @@ class Leg:
     @passenger_name_record.setter
     def passenger_name_record(self, value):
         self.__passenger_name_record = value
+    @property
+    def ticket_delivery_method(self):
+        """
+        The ticket delivery method. Valid values are: pick_up (the ticket is picked up in person), email (the ticket is sent by email), post (the ticket is sent by post), and phone (the ticket is sent to a phone number).
+        """
+        return self.__ticket_delivery_method
+
+    @ticket_delivery_method.setter
+    def ticket_delivery_method(self, value):
+        self.__ticket_delivery_method = value
+    @property
+    def ticket_delivery_recipient(self):
+        """
+        The ticket recipient. For email, specify the recipient&#39;s email address. For phone, specify the recipient&#39;s phone number. For pick_up and post, specify the recipient&#39;s first and last name, for example, John Doe.
+        """
+        return self.__ticket_delivery_recipient
+
+    @ticket_delivery_recipient.setter
+    def ticket_delivery_recipient(self, value):
+        self.__ticket_delivery_recipient = value
 
 
     
@@ -186,6 +208,10 @@ class Leg:
             params['flightNumber'] = self.flight_number
         if hasattr(self, "passenger_name_record") and self.passenger_name_record is not None:
             params['passengerNameRecord'] = self.passenger_name_record
+        if hasattr(self, "ticket_delivery_method") and self.ticket_delivery_method is not None:
+            params['ticketDeliveryMethod'] = self.ticket_delivery_method
+        if hasattr(self, "ticket_delivery_recipient") and self.ticket_delivery_recipient is not None:
+            params['ticketDeliveryRecipient'] = self.ticket_delivery_recipient
         return params
 
 
@@ -221,3 +247,7 @@ class Leg:
             self.__flight_number = response_body['flightNumber']
         if 'passengerNameRecord' in response_body:
             self.__passenger_name_record = response_body['passengerNameRecord']
+        if 'ticketDeliveryMethod' in response_body:
+            self.__ticket_delivery_method = response_body['ticketDeliveryMethod']
+        if 'ticketDeliveryRecipient' in response_body:
+            self.__ticket_delivery_recipient = response_body['ticketDeliveryRecipient']
