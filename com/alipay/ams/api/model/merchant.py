@@ -115,7 +115,7 @@ class Merchant:
     @property
     def account_last_modified(self):
         """Gets the account_last_modified of this Merchant.
-        
+
         """
         return self.__account_last_modified
 
@@ -124,7 +124,7 @@ class Merchant:
         self.__account_last_modified = value
 
 
-    
+
 
     def to_ams_dict(self):
         params = dict()
