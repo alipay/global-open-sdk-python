@@ -116,8 +116,8 @@ class Goods:
         self.__delivery_method_type = value
     @property
     def goods_image_url(self):
-        """Gets the goods_image_url of this Goods.
-        
+        """
+        The URL of the goods image. When using KLARNA, this value is used to display the goods image in the payment method app and must not exceed 1024 characters.
         """
         return self.__goods_image_url
 

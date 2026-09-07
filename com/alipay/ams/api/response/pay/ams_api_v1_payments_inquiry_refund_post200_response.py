@@ -23,6 +23,7 @@ class AmsApiV1PaymentsInquiryRefundPost200Response(AlipayResponse):
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
         self.__acquirer_info = None  # type: AcquirerInfo
+        self.__authorization_code = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -116,6 +117,16 @@ class AmsApiV1PaymentsInquiryRefundPost200Response(AlipayResponse):
     @acquirer_info.setter
     def acquirer_info(self, value):
         self.__acquirer_info = value
+    @property
+    def authorization_code(self):
+        """
+        The authorization code returned by the payment channel for a successful refund. This field is returned only when refundStatus is SUCCESS, the payment method or channel supplies a non-empty value, and the merchant is enabled for this capability. Otherwise, the property is omitted and is never returned as JSON null. The exact channel-provided string is returned without trimming, padding, case conversion, substitution, or truncation. Its absence does not change the refund result or produce a field-specific error.
+        """
+        return self.__authorization_code
+
+    @authorization_code.setter
+    def authorization_code(self, value):
+        self.__authorization_code = value
 
 
     
@@ -140,6 +151,8 @@ class AmsApiV1PaymentsInquiryRefundPost200Response(AlipayResponse):
             params['settlementQuote'] = self.settlement_quote
         if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
             params['acquirerInfo'] = self.acquirer_info
+        if hasattr(self, "authorization_code") and self.authorization_code is not None:
+            params['authorizationCode'] = self.authorization_code
         return params
 
 
@@ -169,3 +182,5 @@ class AmsApiV1PaymentsInquiryRefundPost200Response(AlipayResponse):
         if 'acquirerInfo' in response_body:
             self.__acquirer_info = AcquirerInfo()
             self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])
+        if 'authorizationCode' in response_body:
+            self.__authorization_code = response_body['authorizationCode']
