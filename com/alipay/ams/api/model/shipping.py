@@ -21,6 +21,7 @@ class Shipping:
         self.__delivery_estimate = None  # type: DeliveryEstimate
         self.__shipping_number = None  # type: str
         self.__notes = None  # type: str
+        self.__tracking_url = None  # type: str
         
 
     @property
@@ -133,6 +134,16 @@ class Shipping:
     @notes.setter
     def notes(self, value):
         self.__notes = value
+    @property
+    def tracking_url(self):
+        """
+        The URL where the customer can track the shipment.
+        """
+        return self.__tracking_url
+
+    @tracking_url.setter
+    def tracking_url(self, value):
+        self.__tracking_url = value
 
 
     
@@ -161,6 +172,8 @@ class Shipping:
             params['shippingNumber'] = self.shipping_number
         if hasattr(self, "notes") and self.notes is not None:
             params['notes'] = self.notes
+        if hasattr(self, "tracking_url") and self.tracking_url is not None:
+            params['trackingUrl'] = self.tracking_url
         return params
 
 
@@ -193,3 +206,5 @@ class Shipping:
             self.__shipping_number = response_body['shippingNumber']
         if 'notes' in response_body:
             self.__notes = response_body['notes']
+        if 'trackingUrl' in response_body:
+            self.__tracking_url = response_body['trackingUrl']

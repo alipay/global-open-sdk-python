@@ -2,6 +2,7 @@ import json
 from com.alipay.ams.api.model.address import Address
 from com.alipay.ams.api.model.store import Store
 from com.alipay.ams.api.model.merchant_type import MerchantType
+from com.alipay.ams.api.model.account_last_modified import AccountLastModified
 
 
 
@@ -17,6 +18,8 @@ class Merchant:
         self.__merchant_register_date = None  # type: str
         self.__store = None  # type: Store
         self.__merchant_type = None  # type: MerchantType
+        self.__number_of_trades = None  # type: int
+        self.__account_last_modified = None  # type: AccountLastModified
         
 
     @property
@@ -99,9 +102,29 @@ class Merchant:
     @merchant_type.setter
     def merchant_type(self, value):
         self.__merchant_type = value
+    @property
+    def number_of_trades(self):
+        """
+        The number of orders completed by the merchant in the past 12 months. When using KLARNA for an e-commerce merchant, this field is required. Value range: 0 to unlimited.
+        """
+        return self.__number_of_trades
+
+    @number_of_trades.setter
+    def number_of_trades(self, value):
+        self.__number_of_trades = value
+    @property
+    def account_last_modified(self):
+        """Gets the account_last_modified of this Merchant.
+
+        """
+        return self.__account_last_modified
+
+    @account_last_modified.setter
+    def account_last_modified(self, value):
+        self.__account_last_modified = value
 
 
-    
+
 
     def to_ams_dict(self):
         params = dict()
@@ -121,6 +144,10 @@ class Merchant:
             params['store'] = self.store
         if hasattr(self, "merchant_type") and self.merchant_type is not None:
             params['merchantType'] = self.merchant_type
+        if hasattr(self, "number_of_trades") and self.number_of_trades is not None:
+            params['numberOfTrades'] = self.number_of_trades
+        if hasattr(self, "account_last_modified") and self.account_last_modified is not None:
+            params['accountLastModified'] = self.account_last_modified
         return params
 
 
@@ -146,3 +173,8 @@ class Merchant:
         if 'merchantType' in response_body:
             merchant_type_temp = MerchantType.value_of(response_body['merchantType'])
             self.__merchant_type = merchant_type_temp
+        if 'numberOfTrades' in response_body:
+            self.__number_of_trades = response_body['numberOfTrades']
+        if 'accountLastModified' in response_body:
+            self.__account_last_modified = AccountLastModified()
+            self.__account_last_modified.parse_rsp_body(response_body['accountLastModified'])
