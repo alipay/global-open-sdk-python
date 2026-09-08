@@ -104,7 +104,7 @@ class Buyer:
     @property
     def successful_order_amount(self):
         """Gets the successful_order_amount of this Buyer.
-
+        
         """
         return self.__successful_order_amount
 
@@ -114,7 +114,7 @@ class Buyer:
     @property
     def date_of_last_paid_purchase(self):
         """
-        The date and time of the buyer&#39;s last paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time of the buyer&#39;s last paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__date_of_last_paid_purchase
 
@@ -124,7 +124,7 @@ class Buyer:
     @property
     def date_of_first_paid_purchase(self):
         """
-        The date and time of the buyer&#39;s first paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time of the buyer&#39;s first paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__date_of_first_paid_purchase
 
@@ -133,7 +133,7 @@ class Buyer:
         self.__date_of_first_paid_purchase = value
 
 
-
+    
 
     def to_ams_dict(self):
         params = dict()
