@@ -5,18 +5,18 @@ import json
 
 class AccountLastModified:
     def __init__(self):
-
+        
         self.__password_change_date = None  # type: str
         self.__email_change_date = None  # type: str
         self.__listing_change_date = None  # type: str
         self.__login_date = None  # type: str
         self.__address_change_date = None  # type: str
-
+        
 
     @property
     def password_change_date(self):
         """
-        The date and time when the merchant last changed the account password. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time when the merchant last changed the account password. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__password_change_date
 
@@ -26,7 +26,7 @@ class AccountLastModified:
     @property
     def email_change_date(self):
         """
-        The date and time when the merchant last changed the account email address. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time when the merchant last changed the account email address. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__email_change_date
 
@@ -36,7 +36,7 @@ class AccountLastModified:
     @property
     def listing_change_date(self):
         """
-        The date and time when the merchant last changed the account listing information. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time when the merchant last changed the account listing information. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__listing_change_date
 
@@ -46,7 +46,7 @@ class AccountLastModified:
     @property
     def login_date(self):
         """
-        The date and time when the merchant last logged in to the account. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time when the merchant last logged in to the account. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__login_date
 
@@ -56,7 +56,7 @@ class AccountLastModified:
     @property
     def address_change_date(self):
         """
-        The date and time when the merchant last changed the account address. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time when the merchant last changed the account address. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__address_change_date
 
@@ -65,7 +65,7 @@ class AccountLastModified:
         self.__address_change_date = value
 
 
-
+    
 
     def to_ams_dict(self):
         params = dict()
@@ -83,7 +83,7 @@ class AccountLastModified:
 
 
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
         if 'passwordChangeDate' in response_body:
             self.__password_change_date = response_body['passwordChangeDate']
