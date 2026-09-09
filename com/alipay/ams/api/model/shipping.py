@@ -22,6 +22,8 @@ class Shipping:
         self.__shipping_number = None  # type: str
         self.__notes = None  # type: str
         self.__tracking_url = None  # type: str
+        self.__tax_code = None  # type: str
+        self.__tax_behavior = None  # type: str
         
 
     @property
@@ -144,6 +146,26 @@ class Shipping:
     @tracking_url.setter
     def tracking_url(self, value):
         self.__tracking_url = value
+    @property
+    def tax_code(self):
+        """
+        For createPaymentSession, this is the tax code used by Antom GlobalTax to classify shipping. When automatic tax is active, omit it to use the default shipping tax code. Because Shipping is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum length: 64 characters.
+        """
+        return self.__tax_code
+
+    @tax_code.setter
+    def tax_code(self, value):
+        self.__tax_code = value
+    @property
+    def tax_behavior(self):
+        """
+        For createPaymentSession, this value indicates whether the shipping fee excludes or includes tax. Supported values are EXCLUSIVE and INCLUSIVE. When automatic tax is active, omit it to use the merchant tax behavior settings. Because Shipping is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum length: 16 characters.
+        """
+        return self.__tax_behavior
+
+    @tax_behavior.setter
+    def tax_behavior(self, value):
+        self.__tax_behavior = value
 
 
     
@@ -174,6 +196,10 @@ class Shipping:
             params['notes'] = self.notes
         if hasattr(self, "tracking_url") and self.tracking_url is not None:
             params['trackingUrl'] = self.tracking_url
+        if hasattr(self, "tax_code") and self.tax_code is not None:
+            params['taxCode'] = self.tax_code
+        if hasattr(self, "tax_behavior") and self.tax_behavior is not None:
+            params['taxBehavior'] = self.tax_behavior
         return params
 
 
@@ -208,3 +234,7 @@ class Shipping:
             self.__notes = response_body['notes']
         if 'trackingUrl' in response_body:
             self.__tracking_url = response_body['trackingUrl']
+        if 'taxCode' in response_body:
+            self.__tax_code = response_body['taxCode']
+        if 'taxBehavior' in response_body:
+            self.__tax_behavior = response_body['taxBehavior']

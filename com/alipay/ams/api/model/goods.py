@@ -22,6 +22,8 @@ class Goods:
         self.__goods_discount_amount = None  # type: Amount
         self.__goods_ends_on_time = None  # type: str
         self.__cross_sell = None  # type: Goods
+        self.__tax_code = None  # type: str
+        self.__tax_behavior = None  # type: str
         
 
     @property
@@ -164,6 +166,26 @@ class Goods:
     @cross_sell.setter
     def cross_sell(self, value):
         self.__cross_sell = value
+    @property
+    def tax_code(self):
+        """
+        For createPaymentSession, this is the product tax code used by Antom GlobalTax to classify the goods line. When automatic tax is active, omit it to use the merchant default tax code. Because Goods is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum length: 64 characters.
+        """
+        return self.__tax_code
+
+    @tax_code.setter
+    def tax_code(self, value):
+        self.__tax_code = value
+    @property
+    def tax_behavior(self):
+        """
+        For createPaymentSession, this value indicates whether the goods-line price excludes or includes tax. Supported values are EXCLUSIVE and INCLUSIVE. When automatic tax is active, omit it to use the merchant tax behavior settings. Because Goods is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum length: 16 characters.
+        """
+        return self.__tax_behavior
+
+    @tax_behavior.setter
+    def tax_behavior(self, value):
+        self.__tax_behavior = value
 
 
     
@@ -198,6 +220,10 @@ class Goods:
             params['goodsEndsOnTime'] = self.goods_ends_on_time
         if hasattr(self, "cross_sell") and self.cross_sell is not None:
             params['crossSell'] = self.cross_sell
+        if hasattr(self, "tax_code") and self.tax_code is not None:
+            params['taxCode'] = self.tax_code
+        if hasattr(self, "tax_behavior") and self.tax_behavior is not None:
+            params['taxBehavior'] = self.tax_behavior
         return params
 
 
@@ -235,3 +261,7 @@ class Goods:
         if 'crossSell' in response_body:
             self.__cross_sell = Goods()
             self.__cross_sell.parse_rsp_body(response_body['crossSell'])
+        if 'taxCode' in response_body:
+            self.__tax_code = response_body['taxCode']
+        if 'taxBehavior' in response_body:
+            self.__tax_behavior = response_body['taxBehavior']
