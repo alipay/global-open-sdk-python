@@ -3,18 +3,18 @@ import json
 
 
 
-class TaxJurisdiction:
+class BuyerTaxId:
     def __init__(self):
         
         self.__country = None  # type: str
         self.__region = None  # type: str
-        self.__city = None  # type: str
+        self.__value = None  # type: str
         
 
     @property
     def country(self):
         """
-        The country or region code. Maximum length: 2 characters.
+        The two-letter ISO 3166-1 alpha-2 country or region code used to validate the tax ID. Maximum length: 2 characters.
         """
         return self.__country
 
@@ -24,7 +24,7 @@ class TaxJurisdiction:
     @property
     def region(self):
         """
-        The region. Maximum length: 10 characters.
+        The two-character country-specific subdivision code. Required only when the applicable tax authority or country or region rule requires subdivision-level identification. Maximum length: 2 characters.
         """
         return self.__region
 
@@ -32,15 +32,15 @@ class TaxJurisdiction:
     def region(self, value):
         self.__region = value
     @property
-    def city(self):
+    def value(self):
         """
-        The city. Maximum length: 64 characters.
+        The buyer tax ID value. The accepted format is country-specific. Maximum length: 64 characters.
         """
-        return self.__city
+        return self.__value
 
-    @city.setter
-    def city(self, value):
-        self.__city = value
+    @value.setter
+    def value(self, value):
+        self.__value = value
 
 
     
@@ -51,8 +51,8 @@ class TaxJurisdiction:
             params['country'] = self.country
         if hasattr(self, "region") and self.region is not None:
             params['region'] = self.region
-        if hasattr(self, "city") and self.city is not None:
-            params['city'] = self.city
+        if hasattr(self, "value") and self.value is not None:
+            params['value'] = self.value
         return params
 
 
@@ -63,5 +63,5 @@ class TaxJurisdiction:
             self.__country = response_body['country']
         if 'region' in response_body:
             self.__region = response_body['region']
-        if 'city' in response_body:
-            self.__city = response_body['city']
+        if 'value' in response_body:
+            self.__value = response_body['value']

@@ -7,6 +7,7 @@ from com.alipay.ams.api.model.tax_calculated_line_item import TaxCalculatedLineI
 from com.alipay.ams.api.model.tax_breakdown import TaxBreakdown
 from com.alipay.ams.api.model.tax_calculated_shipping_cost import TaxCalculatedShippingCost
 from com.alipay.ams.api.model.tax_calculated_customer_details import TaxCalculatedCustomerDetails
+from com.alipay.ams.api.model.tax_calculated_ship_from_details import TaxCalculatedShipFromDetails
 
 
 
@@ -27,6 +28,7 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         self.__tax_date = None  # type: str
         self.__shipping_cost = None  # type: TaxCalculatedShippingCost
         self.__customer_details = None  # type: TaxCalculatedCustomerDetails
+        self.__ship_from_details = None  # type: TaxCalculatedShipFromDetails
         self.parse_rsp_body(rsp_body) 
 
 
@@ -140,6 +142,16 @@ class AlipayTaxCalculateResponse(AlipayResponse):
     @customer_details.setter
     def customer_details(self, value):
         self.__customer_details = value
+    @property
+    def ship_from_details(self):
+        """Gets the ship_from_details of this AlipayTaxCalculateResponse.
+        
+        """
+        return self.__ship_from_details
+
+    @ship_from_details.setter
+    def ship_from_details(self, value):
+        self.__ship_from_details = value
 
 
     
@@ -168,6 +180,8 @@ class AlipayTaxCalculateResponse(AlipayResponse):
             params['shippingCost'] = self.shipping_cost
         if hasattr(self, "customer_details") and self.customer_details is not None:
             params['customerDetails'] = self.customer_details
+        if hasattr(self, "ship_from_details") and self.ship_from_details is not None:
+            params['shipFromDetails'] = self.ship_from_details
         return params
 
 
@@ -209,3 +223,6 @@ class AlipayTaxCalculateResponse(AlipayResponse):
         if 'customerDetails' in response_body:
             self.__customer_details = TaxCalculatedCustomerDetails()
             self.__customer_details.parse_rsp_body(response_body['customerDetails'])
+        if 'shipFromDetails' in response_body:
+            self.__ship_from_details = TaxCalculatedShipFromDetails()
+            self.__ship_from_details.parse_rsp_body(response_body['shipFromDetails'])

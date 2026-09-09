@@ -1,6 +1,8 @@
 import json
 from com.alipay.ams.api.model.user_name import UserName
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.buyer_tax_id import BuyerTaxId
+from com.alipay.ams.api.model.address import Address
 
 
 
@@ -19,6 +21,8 @@ class Buyer:
         self.__successful_order_amount = None  # type: Amount
         self.__date_of_last_paid_purchase = None  # type: str
         self.__date_of_first_paid_purchase = None  # type: str
+        self.__tax_ids = None  # type: [BuyerTaxId]
+        self.__business_address = None  # type: Address
         
 
     @property
@@ -131,6 +135,26 @@ class Buyer:
     @date_of_first_paid_purchase.setter
     def date_of_first_paid_purchase(self, value):
         self.__date_of_first_paid_purchase = value
+    @property
+    def tax_ids(self):
+        """
+        For createPaymentSession, these buyer tax IDs are used for B2B or reverse-charge determination when automatic tax is active. If omitted, null, invalid, or unusable, Antom calculates tax as B2C instead of rejecting the payment session. Because Buyer is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum size: 10.
+        """
+        return self.__tax_ids
+
+    @tax_ids.setter
+    def tax_ids(self, value):
+        self.__tax_ids = value
+    @property
+    def business_address(self):
+        """Gets the business_address of this Buyer.
+        
+        """
+        return self.__business_address
+
+    @business_address.setter
+    def business_address(self, value):
+        self.__business_address = value
 
 
     
@@ -159,6 +183,10 @@ class Buyer:
             params['dateOfLastPaidPurchase'] = self.date_of_last_paid_purchase
         if hasattr(self, "date_of_first_paid_purchase") and self.date_of_first_paid_purchase is not None:
             params['dateOfFirstPaidPurchase'] = self.date_of_first_paid_purchase
+        if hasattr(self, "tax_ids") and self.tax_ids is not None:
+            params['taxIds'] = self.tax_ids
+        if hasattr(self, "business_address") and self.business_address is not None:
+            params['businessAddress'] = self.business_address
         return params
 
 
@@ -189,3 +217,12 @@ class Buyer:
             self.__date_of_last_paid_purchase = response_body['dateOfLastPaidPurchase']
         if 'dateOfFirstPaidPurchase' in response_body:
             self.__date_of_first_paid_purchase = response_body['dateOfFirstPaidPurchase']
+        if 'taxIds' in response_body:
+            self.__tax_ids = []
+            for item in response_body['taxIds']:
+                obj = BuyerTaxId()
+                obj.parse_rsp_body(item)
+                self.__tax_ids.append(obj)
+        if 'businessAddress' in response_body:
+            self.__business_address = Address()
+            self.__business_address.parse_rsp_body(response_body['businessAddress'])

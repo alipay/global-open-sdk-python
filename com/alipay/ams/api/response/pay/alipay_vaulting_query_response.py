@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.payment_method_detail import PaymentMethodDetail
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 
 
 
@@ -20,6 +21,7 @@ class AlipayVaultingQueryResponse(AlipayResponse):
         self.__metadata = None  # type: str
         self.__vaulting_result_code = None  # type: str
         self.__vaulting_result_message = None  # type: str
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.parse_rsp_body(rsp_body) 
 
 
@@ -123,6 +125,16 @@ class AlipayVaultingQueryResponse(AlipayResponse):
     @vaulting_result_message.setter
     def vaulting_result_message(self, value):
         self.__vaulting_result_message = value
+    @property
+    def acquirer_info(self):
+        """Gets the acquirer_info of this AlipayVaultingQueryResponse.
+        
+        """
+        return self.__acquirer_info
+
+    @acquirer_info.setter
+    def acquirer_info(self, value):
+        self.__acquirer_info = value
 
 
     
@@ -149,6 +161,8 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             params['vaultingResultCode'] = self.vaulting_result_code
         if hasattr(self, "vaulting_result_message") and self.vaulting_result_message is not None:
             params['vaultingResultMessage'] = self.vaulting_result_message
+        if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
+            params['acquirerInfo'] = self.acquirer_info
         return params
 
 
@@ -176,3 +190,6 @@ class AlipayVaultingQueryResponse(AlipayResponse):
             self.__vaulting_result_code = response_body['vaultingResultCode']
         if 'vaultingResultMessage' in response_body:
             self.__vaulting_result_message = response_body['vaultingResultMessage']
+        if 'acquirerInfo' in response_body:
+            self.__acquirer_info = AcquirerInfo()
+            self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])
