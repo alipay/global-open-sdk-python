@@ -16,7 +16,7 @@ class AlipayTaxInquireRegistrationListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 16 characters. Note: See documentation for details.
+        The registration status filter. Supported values are ACTIVE, SCHEDULED, EXPIRED, CANCELLED, and ALL. The default is ALL; omitted or null values are treated as ALL.
         """
         return self.__status
 
@@ -26,7 +26,7 @@ class AlipayTaxInquireRegistrationListRequest(AlipayRequest):
     @property
     def current_page(self):
         """
-        The current page number.
+        The current page number. The default is 1.
         """
         return self.__current_page
 
@@ -36,7 +36,7 @@ class AlipayTaxInquireRegistrationListRequest(AlipayRequest):
     @property
     def page_size(self):
         """
-        The number of records per page.
+        The number of registrations per page. The default is 20. Valid values are from 1 to 100.
         """
         return self.__page_size
 

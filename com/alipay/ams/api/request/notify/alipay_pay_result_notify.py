@@ -1,3 +1,4 @@
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 from com.alipay.ams.api.model.refund_to_bank_info import RefundToBankInfo
 from com.alipay.ams.api.model.retry_info import RetryInfo
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
@@ -18,7 +19,7 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__psp_customer_info = None
         self.__acquirer_reference_no = None
         self.__payment_result_info = None
-        self.__acquirer_info = None
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.__promotion_result = None
         self.__payment_method_type = None
         self.__metadata = None  # type: str
@@ -155,7 +156,9 @@ class AlipayPayResultNotify(AlipayNotify):
         if "paymentResultInfo" in notify:
             self.__payment_result_info = notify["paymentResultInfo"]
         if "acquirerInfo" in notify:
-            self.__acquirer_info = notify["acquirerInfo"]
+            acquirer_info = AcquirerInfo()
+            acquirer_info.parse_rsp_body(notify["acquirerInfo"])
+            self.__acquirer_info = acquirer_info
         if "promotionResult" in notify:
             self.__promotion_result = notify["promotionResult"]
 
