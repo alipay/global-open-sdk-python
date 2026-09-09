@@ -53,7 +53,6 @@ class AlipayPayRequest(AlipayRequest):
         self.__merchant_account_id = None  # type: str
         self.__dual_offline_payment = None  # type: bool
         self.__subscription_id = None  # type: str
-        self.__tax_calculation_id = None  # type: str
         self.__locale = None  # type: str
         
 
@@ -348,16 +347,6 @@ class AlipayPayRequest(AlipayRequest):
     def subscription_id(self, value):
         self.__subscription_id = value
     @property
-    def tax_calculation_id(self):
-        """
-        The tax calculation ID. This ID is obtained from the calculate API and used for subsequent payment posting verification and tax records.
-        """
-        return self.__tax_calculation_id
-
-    @tax_calculation_id.setter
-    def tax_calculation_id(self, value):
-        self.__tax_calculation_id = value
-    @property
     def locale(self):
         """
         The language code used by Antom Hosted Checkout Page. This field applies only to non-POP Hosted Checkout Page requests. Supported values are en_US, pt_BR, pt_PT, es_ES, ko_KR, zh_CN, zh_HK, ms_MY, in_ID, th_TH, vi_VN, tl_PH, it_IT, de_DE, fr_FR, nl_NL, ja_JP, ro, pl_PL, ar_SA, tr_TR, hi_IN, and mn. Values are case-sensitive and are not trimmed or converted. When the field is omitted, null, empty, or contains only whitespace, the page selects a language from the region resolved from env.clientIp and falls back to en_US when no supported language can be resolved. Any other unsupported non-empty string that passes type and length validation falls back directly to en_US. A non-string value or a string longer than 8 characters is rejected with PARAM_ILLEGAL. The value automatic is unsupported and exceeds the maximum length.
@@ -434,8 +423,6 @@ class AlipayPayRequest(AlipayRequest):
             params['dualOfflinePayment'] = self.dual_offline_payment
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
             params['subscriptionId'] = self.subscription_id
-        if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
-            params['taxCalculationId'] = self.tax_calculation_id
         if hasattr(self, "locale") and self.locale is not None:
             params['locale'] = self.locale
         return params
@@ -518,7 +505,5 @@ class AlipayPayRequest(AlipayRequest):
             self.__dual_offline_payment = response_body['dualOfflinePayment']
         if 'subscriptionId' in response_body:
             self.__subscription_id = response_body['subscriptionId']
-        if 'taxCalculationId' in response_body:
-            self.__tax_calculation_id = response_body['taxCalculationId']
         if 'locale' in response_body:
             self.__locale = response_body['locale']

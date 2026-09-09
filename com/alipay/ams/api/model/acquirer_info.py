@@ -16,6 +16,7 @@ class AcquirerInfo:
         self.__acquirer_reason_description = None  # type: str
         self.__ptsp_transaction_id = None  # type: str
         self.__acquirer_card_token = None  # type: str
+        self.__acquirer_fingerprint = None  # type: str
         
 
     @property
@@ -118,6 +119,16 @@ class AcquirerInfo:
     @acquirer_card_token.setter
     def acquirer_card_token(self, value):
         self.__acquirer_card_token = value
+    @property
+    def acquirer_fingerprint(self):
+        """
+        An acquirer-generated, irreversible card fingerprint passed through for card identification, reconciliation, and risk deduplication. It is returned only for APO merchants enrolled in fingerprint passthrough when Checkout.com is the acquirer and the original scenario is card vaulting or payment with vaulting. It is not returned in other scenarios and may be empty. Maximum length: 64 characters.
+        """
+        return self.__acquirer_fingerprint
+
+    @acquirer_fingerprint.setter
+    def acquirer_fingerprint(self, value):
+        self.__acquirer_fingerprint = value
 
 
     
@@ -144,6 +155,8 @@ class AcquirerInfo:
             params['ptspTransactionId'] = self.ptsp_transaction_id
         if hasattr(self, "acquirer_card_token") and self.acquirer_card_token is not None:
             params['acquirerCardToken'] = self.acquirer_card_token
+        if hasattr(self, "acquirer_fingerprint") and self.acquirer_fingerprint is not None:
+            params['acquirerFingerprint'] = self.acquirer_fingerprint
         return params
 
 
@@ -170,3 +183,5 @@ class AcquirerInfo:
             self.__ptsp_transaction_id = response_body['ptspTransactionId']
         if 'acquirerCardToken' in response_body:
             self.__acquirer_card_token = response_body['acquirerCardToken']
+        if 'acquirerFingerprint' in response_body:
+            self.__acquirer_fingerprint = response_body['acquirerFingerprint']
