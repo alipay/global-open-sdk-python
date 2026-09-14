@@ -12,6 +12,7 @@ except NameError:
 _CURRENCY = re.compile(r"^[A-Z]{3}\Z")
 _AMOUNT = re.compile(r"^[0-9]+(?:\.[0-9]+)?\Z")
 _VALUE = re.compile(r"^[0-9]+\Z")
+_MAX_VALUE_LENGTH = 16
 
 
 def to_amount(amount, currency):
@@ -54,10 +55,10 @@ def _minor_unit(currency):
         _fail("INVALID_CURRENCY", "currency must be three uppercase ASCII letters")
     currencies, _ = get_rules()
     if currency not in currencies:
-        _fail("UNKNOWN_CURRENCY", "currency is not present in the ISO snapshot")
+        _fail("UNSUPPORTED_CURRENCY", "currency is not supported by AmountUtil")
     minor_unit = currencies[currency].get("minorUnit")
     if minor_unit is None:
-        _fail("UNSUPPORTED_MINOR_UNIT", "currency has no numeric minor unit")
+        raise RuntimeError("RULE_DATA_ERROR: supported currency has no numeric minor unit")
     if isinstance(minor_unit, bool) or not isinstance(minor_unit, int) or minor_unit < 0 or minor_unit > 4:
         raise RuntimeError("RULE_DATA_ERROR: invalid minor unit")
     return minor_unit
@@ -67,15 +68,15 @@ def _validate_value_format(value):
     _require_string(value, "value")
     if not _VALUE.match(value):
         _fail("INVALID_VALUE_FORMAT", "value must contain ASCII digits only")
-    if len(value) > 16:
-        _fail("VALUE_TOO_LONG", "value exceeds 16 digits")
+    if len(value) > _MAX_VALUE_LENGTH:
+        _fail("VALUE_TOO_LONG", "value must contain at most 16 digits")
 
 
 def _validate_canonical(value, currency):
     if not value.strip("0"):
         _fail("AMOUNT_NOT_POSITIVE", "value must be greater than zero")
-    if len(value) > 16:
-        _fail("VALUE_TOO_LONG", "value exceeds 16 digits")
+    if len(value) > _MAX_VALUE_LENGTH:
+        _fail("VALUE_TOO_LONG", "value must contain at most 16 digits")
     _, constraints = get_rules()
     constraint = constraints.get(currency)
     if constraint:

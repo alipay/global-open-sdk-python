@@ -10,9 +10,10 @@ major = from_amount(value, "USD")  # "10.25"
 validate(value, "USD")
 ```
 
-The functions accept strings, convert with the ISO 4217 minor unit, and never
-round. Extra non-zero decimal places are rejected. Payment-method currency
-support and minimum amounts remain subject to the relevant Antom API docs.
+The functions accept strings, use Antom's supported-currency rules, and never
+round. Extra non-zero decimal places are rejected. ISO 4217 is reference
+evidence only. Payment-method currency support and minimum amounts remain
+subject to the relevant Antom API docs.
 Language：Python  
 Python version：2.7+  
 Release ^1.5.8
