@@ -4,6 +4,7 @@ from com.alipay.ams.api.model.refund_to_bank_info import RefundToBankInfo
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.refund_detail import RefundDetail
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.goods import Goods
 
 
 
@@ -28,6 +29,7 @@ class AlipayRefundRequest(AlipayRequest):
         self.__refund_details = None  # type: [RefundDetail]
         self.__refund_source_account_no = None  # type: str
         self.__actual_refund_amount = None  # type: Amount
+        self.__goods = None  # type: [Goods]
         
 
     @property
@@ -180,6 +182,16 @@ class AlipayRefundRequest(AlipayRequest):
     @actual_refund_amount.setter
     def actual_refund_amount(self, value):
         self.__actual_refund_amount = value
+    @property
+    def goods(self):
+        """
+        The goods included in this refund. When using KLARNA, this field is required for a partial refund.
+        """
+        return self.__goods
+
+    @goods.setter
+    def goods(self, value):
+        self.__goods = value
 
 
     def to_ams_json(self): 
@@ -219,6 +231,8 @@ class AlipayRefundRequest(AlipayRequest):
             params['refundSourceAccountNo'] = self.refund_source_account_no
         if hasattr(self, "actual_refund_amount") and self.actual_refund_amount is not None:
             params['actualRefundAmount'] = self.actual_refund_amount
+        if hasattr(self, "goods") and self.goods is not None:
+            params['goods'] = self.goods
         return params
 
 
@@ -263,3 +277,9 @@ class AlipayRefundRequest(AlipayRequest):
         if 'actualRefundAmount' in response_body:
             self.__actual_refund_amount = Amount()
             self.__actual_refund_amount.parse_rsp_body(response_body['actualRefundAmount'])
+        if 'goods' in response_body:
+            self.__goods = []
+            for item in response_body['goods']:
+                obj = Goods()
+                obj.parse_rsp_body(item)
+                self.__goods.append(obj)

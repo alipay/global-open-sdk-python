@@ -19,6 +19,7 @@ class AlipayRefundNotify(AlipayNotify):
         self.__arn = None
         self.__actual_refund_amount = None  # type: Amount
         self.__metadata = None  # type: str
+        self.__authorization_code = None  # type: str
         self.__parse_notify_body(notify_body)
 
     @property
@@ -64,6 +65,11 @@ class AlipayRefundNotify(AlipayNotify):
     def metadata(self):
         return self.__metadata
 
+    @property
+    def authorization_code(self):
+        """The authorization code returned only when the merchant is enabled for this capability."""
+        return self.__authorization_code
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayRefundNotify, self).parse_notify_body(notify_body)
         if "refundStatus" in notify:
@@ -92,3 +98,5 @@ class AlipayRefundNotify(AlipayNotify):
             self.__actual_refund_amount = Amount(notify["actualRefundAmount"])
         if "metadata" in notify:
             self.__metadata = notify["metadata"]
+        if "authorizationCode" in notify:
+            self.__authorization_code = notify["authorizationCode"]

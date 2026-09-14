@@ -1,5 +1,8 @@
 import json
 from com.alipay.ams.api.model.user_name import UserName
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.buyer_tax_id import BuyerTaxId
+from com.alipay.ams.api.model.address import Address
 
 
 
@@ -15,6 +18,11 @@ class Buyer:
         self.__is_account_verified = None  # type: bool
         self.__successful_order_count = None  # type: int
         self.__buyer_phone_no_contry_code = None  # type: str
+        self.__successful_order_amount = None  # type: Amount
+        self.__date_of_last_paid_purchase = None  # type: str
+        self.__date_of_first_paid_purchase = None  # type: str
+        self.__tax_ids = None  # type: [BuyerTaxId]
+        self.__business_address = None  # type: Address
         
 
     @property
@@ -97,6 +105,56 @@ class Buyer:
     @buyer_phone_no_contry_code.setter
     def buyer_phone_no_contry_code(self, value):
         self.__buyer_phone_no_contry_code = value
+    @property
+    def successful_order_amount(self):
+        """Gets the successful_order_amount of this Buyer.
+        
+        """
+        return self.__successful_order_amount
+
+    @successful_order_amount.setter
+    def successful_order_amount(self, value):
+        self.__successful_order_amount = value
+    @property
+    def date_of_last_paid_purchase(self):
+        """
+        The date and time of the buyer&#39;s last paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
+        """
+        return self.__date_of_last_paid_purchase
+
+    @date_of_last_paid_purchase.setter
+    def date_of_last_paid_purchase(self, value):
+        self.__date_of_last_paid_purchase = value
+    @property
+    def date_of_first_paid_purchase(self):
+        """
+        The date and time of the buyer&#39;s first paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
+        """
+        return self.__date_of_first_paid_purchase
+
+    @date_of_first_paid_purchase.setter
+    def date_of_first_paid_purchase(self, value):
+        self.__date_of_first_paid_purchase = value
+    @property
+    def tax_ids(self):
+        """
+        For createPaymentSession, these buyer tax IDs are used for B2B or reverse-charge determination when automatic tax is active. If omitted, null, invalid, or unusable, Antom calculates tax as B2C instead of rejecting the payment session. Because Buyer is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum size: 10.
+        """
+        return self.__tax_ids
+
+    @tax_ids.setter
+    def tax_ids(self, value):
+        self.__tax_ids = value
+    @property
+    def business_address(self):
+        """Gets the business_address of this Buyer.
+        
+        """
+        return self.__business_address
+
+    @business_address.setter
+    def business_address(self, value):
+        self.__business_address = value
 
 
     
@@ -119,6 +177,16 @@ class Buyer:
             params['successfulOrderCount'] = self.successful_order_count
         if hasattr(self, "buyer_phone_no_contry_code") and self.buyer_phone_no_contry_code is not None:
             params['buyerPhoneNoContryCode'] = self.buyer_phone_no_contry_code
+        if hasattr(self, "successful_order_amount") and self.successful_order_amount is not None:
+            params['successfulOrderAmount'] = self.successful_order_amount
+        if hasattr(self, "date_of_last_paid_purchase") and self.date_of_last_paid_purchase is not None:
+            params['dateOfLastPaidPurchase'] = self.date_of_last_paid_purchase
+        if hasattr(self, "date_of_first_paid_purchase") and self.date_of_first_paid_purchase is not None:
+            params['dateOfFirstPaidPurchase'] = self.date_of_first_paid_purchase
+        if hasattr(self, "tax_ids") and self.tax_ids is not None:
+            params['taxIds'] = self.tax_ids
+        if hasattr(self, "business_address") and self.business_address is not None:
+            params['businessAddress'] = self.business_address
         return params
 
 
@@ -142,3 +210,19 @@ class Buyer:
             self.__successful_order_count = response_body['successfulOrderCount']
         if 'buyerPhoneNoContryCode' in response_body:
             self.__buyer_phone_no_contry_code = response_body['buyerPhoneNoContryCode']
+        if 'successfulOrderAmount' in response_body:
+            self.__successful_order_amount = Amount()
+            self.__successful_order_amount.parse_rsp_body(response_body['successfulOrderAmount'])
+        if 'dateOfLastPaidPurchase' in response_body:
+            self.__date_of_last_paid_purchase = response_body['dateOfLastPaidPurchase']
+        if 'dateOfFirstPaidPurchase' in response_body:
+            self.__date_of_first_paid_purchase = response_body['dateOfFirstPaidPurchase']
+        if 'taxIds' in response_body:
+            self.__tax_ids = []
+            for item in response_body['taxIds']:
+                obj = BuyerTaxId()
+                obj.parse_rsp_body(item)
+                self.__tax_ids.append(obj)
+        if 'businessAddress' in response_body:
+            self.__business_address = Address()
+            self.__business_address.parse_rsp_body(response_body['businessAddress'])

@@ -59,7 +59,7 @@ class AlipayBillingSubscriptionCancelRequest(AlipayRequest):
     @property
     def proration_behavior(self):
         """
-        The proration behavior for immediate termination. Valid values are CREATE_PRORATIONS, NONE, and ALWAYS_INVOICE. Maximum length: 18 characters.
+        The proration behavior for immediate termination. Valid values are ALWAYS_INVOICE and NONE. The default value is NONE. Maximum length: 18 characters.
         """
         return self.__proration_behavior
 

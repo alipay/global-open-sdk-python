@@ -2,6 +2,7 @@ from com.alipay.ams.api.model import DisputeJudgedResult
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 from com.alipay.ams.api.model.dispute_accept_reason_type import DisputeAcceptReasonType
 from com.alipay.ams.api.model.dispute_notification_type import DisputeNotificationType
+from com.alipay.ams.api.model.issuer_comments import IssuerComments
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
 
 
@@ -30,6 +31,7 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__capture_id = None
         self.__auto_defend_reason = None
         self.__acquirer_info = None  # type: AcquirerInfo
+        self.__issuer_comments = None  # type: IssuerComments
         self.__parse_notify_body(notify_body)
 
     @property
@@ -116,48 +118,64 @@ class AlipayDisputeNotify(AlipayNotify):
     def acquirer_info(self):
         return self.__acquirer_info
 
+    @property
+    def issuer_comments(self):
+        return self.__issuer_comments
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayDisputeNotify, self).parse_notify_body(notify_body)
 
-        if "payment_request_id" in notify:
-            self.__payment_request_id = notify["payment_request_id"]
-        if "dispute_id" in notify:
-            self.__dispute_id = notify["dispute_id"]
-        if "payment_id" in notify:
-            self.__payment_id = notify["payment_id"]
-        if "dispute_time" in notify:
-            self.__dispute_time = notify["dispute_time"]
-        if "dispute_amount" in notify:
-            self.__dispute_amount = notify["dispute_amount"]
-        if "dispute_notification_type" in notify:
-            self.__dispute_notification_type = notify["dispute_notification_type"]
-        if "dispute_reason_msg" in notify:
-            self.__dispute_reason_msg = notify["dispute_reason_msg"]
-        if "dispute_judged_time" in notify:
-            self.__dispute_judged_time = notify["dispute_judged_time"]
-        if "dispute_judged_amount" in notify:
-            self.__dispute_judged_amount = notify["dispute_judged_amount"]
-        if "dispute_judged_result" in notify:
-            self.__dispute_judged_result = notify["dispute_judged_result"]
-        if "defense_due_time" in notify:
-            self.__defense_due_time = notify["defense_due_time"]
-        if "dispute_reason_code" in notify:
-            self.__dispute_reason_code = notify["dispute_reason_code"]
-        if "dispute_source" in notify:
-            self.__dispute_source = notify["dispute_source"]
-        if "arn" in notify:
-            self.__arn = notify["arn"]
-        if "dispute_accept_reason" in notify:
-            self.__dispute_accept_reason = notify["dispute_accept_reason"]
-        if "dispute_accept_time" in notify:
-            self.__dispute_accept_time = notify["dispute_accept_time"]
-        if "dispute_type" in notify:
-            self.__dispute_type = notify["dispute_type"]
-        if "defendable" in notify:
-            self.__defendable = notify["defendable"]
-        if "capture_id" in notify:
-            self.__capture_id = notify["capture_id"]
-        if "auto_defend_reason" in notify:
-            self.__auto_defend_reason = notify["auto_defend_reason"]
-        if "acquirer_info" in notify:
-            self.__acquirer_info = notify["acquirer_info"]
+        def get_value(camel_case_key, snake_case_key=None):
+            if camel_case_key in notify:
+                return notify[camel_case_key]
+            if snake_case_key is not None:
+                return notify.get(snake_case_key)
+            return None
+
+        self.__payment_request_id = get_value("paymentRequestId", "payment_request_id")
+        self.__dispute_id = get_value("disputeId", "dispute_id")
+        self.__payment_id = get_value("paymentId", "payment_id")
+        self.__dispute_time = get_value("disputeTime", "dispute_time")
+        self.__dispute_amount = get_value("disputeAmount", "dispute_amount")
+        self.__dispute_notification_type = get_value(
+            "disputeNotificationType", "dispute_notification_type"
+        )
+        self.__dispute_reason_msg = get_value("disputeReasonMsg", "dispute_reason_msg")
+        self.__dispute_judged_time = get_value("disputeJudgedTime", "dispute_judged_time")
+        self.__dispute_judged_amount = get_value(
+            "disputeJudgedAmount", "dispute_judged_amount"
+        )
+        self.__dispute_judged_result = get_value(
+            "disputeJudgedResult", "dispute_judged_result"
+        )
+        self.__defense_due_time = get_value("defenseDueTime", "defense_due_time")
+        self.__dispute_reason_code = get_value("disputeReasonCode", "dispute_reason_code")
+        self.__dispute_source = get_value("disputeSource", "dispute_source")
+        self.__arn = get_value("arn")
+        self.__dispute_accept_reason = get_value(
+            "disputeAcceptReason", "dispute_accept_reason"
+        )
+        self.__dispute_accept_time = get_value("disputeAcceptTime", "dispute_accept_time")
+        self.__dispute_type = get_value("disputeType", "dispute_type")
+        self.__defendable = get_value("defendable")
+        self.__capture_id = get_value("captureId", "capture_id")
+        self.__auto_defend_reason = get_value("autoDefendReason", "auto_defend_reason")
+        self.__acquirer_info = get_value("acquirerInfo", "acquirer_info")
+
+        issuer_comments_body = get_value("issuerComments", "issuer_comments")
+        if isinstance(issuer_comments_body, dict):
+            self.__issuer_comments = IssuerComments()
+            self.__issuer_comments.cardholder_comments = issuer_comments_body.get(
+                "cardholderComments", issuer_comments_body.get("cardholder_comments")
+            )
+            self.__issuer_comments.reason_of_invalid_authorization = issuer_comments_body.get(
+                "reasonOfInvalidAuthorization",
+                issuer_comments_body.get("reason_of_invalid_authorization"),
+            )
+            self.__issuer_comments.explanation_of_credit_presented = issuer_comments_body.get(
+                "explanationOfCreditPresented",
+                issuer_comments_body.get("explanation_of_credit_presented"),
+            )
+            self.__issuer_comments.judge_reason = issuer_comments_body.get(
+                "judgeReason", issuer_comments_body.get("judge_reason")
+            )

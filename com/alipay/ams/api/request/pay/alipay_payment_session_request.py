@@ -17,6 +17,7 @@ from com.alipay.ams.api.model.risk_data import RiskData
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.available_payment_method import AvailablePaymentMethod
 from com.alipay.ams.api.model.billing_subscription import BillingSubscription
+from com.alipay.ams.api.model.automatic_tax import AutomaticTax
 
 
 
@@ -58,6 +59,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__available_payment_method = None  # type: AvailablePaymentMethod
         self.__payment_expiry_time = None  # type: str
         self.__subscription = None  # type: BillingSubscription
+        self.__automatic_tax = None  # type: AutomaticTax
         
 
     @property
@@ -380,6 +382,16 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     @subscription.setter
     def subscription(self, value):
         self.__subscription = value
+    @property
+    def automatic_tax(self):
+        """Gets the automatic_tax of this AlipayPaymentSessionRequest.
+        
+        """
+        return self.__automatic_tax
+
+    @automatic_tax.setter
+    def automatic_tax(self, value):
+        self.__automatic_tax = value
 
 
     def to_ams_json(self): 
@@ -453,6 +465,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
             params['paymentExpiryTime'] = self.payment_expiry_time
         if hasattr(self, "subscription") and self.subscription is not None:
             params['subscription'] = self.subscription
+        if hasattr(self, "automatic_tax") and self.automatic_tax is not None:
+            params['automaticTax'] = self.automatic_tax
         return params
 
 
@@ -544,3 +558,6 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         if 'subscription' in response_body:
             self.__subscription = BillingSubscription()
             self.__subscription.parse_rsp_body(response_body['subscription'])
+        if 'automaticTax' in response_body:
+            self.__automatic_tax = AutomaticTax()
+            self.__automatic_tax.parse_rsp_body(response_body['automaticTax'])

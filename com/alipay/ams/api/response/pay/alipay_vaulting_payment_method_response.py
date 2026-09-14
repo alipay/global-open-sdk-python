@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.payment_method_detail import PaymentMethodDetail
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 
 
 
@@ -16,6 +17,7 @@ class AlipayVaultingPaymentMethodResponse(AlipayResponse):
         self.__normal_url = None  # type: str
         self.__scheme_url = None  # type: str
         self.__applink_url = None  # type: str
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.parse_rsp_body(rsp_body) 
 
 
@@ -79,6 +81,16 @@ class AlipayVaultingPaymentMethodResponse(AlipayResponse):
     @applink_url.setter
     def applink_url(self, value):
         self.__applink_url = value
+    @property
+    def acquirer_info(self):
+        """Gets the acquirer_info of this AlipayVaultingPaymentMethodResponse.
+        
+        """
+        return self.__acquirer_info
+
+    @acquirer_info.setter
+    def acquirer_info(self, value):
+        self.__acquirer_info = value
 
 
     
@@ -97,6 +109,8 @@ class AlipayVaultingPaymentMethodResponse(AlipayResponse):
             params['schemeUrl'] = self.scheme_url
         if hasattr(self, "applink_url") and self.applink_url is not None:
             params['applinkUrl'] = self.applink_url
+        if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
+            params['acquirerInfo'] = self.acquirer_info
         return params
 
 
@@ -116,3 +130,6 @@ class AlipayVaultingPaymentMethodResponse(AlipayResponse):
             self.__scheme_url = response_body['schemeUrl']
         if 'applinkUrl' in response_body:
             self.__applink_url = response_body['applinkUrl']
+        if 'acquirerInfo' in response_body:
+            self.__acquirer_info = AcquirerInfo()
+            self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])

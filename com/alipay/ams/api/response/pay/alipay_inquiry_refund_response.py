@@ -30,6 +30,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         self.__settlement_quote = None  # type: Quote
         self.__acquirer_info = None  # type: AcquirerInfo
         self.__rrn = None  # type: str
+        self.__authorization_code = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -173,6 +174,16 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     @rrn.setter
     def rrn(self, value):
         self.__rrn = value
+    @property
+    def authorization_code(self):
+        """
+        The authorization code returned by the payment channel for a successful refund. This field is returned only when refundStatus is SUCCESS, the payment method or channel supplies a non-empty value, and the merchant is enabled for this capability. Otherwise, the property is omitted and is never returned as JSON null. The exact channel-provided string is returned without trimming, padding, case conversion, substitution, or truncation. Its absence does not change the refund result or produce a field-specific error.
+        """
+        return self.__authorization_code
+
+    @authorization_code.setter
+    def authorization_code(self, value):
+        self.__authorization_code = value
 
 
     
@@ -207,6 +218,8 @@ class AlipayInquiryRefundResponse(AlipayResponse):
             params['acquirerInfo'] = self.acquirer_info
         if hasattr(self, "rrn") and self.rrn is not None:
             params['rrn'] = self.rrn
+        if hasattr(self, "authorization_code") and self.authorization_code is not None:
+            params['authorizationCode'] = self.authorization_code
         return params
 
 
@@ -248,3 +261,5 @@ class AlipayInquiryRefundResponse(AlipayResponse):
             self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])
         if 'rrn' in response_body:
             self.__rrn = response_body['rrn']
+        if 'authorizationCode' in response_body:
+            self.__authorization_code = response_body['authorizationCode']

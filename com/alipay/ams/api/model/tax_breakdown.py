@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -7,10 +9,9 @@ class TaxBreakdown:
     def __init__(self):
         
         self.__tax_type = None  # type: str
-        self.__authority_name = None  # type: str
         self.__tax_rate = None  # type: str
-        self.__tax_amount = None  # type: str
-        self.__taxable_amount = None  # type: str
+        self.__tax_amount = None  # type: Amount
+        self.__taxable_amount = None  # type: Amount
         self.__taxability_reason = None  # type: str
         self.__inclusive = None  # type: bool
         
@@ -18,23 +19,13 @@ class TaxBreakdown:
     @property
     def tax_type(self):
         """
-        The tax type. Maximum length: 32 characters.
+        The tax type. Supported values are CUIT, GST, VAT, CBS, IBS, HST, PST, RST, QST, JCT, SERVICE_TAX, IGV, SALES_TAX, and PERSONAL_PROPERTY_LEASE_TRANSACTION_TAX. This response field is extensible; accept unknown values without failing deserialization.
         """
         return self.__tax_type
 
     @tax_type.setter
     def tax_type(self, value):
         self.__tax_type = value
-    @property
-    def authority_name(self):
-        """
-        The tax authority name. Maximum length: 128 characters.
-        """
-        return self.__authority_name
-
-    @authority_name.setter
-    def authority_name(self, value):
-        self.__authority_name = value
     @property
     def tax_rate(self):
         """
@@ -47,8 +38,8 @@ class TaxBreakdown:
         self.__tax_rate = value
     @property
     def tax_amount(self):
-        """
-        The tax amount. Maximum length: 19 characters.
+        """Gets the tax_amount of this TaxBreakdown.
+        
         """
         return self.__tax_amount
 
@@ -57,8 +48,8 @@ class TaxBreakdown:
         self.__tax_amount = value
     @property
     def taxable_amount(self):
-        """
-        The taxable amount. Maximum length: 19 characters.
+        """Gets the taxable_amount of this TaxBreakdown.
+        
         """
         return self.__taxable_amount
 
@@ -68,7 +59,7 @@ class TaxBreakdown:
     @property
     def taxability_reason(self):
         """
-        The taxability reason. Maximum length: 32 characters.
+        The taxability reason. Supported values are NOT_COLLECTING, PRODUCT_EXEMPT, REVERSE_CHARGE, CUSTOMER_EXEMPT, NOT_SUPPORTED, NOT_SUBJECT_TO_TAX, PRODUCT_EXEMPT_HOLIDAY, PORTION_PRODUCT_EXEMPT, ZERO_RATED, STANDARD_RATED, and UNKNOWN_ZERO_TAX.
         """
         return self.__taxability_reason
 
@@ -93,8 +84,6 @@ class TaxBreakdown:
         params = dict()
         if hasattr(self, "tax_type") and self.tax_type is not None:
             params['taxType'] = self.tax_type
-        if hasattr(self, "authority_name") and self.authority_name is not None:
-            params['authorityName'] = self.authority_name
         if hasattr(self, "tax_rate") and self.tax_rate is not None:
             params['taxRate'] = self.tax_rate
         if hasattr(self, "tax_amount") and self.tax_amount is not None:
@@ -113,14 +102,14 @@ class TaxBreakdown:
             response_body = json.loads(response_body)
         if 'taxType' in response_body:
             self.__tax_type = response_body['taxType']
-        if 'authorityName' in response_body:
-            self.__authority_name = response_body['authorityName']
         if 'taxRate' in response_body:
             self.__tax_rate = response_body['taxRate']
         if 'taxAmount' in response_body:
-            self.__tax_amount = response_body['taxAmount']
+            self.__tax_amount = Amount()
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
         if 'taxableAmount' in response_body:
-            self.__taxable_amount = response_body['taxableAmount']
+            self.__taxable_amount = Amount()
+            self.__taxable_amount.parse_rsp_body(response_body['taxableAmount'])
         if 'taxabilityReason' in response_body:
             self.__taxability_reason = response_body['taxabilityReason']
         if 'inclusive' in response_body:

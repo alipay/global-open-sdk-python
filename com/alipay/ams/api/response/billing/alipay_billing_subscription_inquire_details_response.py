@@ -1,6 +1,5 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
-from com.alipay.ams.api.model.billing_subscription_trial_settings import BillingSubscriptionTrialSettings
 from com.alipay.ams.api.model.billing_subscription_inquire_details_cancellation_details import BillingSubscriptionInquireDetailsCancellationDetails
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
@@ -30,7 +29,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
         self.__canceled_at = None  # type: str
         self.__trial_start = None  # type: str
         self.__trial_end = None  # type: str
-        self.__trial_settings = None  # type: BillingSubscriptionTrialSettings
         self.__cancel_at = None  # type: str
         self.__collection_method = None  # type: str
         self.__days_until_due = None  # type: int
@@ -90,7 +88,7 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     @property
     def status(self):
         """
-        The current status. Maximum length: 20 characters.
+        The current subscription status. Valid values are INCOMPLETE, TRIALING, ACTIVE, PAST_DUE, PAUSED, CANCELLED, TERMINATED, and UNPAID. PAST_DUE means the latest renewal payment failed and collection retry is in progress. PAUSED means payment collection is suspended and the subscription can be resumed. CANCELLED remains reversible before the current billing period ends. TERMINATED is a permanent final state. UNPAID means all collection retries have been exhausted and collection remains suspended until the outstanding invoice is paid. Clients must tolerate future unknown status values and should log and alert on them instead of failing response parsing. Maximum length: 20 characters.
         """
         return self.__status
 
@@ -187,16 +185,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
     @trial_end.setter
     def trial_end(self, value):
         self.__trial_end = value
-    @property
-    def trial_settings(self):
-        """Gets the trial_settings of this AlipayBillingSubscriptionInquireDetailsResponse.
-        
-        """
-        return self.__trial_settings
-
-    @trial_settings.setter
-    def trial_settings(self, value):
-        self.__trial_settings = value
     @property
     def cancel_at(self):
         """
@@ -361,8 +349,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             params['trialStart'] = self.trial_start
         if hasattr(self, "trial_end") and self.trial_end is not None:
             params['trialEnd'] = self.trial_end
-        if hasattr(self, "trial_settings") and self.trial_settings is not None:
-            params['trialSettings'] = self.trial_settings
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
             params['cancelAt'] = self.cancel_at
         if hasattr(self, "collection_method") and self.collection_method is not None:
@@ -423,9 +409,6 @@ class AlipayBillingSubscriptionInquireDetailsResponse(AlipayResponse):
             self.__trial_start = response_body['trialStart']
         if 'trialEnd' in response_body:
             self.__trial_end = response_body['trialEnd']
-        if 'trialSettings' in response_body:
-            self.__trial_settings = BillingSubscriptionTrialSettings()
-            self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
         if 'cancelAt' in response_body:
             self.__cancel_at = response_body['cancelAt']
         if 'collectionMethod' in response_body:

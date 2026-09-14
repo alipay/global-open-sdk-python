@@ -35,6 +35,7 @@ class Order:
         self.__need_declaration = None  # type: bool
         self.__declaration = None  # type: Declaration
         self.__order_type = None  # type: str
+        self.__tax_calculation_id = None  # type: str
         
 
     @property
@@ -207,6 +208,16 @@ class Order:
     @order_type.setter
     def order_type(self, value):
         self.__order_type = value
+    @property
+    def tax_calculation_id(self):
+        """
+        For the pay API, this is the tax calculation ID returned by the Tax calculate API. It associates the order with a valid, unexpired tax calculation; omit it for the existing non-tax flow. Because Order is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum length: 64 characters.
+        """
+        return self.__tax_calculation_id
+
+    @tax_calculation_id.setter
+    def tax_calculation_id(self, value):
+        self.__tax_calculation_id = value
 
 
     
@@ -247,6 +258,8 @@ class Order:
             params['declaration'] = self.declaration
         if hasattr(self, "order_type") and self.order_type is not None:
             params['orderType'] = self.order_type
+        if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
+            params['taxCalculationId'] = self.tax_calculation_id
         return params
 
 
@@ -302,3 +315,5 @@ class Order:
             self.__declaration.parse_rsp_body(response_body['declaration'])
         if 'orderType' in response_body:
             self.__order_type = response_body['orderType']
+        if 'taxCalculationId' in response_body:
+            self.__tax_calculation_id = response_body['taxCalculationId']

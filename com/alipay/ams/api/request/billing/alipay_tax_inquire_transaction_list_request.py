@@ -18,7 +18,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def tax_calculation_id(self):
         """
-        The unique ID assigned by Antom to identify a tax calculation. Maximum length: 64 characters. Note: See documentation for details.
+        The unique ID assigned by Antom to identify a tax calculation. Exactly one of taxCalculationId, paymentId, and refundId must be provided. Omit the unused query keys; do not send them with null values. Maximum length: 64 characters.
         """
         return self.__tax_calculation_id
 
@@ -28,7 +28,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def payment_id(self):
         """
-        The unique ID assigned by Antom to identify a payment. Maximum length: 64 characters. Note: See documentation for details.
+        The unique ID assigned by Antom to identify a payment. Exactly one of taxCalculationId, paymentId, and refundId must be provided. Omit the unused query keys; do not send them with null values. Maximum length: 64 characters.
         """
         return self.__payment_id
 
@@ -38,7 +38,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def refund_id(self):
         """
-        The refund ID. Maximum length: 64 characters. Note: See documentation for details.
+        The unique ID assigned by Antom to identify a refund. Exactly one of taxCalculationId, paymentId, and refundId must be provided. Omit the unused query keys; do not send them with null values. Maximum length: 64 characters.
         """
         return self.__refund_id
 
@@ -48,7 +48,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def current_page(self):
         """
-        The current page number.
+        The current page number, starting from 1. The default value is 1.
         """
         return self.__current_page
 
@@ -58,7 +58,7 @@ class AlipayTaxInquireTransactionListRequest(AlipayRequest):
     @property
     def page_size(self):
         """
-        The number of records per page.
+        The number of records returned per page. The default value is 20.
         """
         return self.__page_size
 

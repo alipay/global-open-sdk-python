@@ -8,9 +8,7 @@ class TaxJurisdiction:
         
         self.__country = None  # type: str
         self.__region = None  # type: str
-        self.__county = None  # type: str
         self.__city = None  # type: str
-        self.__district = None  # type: str
         
 
     @property
@@ -34,16 +32,6 @@ class TaxJurisdiction:
     def region(self, value):
         self.__region = value
     @property
-    def county(self):
-        """
-        The county. Maximum length: 64 characters.
-        """
-        return self.__county
-
-    @county.setter
-    def county(self, value):
-        self.__county = value
-    @property
     def city(self):
         """
         The city. Maximum length: 64 characters.
@@ -53,16 +41,6 @@ class TaxJurisdiction:
     @city.setter
     def city(self, value):
         self.__city = value
-    @property
-    def district(self):
-        """
-        The district. Maximum length: 64 characters.
-        """
-        return self.__district
-
-    @district.setter
-    def district(self, value):
-        self.__district = value
 
 
     
@@ -73,12 +51,8 @@ class TaxJurisdiction:
             params['country'] = self.country
         if hasattr(self, "region") and self.region is not None:
             params['region'] = self.region
-        if hasattr(self, "county") and self.county is not None:
-            params['county'] = self.county
         if hasattr(self, "city") and self.city is not None:
             params['city'] = self.city
-        if hasattr(self, "district") and self.district is not None:
-            params['district'] = self.district
         return params
 
 
@@ -89,9 +63,5 @@ class TaxJurisdiction:
             self.__country = response_body['country']
         if 'region' in response_body:
             self.__region = response_body['region']
-        if 'county' in response_body:
-            self.__county = response_body['county']
         if 'city' in response_body:
             self.__city = response_body['city']
-        if 'district' in response_body:
-            self.__district = response_body['district']

@@ -1,6 +1,8 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.transit import Transit
+from com.alipay.ams.api.model.goods import Goods
+from com.alipay.ams.api.model.shipping import Shipping
 
 
 
@@ -16,6 +18,8 @@ class AlipayCaptureRequest(AlipayRequest):
         self.__is_last_capture = None  # type: bool
         self.__capture_type = None  # type: str
         self.__transit = None  # type: Transit
+        self.__goods = None  # type: [Goods]
+        self.__shippings = None  # type: [Shipping]
         
 
     @property
@@ -61,7 +65,7 @@ class AlipayCaptureRequest(AlipayRequest):
     @property
     def capture_type(self):
         """
-        The type of capture operation
+        The type of capture operation. Valid values are FINAL (the final capture) and NON_FINAL (a non-final capture). The default value is FINAL.
         """
         return self.__capture_type
 
@@ -78,6 +82,26 @@ class AlipayCaptureRequest(AlipayRequest):
     @transit.setter
     def transit(self, value):
         self.__transit = value
+    @property
+    def goods(self):
+        """
+        The goods included in this capture. When using KLARNA, provide the goods information required for the capture.
+        """
+        return self.__goods
+
+    @goods.setter
+    def goods(self, value):
+        self.__goods = value
+    @property
+    def shippings(self):
+        """
+        The shipment information for this capture. When using KLARNA, this field can be provided to display shipment tracking information in the payment method app.
+        """
+        return self.__shippings
+
+    @shippings.setter
+    def shippings(self, value):
+        self.__shippings = value
 
 
     def to_ams_json(self): 
@@ -99,6 +123,10 @@ class AlipayCaptureRequest(AlipayRequest):
             params['captureType'] = self.capture_type
         if hasattr(self, "transit") and self.transit is not None:
             params['transit'] = self.transit
+        if hasattr(self, "goods") and self.goods is not None:
+            params['goods'] = self.goods
+        if hasattr(self, "shippings") and self.shippings is not None:
+            params['shippings'] = self.shippings
         return params
 
 
@@ -119,3 +147,15 @@ class AlipayCaptureRequest(AlipayRequest):
         if 'transit' in response_body:
             self.__transit = Transit()
             self.__transit.parse_rsp_body(response_body['transit'])
+        if 'goods' in response_body:
+            self.__goods = []
+            for item in response_body['goods']:
+                obj = Goods()
+                obj.parse_rsp_body(item)
+                self.__goods.append(obj)
+        if 'shippings' in response_body:
+            self.__shippings = []
+            for item in response_body['shippings']:
+                obj = Shipping()
+                obj.parse_rsp_body(item)
+                self.__shippings.append(obj)

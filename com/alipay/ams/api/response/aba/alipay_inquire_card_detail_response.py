@@ -40,7 +40,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
     @property
     def asset_id(self):
         """
-        卡资产ID。 Card asset Id.
+        Card asset Id.
         """
         return self.__asset_id
 
@@ -50,7 +50,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
     @property
     def card_nick_name(self):
         """
-        由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。 User-defined card nickname, designed to help users manage multiple cards more conveniently.
+        User-defined card nickname, designed to help users manage multiple cards more conveniently.
         """
         return self.__card_nick_name
 
@@ -60,7 +60,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
     @property
     def card_status(self):
         """
-        卡状态。可取值范围： ACTIVE：可正常使用 FROZEN：已冻结 CANCEL：已注销  Card Status: Represents the current state of the card. Possible values include:   ACTIVE: The card is active and can be used normally.   FROZEN: The card has been frozen and cannot be used temporarily.   CANCEL: The card has been canceled and is no longer valid.
+        Card Status: Represents the current state of the card. Possible values include: ACTIVE: The card is active and can be used normally. FROZEN: The card has been frozen and cannot be used temporarily. CANCEL: The card has been canceled and is no longer valid.
         """
         return self.__card_status
 
@@ -70,7 +70,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
     @property
     def masked_card_no(self):
         """
-        脱敏卡号。 Masked card number.
+        Masked card number.
         """
         return self.__masked_card_no
 
@@ -80,7 +80,7 @@ class AlipayInquireCardDetailResponse(AlipayResponse):
     @property
     def card_brand(self):
         """
-        卡品牌。 可取值范围： MASTERCARD  Card Brand: Indicates the brand or network of the card. Possible value:   MASTERCARD: The card is part of the Mastercard network.
+        Card Brand: Indicates the brand or network of the card. Possible value: MASTERCARD: The card is part of the Mastercard network.
         """
         return self.__card_brand
 

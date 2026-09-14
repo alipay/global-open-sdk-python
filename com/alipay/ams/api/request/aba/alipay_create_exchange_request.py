@@ -8,7 +8,7 @@ from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCreateExchangeRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreateExchangeRequest, self).__init__("/ams/v1/aba/funds/createExchange") 
+        super(AlipayCreateExchangeRequest, self).__init__("/ams/api/v1/aba/funds/createExchange") 
 
         self.__buy_amount = None  # type: Amount
         self.__sell_amount = None  # type: Amount

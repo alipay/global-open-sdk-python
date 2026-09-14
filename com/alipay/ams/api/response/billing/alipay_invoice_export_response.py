@@ -15,6 +15,7 @@ class AlipayInvoiceExportResponse(AlipayResponse):
         self.__file_url = None  # type: str
         self.__file_size = None  # type: int
         self.__file_name = None  # type: str
+        self.__mode = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -78,6 +79,16 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @file_name.setter
     def file_name(self, value):
         self.__file_name = value
+    @property
+    def mode(self):
+        """
+        Execution mode of the export request. The returned value is &#x60;SYNC&#x60;, indicating synchronous export. Maximum length: 8 characters. Returned only when result.resultCode is SUCCESS.
+        """
+        return self.__mode
+
+    @mode.setter
+    def mode(self, value):
+        self.__mode = value
 
 
     
@@ -96,6 +107,8 @@ class AlipayInvoiceExportResponse(AlipayResponse):
             params['fileSize'] = self.file_size
         if hasattr(self, "file_name") and self.file_name is not None:
             params['fileName'] = self.file_name
+        if hasattr(self, "mode") and self.mode is not None:
+            params['mode'] = self.mode
         return params
 
 
@@ -114,3 +127,5 @@ class AlipayInvoiceExportResponse(AlipayResponse):
             self.__file_size = response_body['fileSize']
         if 'fileName' in response_body:
             self.__file_name = response_body['fileName']
+        if 'mode' in response_body:
+            self.__mode = response_body['mode']
