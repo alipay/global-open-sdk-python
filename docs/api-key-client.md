@@ -1,41 +1,44 @@
-# Independent API Key client
+# API Key client
 
-This source adds `ApiKeyAlipayClient` to the existing SDK package. It does not change the RSA client or business models. It is not a statement of a released minimum version.
+Available on the current branch; not yet released as a package. The client accepts
+a regional HTTPS gateway and a complete API Key. TEST/PROD paths are selected from
+the key without modifying the request or decoding a ClientId.
 
-## Initialization and ordinary calls
+## Run the sandbox example
 
-The regional HTTPS gateway and complete Standard/Restricted API Key are the only required client settings. Read secrets from server-side configuration; never log the key or Authorization header. No ClientId decoding is performed. TEST uses `/ams/sandbox/api/`; PROD uses `/ams/api/`. The Request is not modified.
+Use Python 3. From this repository root, configure:
 
-The following is a client integration fragment; business fields remain product-specific.
+| Environment variable | Value |
+|---|---|
+| `ANTOM_GATEWAY_URL` | Your regional HTTPS gateway, without an API path |
+| `ANTOM_API_KEY` | A Restricted TEST key authorized for createPaymentSession |
+| `ANTOM_NOTIFY_URL` | Your HTTPS notification endpoint |
 
-```python
-import os
-from com.alipay.ams.api.api_key_alipay_client import ApiKeyAlipayClient
-from com.alipay.ams.api.request.pay.alipay_payment_session_request import AlipayPaymentSessionRequest
+The [example](../example/api_key_payment_session.py) creates one USD 1.00 CARD checkout session. It rejects
+non-Restricted-TEST keys, generates a new request ID per run, prints the response
+and exits unsuccessfully if the business result is not `SUCCESS / S`. For brevity,
+it also uses the notification URL as the redirect URL; use your checkout return
+page as the redirect URL in a real integration.
 
-client = ApiKeyAlipayClient(
-    gateway_url=os.environ["ANTOM_GATEWAY_URL"],
-    api_key=os.environ["ANTOM_API_KEY"],
-)
-request = AlipayPaymentSessionRequest()
-# Populate the request's required business fields for your payment product.
-response_body = client.execute(request)  # Same response-body string convention as RSA.
+```sh
+python -m pip install -e .
+python -m example.api_key_payment_session
 ```
 
-## Configuration and lifecycle
+The printed response contains session credentials: print it only for local debugging.
+Read API Keys from server-side configuration; never log them.
 
-Optional `timeout=30` is in seconds. Each ordinary request opens and closes its own HTTPS connection. The standard Python trust store is used.
+## Configuration and boundaries
 
-Ordinary requests validate TLS certificates and hostnames, do not follow redirects, and do not add automatic retries. Custom headers cannot override Bearer, RSA authentication fields or SDK transport headers.
+Optional `timeout=30` sets the socket timeout in seconds. Each ordinary request closes its connection. Configure a trusted CA bundle through `SSL_CERT_FILE` if your Python installation has no usable default CA store; do not disable TLS verification.
 
-## Migration and special calls
+Ordinary requests verify TLS certificates and hostnames, reject redirects and do
+not add automatic retries. Custom headers cannot override authentication headers.
 
-Existing RSA users keep their client, constructors and calls. Opting into API Key requires changing imports, initialization and any declarations tied to the concrete RSA client. Custom RSA subclasses do not automatically migrate. Business request models and result handling stay the same.
+- Existing RSA clients and business models remain available. Switching clients does not change the business request/response model.
+- File uploads still require a separate RSA client.
+- Session `uploadEvent` uses the existing HTTP/2 executor with only `X-Session-Id`, without Bearer or path rewriting. This example does not establish Billing/Meter permissions.
+- Notifications still use the existing RSA verification tools and separately configured ClientId/public key. API Key is not a notification signing key.
 
-Use the language’s existing extra-header call convention on the new concrete client for `uploadEvent`, supplying only `X-Session-Id`. The existing Session HTTP/2 executor handles this route without Bearer or ordinary environment-path rewriting. This does not establish Billing/Meter API Key permissions.
-
-File upload continues to require a separate RSA client. Notifications continue to use the existing RSA notification tool with independently configured matching ClientId and public key. API Key is not a notification signing key; HMAC is outside this change.
-
-## Maintenance
-
-The new Client, API Key authentication helper and any API Key transport files are hand-maintained. Existing generation deploys business models/requests/responses into their own directories. Keep these files tracked before running generator cleanup; `git clean` intentionally removes untracked files.
+The API Key Client and authentication/transport helpers are hand-maintained; preserve
+them when regenerating business models.
