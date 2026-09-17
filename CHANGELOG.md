@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0 (planned; unreleased)
+
+- Add an independent API Key client using a gateway and API Key, with existing business request/response models.
+- Keep existing RSA APIs compatible; retain Session HTTP/2 and notification verification behavior.
+- Add a runnable Restricted TEST createPaymentSession example and configuration documentation.
+
 ## Unreleased
   - Add the HTTP/2 session transport required by `meter/uploadEvent`.
   - `meter/uploadEvent` requires Python 3.9 or later and the optional `http2` dependencies. Install the SDK with `pip install "global-open-sdk-python[http2]"`. Other SDK APIs retain the existing Python compatibility.
