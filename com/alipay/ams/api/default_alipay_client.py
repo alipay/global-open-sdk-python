@@ -6,6 +6,10 @@ from com.alipay.ams.api.tools.signature_tool import *
 from com.alipay.ams.api.tools.date_tools import *
 from com.alipay.ams.api.net.default_http_rpc import *
 from com.alipay.ams.api.request_transport_resolver import requires_session_http2
+from com.alipay.ams.api.api_key_auth import ApiKeyAuth
+import json
+
+_API_KEY_UNSET = object()
 
 
 class DefaultAlipayClient(object):
@@ -13,11 +17,24 @@ class DefaultAlipayClient(object):
     def __init__(
         self,
         gateway_url,
-        client_id,
-        merchant_private_key,
-        alipay_public_key,
+        client_id=None,
+        merchant_private_key=None,
+        alipay_public_key=None,
         agent_token=None,
+        api_key=_API_KEY_UNSET,
     ):
+        self.__api_key_auth = None
+        if api_key is not _API_KEY_UNSET:
+            auth = ApiKeyAuth(gateway_url, api_key)
+            if merchant_private_key is not None or alipay_public_key is not None or agent_token is not None:
+                raise ValueError("API Key cannot be combined with RSA credentials or agent_token")
+            if client_id is not None and client_id != auth.client_id:
+                raise ValueError("client_id does not match API Key")
+            self.__api_key_auth = auth
+            client_id = auth.client_id
+            gateway_url = auth.gateway_url
+        elif client_id is None or merchant_private_key is None or alipay_public_key is None:
+            raise TypeError("RSA requires client_id, merchant_private_key and alipay_public_key")
         self.__gateway_url = gateway_url
         self.__client_id = client_id
         self.__merchant_private_key = merchant_private_key
@@ -37,6 +54,8 @@ class DefaultAlipayClient(object):
         return self
 
     def upload_file(self, request):
+        if self.__api_key_auth is not None:
+            raise AlipayApiException("File upload does not support API Key authentication")
         from com.alipay.ams.api.file_upload_executor import execute_file_upload
 
         return execute_file_upload(
@@ -114,6 +133,9 @@ class DefaultAlipayClient(object):
 
     def execute(self, request):
 
+        if self.__api_key_auth is not None:
+            return self.__execute_api_key(request)
+
         if not hasattr(request, "path") or not request.path:
             raise AlipayApiException("invalid path")
 
@@ -190,6 +212,9 @@ class DefaultAlipayClient(object):
                 self.__gateway_url, request, extra_headers
             )
 
+        if self.__api_key_auth is not None:
+            return self.__execute_api_key(request, extra_headers)
+
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
         self.adjust_sandbox_url(request)
@@ -242,6 +267,28 @@ class DefaultAlipayClient(object):
             raise AlipayApiException("response signature verify failed.")
 
         return rsp_body
+
+    def __execute_api_key(self, request, extra_headers=None):
+        if not getattr(request, "path", None):
+            raise AlipayApiException("invalid path")
+        auth = self.__api_key_auth
+        path = auth.path(request.path)
+        headers = {
+            "Content-Type": "application/json; charset=UTF-8",
+            "User-Agent": USER_AGENT,
+            "Authorization": auth.authorization(),
+        }
+        protected = self._RESERVED_HEADERS | {"authorization", "key-version", "keyversion", "host"}
+        for key, value in (extra_headers or {}).items():
+            if key and key.strip() and key.lower() not in protected:
+                headers[key] = value
+        _, response = do_post_api_key(auth.gateway_url + path, headers, request.to_ams_json())
+        body = response.decode(DEFAULT_CHARSET)
+        try:
+            json.loads(body)
+        except ValueError:
+            raise AlipayApiException("API Key response is not valid JSON")
+        return body
 
     def adjust_sandbox_url(self, request):
         if self.__is_sandbox_mode:

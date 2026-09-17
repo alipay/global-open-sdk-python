@@ -58,3 +58,34 @@ def do_post(url, headers=None, req_body=None, charset=DEFAULT_CHARSET):
         raise AlipayApiException("close failed. " + str(e))
 
     return headers, result
+
+
+def do_post_api_key(url, headers, req_body, charset=DEFAULT_CHARSET):
+    """Use runtime CA trust and hostname verification; never follow redirects."""
+    parsed = url_parse.urlparse(url)
+    if parsed.scheme != "https":
+        raise AlipayApiException("API Key requires HTTPS")
+    connection = http_client.HTTPSConnection(
+        host=parsed.hostname, port=parsed.port or 443, timeout=DEFAULT_TIMEOUT,
+        context=ssl.create_default_context(),
+    )
+    response = None
+    try:
+        connection.request("POST", parsed.path, body=req_body.encode(charset), headers=headers)
+        response = connection.getresponse()
+        result = response.read()
+        if response.status != 200:
+            key = headers["Authorization"][len("Bearer "):]
+            body = result.decode(charset, errors="replace").replace(key, "[REDACTED]")
+            raise AlipayApiException("API Key HTTP status %s: %s" % (response.status, body))
+        return response.getheaders(), result
+    except ssl.SSLError:
+        raise AlipayApiException("API Key TLS connection failed; check gateway certificate and trusted CA configuration")
+    except (OSError, IOError, http_client.HTTPException) as e:
+        key = headers["Authorization"][len("Bearer "):]
+        detail = str(e).replace(key, "[REDACTED]")
+        raise AlipayApiException("API Key request failed. " + detail)
+    finally:
+        if response is not None:
+            response.close()
+        connection.close()

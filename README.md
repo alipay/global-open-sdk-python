@@ -1,7 +1,7 @@
 ```
 Language：Python  
 Python version：2.7+  
-Release ^1.5.8
+Release ^1.6.0
 Copyright：Ant financial services group  
 ```
 
@@ -123,3 +123,86 @@ sign(http_method, path, client_id, req_time, req_body, merchant_private_key)
 verify(http_method, path, client_id, rsp_time, rsp_body, rsp_signature, alipay_public_key)
 
 ```
+
+## API Key authentication
+
+See the [complete API Key example](example/api_key_example.py). From the repository root, run `python -m example.api_key_example`.
+
+Initialize the client with your gateway URL and API Key; existing RSA usage remains supported.
+This feature is available in the current source branch and has not been published yet.
+
+Set `ANTOM_GATEWAY_URL` to your regional HTTPS gateway (for example,
+`https://open-sea-global.alipay.com` for Asia), `ANTOM_API_KEY` to your key,
+`ANTOM_REDIRECT_URL` to your checkout return URL, and `ANTOM_NOTIFY_URL` to your
+notification endpoint. The application reads these variables; the SDK does not load them automatically.
+
+The example creates a CARD payment session for USD 1.00 (`100` minor units),
+with USD settlement. Use a merchant configured for this combination and a key
+with createPaymentSession permission. Replace the example client IP with the
+buyer's IP in your application. Exceptions propagate to the caller; a normal
+response must still be checked for business success.
+
+```python
+import os
+import uuid
+from com.alipay.ams.api.default_alipay_client import DefaultAlipayClient
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.order import Order
+from com.alipay.ams.api.model.payment_method import PaymentMethod
+from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
+from com.alipay.ams.api.model.env import Env
+from com.alipay.ams.api.model.product_code_type import ProductCodeType
+from com.alipay.ams.api.model.terminal_type import TerminalType
+from com.alipay.ams.api.model.result_status_type import ResultStatusType
+from com.alipay.ams.api.request.pay.alipay_payment_session_request import AlipayPaymentSessionRequest
+from com.alipay.ams.api.response.pay.alipay_payment_session_response import AlipayPaymentSessionResponse
+
+client = DefaultAlipayClient(
+    gateway_url=os.environ["ANTOM_GATEWAY_URL"],
+    api_key=os.environ["ANTOM_API_KEY"],
+)
+amount = Amount(currency="USD", value="100")
+order = Order()
+order.reference_order_id = str(uuid.uuid4())
+order.order_description = "API Key example"
+order.order_amount = amount
+method = PaymentMethod()
+method.payment_method_type = "CARD"
+factor = PaymentFactor()
+factor.is_authorization = False
+settlement = SettlementStrategy()
+settlement.settlement_currency = "USD"
+env = Env()
+env.terminal_type = TerminalType.WEB
+env.client_ip = "127.0.0.1"
+request = AlipayPaymentSessionRequest()
+request.product_code = ProductCodeType.CASHIER_PAYMENT
+request.product_scene = "CHECKOUT_PAYMENT"
+request.payment_request_id = str(uuid.uuid4())
+request.order = order
+request.payment_amount = amount
+request.payment_method = method
+request.payment_factor = factor
+request.settlement_strategy = settlement
+request.env = env
+request.payment_redirect_url = os.environ["ANTOM_REDIRECT_URL"]
+request.payment_notify_url = os.environ["ANTOM_NOTIFY_URL"]
+
+# Transport errors propagate as exceptions; also check the business result.
+response = AlipayPaymentSessionResponse(client.execute(request))
+result = response.result
+if result is None or result.result_status != ResultStatusType.S or result.result_code != "SUCCESS":
+    raise RuntimeError("Session creation was not successful: " +
+                       (result.result_code if result else "missing result"))
+if not response.payment_session_id:
+    raise RuntimeError("Missing paymentSessionId")
+# Use response.payment_session_data or the returned URL with your checkout.
+print("Payment session created")
+```
+
+- Standard and Restricted keys use the same client. TEST/PROD in the key selects
+  the request environment; do not add a sandbox path to the gateway URL.
+- Creating a session does not mean payment is complete. Notifications still use
+  the existing signature verification mechanism.
+- File upload is not supported with API Key authentication.
