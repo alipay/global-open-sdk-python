@@ -1,4 +1,5 @@
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
+from com.alipay.ams.api.model.pop_risk_decision_result_info import PopRiskDecisionResultInfo
 from com.alipay.ams.api.model.refund_to_bank_info import RefundToBankInfo
 from com.alipay.ams.api.model.retry_info import RetryInfo
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
@@ -29,6 +30,9 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__update_request_id = None  # type: str
         self.__auth_expiry_time = None  # type: str
         self.__tax_calculation_id = None  # type: str
+        self.__auth_review_status = None  # type: str
+        self.__auth_review_source = None  # type: str
+        self.__pop_risk_decision_result_info = None  # type: PopRiskDecisionResultInfo
         self.__parse_notify_body(notify_body)
 
     @property
@@ -131,6 +135,30 @@ class AlipayPayResultNotify(AlipayNotify):
     def tax_calculation_id(self, value):
         self.__tax_calculation_id = value
 
+    @property
+    def auth_review_status(self):
+        return self.__auth_review_status
+
+    @auth_review_status.setter
+    def auth_review_status(self, value):
+        self.__auth_review_status = value
+
+    @property
+    def auth_review_source(self):
+        return self.__auth_review_source
+
+    @auth_review_source.setter
+    def auth_review_source(self, value):
+        self.__auth_review_source = value
+
+    @property
+    def pop_risk_decision_result_info(self):
+        return self.__pop_risk_decision_result_info
+
+    @pop_risk_decision_result_info.setter
+    def pop_risk_decision_result_info(self, value):
+        self.__pop_risk_decision_result_info = value
+
     def __parse_notify_body(self, notify_body):
         notify = super(AlipayPayResultNotify, self).parse_notify_body(notify_body)
         if "paymentRequestId" in notify:
@@ -176,3 +204,9 @@ class AlipayPayResultNotify(AlipayNotify):
             self.__auth_expiry_time = notify["authExpiryTime"]
         if "taxCalculationId" in notify:
             self.__tax_calculation_id = notify["taxCalculationId"]
+        if "authReviewStatus" in notify:
+            self.__auth_review_status = notify["authReviewStatus"]
+        if "authReviewSource" in notify:
+            self.__auth_review_source = notify["authReviewSource"]
+        if "popRiskDecisionResultInfo" in notify:
+            self.__pop_risk_decision_result_info = notify["popRiskDecisionResultInfo"]
