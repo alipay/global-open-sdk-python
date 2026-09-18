@@ -5,6 +5,7 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.refund_detail import RefundDetail
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.goods import Goods
+from com.alipay.ams.api.model.split_detail import SplitDetail
 
 
 
@@ -30,6 +31,7 @@ class AlipayRefundRequest(AlipayRequest):
         self.__refund_source_account_no = None  # type: str
         self.__actual_refund_amount = None  # type: Amount
         self.__goods = None  # type: [Goods]
+        self.__split_details = None  # type: [SplitDetail]
         
 
     @property
@@ -192,6 +194,16 @@ class AlipayRefundRequest(AlipayRequest):
     @goods.setter
     def goods(self, value):
         self.__goods = value
+    @property
+    def split_details(self):
+        """
+        The split details to reverse for a refund. Provide this field when you override the existing Shopify ISV funding rule and specify the original split recipients that bear this refund, with 1 to 20 non-null items. This field is available to the Shopify ISV product only. It is not an idempotency key, but its complete value participates in the consistency check of refundRequestId. If this field is omitted, no explicit split-reversal instruction is created and the existing funding rule applies. No default value.  More information:  Maximum size: 20 elements
+        """
+        return self.__split_details
+
+    @split_details.setter
+    def split_details(self, value):
+        self.__split_details = value
 
 
     def to_ams_json(self): 
@@ -233,6 +245,8 @@ class AlipayRefundRequest(AlipayRequest):
             params['actualRefundAmount'] = self.actual_refund_amount
         if hasattr(self, "goods") and self.goods is not None:
             params['goods'] = self.goods
+        if hasattr(self, "split_details") and self.split_details is not None:
+            params['splitDetails'] = self.split_details
         return params
 
 
@@ -283,3 +297,9 @@ class AlipayRefundRequest(AlipayRequest):
                 obj = Goods()
                 obj.parse_rsp_body(item)
                 self.__goods.append(obj)
+        if 'splitDetails' in response_body:
+            self.__split_details = []
+            for item in response_body['splitDetails']:
+                obj = SplitDetail()
+                obj.parse_rsp_body(item)
+                self.__split_details.append(obj)
