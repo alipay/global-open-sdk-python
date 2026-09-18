@@ -18,6 +18,7 @@ from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 from com.alipay.ams.api.model.promotion_result import PromotionResult
 from com.alipay.ams.api.model.retry_info import RetryInfo
+from com.alipay.ams.api.model.pop_risk_decision_result_info import PopRiskDecisionResultInfo
 
 
 
@@ -37,6 +38,8 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__payment_request_id = None  # type: str
         self.__payment_id = None  # type: str
         self.__auth_payment_id = None  # type: str
+        self.__auth_review_status = None  # type: str
+        self.__auth_review_source = None  # type: str
         self.__payment_amount = None  # type: Amount
         self.__actual_payment_amount = None  # type: Amount
         self.__payment_quote = None  # type: Quote
@@ -60,6 +63,7 @@ class AlipayPayQueryResponse(AlipayResponse):
         self.__earliest_settlement_time = None  # type: str
         self.__payment_method_type = None  # type: str
         self.__retry_info = None  # type: RetryInfo
+        self.__pop_risk_decision_result_info = None  # type: PopRiskDecisionResultInfo
         self.parse_rsp_body(rsp_body) 
 
 
@@ -163,6 +167,26 @@ class AlipayPayQueryResponse(AlipayResponse):
     @auth_payment_id.setter
     def auth_payment_id(self, value):
         self.__auth_payment_id = value
+    @property
+    def auth_review_status(self):
+        """
+        The status of the post-authorization manual review. Valid values are:  PROCESSING: The manual review is not completed. Do not capture the payment or fulfill the order before the review reaches a final state. ACCEPT: The manual review is passed. REJECT: The manual review is rejected.  Note: This field is returned when the channel authorization requires manual review, or when the value of popRiskDecisionResultInfo.postRiskDecision is REVIEW. When this field is returned, authReviewSource is returned at the same time.  More information:  Maximum length: 16 characters
+        """
+        return self.__auth_review_status
+
+    @auth_review_status.setter
+    def auth_review_status(self, value):
+        self.__auth_review_status = value
+    @property
+    def auth_review_source(self):
+        """
+        The source of the post-authorization risk review. Valid values are:  ANTOM_SHIELD: The review is initiated by the Antom internal risk engine (Antom Shield). PSP: The review is initiated by the acquirer-side risk control.  Note: This field is returned only when authReviewStatus is returned. When both the channel manual review and the Antom Shield review are required, the channel manual review takes precedence and this field returns PSP.  More information:  Maximum length: 16 characters
+        """
+        return self.__auth_review_source
+
+    @auth_review_source.setter
+    def auth_review_source(self, value):
+        self.__auth_review_source = value
     @property
     def payment_amount(self):
         """Gets the payment_amount of this AlipayPayQueryResponse.
@@ -393,6 +417,16 @@ class AlipayPayQueryResponse(AlipayResponse):
     @retry_info.setter
     def retry_info(self, value):
         self.__retry_info = value
+    @property
+    def pop_risk_decision_result_info(self):
+        """Gets the pop_risk_decision_result_info of this AlipayPayQueryResponse.
+        
+        """
+        return self.__pop_risk_decision_result_info
+
+    @pop_risk_decision_result_info.setter
+    def pop_risk_decision_result_info(self, value):
+        self.__pop_risk_decision_result_info = value
 
 
     
@@ -419,6 +453,10 @@ class AlipayPayQueryResponse(AlipayResponse):
             params['paymentId'] = self.payment_id
         if hasattr(self, "auth_payment_id") and self.auth_payment_id is not None:
             params['authPaymentId'] = self.auth_payment_id
+        if hasattr(self, "auth_review_status") and self.auth_review_status is not None:
+            params['authReviewStatus'] = self.auth_review_status
+        if hasattr(self, "auth_review_source") and self.auth_review_source is not None:
+            params['authReviewSource'] = self.auth_review_source
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
             params['paymentAmount'] = self.payment_amount
         if hasattr(self, "actual_payment_amount") and self.actual_payment_amount is not None:
@@ -465,6 +503,8 @@ class AlipayPayQueryResponse(AlipayResponse):
             params['paymentMethodType'] = self.payment_method_type
         if hasattr(self, "retry_info") and self.retry_info is not None:
             params['retryInfo'] = self.retry_info
+        if hasattr(self, "pop_risk_decision_result_info") and self.pop_risk_decision_result_info is not None:
+            params['popRiskDecisionResultInfo'] = self.pop_risk_decision_result_info
         return params
 
 
@@ -494,6 +534,10 @@ class AlipayPayQueryResponse(AlipayResponse):
             self.__payment_id = response_body['paymentId']
         if 'authPaymentId' in response_body:
             self.__auth_payment_id = response_body['authPaymentId']
+        if 'authReviewStatus' in response_body:
+            self.__auth_review_status = response_body['authReviewStatus']
+        if 'authReviewSource' in response_body:
+            self.__auth_review_source = response_body['authReviewSource']
         if 'paymentAmount' in response_body:
             self.__payment_amount = Amount()
             self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
@@ -561,3 +605,6 @@ class AlipayPayQueryResponse(AlipayResponse):
         if 'retryInfo' in response_body:
             self.__retry_info = RetryInfo()
             self.__retry_info.parse_rsp_body(response_body['retryInfo'])
+        if 'popRiskDecisionResultInfo' in response_body:
+            self.__pop_risk_decision_result_info = PopRiskDecisionResultInfo()
+            self.__pop_risk_decision_result_info.parse_rsp_body(response_body['popRiskDecisionResultInfo'])
