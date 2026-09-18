@@ -1,9 +1,31 @@
 ```
 Language：Python  
 Python version：2.7+  
-Release ^1.5.8
+Release ^1.6.0
 Copyright：Ant financial services group  
 ```
+
+
+Planned release: **1.6.0**. This version is not published yet; package/tag references
+below describe the target release. Build this branch to try it before publication.
+
+## API Key client (planned for 1.6.0)
+
+Use `ApiKeyAlipayClient` with a regional HTTPS gateway and API Key. Existing request
+models are shared with the RSA client; ClientId and RSA keys are not required.
+
+```python
+import os
+from com.alipay.ams.api.api_key_alipay_client import ApiKeyAlipayClient
+
+client = ApiKeyAlipayClient(
+    os.environ["ANTOM_GATEWAY_URL"], os.environ["ANTOM_API_KEY"])
+```
+
+Start with the [sandbox createPaymentSession example](example/api_key_payment_session.py) and its
+[configuration and run instructions](docs/api-key-client.md). Existing RSA usage below remains supported.
+
+
 
 #### Meter event upload
 
