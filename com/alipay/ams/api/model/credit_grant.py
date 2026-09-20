@@ -1,6 +1,6 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.available_amount import AvailableAmount
+from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.applicability import Applicability
 
 
@@ -14,7 +14,7 @@ class CreditGrant:
         self.__customer_id = None  # type: str
         self.__status = None  # type: str
         self.__amount = None  # type: Amount
-        self.__available_amount = None  # type: AvailableAmount
+        self.__available_amount = None  # type: Amount
         self.__applicability = None  # type: Applicability
         self.__priority = None  # type: int
         self.__category = None  # type: str
@@ -27,7 +27,7 @@ class CreditGrant:
     @property
     def credit_grant_id(self):
         """
-        The credit grant ID. Maximum length: 64 characters.
+        The unique identifier of the Credit Grant. Maximum length: 64 characters.
         """
         return self.__credit_grant_id
 
@@ -37,7 +37,7 @@ class CreditGrant:
     @property
     def credit_grant_name(self):
         """
-        The credit grant name. Maximum length: 255 characters.
+        The merchant-facing name of the Credit Grant. Maximum length: 255 characters.
         """
         return self.__credit_grant_name
 
@@ -47,7 +47,7 @@ class CreditGrant:
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        The Customer that receives the credit. Maximum length: 64 characters.
         """
         return self.__customer_id
 
@@ -57,7 +57,7 @@ class CreditGrant:
     @property
     def status(self):
         """
-        The current status. Maximum length: 8 characters.
+        The Credit Grant status. Valid values are PENDING, ACTIVE, EXPIRED, and VOIDED. VOIDED is the only irreversible terminal state. Maximum length: 8 characters.
         """
         return self.__status
 
@@ -97,7 +97,7 @@ class CreditGrant:
     @property
     def priority(self):
         """
-        The priority.
+        The application priority from 0 to 100. A lower value has a higher priority.
         """
         return self.__priority
 
@@ -107,7 +107,7 @@ class CreditGrant:
     @property
     def category(self):
         """
-        The category. Maximum length: 16 characters.
+        The Credit Grant category. Valid values are PREPAID and PROMOTIONAL. Maximum length: 16 characters.
         """
         return self.__category
 
@@ -117,7 +117,7 @@ class CreditGrant:
     @property
     def effective_date_time(self):
         """
-        The effective date time. Maximum length: 32 characters. Note: See documentation for details.
+        The effective time in ISO 8601 UTC format, encoded as a JSON string. Omitted when the Grant is effective immediately. Maximum length: 32 characters.
         """
         return self.__effective_date_time
 
@@ -127,7 +127,7 @@ class CreditGrant:
     @property
     def expiry_date_time(self):
         """
-        The expiry date time. Maximum length: 32 characters. Note: See documentation for details.
+        The expiration time in ISO 8601 UTC format, encoded as a JSON string. Omitted when the Grant does not expire automatically. Maximum length: 32 characters.
         """
         return self.__expiry_date_time
 
@@ -137,7 +137,7 @@ class CreditGrant:
     @property
     def created_date_time(self):
         """
-        The created date time. Maximum length: 32 characters.
+        The creation time in ISO 8601 UTC format, encoded as a JSON string. Maximum length: 32 characters.
         """
         return self.__created_date_time
 
@@ -147,7 +147,7 @@ class CreditGrant:
     @property
     def updated_date_time(self):
         """
-        The updated date time. Maximum length: 32 characters.
+        The last update time in ISO 8601 UTC format, encoded as a JSON string. Maximum length: 32 characters.
         """
         return self.__updated_date_time
 
@@ -204,7 +204,7 @@ class CreditGrant:
             self.__amount = Amount()
             self.__amount.parse_rsp_body(response_body['amount'])
         if 'availableAmount' in response_body:
-            self.__available_amount = AvailableAmount()
+            self.__available_amount = Amount()
             self.__available_amount.parse_rsp_body(response_body['availableAmount'])
         if 'applicability' in response_body:
             self.__applicability = Applicability()

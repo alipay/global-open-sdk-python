@@ -4,6 +4,7 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.transaction_status_type import TransactionStatusType
+from com.alipay.ams.api.model.split_detail import SplitDetail
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
@@ -26,6 +27,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
         self.__refund_amount = None  # type: Amount
         self.__refund_status = None  # type: TransactionStatusType
         self.__refund_time = None  # type: str
+        self.__split_details = None  # type: [SplitDetail]
         self.__gross_settlement_amount = None  # type: Amount
         self.__settlement_quote = None  # type: Quote
         self.__acquirer_info = None  # type: AcquirerInfo
@@ -135,6 +137,16 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     def refund_time(self, value):
         self.__refund_time = value
     @property
+    def split_details(self):
+        """
+        The actual split reversal details for a refund. This field is guaranteed when the value of result.resultStatus is S, the value of refundStatus is SUCCESS, and the original refund request contains splitDetails, in which case it contains 1 to 20 items. This field is absent when the original refund request does not contain an explicit split-reversal instruction. When the value of refundStatus is PROCESSING, this field can be absent, and each returned item contains only the original-request fields splitTo, splitAmount, and description; in this case actualSplitAmount is absent and the data is non-final and must not be used for reconciliation.  More information:  Maximum size: 20 elements
+        """
+        return self.__split_details
+
+    @split_details.setter
+    def split_details(self, value):
+        self.__split_details = value
+    @property
     def gross_settlement_amount(self):
         """Gets the gross_settlement_amount of this AlipayInquiryRefundResponse.
         
@@ -177,7 +189,7 @@ class AlipayInquiryRefundResponse(AlipayResponse):
     @property
     def authorization_code(self):
         """
-        The authorization code returned by the payment channel for a successful refund. This field is returned only when refundStatus is SUCCESS, the payment method or channel supplies a non-empty value, and the merchant is enabled for this capability. Otherwise, the property is omitted and is never returned as JSON null. The exact channel-provided string is returned without trimming, padding, case conversion, substitution, or truncation. Its absence does not change the refund result or produce a field-specific error.
+        The authorization code returned by the payment channel upon a successful refund.
         """
         return self.__authorization_code
 
@@ -210,6 +222,8 @@ class AlipayInquiryRefundResponse(AlipayResponse):
             params['refundStatus'] = self.refund_status
         if hasattr(self, "refund_time") and self.refund_time is not None:
             params['refundTime'] = self.refund_time
+        if hasattr(self, "split_details") and self.split_details is not None:
+            params['splitDetails'] = self.split_details
         if hasattr(self, "gross_settlement_amount") and self.gross_settlement_amount is not None:
             params['grossSettlementAmount'] = self.gross_settlement_amount
         if hasattr(self, "settlement_quote") and self.settlement_quote is not None:
@@ -250,6 +264,12 @@ class AlipayInquiryRefundResponse(AlipayResponse):
             self.__refund_status = refund_status_temp
         if 'refundTime' in response_body:
             self.__refund_time = response_body['refundTime']
+        if 'splitDetails' in response_body:
+            self.__split_details = []
+            for item in response_body['splitDetails']:
+                obj = SplitDetail()
+                obj.parse_rsp_body(item)
+                self.__split_details.append(obj)
         if 'grossSettlementAmount' in response_body:
             self.__gross_settlement_amount = Amount()
             self.__gross_settlement_amount.parse_rsp_body(response_body['grossSettlementAmount'])

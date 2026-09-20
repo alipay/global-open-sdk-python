@@ -16,7 +16,7 @@ class AlipayCreditGrantUpdateExpiryRequest(AlipayRequest):
     @property
     def credit_grant_id(self):
         """
-        The credit grant ID. Maximum length: 64 characters.
+        The unique identifier of the Credit Grant. The resource must belong to the authenticated merchant. Maximum length: 64 characters.
         """
         return self.__credit_grant_id
 
@@ -26,7 +26,7 @@ class AlipayCreditGrantUpdateExpiryRequest(AlipayRequest):
     @property
     def expiry_mode(self):
         """
-        The expiry mode. Maximum length: 16 characters.
+        The expiration mode. Valid values are NEVER, SPECIFIC_DATE, and IMMEDIATELY. NEVER means the Credit Grant does not expire automatically and expiryDateTime is omitted; SPECIFIC_DATE means the Credit Grant expires at the time specified by expiryDateTime, which is required; IMMEDIATELY means the Credit Grant expires immediately after the request is successfully processed and expiryDateTime is omitted. Maximum length: 16 characters.
         """
         return self.__expiry_mode
 
@@ -36,7 +36,7 @@ class AlipayCreditGrantUpdateExpiryRequest(AlipayRequest):
     @property
     def expiry_date_time(self):
         """
-        The expiry date time. Maximum length: 32 characters. Note: See documentation for details.
+        The expiration time in ISO 8601 UTC format, encoded as a JSON string. Send this field only when expiryMode is SPECIFIC_DATE; otherwise omit. The value must be later than the current and effective times. Maximum length: 32 characters.
         """
         return self.__expiry_date_time
 
