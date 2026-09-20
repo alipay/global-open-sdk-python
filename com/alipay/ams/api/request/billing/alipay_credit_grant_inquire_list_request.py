@@ -17,7 +17,7 @@ class AlipayCreditGrantInquireListRequest(AlipayRequest):
     @property
     def page_num(self):
         """
-        The page number. The value must be at least 1. The default value is 1. A page beyond the last page returns SUCCESS with an empty &#x60;creditGrants&#x60; array.
+        The page number. Omit to use 1. When present, it must be an integer at least 1; a page beyond the current last page returns success with an empty creditGrants array.
         """
         return self.__page_num
 
@@ -27,7 +27,7 @@ class AlipayCreditGrantInquireListRequest(AlipayRequest):
     @property
     def page_size(self):
         """
-        The number of records per page. Value range: 1-100. The default value is 10.
+        The number of records per page. Omit to use 10. When present, it must be an integer from 1 to 100.
         """
         return self.__page_size
 
@@ -37,7 +37,7 @@ class AlipayCreditGrantInquireListRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        The Customer filter. Omit to include all Customers. Maximum length: 64 characters.
         """
         return self.__customer_id
 
@@ -47,7 +47,7 @@ class AlipayCreditGrantInquireListRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 8 characters.
+        The Credit Grant status filter. Valid values are PENDING, ACTIVE, EXPIRED, and VOIDED; omit to include all states. Maximum length: 8 characters.
         """
         return self.__status
 

@@ -20,7 +20,7 @@ class Meter:
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 64 characters.
+        The unique identifier of the Meter. Maximum length: 64 characters.
         """
         return self.__meter_id
 
@@ -30,7 +30,7 @@ class Meter:
     @property
     def meter_name(self):
         """
-        The meter name. Maximum length: 255 characters.
+        The merchant-facing name of the Meter. Maximum length: 255 characters.
         """
         return self.__meter_name
 
@@ -40,7 +40,7 @@ class Meter:
     @property
     def event_name(self):
         """
-        The event name. Maximum length: 100 characters.
+        The event routing name. It is unique within a merchant and cannot be changed after creation. Maximum length: 100 characters.
         """
         return self.__event_name
 
@@ -50,7 +50,7 @@ class Meter:
     @property
     def status(self):
         """
-        The current status. Maximum length: 8 characters.
+        The Meter status. Valid values are ACTIVE and INACTIVE. Maximum length: 8 characters.
         """
         return self.__status
 
@@ -60,7 +60,7 @@ class Meter:
     @property
     def aggregation_method(self):
         """
-        The aggregation method. Maximum length: 8 characters.
+        The aggregation method. Valid values are SUM, COUNT, and LAST. SUM adds the metered values from all eligible Events within the aggregation period; COUNT counts the number of eligible Events within the aggregation period; LAST uses the metered value from the most recent eligible Event. Maximum length: 8 characters.
         """
         return self.__aggregation_method
 
@@ -70,7 +70,7 @@ class Meter:
     @property
     def event_time_window(self):
         """
-        The event time window. Maximum length: 4 characters.
+        The upstream pre-aggregation window. Valid values are HOUR and DAY. The field is omitted for raw Events. Maximum length: 4 characters.
         """
         return self.__event_time_window
 
@@ -80,7 +80,7 @@ class Meter:
     @property
     def value_key_override(self):
         """
-        The value key override. Maximum length: 256 characters.
+        The field name in the Event payload that contains the metered value. Its length is 1 to 100 characters and it must match ^[A-Za-z0-9_]{1,100}$. Maximum length: 100 characters.
         """
         return self.__value_key_override
 
@@ -90,7 +90,7 @@ class Meter:
     @property
     def created_date_time(self):
         """
-        The created date time. Maximum length: 32 characters.
+        The creation time in ISO 8601 UTC format, encoded as a JSON string. Maximum length: 32 characters.
         """
         return self.__created_date_time
 
@@ -100,7 +100,7 @@ class Meter:
     @property
     def updated_date_time(self):
         """
-        The updated date time. Maximum length: 32 characters.
+        The last update time in ISO 8601 UTC format, encoded as a JSON string. Maximum length: 32 characters.
         """
         return self.__updated_date_time
 
