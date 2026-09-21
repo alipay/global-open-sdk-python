@@ -4,11 +4,17 @@ Latest release: **1.6.1**
 
 ## Installation
 
+Use Python 3.9.2 or later; a maintained Python release is recommended.
+The SDK uses Python 3.9+ type annotations, and its `cryptography` dependency
+excludes Python 3.9.0 and 3.9.1. Use a virtual environment and ensure `python`
+refers to that interpreter.
+
 ```sh
 python -m pip install --upgrade global-open-sdk-python
 ```
 
-Use Python 3 for the examples below.
+For Meter HTTP/2, install the optional dependencies with
+`python -m pip install --upgrade "global-open-sdk-python[http2]"`.
 
 ## Quick start
 
@@ -151,11 +157,11 @@ model has been removed.
 
 ## Meter event upload
 
-Install the optional HTTP/2 dependencies. This API requires Python 3.9 or later;
-other SDK APIs retain the package's existing Python compatibility.
+Install the optional HTTP/2 dependencies using the Python environment described
+in [Installation](#installation).
 
 ```bash
-pip install "global-open-sdk-python[http2]"
+python -m pip install --upgrade "global-open-sdk-python[http2]"
 ```
 
 `meter/createSession` uses the regular signed AMS transport. Use its session ID
@@ -165,7 +171,7 @@ The fragment below assumes an initialized RSA client, a valid session ID from
 `meter/createSession`, and a populated collection of meter event batches.
 
 ```python
-# Requires Python 3.9+ and: pip install "global-open-sdk-python[http2]"
+# Requires the http2 extra installed above.
 from com.alipay.ams.api.request.billing.alipay_meter_upload_event_request import AlipayMeterUploadEventRequest
 
 request = AlipayMeterUploadEventRequest()

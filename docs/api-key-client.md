@@ -9,7 +9,8 @@ the key without modifying the request or decoding a ClientId.
 
 ## Run the sandbox example
 
-Use Python 3. From this repository root, configure:
+Use Python 3.9.2 or later, as described in [Installation](../README.md#installation).
+From this repository root, configure:
 
 | Environment variable | Value |
 |---|---|

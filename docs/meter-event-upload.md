@@ -1,17 +1,17 @@
 # Meter event upload
 
-Install the optional HTTP/2 dependencies. This API requires Python 3.9 or later;
-other SDK APIs retain the package's existing Python compatibility.
+Use Python 3.9.2 or later, as described in [Installation](../README.md#installation),
+and install the optional HTTP/2 dependencies:
 
 ```bash
-pip install "global-open-sdk-python[http2]"
+python -m pip install --upgrade "global-open-sdk-python[http2]"
 ```
 
 `meter/createSession` uses the regular signed AMS transport. Use its session ID
 to call `meter/uploadEvent` through `execute_with_headers`:
 
 ```python
-# Requires Python 3.9+ and: pip install "global-open-sdk-python[http2]"
+# Requires the http2 extra installed above.
 request = AlipayMeterUploadEventRequest()
 request.meters = meters
 response_body = default_alipay_client.execute_with_headers(
