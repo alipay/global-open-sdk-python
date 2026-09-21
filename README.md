@@ -12,26 +12,12 @@ Use Python 3 for the examples below.
 
 ## Quick start
 
-- **API Key:** follow the [setup guide](docs/api-key-client.md) and run the [sandbox example](example/api_key_payment_session.py).
 - **RSA:** follow the [configuration](#rsa-configuration) and [inline example](#payment) below.
+- **API Key (limited availability):** follow the [setup guide](docs/api-key-client.md) and run the [sandbox example](example/api_key_payment_session.py).
 - Browse [more examples](example) and the [API documentation](https://global.alipay.com/docs/).
 
-API Key and RSA clients share request/response models. File uploads and notification
+RSA and API Key clients share request/response models. File uploads and notification
 verification still require RSA credentials.
-
-### API Key client
-
-Set `ANTOM_GATEWAY_URL` and `ANTOM_API_KEY` in your server environment.
-This initializes the client; see the [setup guide](docs/api-key-client.md) for a
-complete sandbox request and its additional configuration.
-
-```python
-import os
-from com.alipay.ams.api.api_key_alipay_client import ApiKeyAlipayClient
-
-client = ApiKeyAlipayClient(
-    os.environ["ANTOM_GATEWAY_URL"], os.environ["ANTOM_API_KEY"])
-```
 
 ### RSA configuration
 
@@ -136,6 +122,23 @@ if alipay_pay_response.result.result_status.name != ResultStatusType.F.name:
     print(alipay_pay_response.payment_create_time)
 else:
     print(alipay_pay_response.result.result_message)
+```
+
+### API Key client (limited availability)
+
+> API Key access is not yet available to all merchants. Use this client only if
+> API Key access has been enabled for your account; otherwise, use RSA.
+
+Set `ANTOM_GATEWAY_URL` and `ANTOM_API_KEY` in your server environment.
+This initializes the client; see the [setup guide](docs/api-key-client.md) for a
+complete sandbox request and its additional configuration.
+
+```python
+import os
+from com.alipay.ams.api.api_key_alipay_client import ApiKeyAlipayClient
+
+client = ApiKeyAlipayClient(
+    os.environ["ANTOM_GATEWAY_URL"], os.environ["ANTOM_API_KEY"])
 ```
 
 ## Upgrade notes
