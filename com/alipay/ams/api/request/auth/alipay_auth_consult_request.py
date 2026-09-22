@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.authorization_consult_direct_debit_info import AuthorizationConsultDirectDebitInfo
 from com.alipay.ams.api.model.customer_belongs_to import CustomerBelongsTo
 from com.alipay.ams.api.model.scope_type import ScopeType
 from com.alipay.ams.api.model.terminal_type import TerminalType
@@ -14,6 +16,8 @@ class AlipayAuthConsultRequest(AlipayRequest):
     def __init__(self):
         super(AlipayAuthConsultRequest, self).__init__("/ams/api/v1/authorizations/consult") 
 
+        self.__amount = None  # type: Amount
+        self.__direct_debit_info = None  # type: AuthorizationConsultDirectDebitInfo
         self.__merchant_account_id = None  # type: str
         self.__auth_notify_url = None  # type: str
         self.__customer_belongs_to = None  # type: CustomerBelongsTo
@@ -31,6 +35,26 @@ class AlipayAuthConsultRequest(AlipayRequest):
         self.__env = None  # type: Env
         
 
+    @property
+    def amount(self):
+        """Gets the amount of this AlipayAuthConsultRequest.
+        
+        """
+        return self.__amount
+
+    @amount.setter
+    def amount(self, value):
+        self.__amount = value
+    @property
+    def direct_debit_info(self):
+        """Gets the direct_debit_info of this AlipayAuthConsultRequest.
+        
+        """
+        return self.__direct_debit_info
+
+    @direct_debit_info.setter
+    def direct_debit_info(self, value):
+        self.__direct_debit_info = value
     @property
     def merchant_account_id(self):
         """
@@ -190,6 +214,10 @@ class AlipayAuthConsultRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "amount") and self.amount is not None:
+            params['amount'] = self.amount
+        if hasattr(self, "direct_debit_info") and self.direct_debit_info is not None:
+            params['directDebitInfo'] = self.direct_debit_info
         if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
             params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "auth_notify_url") and self.auth_notify_url is not None:
@@ -226,6 +254,12 @@ class AlipayAuthConsultRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'amount' in response_body:
+            self.__amount = Amount()
+            self.__amount.parse_rsp_body(response_body['amount'])
+        if 'directDebitInfo' in response_body:
+            self.__direct_debit_info = AuthorizationConsultDirectDebitInfo()
+            self.__direct_debit_info.parse_rsp_body(response_body['directDebitInfo'])
         if 'merchantAccountId' in response_body:
             self.__merchant_account_id = response_body['merchantAccountId']
         if 'authNotifyUrl' in response_body:
