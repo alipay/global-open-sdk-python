@@ -73,10 +73,10 @@ def _validate_value_format(value):
 
 
 def _validate_canonical(value, currency):
-    if not value.strip("0"):
-        _fail("AMOUNT_NOT_POSITIVE", "value must be greater than zero")
     if len(value) > _MAX_VALUE_LENGTH:
         _fail("VALUE_TOO_LONG", "value must contain at most 16 digits")
+    if not value.strip("0"):
+        return
     _, constraints = get_rules()
     constraint = constraints.get(currency)
     if constraint:
