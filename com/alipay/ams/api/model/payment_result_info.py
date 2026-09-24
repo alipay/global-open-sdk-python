@@ -9,6 +9,7 @@ from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
 class PaymentResultInfo:
     def __init__(self):
         
+        self.__fingerprint = None  # type: str
         self.__issuer_name = None  # type: str
         self.__refusal_code_raw = None  # type: str
         self.__refusal_reason_raw = None  # type: str
@@ -42,6 +43,16 @@ class PaymentResultInfo:
         self.__refund_on_authorization_available = None  # type: bool
         
 
+    @property
+    def fingerprint(self):
+        """
+        Uniquely identifies a card number and can be used to determine whether different customers are using the same card number. Maximum length: 256 characters.
+        """
+        return self.__fingerprint
+
+    @fingerprint.setter
+    def fingerprint(self, value):
+        self.__fingerprint = value
     @property
     def issuer_name(self):
         """
@@ -358,6 +369,8 @@ class PaymentResultInfo:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "fingerprint") and self.fingerprint is not None:
+            params['fingerprint'] = self.fingerprint
         if hasattr(self, "issuer_name") and self.issuer_name is not None:
             params['issuerName'] = self.issuer_name
         if hasattr(self, "refusal_code_raw") and self.refusal_code_raw is not None:
@@ -426,6 +439,8 @@ class PaymentResultInfo:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'fingerprint' in response_body:
+            self.__fingerprint = response_body['fingerprint']
         if 'issuerName' in response_body:
             self.__issuer_name = response_body['issuerName']
         if 'refusalCodeRaw' in response_body:
