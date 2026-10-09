@@ -18,6 +18,7 @@ from com.alipay.ams.api.model.declaration import Declaration
 class Order:
     def __init__(self):
         
+        self.__send_receipt = None  # type: bool
         self.__reference_order_id = None  # type: str
         self.__order_description = None  # type: str
         self.__order_amount = None  # type: Amount
@@ -38,6 +39,16 @@ class Order:
         self.__tax_calculation_id = None  # type: str
         
 
+    @property
+    def send_receipt(self):
+        """
+        For createPaymentSession, request a receipt email after successful payment. Defaults to false on the server. Locale follows customer preferredLocales, or en-US. Omit in APIs that do not document support.
+        """
+        return self.__send_receipt
+
+    @send_receipt.setter
+    def send_receipt(self, value):
+        self.__send_receipt = value
     @property
     def reference_order_id(self):
         """
@@ -224,6 +235,8 @@ class Order:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "send_receipt") and self.send_receipt is not None:
+            params['sendReceipt'] = self.send_receipt
         if hasattr(self, "reference_order_id") and self.reference_order_id is not None:
             params['referenceOrderId'] = self.reference_order_id
         if hasattr(self, "order_description") and self.order_description is not None:
@@ -266,6 +279,8 @@ class Order:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'sendReceipt' in response_body:
+            self.__send_receipt = response_body['sendReceipt']
         if 'referenceOrderId' in response_body:
             self.__reference_order_id = response_body['referenceOrderId']
         if 'orderDescription' in response_body:

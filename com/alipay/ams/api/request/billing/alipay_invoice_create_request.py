@@ -1,4 +1,6 @@
 import json
+from com.alipay.ams.api.model.automatic_tax import AutomaticTax
+from com.alipay.ams.api.model.invoice_customer_details import InvoiceCustomerDetails
 from com.alipay.ams.api.model.invoice_create_item import InvoiceCreateItem
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.invoice_shipping import InvoiceShipping
@@ -12,6 +14,9 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     def __init__(self):
         super(AlipayInvoiceCreateRequest, self).__init__("/ams/api/v1/billing/invoice/create") 
 
+        self.__include_payment_link = None  # type: bool
+        self.__automatic_tax = None  # type: AutomaticTax
+        self.__customer_details = None  # type: InvoiceCustomerDetails
         self.__invoice_request_id = None  # type: str
         self.__customer_id = None  # type: str
         self.__subscription_id = None  # type: str
@@ -30,9 +35,39 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
         
 
     @property
+    def include_payment_link(self):
+        """
+        Whether invoice emails and PDFs display payment links. Defaults to true on the server; false hides links without suppressing email or hostedInvoiceUrl. Saved for later delivery unless overridden.
+        """
+        return self.__include_payment_link
+
+    @include_payment_link.setter
+    def include_payment_link(self, value):
+        self.__include_payment_link = value
+    @property
+    def automatic_tax(self):
+        """Gets the automatic_tax of this AlipayInvoiceCreateRequest.
+        
+        """
+        return self.__automatic_tax
+
+    @automatic_tax.setter
+    def automatic_tax(self, value):
+        self.__automatic_tax = value
+    @property
+    def customer_details(self):
+        """Gets the customer_details of this AlipayInvoiceCreateRequest.
+        
+        """
+        return self.__customer_details
+
+    @customer_details.setter
+    def customer_details(self, value):
+        self.__customer_details = value
+    @property
     def invoice_request_id(self):
         """
-        Merchant-supplied idempotency key. Repeating the same &#x60;invoiceRequestId&#x60; returns the originally created invoice (true idempotency - same key, same result). Must be unique per merchant. Backed by a unique constraint &#x60;UK(merchant_id, invoice_request_id)&#x60; on &#x60;ibilling_invoice&#x60;. Accepts alphanumeric characters, and underscores. Cannot be null.
+        Merchant-scoped idempotency key. A duplicate returns BIZ_REPEATED_SUBMIT (F) with the persisted invoice ID and status before customer resolution, without comparing replay payloads. Reconcile and retry unknown outcomes with the same ID.
         """
         return self.__invoice_request_id
 
@@ -42,7 +77,7 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        Customer ID this invoice belongs to. The customer must exist and belong to the requesting merchant. Cannot be null.
+        Existing customer ID belonging to the merchant. Supply exactly one of customerId and customerDetails.
         """
         return self.__customer_id
 
@@ -92,7 +127,7 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @property
     def auto_send(self):
         """
-        Whether to email the invoice to the customer when created as &#x60;OPEN&#x60;. When &#x60;true&#x60;, the email is sent idempotently - sending the same invoice twice won&#39;t produce duplicate emails. Can be null (defaults to false).
+        Request invoice email delivery when created as OPEN. Defaults to false on the server. Independent of includePaymentLink; delivery failure does not undo issuance.
         """
         return self.__auto_send
 
@@ -102,7 +137,7 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @property
     def cc_emails(self):
         """
-        CC email addresses for invoice notification. When &#x60;autoSend&#x60; is &#x60;true&#x60;, the invoice email is also sent to these addresses. Can be null.
+        Valid CC email addresses. The current invoice auto-send flow does not guarantee CC forwarding.
         """
         return self.__cc_emails
 
@@ -162,7 +197,7 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @property
     def discounts(self):
         """
-        Invoice-level discount items. Each item carries either a &#x60;couponId&#x60; or &#x60;promotionCodeId&#x60; (at least one must be provided per element). Multiple discounts are applied sequentially to the invoice subtotal in the order they appear. The system resolves each discount reference to its actual discount value (percentage or fixed amount) at creation time and computes the resulting &#x60;discountAmount&#x60; internally. Can be null. See DiscountItem Object below for field details.
+        Invoice-level discount items. Each item carries either a &#x60;couponId&#x60; or &#x60;promotionCodeId&#x60; (at least one must be provided per element). Multiple discounts are applied sequentially to the invoice subtotal in the order they appear. The system resolves each discount reference to its actual discount value (percentage or fixed amount) at creation time and computes the resulting &#x60;discountAmount&#x60; internally. Can be null. See DiscountItem Object below for field details. Invoice-level discounts are not supported when automaticTax.enabled is true.
         """
         return self.__discounts
 
@@ -188,6 +223,12 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "include_payment_link") and self.include_payment_link is not None:
+            params['includePaymentLink'] = self.include_payment_link
+        if hasattr(self, "automatic_tax") and self.automatic_tax is not None:
+            params['automaticTax'] = self.automatic_tax
+        if hasattr(self, "customer_details") and self.customer_details is not None:
+            params['customerDetails'] = self.customer_details
         if hasattr(self, "invoice_request_id") and self.invoice_request_id is not None:
             params['invoiceRequestId'] = self.invoice_request_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
@@ -224,6 +265,14 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'includePaymentLink' in response_body:
+            self.__include_payment_link = response_body['includePaymentLink']
+        if 'automaticTax' in response_body:
+            self.__automatic_tax = AutomaticTax()
+            self.__automatic_tax.parse_rsp_body(response_body['automaticTax'])
+        if 'customerDetails' in response_body:
+            self.__customer_details = InvoiceCustomerDetails()
+            self.__customer_details.parse_rsp_body(response_body['customerDetails'])
         if 'invoiceRequestId' in response_body:
             self.__invoice_request_id = response_body['invoiceRequestId']
         if 'customerId' in response_body:
