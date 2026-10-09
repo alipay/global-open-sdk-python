@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -8,6 +9,9 @@ from com.alipay.ams.api.model.amount import Amount
 class InvoiceCreateItem:
     def __init__(self):
         
+        self.__discount_amount = None  # type: Amount
+        self.__tax_behavior = None  # type: str
+        self.__tax_code = None  # type: str
         self.__description = None  # type: str
         self.__item_amount = None  # type: Amount
         self.__unit_amount = None  # type: Amount
@@ -19,6 +23,36 @@ class InvoiceCreateItem:
         self.__supply_end = None  # type: str
         
 
+    @property
+    def discount_amount(self):
+        """Gets the discount_amount of this InvoiceCreateItem.
+        
+        """
+        return self.__discount_amount
+
+    @discount_amount.setter
+    def discount_amount(self, value):
+        self.__discount_amount = value
+    @property
+    def tax_behavior(self):
+        """
+        Tax inclusion behavior: EXCLUSIVE (tax added) or INCLUSIVE (tax included). Used for automatic tax calculation.
+        """
+        return self.__tax_behavior
+
+    @tax_behavior.setter
+    def tax_behavior(self, value):
+        self.__tax_behavior = value
+    @property
+    def tax_code(self):
+        """
+        Line-item tax classification code for automatic tax calculation, such as txcd_37071002.
+        """
+        return self.__tax_code
+
+    @tax_code.setter
+    def tax_code(self, value):
+        self.__tax_code = value
     @property
     def description(self):
         """
@@ -72,7 +106,7 @@ class InvoiceCreateItem:
     @property
     def quantity(self):
         """
-        Quantity of units. Integer only; decimal quantities are not supported in v1. Defaults to 1 if omitted. Required for unit-amount and price-object pricing models, and ignored for fixed-amount pricing. Value range: 1 to 999999.
+        Quantity of units, from 1 to 999. Defaults to 1 on the server. Multiplies unitAmount or catalog pricing; does not multiply fixed itemAmount.
         """
         return self.__quantity
 
@@ -115,6 +149,12 @@ class InvoiceCreateItem:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "discount_amount") and self.discount_amount is not None:
+            params['discountAmount'] = self.discount_amount
+        if hasattr(self, "tax_behavior") and self.tax_behavior is not None:
+            params['taxBehavior'] = self.tax_behavior
+        if hasattr(self, "tax_code") and self.tax_code is not None:
+            params['taxCode'] = self.tax_code
         if hasattr(self, "description") and self.description is not None:
             params['description'] = self.description
         if hasattr(self, "item_amount") and self.item_amount is not None:
@@ -139,6 +179,13 @@ class InvoiceCreateItem:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'discountAmount' in response_body:
+            self.__discount_amount = Amount()
+            self.__discount_amount.parse_rsp_body(response_body['discountAmount'])
+        if 'taxBehavior' in response_body:
+            self.__tax_behavior = response_body['taxBehavior']
+        if 'taxCode' in response_body:
+            self.__tax_code = response_body['taxCode']
         if 'description' in response_body:
             self.__description = response_body['description']
         if 'itemAmount' in response_body:

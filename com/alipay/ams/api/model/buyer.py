@@ -10,6 +10,8 @@ from com.alipay.ams.api.model.address import Address
 class Buyer:
     def __init__(self):
         
+        self.__business_name = None  # type: str
+        self.__buyer_type = None  # type: str
         self.__reference_buyer_id = None  # type: str
         self.__buyer_name = None  # type: UserName
         self.__buyer_phone_no = None  # type: str
@@ -25,6 +27,26 @@ class Buyer:
         self.__business_address = None  # type: Address
         
 
+    @property
+    def business_name(self):
+        """
+        Business name for createPaymentSession. Required when buyerType is B. Not persisted by asynchronous Billing customer resolution. Omit in APIs that do not document support.
+        """
+        return self.__business_name
+
+    @business_name.setter
+    def business_name(self, value):
+        self.__business_name = value
+    @property
+    def buyer_type(self):
+        """
+        Optional buyer type for createPaymentSession: B (business) or C (consumer). No default. Omit in APIs that do not document support.
+        """
+        return self.__buyer_type
+
+    @buyer_type.setter
+    def buyer_type(self, value):
+        self.__buyer_type = value
     @property
     def reference_buyer_id(self):
         """
@@ -58,7 +80,7 @@ class Buyer:
     @property
     def buyer_email(self):
         """
-        The email of the buyer.  Specify this parameter:  When you require risk control. When the value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 64 characters
+        The email of the buyer.  Specify this parameter:  When you require risk control. When the value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 64 characters For the DingTalk createPaymentSession integration, a valid buyer email is required and the maximum length is 128 characters.
         """
         return self.__buyer_email
 
@@ -138,7 +160,7 @@ class Buyer:
     @property
     def tax_ids(self):
         """
-        For createPaymentSession, these buyer tax IDs are used for B2B or reverse-charge determination when automatic tax is active. If omitted, null, invalid, or unusable, Antom calculates tax as B2C instead of rejecting the payment session. Because Buyer is a shared SDK model, omit this field in APIs that do not explicitly document support. Maximum size: 10.
+        Tax IDs for createPaymentSession tax handling; at most 10 entries with country/value and optional region. The asynchronous Billing customer resolution does not persist these IDs. Other session flows retain their documented B2C fallback for missing or unusable IDs. Omit in APIs that do not document support.
         """
         return self.__tax_ids
 
@@ -161,6 +183,10 @@ class Buyer:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "business_name") and self.business_name is not None:
+            params['businessName'] = self.business_name
+        if hasattr(self, "buyer_type") and self.buyer_type is not None:
+            params['buyerType'] = self.buyer_type
         if hasattr(self, "reference_buyer_id") and self.reference_buyer_id is not None:
             params['referenceBuyerId'] = self.reference_buyer_id
         if hasattr(self, "buyer_name") and self.buyer_name is not None:
@@ -193,6 +219,10 @@ class Buyer:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'businessName' in response_body:
+            self.__business_name = response_body['businessName']
+        if 'buyerType' in response_body:
+            self.__buyer_type = response_body['buyerType']
         if 'referenceBuyerId' in response_body:
             self.__reference_buyer_id = response_body['referenceBuyerId']
         if 'buyerName' in response_body:
