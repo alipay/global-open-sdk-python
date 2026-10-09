@@ -1,5 +1,6 @@
 import json
 from com.alipay.ams.api.model.result import Result
+from com.alipay.ams.api.model.authorization_control import AuthorizationControl
 from com.alipay.ams.api.model.card_detail import CardDetail
 
 
@@ -16,6 +17,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
         self.__card_no = None  # type: str
         self.__expired_month = None  # type: str
         self.__expired_year = None  # type: str
+        self.__authorization_control = None  # type: AuthorizationControl
         self.__card_detail = None  # type: CardDetail
         self.parse_rsp_body(rsp_body) 
 
@@ -81,6 +83,16 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     def expired_year(self, value):
         self.__expired_year = value
     @property
+    def authorization_control(self):
+        """Gets the authorization_control of this AlipayInquireCardSensitiveInfoResponse.
+        
+        """
+        return self.__authorization_control
+
+    @authorization_control.setter
+    def authorization_control(self, value):
+        self.__authorization_control = value
+    @property
     def card_detail(self):
         """Gets the card_detail of this AlipayInquireCardSensitiveInfoResponse.
         
@@ -108,6 +120,8 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
             params['expiredMonth'] = self.expired_month
         if hasattr(self, "expired_year") and self.expired_year is not None:
             params['expiredYear'] = self.expired_year
+        if hasattr(self, "authorization_control") and self.authorization_control is not None:
+            params['authorizationControl'] = self.authorization_control
         if hasattr(self, "card_detail") and self.card_detail is not None:
             params['cardDetail'] = self.card_detail
         return params
@@ -128,6 +142,9 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
             self.__expired_month = response_body['expiredMonth']
         if 'expiredYear' in response_body:
             self.__expired_year = response_body['expiredYear']
+        if 'authorizationControl' in response_body:
+            self.__authorization_control = AuthorizationControl()
+            self.__authorization_control.parse_rsp_body(response_body['authorizationControl'])
         if 'cardDetail' in response_body:
             self.__card_detail = CardDetail()
             self.__card_detail.parse_rsp_body(response_body['cardDetail'])
