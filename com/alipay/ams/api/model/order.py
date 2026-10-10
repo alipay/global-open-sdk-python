@@ -42,7 +42,7 @@ class Order:
     @property
     def send_receipt(self):
         """
-        For createPaymentSession, request a receipt email after successful payment. Defaults to false on the server. Locale follows customer preferredLocales, or en-US. Omit in APIs that do not document support.
+        For createPaymentSession, request a receipt email after successful payment. Defaults to false on the server. Omit in APIs that do not document support.
         """
         return self.__send_receipt
 
