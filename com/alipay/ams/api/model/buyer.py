@@ -10,6 +10,7 @@ from com.alipay.ams.api.model.address import Address
 class Buyer:
     def __init__(self):
         
+        self.__preferred_locales = None  # type: str
         self.__business_name = None  # type: str
         self.__buyer_type = None  # type: str
         self.__reference_buyer_id = None  # type: str
@@ -27,6 +28,16 @@ class Buyer:
         self.__business_address = None  # type: Address
         
 
+    @property
+    def preferred_locales(self):
+        """
+        Comma-separated invoice and offline receipt PDF locales for createPaymentSession, such as ja-JP,en-US. First supported locale wins, with English fallback. Does not select email language. Omit in APIs that do not document support.
+        """
+        return self.__preferred_locales
+
+    @preferred_locales.setter
+    def preferred_locales(self, value):
+        self.__preferred_locales = value
     @property
     def business_name(self):
         """
@@ -183,6 +194,8 @@ class Buyer:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "preferred_locales") and self.preferred_locales is not None:
+            params['preferredLocales'] = self.preferred_locales
         if hasattr(self, "business_name") and self.business_name is not None:
             params['businessName'] = self.business_name
         if hasattr(self, "buyer_type") and self.buyer_type is not None:
@@ -219,6 +232,8 @@ class Buyer:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'preferredLocales' in response_body:
+            self.__preferred_locales = response_body['preferredLocales']
         if 'businessName' in response_body:
             self.__business_name = response_body['businessName']
         if 'buyerType' in response_body:
