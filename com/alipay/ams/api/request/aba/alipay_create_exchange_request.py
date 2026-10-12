@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 
@@ -10,6 +11,7 @@ class AlipayCreateExchangeRequest(AlipayRequest):
     def __init__(self):
         super(AlipayCreateExchangeRequest, self).__init__("/ams/api/v1/aba/funds/createExchange") 
 
+        self.__quote = None  # type: Quote
         self.__buy_amount = None  # type: Amount
         self.__sell_amount = None  # type: Amount
         self.__exchange_trade_type = None  # type: str
@@ -17,6 +19,16 @@ class AlipayCreateExchangeRequest(AlipayRequest):
         self.__exchange_mode = None  # type: str
         
 
+    @property
+    def quote(self):
+        """Gets the quote of this AlipayCreateExchangeRequest.
+        
+        """
+        return self.__quote
+
+    @quote.setter
+    def quote(self, value):
+        self.__quote = value
     @property
     def buy_amount(self):
         """Gets the buy_amount of this AlipayCreateExchangeRequest.
@@ -76,6 +88,8 @@ class AlipayCreateExchangeRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "quote") and self.quote is not None:
+            params['quote'] = self.quote
         if hasattr(self, "buy_amount") and self.buy_amount is not None:
             params['buyAmount'] = self.buy_amount
         if hasattr(self, "sell_amount") and self.sell_amount is not None:
@@ -92,6 +106,9 @@ class AlipayCreateExchangeRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'quote' in response_body:
+            self.__quote = Quote()
+            self.__quote.parse_rsp_body(response_body['quote'])
         if 'buyAmount' in response_body:
             self.__buy_amount = Amount()
             self.__buy_amount.parse_rsp_body(response_body['buyAmount'])

@@ -16,7 +16,7 @@ class AlipayMeterUpdateRequest(AlipayRequest):
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 64 characters.
+        The unique identifier of the Meter. The resource must belong to the authenticated merchant. Maximum length: 64 characters.
         """
         return self.__meter_id
 
@@ -26,7 +26,7 @@ class AlipayMeterUpdateRequest(AlipayRequest):
     @property
     def meter_name(self):
         """
-        The meter name. Maximum length: 255 characters. Note: See documentation for details.
+        The merchant-facing name of the Meter. Send this field to rename the Meter; omit to keep the current name. At least one of meterName and status must be provided. Maximum length: 255 characters.
         """
         return self.__meter_name
 
@@ -36,7 +36,7 @@ class AlipayMeterUpdateRequest(AlipayRequest):
     @property
     def status(self):
         """
-        The current status. Maximum length: 8 characters. Note: See documentation for details.
+        The Meter status. Valid values are ACTIVE and INACTIVE. Send this field to activate or deactivate the Meter; omit to keep the current state. At least one of meterName and status must be provided. Maximum length: 8 characters.
         """
         return self.__status
 

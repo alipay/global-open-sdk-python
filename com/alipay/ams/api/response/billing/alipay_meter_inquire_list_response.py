@@ -31,7 +31,7 @@ class AlipayMeterInquireListResponse(AlipayResponse):
     @property
     def page_num(self):
         """
-        The current page number. Returned only when result.resultCode is SUCCESS.
+        The current page number.
         """
         return self.__page_num
 
@@ -41,7 +41,7 @@ class AlipayMeterInquireListResponse(AlipayResponse):
     @property
     def page_size(self):
         """
-        The number of records on the current page. Returned only when result.resultCode is SUCCESS.
+        The current page size.
         """
         return self.__page_size
 
@@ -51,7 +51,7 @@ class AlipayMeterInquireListResponse(AlipayResponse):
     @property
     def total_count(self):
         """
-        The total number of matching meters at query time. Returned only when result.resultCode is SUCCESS.
+        The real-time number of matching Meter resources at query time.
         """
         return self.__total_count
 
@@ -61,7 +61,7 @@ class AlipayMeterInquireListResponse(AlipayResponse):
     @property
     def meters(self):
         """
-        The matching meters. Returned only when result.resultCode is SUCCESS.
+        The Meter list. Maximum size: 100 elements, bounded by pageSize.
         """
         return self.__meters
 

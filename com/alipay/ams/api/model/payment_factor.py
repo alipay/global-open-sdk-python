@@ -8,6 +8,7 @@ from com.alipay.ams.api.model.presentment_mode import PresentmentMode
 class PaymentFactor:
     def __init__(self):
         
+        self.__store_payment_method_for_buyer = None  # type: bool
         self.__is_payment_evaluation = None  # type: bool
         self.__in_store_payment_scenario = None  # type: InStorePaymentScenario
         self.__presentment_mode = None  # type: PresentmentMode
@@ -15,6 +16,16 @@ class PaymentFactor:
         self.__is_authorization = None  # type: bool
         
 
+    @property
+    def store_payment_method_for_buyer(self):
+        """
+        For the enabled pay (Checkout Payment) card-payment scenario, indicates whether Antom stores the buyer-card relationship for future payments. When true, order.buyer.referenceBuyerId must be non-empty; otherwise, the request is rejected as an invalid parameter. After a successful payment, Antom associates the card information with the buyer. This optional field is exposed only to merchants enabled for this scenario. PaymentFactor is a shared SDK model; omit this field in consult and createPaymentSession unless support is separately documented for the API. No default value is specified.
+        """
+        return self.__store_payment_method_for_buyer
+
+    @store_payment_method_for_buyer.setter
+    def store_payment_method_for_buyer(self, value):
+        self.__store_payment_method_for_buyer = value
     @property
     def is_payment_evaluation(self):
         """Gets the is_payment_evaluation of this PaymentFactor.
@@ -71,6 +82,8 @@ class PaymentFactor:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "store_payment_method_for_buyer") and self.store_payment_method_for_buyer is not None:
+            params['storePaymentMethodForBuyer'] = self.store_payment_method_for_buyer
         if hasattr(self, "is_payment_evaluation") and self.is_payment_evaluation is not None:
             params['isPaymentEvaluation'] = self.is_payment_evaluation
         if hasattr(self, "in_store_payment_scenario") and self.in_store_payment_scenario is not None:
@@ -87,6 +100,8 @@ class PaymentFactor:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'storePaymentMethodForBuyer' in response_body:
+            self.__store_payment_method_for_buyer = response_body['storePaymentMethodForBuyer']
         if 'isPaymentEvaluation' in response_body:
             self.__is_payment_evaluation = response_body['isPaymentEvaluation']
         if 'inStorePaymentScenario' in response_body:

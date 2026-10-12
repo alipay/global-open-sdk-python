@@ -14,7 +14,7 @@ class AlipayMeterInquireDetailsRequest(AlipayRequest):
     @property
     def meter_id(self):
         """
-        The meter ID. Maximum length: 64 characters.
+        The unique identifier of the Meter. The resource must belong to the authenticated merchant. Maximum length: 64 characters.
         """
         return self.__meter_id
 

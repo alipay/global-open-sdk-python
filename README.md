@@ -1,57 +1,53 @@
+# Antom SDK for Python
+
+Latest release: **1.6.3**
+
+## Installation
+
+Use Python 3.9.2 or later; a maintained Python release is recommended.
+The SDK uses Python 3.9+ type annotations, and its `cryptography` dependency
+excludes Python 3.9.0 and 3.9.1. Use a virtual environment and ensure `python`
+refers to that interpreter.
+
+```sh
+python -m pip install --upgrade global-open-sdk-python
 ```
 
-#### Exact amount conversion
+For Meter HTTP/2, install the optional dependencies with
+`python -m pip install --upgrade "global-open-sdk-python[http2]"`.
 
-All three AmountUtil operations accept zero, including IDR. Zero converts to
-`"0"` in minor units; conversion back uses the currency's fixed decimal precision.
-The 16-digit value limit still applies. Callers must check whether their target
-API accepts a zero amount.
+## Quick start
+
+- **RSA:** follow the [configuration](#rsa-configuration) and [inline example](#payment) below.
+- **API Key (limited availability):** follow the [setup guide](docs/api-key-client.md) and run the [sandbox example](example/api_key_payment_session.py).
+- Browse [more examples](example) and the [API documentation](https://global.alipay.com/docs/).
+
+RSA and API Key clients share request/response models. File uploads and notification
+verification still require RSA credentials.
+
+### RSA configuration
+
+Before using the RSA client, prepare these values from your Antom integration:
+
+```properties
+gatewayUrl=your_regional_https_gateway
+clientId=your_client_id
+merchantPrivateKey=your_merchant_private_key
+alipayPublicKey=your_antom_public_key
+```
+
+The examples read them from `ANTOM_GATEWAY_URL`, `ANTOM_CLIENT_ID`,
+`ANTOM_MERCHANT_PRIVATE_KEY`, and `ANTOM_PUBLIC_KEY`, respectively.
+Keep keys in server-side configuration. Replace sample order data and callback
+URLs with your own values before sending a request.
+
+### Payment
+
+Save as `payment_example.py` and configure the four environment variables above.
 
 ```python
-from com.alipay.ams.api.tools.amount_util import from_amount, to_amount, validate
-
-value = to_amount("10.25", "USD")  # "1025"
-major = from_amount(value, "USD")  # "10.25"
-validate(value, "USD")
-```
-
-The functions accept strings, use Antom's supported-currency rules, and never
-round. Extra non-zero decimal places are rejected. ISO 4217 is reference
-evidence only. Payment-method currency support and minimum amounts remain
-subject to the relevant Antom API docs.
-Language：Python  
-Python version：2.7+  
-Release ^1.5.8
-Copyright：Ant financial services group  
-```
-
-#### Meter event upload
-
-Install the optional HTTP/2 dependencies. This API requires Python 3.9 or later;
-other SDK APIs retain the package's existing Python compatibility.
-
-```bash
-pip install "global-open-sdk-python[http2]"
-```
-
-`meter/createSession` uses the regular signed AMS transport. Use its session ID
-to call `meter/uploadEvent` through `execute_with_headers`:
-
-```python
-# Requires Python 3.9+ and: pip install "global-open-sdk-python[http2]"
-request = AlipayMeterUploadEventRequest()
-request.meters = meters
-response_body = default_alipay_client.execute_with_headers(
-    request, {"X-Session-Id": session_id}
-)
-```
-
-The SDK sends `meter/uploadEvent` to the gateway URL configured on the client,
-without sandbox path rewriting, request signing, response signature verification,
-or automatic retries. This API requires HTTP/2.
-
-#### 1 The sample for pay 
-```
+import os
+import uuid
 from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
@@ -67,26 +63,25 @@ from com.alipay.ams.api.default_alipay_client import DefaultAlipayClient
 from com.alipay.ams.api.request.pay.alipay_pay_request import AlipayPayRequest
 from com.alipay.ams.api.response.pay.alipay_pay_response import AlipayPayResponse
 
-MERCHANT_PRIVATE_KEY = ""
-ALIPAY_PUBLIC_KEY = ""
-CLIENT_ID = ""
-GATEWAY_HOST = ""
+MERCHANT_PRIVATE_KEY = os.environ["ANTOM_MERCHANT_PRIVATE_KEY"]
+ALIPAY_PUBLIC_KEY = os.environ["ANTOM_PUBLIC_KEY"]
+CLIENT_ID = os.environ["ANTOM_CLIENT_ID"]
+GATEWAY_HOST = os.environ["ANTOM_GATEWAY_URL"]
 
 
 
-default_alipay_client = DefaultAlipayClient("https://open-na.alipay.com", CLIENT_ID, MERCHANT_PRIVATE_KEY,
+default_alipay_client = DefaultAlipayClient(GATEWAY_HOST, CLIENT_ID, MERCHANT_PRIVATE_KEY,
                                             ALIPAY_PUBLIC_KEY)
 
 alipay_pay_request = AlipayPayRequest()
 
-alipay_pay_request.product_code = ProductCodeType.AGREEMENT_PAYMENT
+alipay_pay_request.product_code = ProductCodeType.CASHIER_PAYMENT
 alipay_pay_request.payment_notify_url = "https://www.yourNotifyUrl.com"
 alipay_pay_request.payment_redirect_url = "https://www.yourRedirectUrl.com"
-alipay_pay_request.payment_request_id = "pay_python_test"
+alipay_pay_request.payment_request_id = str(uuid.uuid4())
 
 payment_method = PaymentMethod()
 payment_method.payment_method_type = "GCASH"
-payment_method.payment_method_id = "20200404095550158596535057754730166962669640ZMvNAaATop"
 alipay_pay_request.payment_method = payment_method
 
 amount = Amount("PHP", "10000")
@@ -135,11 +130,98 @@ else:
     print(alipay_pay_response.result.result_message)
 ```
 
-#### 2 If you don't care about HTTP calls,the sample for sign and verify  
-```
-from com.alipay.ams.api.tools.signature_tool import *
+### API Key client (limited availability)
 
-sign(http_method, path, client_id, req_time, req_body, merchant_private_key)
-verify(http_method, path, client_id, rsp_time, rsp_body, rsp_signature, alipay_public_key)
+> API Key access is not yet available to all merchants. Use this client only if
+> API Key access has been enabled for your account; otherwise, use RSA.
 
+Set `ANTOM_GATEWAY_URL` and `ANTOM_API_KEY` in your server environment.
+This initializes the client; see the [setup guide](docs/api-key-client.md) for a
+complete sandbox request and its additional configuration.
+
+```python
+import os
+from com.alipay.ams.api.api_key_alipay_client import ApiKeyAlipayClient
+
+client = ApiKeyAlipayClient(
+    os.environ["ANTOM_GATEWAY_URL"], os.environ["ANTOM_API_KEY"])
 ```
+
+## Upgrade notes
+
+Gateway responses with `resultStatus S` must be signed; responses with only one
+of the signature and response-time headers are rejected.
+
+Billing integrations: `availableAmount` now uses `Amount`; the `AvailableAmount`
+model has been removed.
+
+## Meter event upload
+
+Install the optional HTTP/2 dependencies using the Python environment described
+in [Installation](#installation).
+
+```bash
+python -m pip install --upgrade "global-open-sdk-python[http2]"
+```
+
+`meter/createSession` uses the regular signed AMS transport. Use its session ID
+to call `meter/uploadEvent` through `execute_with_headers`:
+
+The fragment below assumes an initialized RSA client, a valid session ID from
+`meter/createSession`, and a populated collection of meter event batches.
+
+```python
+# Requires the http2 extra installed above.
+from com.alipay.ams.api.request.billing.alipay_meter_upload_event_request import AlipayMeterUploadEventRequest
+
+request = AlipayMeterUploadEventRequest()
+request.meters = meters
+response_body = default_alipay_client.execute_with_headers(
+    request, {"X-Session-Id": session_id}
+)
+```
+
+The SDK sends `meter/uploadEvent` to the gateway URL configured on the client,
+without sandbox path rewriting, request signing, response signature verification,
+or automatic retries. This API requires HTTP/2.
+
+## Advanced usage
+
+### Sign and verify without the HTTP client
+
+Use the exact transmitted path, timestamp, body, and configured keys. The variables
+below come from your request/response. Verify notifications before parsing their
+original body.
+
+```python
+from com.alipay.ams.api.tools.signature_tool import sign, verify
+
+signature = sign(http_method, path, client_id, request_time, request_body, merchant_private_key)
+verified = verify(
+    http_method, path, client_id, response_time, response_body, response_signature, alipay_public_key
+)
+```
+
+## Support
+
+For integration questions, contact overseas_support@service.alibaba.com.
+
+## Exact amount conversion
+
+All three AmountUtil operations accept zero, including IDR. Zero converts to
+`"0"` in minor units; conversion back uses the currency's fixed decimal precision.
+The 16-digit value limit still applies. Callers must check whether their target
+API accepts a zero amount.
+
+```python
+from com.alipay.ams.api.tools.amount_util import from_amount, to_amount, validate
+
+value = to_amount("10.25", "USD")  # "1025"
+major = from_amount(value, "USD")  # "10.25"
+validate(value, "USD")
+```
+
+The functions accept strings, use Antom's supported-currency rules, and never
+round. Extra non-zero decimal places are rejected. ISO 4217 is reference
+evidence only. Payment-method currency support and minimum amounts remain
+subject to the relevant Antom API docs.

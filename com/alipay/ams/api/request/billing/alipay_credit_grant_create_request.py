@@ -23,7 +23,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def customer_id(self):
         """
-        The unique ID assigned by Antom to identify a customer. Maximum length: 64 characters.
+        The Customer receiving the credit. The service validates ownership and status. Maximum length: 64 characters.
         """
         return self.__customer_id
 
@@ -33,7 +33,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def credit_grant_name(self):
         """
-        The credit grant name. Maximum length: 255 characters.
+        The merchant-facing name of the Credit Grant. It must not be null, empty, blank, or longer than 255 characters. Maximum length: 255 characters.
         """
         return self.__credit_grant_name
 
@@ -63,7 +63,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def priority(self):
         """
-        The priority.
+        The application priority from 0 to 100. Omit to use 0. A lower value has a higher priority.
         """
         return self.__priority
 
@@ -73,7 +73,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def category(self):
         """
-        The category. Maximum length: 16 characters.
+        The category. Valid values are PREPAID and PROMOTIONAL. Maximum length: 16 characters.
         """
         return self.__category
 
@@ -83,7 +83,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def effective_date_time(self):
         """
-        The effective date time. Maximum length: 32 characters. Note: See documentation for details.
+        The effective time in ISO 8601 UTC format, encoded as a JSON string. Omit for immediate activation; a provided value earlier than server time is accepted only within the clock-skew tolerance. Maximum length: 32 characters.
         """
         return self.__effective_date_time
 
@@ -93,7 +93,7 @@ class AlipayCreditGrantCreateRequest(AlipayRequest):
     @property
     def expiry_date_time(self):
         """
-        The expiry date time. Maximum length: 32 characters. Note: See documentation for details.
+        The expiration time in ISO 8601 UTC format, encoded as a JSON string. Omit for no automatic expiration; otherwise the value must be later than the current and effective times. Maximum length: 32 characters.
         """
         return self.__expiry_date_time
 

@@ -31,7 +31,7 @@ class AlipayInvoiceCreateResponse(AlipayResponse):
     @property
     def invoice_id(self):
         """
-        System-generated unique invoice ID. Used as the primary identifier for subsequent API calls (query, update, void). Cannot be null. Returned only when result.resultCode is SUCCESS.
+        System-generated invoice ID. Also returned for a persisted invoice on BIZ_REPEATED_SUBMIT; use it to reconcile the existing invoice.
         """
         return self.__invoice_id
 
@@ -51,7 +51,7 @@ class AlipayInvoiceCreateResponse(AlipayResponse):
     @property
     def status(self):
         """
-        Current invoice status: &#x60;DRAFT&#x60; or &#x60;OPEN&#x60;. Determines which subsequent operations are available (edit for DRAFT, pay for OPEN). Cannot be null. Returned only when result.resultCode is SUCCESS.
+        Invoice status: DRAFT, OPEN for a positive issued total, or PAID for zero-total issuance. Also returned with the persisted invoice on BIZ_REPEATED_SUBMIT.
         """
         return self.__status
 
@@ -61,7 +61,7 @@ class AlipayInvoiceCreateResponse(AlipayResponse):
     @property
     def hosted_invoice_url(self):
         """
-        URL to the customer-facing hosted invoice page. Auto-generated for OPEN invoices. When &#x60;status&#x3D;DRAFT&#x60;, this field is not returned - use the [Create View Link API](createViewLink.md) to generate a view URL for DRAFT invoices. Cannot be null when present. Returned only when result.resultCode is SUCCESS.
+        Hosted invoice URL returned for OPEN and zero-total PAID issuance, even when includePaymentLink is false. Absent for DRAFT creation.
         """
         return self.__hosted_invoice_url
 

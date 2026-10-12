@@ -6,6 +6,7 @@ import json
 class Address:
     def __init__(self):
         
+        self.__country = None  # type: str
         self.__region = None  # type: str
         self.__state = None  # type: str
         self.__city = None  # type: str
@@ -16,6 +17,16 @@ class Address:
         self.__address3 = None  # type: str
         
 
+    @property
+    def country(self):
+        """
+        Country code for createPaymentSession buyer.businessAddress. Required in the DingTalk integration; use region for other address contexts. ISO 3166-1 alpha-2.
+        """
+        return self.__country
+
+    @country.setter
+    def country(self, value):
+        self.__country = value
     @property
     def region(self):
         """
@@ -102,6 +113,8 @@ class Address:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "country") and self.country is not None:
+            params['country'] = self.country
         if hasattr(self, "region") and self.region is not None:
             params['region'] = self.region
         if hasattr(self, "state") and self.state is not None:
@@ -124,6 +137,8 @@ class Address:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'country' in response_body:
+            self.__country = response_body['country']
         if 'region' in response_body:
             self.__region = response_body['region']
         if 'state' in response_body:

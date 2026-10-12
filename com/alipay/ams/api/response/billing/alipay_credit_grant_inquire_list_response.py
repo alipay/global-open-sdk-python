@@ -41,7 +41,7 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
     @property
     def page_size(self):
         """
-        The number of records on the current page.
+        The current page size.
         """
         return self.__page_size
 
@@ -51,7 +51,7 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
     @property
     def total_count(self):
         """
-        The total number of matching credit grants at query time.
+        The real-time number of matching Credit Grant resources at query time.
         """
         return self.__total_count
 
@@ -61,7 +61,7 @@ class AlipayCreditGrantInquireListResponse(AlipayResponse):
     @property
     def credit_grants(self):
         """
-        The matching credit grants. Returned only when result.resultCode is SUCCESS.
+        The Credit Grant list. Maximum size: 100 elements, bounded by pageSize.
         """
         return self.__credit_grants
 

@@ -14,7 +14,7 @@ class AlipayCreditGrantInquireDetailsRequest(AlipayRequest):
     @property
     def credit_grant_id(self):
         """
-        The credit grant ID. Maximum length: 64 characters.
+        The unique identifier of the Credit Grant. The resource must belong to the authenticated merchant. Maximum length: 64 characters.
         """
         return self.__credit_grant_id
 

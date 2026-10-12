@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
+
 from com.alipay.ams.api._version import USER_AGENT
 from com.alipay.ams.api.tools.signature_tool import *
 from com.alipay.ams.api.tools.date_tools import *
 from com.alipay.ams.api.net.default_http_rpc import *
-from com.alipay.ams.api.request_transport_resolver import requires_session_http2
+from com.alipay.ams.api.request_transport_resolver import (
+    requires_session_http2,
+    allows_unsigned_response,
+)
 
 
 class DefaultAlipayClient(object):
@@ -88,6 +93,36 @@ class DefaultAlipayClient(object):
             raise AlipayApiException("response verify failed. " + str(e))
         return is_verify
 
+    def __assert_response_verified(
+        self, http_method, path, client_id, response_time, rsp_body, rsp_signature
+    ):
+        signature_missing = not rsp_signature
+        response_time_missing = not response_time
+        if signature_missing and response_time_missing:
+            result_status = None
+            try:
+                result = json.loads(rsp_body).get("result") or {}
+                result_status = result.get("resultStatus")
+            except Exception:
+                result_status = None
+            if result_status in ("F", "U"):
+                return
+            raise AlipayApiException(
+                "response data error, unsigned response with resultStatus="
+                + str(result_status)
+                + " is not accepted."
+            )
+        if signature_missing or response_time_missing:
+            raise AlipayApiException(
+                "response data error, incomplete signature headers."
+            )
+
+        is_verify = self.__verify_sign(
+            http_method, path, client_id, response_time, rsp_body, rsp_signature
+        )
+        if not is_verify:
+            raise AlipayApiException("response signature verify failed.")
+
     def __parse_header(self, headers):
         for item in headers:
             header_key = item[0]
@@ -119,8 +154,10 @@ class DefaultAlipayClient(object):
 
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
-        self.adjust_sandbox_url(request)
         http_method = request.http_method.value
+        # evaluate before adjust_sandbox_url rewrites the path, so the original route is matched
+        allow_unsigned_response = allows_unsigned_response(http_method, request.path)
+        self.adjust_sandbox_url(request)
         path = request.path
         req_time = get_cur_iso8601_time()
         req_body = request.to_ams_json()
@@ -152,15 +189,13 @@ class DefaultAlipayClient(object):
 
         rsp_body = response.decode(DEFAULT_CHARSET)
 
-        rsp_signature, response_time, client_id = self.__parse_header(headers)
-        if not rsp_signature or not response_time:
+        if allow_unsigned_response:
             return rsp_body
 
-        is_verify = self.__verify_sign(
+        rsp_signature, response_time, client_id = self.__parse_header(headers)
+        self.__assert_response_verified(
             http_method, path, client_id, response_time, rsp_body, rsp_signature
         )
-        if not is_verify:
-            raise AlipayApiException("response signature verify failed.")
 
         return rsp_body
 
@@ -192,6 +227,8 @@ class DefaultAlipayClient(object):
 
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")
+        # evaluate before adjust_sandbox_url rewrites the path, so the original route is matched
+        allow_unsigned_response = allows_unsigned_response(http_method, request.path)
         self.adjust_sandbox_url(request)
         path = request.path
         req_time = get_cur_iso8601_time()
@@ -231,15 +268,13 @@ class DefaultAlipayClient(object):
 
         rsp_body = response.decode(DEFAULT_CHARSET)
 
-        rsp_signature, response_time, client_id = self.__parse_header(headers)
-        if not rsp_signature or not response_time:
+        if allow_unsigned_response:
             return rsp_body
 
-        is_verify = self.__verify_sign(
+        rsp_signature, response_time, client_id = self.__parse_header(headers)
+        self.__assert_response_verified(
             http_method, path, client_id, response_time, rsp_body, rsp_signature
         )
-        if not is_verify:
-            raise AlipayApiException("response signature verify failed.")
 
         return rsp_body
 
