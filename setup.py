@@ -28,6 +28,7 @@ setup(
     url=URL,
     keywords=["global", "alipay", "sdk"],
     packages=find_packages(exclude=["example"]),
+    package_data={"com.alipay.ams.api.tools": ["resources/*.json"]},
     include_package_data=True,
     platforms="any",
     install_requires=requires,

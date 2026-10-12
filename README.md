@@ -205,3 +205,23 @@ verified = verify(
 ## Support
 
 For integration questions, contact overseas_support@service.alibaba.com.
+
+## Exact amount conversion
+
+All three AmountUtil operations accept zero, including IDR. Zero converts to
+`"0"` in minor units; conversion back uses the currency's fixed decimal precision.
+The 16-digit value limit still applies. Callers must check whether their target
+API accepts a zero amount.
+
+```python
+from com.alipay.ams.api.tools.amount_util import from_amount, to_amount, validate
+
+value = to_amount("10.25", "USD")  # "1025"
+major = from_amount(value, "USD")  # "10.25"
+validate(value, "USD")
+```
+
+The functions accept strings, use Antom's supported-currency rules, and never
+round. Extra non-zero decimal places are rejected. ISO 4217 is reference
+evidence only. Payment-method currency support and minimum amounts remain
+subject to the relevant Antom API docs.
