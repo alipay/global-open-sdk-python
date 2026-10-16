@@ -11,6 +11,7 @@ from com.alipay.ams.api.model.transit import Transit
 from com.alipay.ams.api.model.lodging import Lodging
 from com.alipay.ams.api.model.gaming import Gaming
 from com.alipay.ams.api.model.declaration import Declaration
+from com.alipay.ams.api.model.amount import Amount
 
 
 
@@ -37,6 +38,8 @@ class Order:
         self.__declaration = None  # type: Declaration
         self.__order_type = None  # type: str
         self.__tax_calculation_id = None  # type: str
+        self.__payment_amount = None  # type: Amount
+        self.__checkout_jwt = None  # type: str
         
 
     @property
@@ -229,6 +232,26 @@ class Order:
     @tax_calculation_id.setter
     def tax_calculation_id(self, value):
         self.__tax_calculation_id = value
+    @property
+    def payment_amount(self):
+        """Gets the payment_amount of this Order.
+        
+        """
+        return self.__payment_amount
+
+    @payment_amount.setter
+    def payment_amount(self, value):
+        self.__payment_amount = value
+    @property
+    def checkout_jwt(self):
+        """
+        Checkout JWT for Agentic Payment binding or authentication sessions.
+        """
+        return self.__checkout_jwt
+
+    @checkout_jwt.setter
+    def checkout_jwt(self, value):
+        self.__checkout_jwt = value
 
 
     
@@ -273,6 +296,10 @@ class Order:
             params['orderType'] = self.order_type
         if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
             params['taxCalculationId'] = self.tax_calculation_id
+        if hasattr(self, "payment_amount") and self.payment_amount is not None:
+            params['paymentAmount'] = self.payment_amount
+        if hasattr(self, "checkout_jwt") and self.checkout_jwt is not None:
+            params['checkoutJwt'] = self.checkout_jwt
         return params
 
 
@@ -332,3 +359,8 @@ class Order:
             self.__order_type = response_body['orderType']
         if 'taxCalculationId' in response_body:
             self.__tax_calculation_id = response_body['taxCalculationId']
+        if 'paymentAmount' in response_body:
+            self.__payment_amount = Amount()
+            self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
+        if 'checkoutJwt' in response_body:
+            self.__checkout_jwt = response_body['checkoutJwt']

@@ -20,6 +20,8 @@ class Merchant:
         self.__merchant_type = None  # type: MerchantType
         self.__number_of_trades = None  # type: int
         self.__account_last_modified = None  # type: AccountLastModified
+        self.__merchant_url = None  # type: str
+        self.__merchant_country_code = None  # type: str
         
 
     @property
@@ -122,6 +124,26 @@ class Merchant:
     @account_last_modified.setter
     def account_last_modified(self, value):
         self.__account_last_modified = value
+    @property
+    def merchant_url(self):
+        """
+        Merchant website URL.
+        """
+        return self.__merchant_url
+
+    @merchant_url.setter
+    def merchant_url(self, value):
+        self.__merchant_url = value
+    @property
+    def merchant_country_code(self):
+        """
+        ISO 3166-1 alpha-2 merchant country or region code.
+        """
+        return self.__merchant_country_code
+
+    @merchant_country_code.setter
+    def merchant_country_code(self, value):
+        self.__merchant_country_code = value
 
 
     
@@ -148,6 +170,10 @@ class Merchant:
             params['numberOfTrades'] = self.number_of_trades
         if hasattr(self, "account_last_modified") and self.account_last_modified is not None:
             params['accountLastModified'] = self.account_last_modified
+        if hasattr(self, "merchant_url") and self.merchant_url is not None:
+            params['merchantUrl'] = self.merchant_url
+        if hasattr(self, "merchant_country_code") and self.merchant_country_code is not None:
+            params['merchantCountryCode'] = self.merchant_country_code
         return params
 
 
@@ -178,3 +204,7 @@ class Merchant:
         if 'accountLastModified' in response_body:
             self.__account_last_modified = AccountLastModified()
             self.__account_last_modified.parse_rsp_body(response_body['accountLastModified'])
+        if 'merchantUrl' in response_body:
+            self.__merchant_url = response_body['merchantUrl']
+        if 'merchantCountryCode' in response_body:
+            self.__merchant_country_code = response_body['merchantCountryCode']
