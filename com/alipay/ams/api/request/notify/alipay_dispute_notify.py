@@ -14,6 +14,8 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__dispute_id = None
         self.__payment_id = None
         self.__dispute_time = None
+        self.__dispute_cancelled_time = None
+        self.__defense_supplied_time = None
         self.__dispute_amount = None
         self.__dispute_notification_type = None  # type: DisputeNotificationType
         self.__dispute_reason_msg = None
@@ -49,6 +51,16 @@ class AlipayDisputeNotify(AlipayNotify):
     @property
     def dispute_time(self):
         return self.__dispute_time
+
+    @property
+    def dispute_cancelled_time(self):
+        """Optional ISO 8601 cancellation time with timezone for DISPUTE_CANCELLED."""
+        return self.__dispute_cancelled_time
+
+    @property
+    def defense_supplied_time(self):
+        """Optional ISO 8601 defense acceptance time with timezone for DEFENSE_SUPPLIED."""
+        return self.__defense_supplied_time
 
     @property
     def dispute_amount(self):
@@ -136,6 +148,8 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__dispute_id = get_value("disputeId", "dispute_id")
         self.__payment_id = get_value("paymentId", "payment_id")
         self.__dispute_time = get_value("disputeTime", "dispute_time")
+        self.__dispute_cancelled_time = get_value("disputeCancelledTime", "dispute_cancelled_time")
+        self.__defense_supplied_time = get_value("defenseSuppliedTime", "defense_supplied_time")
         self.__dispute_amount = get_value("disputeAmount", "dispute_amount")
         self.__dispute_notification_type = get_value(
             "disputeNotificationType", "dispute_notification_type"
