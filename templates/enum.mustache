@@ -10,7 +10,13 @@ class {{classname}}(Enum):
     {{/allowableValues}}
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            {{#allowableValues}}
+            {{#enumVars}}
+            "{{name}}": {{{value}}},
+            {{/enumVars}}
+            {{/allowableValues}}
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -23,4 +29,7 @@ class {{classname}}(Enum):
             return {{classname}}.{{name}}
         {{/enumVars}}
         {{/allowableValues}}
+        for member in {{classname}}:
+            if member.to_ams_dict() == value:
+                return member
         return None
