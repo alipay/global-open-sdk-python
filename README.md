@@ -194,6 +194,18 @@ be checked separately; this utility does not validate payment-method context.
 
 ## Upgrade notes
 
+### Pending security update
+
+The default RSA transport now validates server certificates and hostnames.
+Normal connections to Antom gateways with an up-to-date system trust store need
+no additional configuration; client APIs and merchant signing keys are unchanged.
+Environments that intercept HTTPS or lack root certificates must correct their
+trust configuration rather than disable verification.
+
+Installation now enforces the existing Python 3.9.2 minimum requirement.
+Earlier Python versions must be upgraded before installing this SDK.
+
+
 Gateway responses with `resultStatus S` must be signed; responses with only one
 of the signature and response-time headers are rejected.
 

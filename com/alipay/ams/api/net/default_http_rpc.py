@@ -27,7 +27,7 @@ def __get_http_connection(url, timeout=DEFAULT_TIMEOUT):
     url_parse_result = url_parse.urlparse(url)
     host_name = url_parse_result.hostname
     port = 443
-    context = ssl._create_unverified_context()
+    context = ssl.create_default_context()
     connection = http_client.HTTPSConnection(
         host=host_name, port=port, timeout=timeout, context=context
     )
