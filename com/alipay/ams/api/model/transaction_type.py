@@ -12,7 +12,15 @@ class TransactionType(Enum):
     INCREMENTAL = "INCREMENTAL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "PAYMENT": "PAYMENT",
+            "REFUND": "REFUND",
+            "CAPTURE": "CAPTURE",
+            "CANCEL": "CANCEL",
+            "AUTHORIZATION": "AUTHORIZATION",
+            "VOID": "VOID",
+            "INCREMENTAL": "INCREMENTAL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -33,4 +41,8 @@ class TransactionType(Enum):
             return TransactionType.VOID
         if TransactionType.INCREMENTAL.value == value:
             return TransactionType.INCREMENTAL
+        for member in TransactionType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

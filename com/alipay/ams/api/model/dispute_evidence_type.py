@@ -7,7 +7,10 @@ class DisputeEvidenceType(Enum):
     FILE = "FILE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "TEMPLATE": "DISPUTE_EVIDENCE_TEMPLATE",
+            "FILE": "DISPUTE_EVIDENCE_FILE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class DisputeEvidenceType(Enum):
             return DisputeEvidenceType.TEMPLATE
         if DisputeEvidenceType.FILE.value == value:
             return DisputeEvidenceType.FILE
+        for member in DisputeEvidenceType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

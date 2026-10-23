@@ -11,7 +11,14 @@ class PeriodType(Enum):
     YEAR = "YEAR"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "DAY": "DAY",
+            "WEEK": "WEEK",
+            "MONTH": "MONTH",
+            "QUARTER": "QUARTER",
+            "HALF_YEAR": "HALF_YEAR",
+            "YEAR": "YEAR",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -30,4 +37,8 @@ class PeriodType(Enum):
             return PeriodType.HALF_YEAR
         if PeriodType.YEAR.value == value:
             return PeriodType.YEAR
+        for member in PeriodType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

@@ -7,7 +7,10 @@ class PaymentStatus(Enum):
     FAIL = "FAIL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SUCCESS": "SUCCESS",
+            "FAIL": "FAIL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class PaymentStatus(Enum):
             return PaymentStatus.SUCCESS
         if PaymentStatus.FAIL.value == value:
             return PaymentStatus.FAIL
+        for member in PaymentStatus:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
