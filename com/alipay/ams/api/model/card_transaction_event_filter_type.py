@@ -11,7 +11,14 @@ class CardTransactionEventFilterType(Enum):
     REPAYMENT = "REPAYMENT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "AUTH": "AUTH",
+            "AUTH_CANCEL": "AUTH_CANCEL",
+            "CAPTURE": "CAPTURE",
+            "REFUND": "REFUND",
+            "CHARGEBACK": "CHARGEBACK",
+            "REPAYMENT": "REPAYMENT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -30,4 +37,8 @@ class CardTransactionEventFilterType(Enum):
             return CardTransactionEventFilterType.CHARGEBACK
         if CardTransactionEventFilterType.REPAYMENT.value == value:
             return CardTransactionEventFilterType.REPAYMENT
+        for member in CardTransactionEventFilterType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

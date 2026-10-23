@@ -17,6 +17,7 @@ class AcquirerInfo:
         self.__ptsp_transaction_id = None  # type: str
         self.__acquirer_card_token = None  # type: str
         self.__acquirer_fingerprint = None  # type: str
+        self.__acquirer_account_name = None  # type: str
         
 
     @property
@@ -129,6 +130,16 @@ class AcquirerInfo:
     @acquirer_fingerprint.setter
     def acquirer_fingerprint(self, value):
         self.__acquirer_fingerprint = value
+    @property
+    def acquirer_account_name(self):
+        """
+        The name of the acquiring merchant account configured in the Antom portal.  More information:  Maximum length: 255 characters
+        """
+        return self.__acquirer_account_name
+
+    @acquirer_account_name.setter
+    def acquirer_account_name(self, value):
+        self.__acquirer_account_name = value
 
 
     
@@ -157,6 +168,8 @@ class AcquirerInfo:
             params['acquirerCardToken'] = self.acquirer_card_token
         if hasattr(self, "acquirer_fingerprint") and self.acquirer_fingerprint is not None:
             params['acquirerFingerprint'] = self.acquirer_fingerprint
+        if hasattr(self, "acquirer_account_name") and self.acquirer_account_name is not None:
+            params['acquirerAccountName'] = self.acquirer_account_name
         return params
 
 
@@ -185,3 +198,5 @@ class AcquirerInfo:
             self.__acquirer_card_token = response_body['acquirerCardToken']
         if 'acquirerFingerprint' in response_body:
             self.__acquirer_fingerprint = response_body['acquirerFingerprint']
+        if 'acquirerAccountName' in response_body:
+            self.__acquirer_account_name = response_body['acquirerAccountName']

@@ -7,7 +7,10 @@ class OsType(Enum):
     ANDROID = "ANDROID"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "IOS": "IOS",
+            "ANDROID": "ANDROID",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class OsType(Enum):
             return OsType.IOS
         if OsType.ANDROID.value == value:
             return OsType.ANDROID
+        for member in OsType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

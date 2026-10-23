@@ -7,7 +7,10 @@ class MerchantType(Enum):
     ENTERPRISE = "ENTERPRISE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "INDIVIDUAL": "INDIVIDUAL",
+            "ENTERPRISE": "ENTERPRISE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class MerchantType(Enum):
             return MerchantType.INDIVIDUAL
         if MerchantType.ENTERPRISE.value == value:
             return MerchantType.ENTERPRISE
+        for member in MerchantType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
