@@ -12,7 +12,15 @@ class InteractionType(Enum):
     OTC = "OTC"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "QR": "QR",
+            "REDIRECT": "REDIRECT",
+            "PUSH": "PUSH",
+            "ATM": "ATM",
+            "IBANKING": "IBANKING",
+            "BANKCOUNTER": "BANKCOUNTER",
+            "OTC": "OTC",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -33,4 +41,8 @@ class InteractionType(Enum):
             return InteractionType.BANKCOUNTER
         if InteractionType.OTC.value == value:
             return InteractionType.OTC
+        for member in InteractionType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

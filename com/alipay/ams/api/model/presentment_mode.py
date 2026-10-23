@@ -8,7 +8,11 @@ class PresentmentMode(Enum):
     UNIFIED = "UNIFIED"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "BUNDLE": "BUNDLE",
+            "TILE": "TILE",
+            "UNIFIED": "UNIFIED",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class PresentmentMode(Enum):
             return PresentmentMode.TILE
         if PresentmentMode.UNIFIED.value == value:
             return PresentmentMode.UNIFIED
+        for member in PresentmentMode:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

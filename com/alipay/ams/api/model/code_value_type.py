@@ -7,7 +7,10 @@ class CodeValueType(Enum):
     QRCODE = "QRCODE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "BARCODE": "BARCODE",
+            "QRCODE": "QRCODE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class CodeValueType(Enum):
             return CodeValueType.BARCODE
         if CodeValueType.QRCODE.value == value:
             return CodeValueType.QRCODE
+        for member in CodeValueType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

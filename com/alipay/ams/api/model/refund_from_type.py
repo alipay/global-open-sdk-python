@@ -8,7 +8,11 @@ class RefundFromType(Enum):
     UNSETTLED_FUNDS = "UNSETTLED_FUNDS"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SELLER": "SELLER",
+            "MARKETPLACE": "MARKETPLACE",
+            "UNSETTLED_FUNDS": "UNSETTLED_FUNDS",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class RefundFromType(Enum):
             return RefundFromType.MARKETPLACE
         if RefundFromType.UNSETTLED_FUNDS.value == value:
             return RefundFromType.UNSETTLED_FUNDS
+        for member in RefundFromType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

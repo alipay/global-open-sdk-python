@@ -6,7 +6,9 @@ class TakeType(Enum):
     ROLLING = "ROLLING"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ROLLING": "ROLLING",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -15,4 +17,8 @@ class TakeType(Enum):
 
         if TakeType.ROLLING.value == value:
             return TakeType.ROLLING
+        for member in TakeType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
