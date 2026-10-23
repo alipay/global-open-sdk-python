@@ -25,7 +25,7 @@ class AlipaySupplyDefenseDocumentRequest(AlipayRequest):
     @property
     def dispute_evidence(self):
         """
-        The dispute defense document that you prepare for defending the dispute, which is encoded in the Base64 format.  More information:  Maximum length: 1000000 characters
+        The dispute defense document that you prepare for defending the dispute, which is encoded in the Base64 format.  More information:  Maximum length: 4000000 characters
         """
         return self.__dispute_evidence
 

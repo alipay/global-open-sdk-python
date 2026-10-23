@@ -5,9 +5,16 @@ class DisputeEvidenceFormatType(Enum):
 
     PDF = "PDF"
     WORD = "WORD"
+    ZIP = "ZIP"
+    JPG = "JPG"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "PDF": "PDF",
+            "WORD": "WORD",
+            "ZIP": "ZIP",
+            "JPG": "JPG",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +25,12 @@ class DisputeEvidenceFormatType(Enum):
             return DisputeEvidenceFormatType.PDF
         if DisputeEvidenceFormatType.WORD.value == value:
             return DisputeEvidenceFormatType.WORD
+        if DisputeEvidenceFormatType.ZIP.value == value:
+            return DisputeEvidenceFormatType.ZIP
+        if DisputeEvidenceFormatType.JPG.value == value:
+            return DisputeEvidenceFormatType.JPG
+        for member in DisputeEvidenceFormatType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

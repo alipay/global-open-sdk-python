@@ -7,7 +7,10 @@ class LegalEntityType(Enum):
     INDIVIDUAL = "INDIVIDUAL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "COMPANY": "COMPANY",
+            "INDIVIDUAL": "INDIVIDUAL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class LegalEntityType(Enum):
             return LegalEntityType.COMPANY
         if LegalEntityType.INDIVIDUAL.value == value:
             return LegalEntityType.INDIVIDUAL
+        for member in LegalEntityType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

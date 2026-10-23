@@ -8,7 +8,11 @@ class InStorePaymentScenario(Enum):
     ENTRYCODE = "ENTRYCODE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "PAYMENTCODE": "PaymentCode",
+            "ORDERCODE": "OrderCode",
+            "ENTRYCODE": "EntryCode",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class InStorePaymentScenario(Enum):
             return InStorePaymentScenario.ORDERCODE
         if InStorePaymentScenario.ENTRYCODE.value == value:
             return InStorePaymentScenario.ENTRYCODE
+        for member in InStorePaymentScenario:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
