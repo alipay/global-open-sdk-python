@@ -9,7 +9,12 @@ class PaymentMethodDetailType(Enum):
     DISCOUNT = "DISCOUNT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "CARD": "CARD",
+            "EXTERNALACCOUNT": "EXTERNALACCOUNT",
+            "COUPON": "COUPON",
+            "DISCOUNT": "DISCOUNT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -24,4 +29,8 @@ class PaymentMethodDetailType(Enum):
             return PaymentMethodDetailType.COUPON
         if PaymentMethodDetailType.DISCOUNT.value == value:
             return PaymentMethodDetailType.DISCOUNT
+        for member in PaymentMethodDetailType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

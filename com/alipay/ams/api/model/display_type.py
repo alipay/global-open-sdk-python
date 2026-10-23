@@ -10,7 +10,13 @@ class DisplayType(Enum):
     IMAGE = "IMAGE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "TEXT": "TEXT",
+            "MIDDLEIMAGE": "MIDDLEIMAGE",
+            "SMALLIMAGE": "SMALLIMAGE",
+            "BIGIMAGE": "BIGIMAGE",
+            "IMAGE": "IMAGE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -27,4 +33,8 @@ class DisplayType(Enum):
             return DisplayType.BIGIMAGE
         if DisplayType.IMAGE.value == value:
             return DisplayType.IMAGE
+        for member in DisplayType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

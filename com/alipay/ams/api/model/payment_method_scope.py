@@ -7,7 +7,10 @@ class PaymentMethodScope(Enum):
     CARD = "CARD"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ALL": "ALL",
+            "CARD": "CARD",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class PaymentMethodScope(Enum):
             return PaymentMethodScope.ALL
         if PaymentMethodScope.CARD.value == value:
             return PaymentMethodScope.CARD
+        for member in PaymentMethodScope:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

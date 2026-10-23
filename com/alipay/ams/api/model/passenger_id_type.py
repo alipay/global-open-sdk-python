@@ -14,7 +14,17 @@ class PassengerIdType(Enum):
     OTHERS = "OTHERS"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "PASSPORT": "PASSPORT",
+            "NATIONAL_ID_CARD": "NATIONAL_ID_CARD",
+            "DRIVER_LICENSE": "DRIVER_LICENSE",
+            "MILITARY_ID": "MILITARY_ID",
+            "GREEN_CARD": "GREEN_CARD",
+            "TRAVEL_DOCUMENT": "TRAVEL_DOCUMENT",
+            "ALIEN_REGISTRATION_CARD": "ALIEN_REGISTRATION_CARD",
+            "BIRTH_CERTIFICATE": "BIRTH_CERTIFICATE",
+            "OTHERS": "OTHERS",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -39,4 +49,8 @@ class PassengerIdType(Enum):
             return PassengerIdType.BIRTH_CERTIFICATE
         if PassengerIdType.OTHERS.value == value:
             return PassengerIdType.OTHERS
+        for member in PassengerIdType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
