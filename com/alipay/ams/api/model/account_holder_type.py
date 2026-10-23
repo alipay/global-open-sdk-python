@@ -7,7 +7,10 @@ class AccountHolderType(Enum):
     ENTERPRISE = "ENTERPRISE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "INDIVIDUAL": "INDIVIDUAL",
+            "ENTERPRISE": "ENTERPRISE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class AccountHolderType(Enum):
             return AccountHolderType.INDIVIDUAL
         if AccountHolderType.ENTERPRISE.value == value:
             return AccountHolderType.ENTERPRISE
+        for member in AccountHolderType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.amount import Amount
+from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
 
 
 
@@ -17,6 +18,7 @@ class AlipayCaptureResponse(AlipayResponse):
         self.__capture_amount = None  # type: Amount
         self.__capture_time = None  # type: str
         self.__acquirer_reference_no = None  # type: str
+        self.__acquirer_info = None  # type: AcquirerInfo
         self.parse_rsp_body(rsp_body) 
 
 
@@ -90,6 +92,16 @@ class AlipayCaptureResponse(AlipayResponse):
     @acquirer_reference_no.setter
     def acquirer_reference_no(self, value):
         self.__acquirer_reference_no = value
+    @property
+    def acquirer_info(self):
+        """Gets the acquirer_info of this AlipayCaptureResponse.
+        
+        """
+        return self.__acquirer_info
+
+    @acquirer_info.setter
+    def acquirer_info(self, value):
+        self.__acquirer_info = value
 
 
     
@@ -110,6 +122,8 @@ class AlipayCaptureResponse(AlipayResponse):
             params['captureTime'] = self.capture_time
         if hasattr(self, "acquirer_reference_no") and self.acquirer_reference_no is not None:
             params['acquirerReferenceNo'] = self.acquirer_reference_no
+        if hasattr(self, "acquirer_info") and self.acquirer_info is not None:
+            params['acquirerInfo'] = self.acquirer_info
         return params
 
 
@@ -131,3 +145,6 @@ class AlipayCaptureResponse(AlipayResponse):
             self.__capture_time = response_body['captureTime']
         if 'acquirerReferenceNo' in response_body:
             self.__acquirer_reference_no = response_body['acquirerReferenceNo']
+        if 'acquirerInfo' in response_body:
+            self.__acquirer_info = AcquirerInfo()
+            self.__acquirer_info.parse_rsp_body(response_body['acquirerInfo'])

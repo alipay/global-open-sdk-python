@@ -23,6 +23,7 @@ class CardTransactionLifecycleDetail:
         self.__total_refund_amount = None  # type: Amount
         self.__total_chargeback_amount = None  # type: Amount
         self.__asset_id = None  # type: str
+        self.__card_product = None  # type: str
         self.__masked_card_no = None  # type: str
         self.__events = None  # type: [CardTransactionEvent]
         
@@ -138,6 +139,16 @@ class CardTransactionLifecycleDetail:
     def asset_id(self, value):
         self.__asset_id = value
     @property
+    def card_product(self):
+        """
+        The product category of the card used for the transaction, such as Mastercard MTA or MTB. Returned when available; the value is passed through as provided and has no fixed code pattern.
+        """
+        return self.__card_product
+
+    @card_product.setter
+    def card_product(self, value):
+        self.__card_product = value
+    @property
     def masked_card_no(self):
         """
         The PCI-compliant masked card number. Returned when masking information is available.
@@ -185,6 +196,8 @@ class CardTransactionLifecycleDetail:
             params['totalChargebackAmount'] = self.total_chargeback_amount
         if hasattr(self, "asset_id") and self.asset_id is not None:
             params['assetId'] = self.asset_id
+        if hasattr(self, "card_product") and self.card_product is not None:
+            params['cardProduct'] = self.card_product
         if hasattr(self, "masked_card_no") and self.masked_card_no is not None:
             params['maskedCardNo'] = self.masked_card_no
         if hasattr(self, "events") and self.events is not None:
@@ -222,6 +235,8 @@ class CardTransactionLifecycleDetail:
             self.__total_chargeback_amount.parse_rsp_body(response_body['totalChargebackAmount'])
         if 'assetId' in response_body:
             self.__asset_id = response_body['assetId']
+        if 'cardProduct' in response_body:
+            self.__card_product = response_body['cardProduct']
         if 'maskedCardNo' in response_body:
             self.__masked_card_no = response_body['maskedCardNo']
         if 'events' in response_body:

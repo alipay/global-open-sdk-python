@@ -17,7 +17,20 @@ class CompanyType(Enum):
     EI = "EI"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ENTERPRISE": "ENTERPRISE",
+            "PARTNERSHIP": "PARTNERSHIP",
+            "SOLE_PROPRIETORSHIP": "SOLE_PROPRIETORSHIP",
+            "STATE_OWNED_BUSINESS": "STATE_OWNED_BUSINESS",
+            "PRIVATELY_OWNED_BUSINESS": "PRIVATELY_OWNED_BUSINESS",
+            "PUBLICLY_LISTED_BUSINESS": "PUBLICLY_LISTED_BUSINESS",
+            "LTDA": "LTDA",
+            "SA": "SA",
+            "EIRELI": "EIRELI",
+            "BOFC": "BOFC",
+            "MEI": "MEI",
+            "EI": "EI",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -48,4 +61,8 @@ class CompanyType(Enum):
             return CompanyType.MEI
         if CompanyType.EI.value == value:
             return CompanyType.EI
+        for member in CompanyType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

@@ -7,7 +7,10 @@ class SettleToType(Enum):
     MARKETPLACE = "MARKETPLACE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SELLER": "SELLER",
+            "MARKETPLACE": "MARKETPLACE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class SettleToType(Enum):
             return SettleToType.SELLER
         if SettleToType.MARKETPLACE.value == value:
             return SettleToType.MARKETPLACE
+        for member in SettleToType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
