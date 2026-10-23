@@ -12,7 +12,15 @@ class CertificateType(Enum):
     CNPJ = "CNPJ"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ENTERPRISE_REGISTRATION": "ENTERPRISE_REGISTRATION",
+            "LICENSE_INFO": "LICENSE_INFO",
+            "ID_CARD": "ID_CARD",
+            "PASSPORT": "PASSPORT",
+            "DRIVING_LICENSE": "DRIVING_LICENSE",
+            "CPF": "CPF",
+            "CNPJ": "CNPJ",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -33,4 +41,8 @@ class CertificateType(Enum):
             return CertificateType.CPF
         if CertificateType.CNPJ.value == value:
             return CertificateType.CNPJ
+        for member in CertificateType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

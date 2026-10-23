@@ -7,7 +7,10 @@ class CompanyUnitType(Enum):
     BRANCH = "BRANCH"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "HEADQUARTER": "HEADQUARTER",
+            "BRANCH": "BRANCH",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class CompanyUnitType(Enum):
             return CompanyUnitType.HEADQUARTER
         if CompanyUnitType.BRANCH.value == value:
             return CompanyUnitType.BRANCH
+        for member in CompanyUnitType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
