@@ -8,7 +8,11 @@ class ResultStatusType(Enum):
     U = "U"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "S": "S",
+            "F": "F",
+            "U": "U",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class ResultStatusType(Enum):
             return ResultStatusType.F
         if ResultStatusType.U.value == value:
             return ResultStatusType.U
+        for member in ResultStatusType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
