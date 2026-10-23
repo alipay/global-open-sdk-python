@@ -6,7 +6,9 @@ class FundsType(Enum):
     COLLATERAL = "COLLATERAL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "COLLATERAL": "COLLATERAL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -15,4 +17,8 @@ class FundsType(Enum):
 
         if FundsType.COLLATERAL.value == value:
             return FundsType.COLLATERAL
+        for member in FundsType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

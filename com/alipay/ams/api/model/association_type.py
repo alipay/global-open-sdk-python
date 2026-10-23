@@ -11,7 +11,14 @@ class AssociationType(Enum):
     BOARD_MEMBER = "BOARD_MEMBER"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "LEGAL_REPRESENTATIVE": "LEGAL_REPRESENTATIVE",
+            "UBO": "UBO",
+            "CONTACT": "CONTACT",
+            "DIRECTOR": "DIRECTOR",
+            "AUTHORIZER": "AUTHORIZER",
+            "BOARD_MEMBER": "BOARD_MEMBER",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -30,4 +37,8 @@ class AssociationType(Enum):
             return AssociationType.AUTHORIZER
         if AssociationType.BOARD_MEMBER.value == value:
             return AssociationType.BOARD_MEMBER
+        for member in AssociationType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
