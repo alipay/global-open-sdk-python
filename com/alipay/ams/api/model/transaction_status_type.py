@@ -10,7 +10,13 @@ class TransactionStatusType(Enum):
     PENDING = "PENDING"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SUCCESS": "SUCCESS",
+            "FAIL": "FAIL",
+            "PROCESSING": "PROCESSING",
+            "CANCELLED": "CANCELLED",
+            "PENDING": "PENDING",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -27,4 +33,8 @@ class TransactionStatusType(Enum):
             return TransactionStatusType.CANCELLED
         if TransactionStatusType.PENDING.value == value:
             return TransactionStatusType.PENDING
+        for member in TransactionStatusType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

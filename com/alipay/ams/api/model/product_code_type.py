@@ -8,7 +8,11 @@ class ProductCodeType(Enum):
     IN_STORE_PAYMENT = "IN_STORE_PAYMENT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "CASHIER_PAYMENT": "CASHIER_PAYMENT",
+            "AGREEMENT_PAYMENT": "AGREEMENT_PAYMENT",
+            "IN_STORE_PAYMENT": "IN_STORE_PAYMENT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class ProductCodeType(Enum):
             return ProductCodeType.AGREEMENT_PAYMENT
         if ProductCodeType.IN_STORE_PAYMENT.value == value:
             return ProductCodeType.IN_STORE_PAYMENT
+        for member in ProductCodeType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

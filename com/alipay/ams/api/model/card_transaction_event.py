@@ -14,6 +14,7 @@ class CardTransactionEvent:
         self.__lifecycle_id = None  # type: str
         self.__event_type = None  # type: str
         self.__auth_expire_time = None  # type: str
+        self.__auth_time = None  # type: str
         self.__auth_type = None  # type: str
         self.__auth_code = None  # type: str
         self.__failure_reason = None  # type: str
@@ -27,6 +28,7 @@ class CardTransactionEvent:
         self.__exchange_rate = None  # type: str
         self.__transaction_amount = None  # type: Amount
         self.__asset_id = None  # type: str
+        self.__card_product = None  # type: str
         self.__masked_card_no = None  # type: str
         self.__merchant_info = None  # type: EventMerchantInfo
         self.__metadata = None  # type: {str: (str,)}
@@ -72,6 +74,16 @@ class CardTransactionEvent:
     @auth_expire_time.setter
     def auth_expire_time(self, value):
         self.__auth_expire_time = value
+    @property
+    def auth_time(self):
+        """
+        The time of the channel-designated authorization associated with this event, in ISO 8601 format. Returned for eligible non-AUTH events when available.
+        """
+        return self.__auth_time
+
+    @auth_time.setter
+    def auth_time(self, value):
+        self.__auth_time = value
     @property
     def auth_type(self):
         """
@@ -203,6 +215,16 @@ class CardTransactionEvent:
     def asset_id(self, value):
         self.__asset_id = value
     @property
+    def card_product(self):
+        """
+        The product category of the card used for the transaction, such as Mastercard MTA or MTB. Returned when available; the value is passed through as provided and has no fixed code pattern.
+        """
+        return self.__card_product
+
+    @card_product.setter
+    def card_product(self, value):
+        self.__card_product = value
+    @property
     def masked_card_no(self):
         """
         The PCI-compliant masked card number. Returned when masking information is available.
@@ -246,6 +268,8 @@ class CardTransactionEvent:
             params['eventType'] = self.event_type
         if hasattr(self, "auth_expire_time") and self.auth_expire_time is not None:
             params['authExpireTime'] = self.auth_expire_time
+        if hasattr(self, "auth_time") and self.auth_time is not None:
+            params['authTime'] = self.auth_time
         if hasattr(self, "auth_type") and self.auth_type is not None:
             params['authType'] = self.auth_type
         if hasattr(self, "auth_code") and self.auth_code is not None:
@@ -272,6 +296,8 @@ class CardTransactionEvent:
             params['transactionAmount'] = self.transaction_amount
         if hasattr(self, "asset_id") and self.asset_id is not None:
             params['assetId'] = self.asset_id
+        if hasattr(self, "card_product") and self.card_product is not None:
+            params['cardProduct'] = self.card_product
         if hasattr(self, "masked_card_no") and self.masked_card_no is not None:
             params['maskedCardNo'] = self.masked_card_no
         if hasattr(self, "merchant_info") and self.merchant_info is not None:
@@ -292,6 +318,8 @@ class CardTransactionEvent:
             self.__event_type = response_body['eventType']
         if 'authExpireTime' in response_body:
             self.__auth_expire_time = response_body['authExpireTime']
+        if 'authTime' in response_body:
+            self.__auth_time = response_body['authTime']
         if 'authType' in response_body:
             self.__auth_type = response_body['authType']
         if 'authCode' in response_body:
@@ -321,6 +349,8 @@ class CardTransactionEvent:
             self.__transaction_amount.parse_rsp_body(response_body['transactionAmount'])
         if 'assetId' in response_body:
             self.__asset_id = response_body['assetId']
+        if 'cardProduct' in response_body:
+            self.__card_product = response_body['cardProduct']
         if 'maskedCardNo' in response_body:
             self.__masked_card_no = response_body['maskedCardNo']
         if 'merchantInfo' in response_body:

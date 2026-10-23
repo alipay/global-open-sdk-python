@@ -8,7 +8,11 @@ class RateType(Enum):
     REFERENCE_TRADE = "REFERENCE_TRADE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "TRADE": "TRADE",
+            "REFERENCE": "REFERENCE",
+            "REFERENCE_TRADE": "REFERENCE_TRADE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class RateType(Enum):
             return RateType.REFERENCE
         if RateType.REFERENCE_TRADE.value == value:
             return RateType.REFERENCE_TRADE
+        for member in RateType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

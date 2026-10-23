@@ -9,7 +9,12 @@ class TerminalType(Enum):
     MINI_APP = "MINI_APP"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "WEB": "WEB",
+            "WAP": "WAP",
+            "APP": "APP",
+            "MINI_APP": "MINI_APP",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -24,4 +29,8 @@ class TerminalType(Enum):
             return TerminalType.APP
         if TerminalType.MINI_APP.value == value:
             return TerminalType.MINI_APP
+        for member in TerminalType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

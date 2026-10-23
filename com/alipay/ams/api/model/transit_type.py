@@ -9,7 +9,12 @@ class TransitType(Enum):
     COACH = "COACH"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "FLIGHT": "FLIGHT",
+            "TRAIN": "TRAIN",
+            "CRUISE": "CRUISE",
+            "COACH": "COACH",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -24,4 +29,8 @@ class TransitType(Enum):
             return TransitType.CRUISE
         if TransitType.COACH.value == value:
             return TransitType.COACH
+        for member in TransitType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

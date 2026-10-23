@@ -8,7 +8,11 @@ class SubscriptionStatus(Enum):
     TERMINATED = "TERMINATED"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ACTIVE": "ACTIVE",
+            "CANCELLED": "CANCELLED",
+            "TERMINATED": "TERMINATED",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class SubscriptionStatus(Enum):
             return SubscriptionStatus.CANCELLED
         if SubscriptionStatus.TERMINATED.value == value:
             return SubscriptionStatus.TERMINATED
+        for member in SubscriptionStatus:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

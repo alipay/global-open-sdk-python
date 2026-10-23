@@ -7,7 +7,10 @@ class PromotionType(Enum):
     INTEREST_FREE = "INTEREST_FREE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "DISCOUNT": "DISCOUNT",
+            "INTEREST_FREE": "INTEREST_FREE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class PromotionType(Enum):
             return PromotionType.DISCOUNT
         if PromotionType.INTEREST_FREE.value == value:
             return PromotionType.INTEREST_FREE
+        for member in PromotionType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
