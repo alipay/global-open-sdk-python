@@ -8,7 +8,11 @@ class ChallengeType(Enum):
     CARD_EXPIRE_DATE = "CARD_EXPIRE_DATE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SMS_OTP": "SMS_OTP",
+            "PLAINTEXT_CARD_NO": "PLAINTEXT_CARD_NO",
+            "CARD_EXPIRE_DATE": "CARD_EXPIRE_DATE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class ChallengeType(Enum):
             return ChallengeType.PLAINTEXT_CARD_NO
         if ChallengeType.CARD_EXPIRE_DATE.value == value:
             return ChallengeType.CARD_EXPIRE_DATE
+        for member in ChallengeType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

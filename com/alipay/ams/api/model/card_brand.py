@@ -42,7 +42,45 @@ class CardBrand(Enum):
     WOORI = "WOORI"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "AMEX": "AMEX",
+            "BC": "BC",
+            "CARNET": "CARNET",
+            "CARTES_BANCAIRES": "CARTES_BANCAIRES",
+            "CITI": "CITI",
+            "CUP": "CUP",
+            "DINERS": "DINERS",
+            "DISCOVER": "DISCOVER",
+            "ELO": "ELO",
+            "GWANGJUBANK": "GWANGJUBANK",
+            "HIPERCARD": "HIPERCARD",
+            "HYUNDAI": "HYUNDAI",
+            "IBK_BC": "IBK_BC",
+            "JCB": "JCB",
+            "JEJUBANK": "JEJUBANK",
+            "JEONBUKBANK": "JEONBUKBANK",
+            "KAKAOBANK": "KAKAOBANK",
+            "KBANK": "KBANK",
+            "KDBBANK": "KDBBANK",
+            "KEBHANA": "KEBHANA",
+            "KOOKMIN": "KOOKMIN",
+            "LOTTE": "LOTTE",
+            "MAESTRO": "MAESTRO",
+            "MASTERCARD": "MASTERCARD",
+            "MIR": "MIR",
+            "NONGHYUP": "NONGHYUP",
+            "POST": "POST",
+            "SAEMAUL": "SAEMAUL",
+            "SAMSUNG": "SAMSUNG",
+            "SAVINGBANK": "SAVINGBANK",
+            "SHINHAN": "SHINHAN",
+            "SHINHYEOP": "SHINHYEOP",
+            "SUHYEOP": "SUHYEOP",
+            "TOSSBANK": "TOSSBANK",
+            "TROY": "TROY",
+            "VISA": "VISA",
+            "WOORI": "WOORI",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -123,4 +161,8 @@ class CardBrand(Enum):
             return CardBrand.VISA
         if CardBrand.WOORI.value == value:
             return CardBrand.WOORI
+        for member in CardBrand:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

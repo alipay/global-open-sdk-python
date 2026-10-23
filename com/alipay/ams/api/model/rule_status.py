@@ -7,7 +7,10 @@ class RuleStatus(Enum):
     DISABLED = "DISABLED"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ACTIVE": "ACTIVE",
+            "DISABLED": "DISABLED",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class RuleStatus(Enum):
             return RuleStatus.ACTIVE
         if RuleStatus.DISABLED.value == value:
             return RuleStatus.DISABLED
+        for member in RuleStatus:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

@@ -8,7 +8,11 @@ class CardTransactionStatusFilterType(Enum):
     PROCESSING = "PROCESSING"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "SUCCESS": "SUCCESS",
+            "FAIL": "FAIL",
+            "PROCESSING": "PROCESSING",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -21,4 +25,8 @@ class CardTransactionStatusFilterType(Enum):
             return CardTransactionStatusFilterType.FAIL
         if CardTransactionStatusFilterType.PROCESSING.value == value:
             return CardTransactionStatusFilterType.PROCESSING
+        for member in CardTransactionStatusFilterType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
