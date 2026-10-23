@@ -13,7 +13,16 @@ class PaymentMethodCategoryType(Enum):
     VA = "VA"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ALIPAY_PLUS": "ALIPAY_PLUS",
+            "WALLET": "WALLET",
+            "MOBILE_BANKING_APP": "MOBILE_BANKING_APP",
+            "BANK_TRANSFER": "BANK_TRANSFER",
+            "ONLINE_BANKING": "ONLINE_BANKING",
+            "CARD": "CARD",
+            "OTC": "OTC",
+            "VA": "VA",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -36,4 +45,8 @@ class PaymentMethodCategoryType(Enum):
             return PaymentMethodCategoryType.OTC
         if PaymentMethodCategoryType.VA.value == value:
             return PaymentMethodCategoryType.VA
+        for member in PaymentMethodCategoryType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

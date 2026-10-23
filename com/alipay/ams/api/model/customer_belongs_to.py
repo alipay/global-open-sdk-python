@@ -35,7 +35,38 @@ class CustomerBelongsTo(Enum):
     ANTOM_BIZ_ACCOUNT = "ANTOM_BIZ_ACCOUNT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "ALIPAY_CN": "ALIPAY_CN",
+            "ALIPAY_HK": "ALIPAY_HK",
+            "MPAY": "MPAY",
+            "DANA": "DANA",
+            "PAYPAY": "PAYPAY",
+            "BOOST": "BOOST",
+            "TNG": "TNG",
+            "GRABPAY_MY": "GRABPAY_MY",
+            "HIPAY": "HIPAY",
+            "GCASH": "GCASH",
+            "MAYA": "MAYA",
+            "GRABPAY_PH": "GRABPAY_PH",
+            "GRABPAY_SG": "GRABPAY_SG",
+            "KAKAOPAY": "KAKAOPAY",
+            "NAVERPAY": "NAVERPAY",
+            "TOSSPAY": "TOSSPAY",
+            "RABBIT_LINE_PAY": "RABBIT_LINE_PAY",
+            "TRUEMONEY": "TRUEMONEY",
+            "KPLUS": "KPLUS",
+            "DIRECT_DEBIT_SIAMCOMMERCIALBANK": "DIRECT_DEBIT_SIAMCOMMERCIALBANK",
+            "DIRECT_DEBIT_KRUNGTHAIBANK": "DIRECT_DEBIT_KRUNGTHAIBANK",
+            "ACH_DIRECT_DEBIT": "ACH_DIRECT_DEBIT",
+            "ZALOPAY": "ZALOPAY",
+            "MOMO": "MOMO",
+            "VIETTELMONEY": "VIETTELMONEY",
+            "JKOPAY": "JKOPAY",
+            "BKASH": "BKASH",
+            "EASYPAISA": "EASYPAISA",
+            "DIRECTDEBIT_YAPILY": "DIRECTDEBIT_YAPILY",
+            "ANTOM_BIZ_ACCOUNT": "ANTOM_BIZ_ACCOUNT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -102,4 +133,8 @@ class CustomerBelongsTo(Enum):
             return CustomerBelongsTo.DIRECTDEBIT_YAPILY
         if CustomerBelongsTo.ANTOM_BIZ_ACCOUNT.value == value:
             return CustomerBelongsTo.ANTOM_BIZ_ACCOUNT
+        for member in CustomerBelongsTo:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

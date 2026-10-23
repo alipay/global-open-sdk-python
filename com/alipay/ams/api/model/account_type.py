@@ -7,7 +7,10 @@ class AccountType(Enum):
     FIXED_DEPOSIT = "FIXED_DEPOSIT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "CHECKING": "CHECKING",
+            "FIXED_DEPOSIT": "FIXED_DEPOSIT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class AccountType(Enum):
             return AccountType.CHECKING
         if AccountType.FIXED_DEPOSIT.value == value:
             return AccountType.FIXED_DEPOSIT
+        for member in AccountType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

@@ -10,7 +10,13 @@ class FundingType(Enum):
     DEFERRED_DEBIT = "DEFERRED_DEBIT"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "CREDIT": "CREDIT",
+            "DEBIT": "DEBIT",
+            "PREPAID": "PREPAID",
+            "CHARGE": "CHARGE",
+            "DEFERRED_DEBIT": "DEFERRED_DEBIT",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -27,4 +33,8 @@ class FundingType(Enum):
             return FundingType.CHARGE
         if FundingType.DEFERRED_DEBIT.value == value:
             return FundingType.DEFERRED_DEBIT
+        for member in FundingType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

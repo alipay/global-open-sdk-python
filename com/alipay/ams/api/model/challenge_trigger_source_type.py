@@ -7,7 +7,10 @@ class ChallengeTriggerSourceType(Enum):
     CHANNEL = "CHANNEL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "AMS": "AMS",
+            "CHANNEL": "CHANNEL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class ChallengeTriggerSourceType(Enum):
             return ChallengeTriggerSourceType.AMS
         if ChallengeTriggerSourceType.CHANNEL.value == value:
             return ChallengeTriggerSourceType.CHANNEL
+        for member in ChallengeTriggerSourceType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

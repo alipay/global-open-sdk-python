@@ -6,7 +6,9 @@ class CreditPayFeeType(Enum):
     PERCENTAGE = "PERCENTAGE"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "PERCENTAGE": "PERCENTAGE",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -15,4 +17,8 @@ class CreditPayFeeType(Enum):
 
         if CreditPayFeeType.PERCENTAGE.value == value:
             return CreditPayFeeType.PERCENTAGE
+        for member in CreditPayFeeType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
