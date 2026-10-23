@@ -7,7 +7,10 @@ class ReleaseType(Enum):
     INTERVAL_TIME = "INTERVAL_TIME"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "FIXED_TIME": "FIXED_TIME",
+            "INTERVAL_TIME": "INTERVAL_TIME",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class ReleaseType(Enum):
             return ReleaseType.FIXED_TIME
         if ReleaseType.INTERVAL_TIME.value == value:
             return ReleaseType.INTERVAL_TIME
+        for member in ReleaseType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

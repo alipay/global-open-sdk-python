@@ -7,7 +7,10 @@ class DeclarationBizSceneType(Enum):
     HOTEL = "HOTEL"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "AIRLINE": "AIRLINE",
+            "HOTEL": "HOTEL",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class DeclarationBizSceneType(Enum):
             return DeclarationBizSceneType.AIRLINE
         if DeclarationBizSceneType.HOTEL.value == value:
             return DeclarationBizSceneType.HOTEL
+        for member in DeclarationBizSceneType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+

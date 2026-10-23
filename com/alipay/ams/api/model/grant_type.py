@@ -7,7 +7,10 @@ class GrantType(Enum):
     REFRESH_TOKEN = "REFRESH_TOKEN"
 
     def to_ams_dict(self) -> str:
-        return self.name
+        return {
+            "AUTHORIZATION_CODE": "AUTHORIZATION_CODE",
+            "REFRESH_TOKEN": "REFRESH_TOKEN",
+        }[self.name]
 
     @staticmethod
     def value_of(value):
@@ -18,4 +21,8 @@ class GrantType(Enum):
             return GrantType.AUTHORIZATION_CODE
         if GrantType.REFRESH_TOKEN.value == value:
             return GrantType.REFRESH_TOKEN
+        for member in GrantType:
+            if member.to_ams_dict() == value:
+                return member
         return None
+
