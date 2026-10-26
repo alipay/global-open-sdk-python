@@ -10,7 +10,7 @@ from com.alipay.ams.api.model.address import Address
 class Buyer:
     def __init__(self):
         
-        self.__preferred_locales = None  # type: str
+        self.__preferred_locales = None  # type: [str]
         self.__business_name = None  # type: str
         self.__buyer_type = None  # type: str
         self.__reference_buyer_id = None  # type: str
@@ -31,7 +31,7 @@ class Buyer:
     @property
     def preferred_locales(self):
         """
-        Comma-separated invoice and offline receipt PDF locales for createPaymentSession, such as ja-JP,en-US. First supported locale wins, with English fallback. Does not select email language. Omit in APIs that do not document support.
+        Ordered PDF-language preferences for createPaymentSession. Omitted, null, empty or unsupported preferences use English. Does not read or update customer preferences or select Checkout UI or email language. Omit in APIs that do not document support.
         """
         return self.__preferred_locales
 
@@ -91,7 +91,7 @@ class Buyer:
     @property
     def buyer_email(self):
         """
-        The email of the buyer.  Specify this parameter:  When you require risk control. When the value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 64 characters For the DingTalk createPaymentSession integration, a valid buyer email is required and the maximum length is 128 characters.
+        The email of the buyer.  Specify this parameter:  When you require risk control. When the value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 64 characters
         """
         return self.__buyer_email
 
