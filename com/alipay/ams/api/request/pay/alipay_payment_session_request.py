@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.fund_transfer_info import FundTransferInfo
 from com.alipay.ams.api.model.customized_info import CustomizedInfo
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.amount import Amount
@@ -27,6 +28,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def __init__(self):
         super(AlipayPaymentSessionRequest, self).__init__("/ams/api/v1/payments/createPaymentSession") 
 
+        self.__fund_transfer_info = None  # type: FundTransferInfo
         self.__merchant_account_id = None  # type: str
         self.__metadata = None  # type: str
         self.__allowed_payment_method_regions = None  # type: [str]
@@ -62,6 +64,16 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__automatic_tax = None  # type: AutomaticTax
         
 
+    @property
+    def fund_transfer_info(self):
+        """Gets the fund_transfer_info of this AlipayPaymentSessionRequest.
+        
+        """
+        return self.__fund_transfer_info
+
+    @fund_transfer_info.setter
+    def fund_transfer_info(self, value):
+        self.__fund_transfer_info = value
     @property
     def merchant_account_id(self):
         """
@@ -401,6 +413,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "fund_transfer_info") and self.fund_transfer_info is not None:
+            params['fundTransferInfo'] = self.fund_transfer_info
         if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
             params['merchantAccountId'] = self.merchant_account_id
         if hasattr(self, "metadata") and self.metadata is not None:
@@ -473,6 +487,9 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'fundTransferInfo' in response_body:
+            self.__fund_transfer_info = FundTransferInfo()
+            self.__fund_transfer_info.parse_rsp_body(response_body['fundTransferInfo'])
         if 'merchantAccountId' in response_body:
             self.__merchant_account_id = response_body['merchantAccountId']
         if 'metadata' in response_body:
