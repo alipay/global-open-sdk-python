@@ -17,6 +17,7 @@ from com.alipay.ams.api.model.risk_data import RiskData
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.available_payment_method import AvailablePaymentMethod
 from com.alipay.ams.api.model.billing_subscription import BillingSubscription
+from com.alipay.ams.api.model.fund_transfer_info import FundTransferInfo
 from com.alipay.ams.api.model.automatic_tax import AutomaticTax
 
 
@@ -59,6 +60,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__available_payment_method = None  # type: AvailablePaymentMethod
         self.__payment_expiry_time = None  # type: str
         self.__subscription = None  # type: BillingSubscription
+        self.__fund_transfer_info = None  # type: FundTransferInfo
         self.__automatic_tax = None  # type: AutomaticTax
         
 
@@ -383,6 +385,16 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def subscription(self, value):
         self.__subscription = value
     @property
+    def fund_transfer_info(self):
+        """Gets the fund_transfer_info of this AlipayPaymentSessionRequest.
+        
+        """
+        return self.__fund_transfer_info
+
+    @fund_transfer_info.setter
+    def fund_transfer_info(self, value):
+        self.__fund_transfer_info = value
+    @property
     def automatic_tax(self):
         """Gets the automatic_tax of this AlipayPaymentSessionRequest.
         
@@ -465,6 +477,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
             params['paymentExpiryTime'] = self.payment_expiry_time
         if hasattr(self, "subscription") and self.subscription is not None:
             params['subscription'] = self.subscription
+        if hasattr(self, "fund_transfer_info") and self.fund_transfer_info is not None:
+            params['fundTransferInfo'] = self.fund_transfer_info
         if hasattr(self, "automatic_tax") and self.automatic_tax is not None:
             params['automaticTax'] = self.automatic_tax
         return params
@@ -558,6 +572,9 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         if 'subscription' in response_body:
             self.__subscription = BillingSubscription()
             self.__subscription.parse_rsp_body(response_body['subscription'])
+        if 'fundTransferInfo' in response_body:
+            self.__fund_transfer_info = FundTransferInfo()
+            self.__fund_transfer_info.parse_rsp_body(response_body['fundTransferInfo'])
         if 'automaticTax' in response_body:
             self.__automatic_tax = AutomaticTax()
             self.__automatic_tax.parse_rsp_body(response_body['automaticTax'])
