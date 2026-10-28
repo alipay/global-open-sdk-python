@@ -15,6 +15,7 @@ from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.payment_verification_data import PaymentVerificationData
+from com.alipay.ams.api.model.fund_transfer_info import FundTransferInfo
 
 
 
@@ -53,6 +54,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__merchant_account_id = None  # type: str
         self.__dual_offline_payment = None  # type: bool
         self.__subscription_id = None  # type: str
+        self.__fund_transfer_info = None  # type: FundTransferInfo
         self.__locale = None  # type: str
         
 
@@ -347,6 +349,16 @@ class AlipayPayRequest(AlipayRequest):
     def subscription_id(self, value):
         self.__subscription_id = value
     @property
+    def fund_transfer_info(self):
+        """Gets the fund_transfer_info of this AlipayPayRequest.
+        
+        """
+        return self.__fund_transfer_info
+
+    @fund_transfer_info.setter
+    def fund_transfer_info(self, value):
+        self.__fund_transfer_info = value
+    @property
     def locale(self):
         """
         The language code used by Antom Hosted Checkout Page. This field applies only to non-POP Hosted Checkout Page requests. Supported values are en_US, pt_BR, pt_PT, es_ES, ko_KR, zh_CN, zh_HK, ms_MY, in_ID, th_TH, vi_VN, tl_PH, it_IT, de_DE, fr_FR, nl_NL, ja_JP, ro, pl_PL, ar_SA, tr_TR, hi_IN, and mn. Values are case-sensitive and are not trimmed or converted. When the field is omitted, null, empty, or contains only whitespace, the page selects a language from the region resolved from env.clientIp and falls back to en_US when no supported language can be resolved. Any other unsupported non-empty string that passes type and length validation falls back directly to en_US. A non-string value or a string longer than 8 characters is rejected with PARAM_ILLEGAL. The value automatic is unsupported and exceeds the maximum length.
@@ -423,6 +435,8 @@ class AlipayPayRequest(AlipayRequest):
             params['dualOfflinePayment'] = self.dual_offline_payment
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
             params['subscriptionId'] = self.subscription_id
+        if hasattr(self, "fund_transfer_info") and self.fund_transfer_info is not None:
+            params['fundTransferInfo'] = self.fund_transfer_info
         if hasattr(self, "locale") and self.locale is not None:
             params['locale'] = self.locale
         return params
@@ -505,5 +519,8 @@ class AlipayPayRequest(AlipayRequest):
             self.__dual_offline_payment = response_body['dualOfflinePayment']
         if 'subscriptionId' in response_body:
             self.__subscription_id = response_body['subscriptionId']
+        if 'fundTransferInfo' in response_body:
+            self.__fund_transfer_info = FundTransferInfo()
+            self.__fund_transfer_info.parse_rsp_body(response_body['fundTransferInfo'])
         if 'locale' in response_body:
             self.__locale = response_body['locale']
