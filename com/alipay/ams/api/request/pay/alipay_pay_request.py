@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.fund_transfer_info import FundTransferInfo
 from com.alipay.ams.api.model.customized_info import CustomizedInfo
 from com.alipay.ams.api.model.quote import Quote
 from com.alipay.ams.api.model.agreement_info import AgreementInfo
@@ -24,6 +25,7 @@ class AlipayPayRequest(AlipayRequest):
     def __init__(self):
         super(AlipayPayRequest, self).__init__("/ams/api/v1/payments/pay") 
 
+        self.__fund_transfer_info = None  # type: FundTransferInfo
         self.__metadata = None  # type: str
         self.__customized_info = None  # type: CustomizedInfo
         self.__payment_quote = None  # type: Quote
@@ -56,6 +58,16 @@ class AlipayPayRequest(AlipayRequest):
         self.__locale = None  # type: str
         
 
+    @property
+    def fund_transfer_info(self):
+        """Gets the fund_transfer_info of this AlipayPayRequest.
+        
+        """
+        return self.__fund_transfer_info
+
+    @fund_transfer_info.setter
+    def fund_transfer_info(self, value):
+        self.__fund_transfer_info = value
     @property
     def metadata(self):
         """
@@ -365,6 +377,8 @@ class AlipayPayRequest(AlipayRequest):
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "fund_transfer_info") and self.fund_transfer_info is not None:
+            params['fundTransferInfo'] = self.fund_transfer_info
         if hasattr(self, "metadata") and self.metadata is not None:
             params['metadata'] = self.metadata
         if hasattr(self, "customized_info") and self.customized_info is not None:
@@ -431,6 +445,9 @@ class AlipayPayRequest(AlipayRequest):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'fundTransferInfo' in response_body:
+            self.__fund_transfer_info = FundTransferInfo()
+            self.__fund_transfer_info.parse_rsp_body(response_body['fundTransferInfo'])
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
         if 'customizedInfo' in response_body:
