@@ -14,6 +14,7 @@ class PaymentMethod:
         self.__extend_info = None  # type: str
         self.__require_issuer_authentication = None  # type: bool
         self.__payment_method_meta_data = None  # type: {str: ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},)}
+        self.__card_brand = None  # type: str
         
 
     @property
@@ -86,6 +87,16 @@ class PaymentMethod:
     @payment_method_meta_data.setter
     def payment_method_meta_data(self, value):
         self.__payment_method_meta_data = value
+    @property
+    def card_brand(self):
+        """
+        The card brand returned for card subscription payments, or UNKNOWN if it cannot be determined.
+        """
+        return self.__card_brand
+
+    @card_brand.setter
+    def card_brand(self, value):
+        self.__card_brand = value
 
 
     
@@ -106,6 +117,8 @@ class PaymentMethod:
             params['requireIssuerAuthentication'] = self.require_issuer_authentication
         if hasattr(self, "payment_method_meta_data") and self.payment_method_meta_data is not None:
             params['paymentMethodMetaData'] = self.payment_method_meta_data
+        if hasattr(self, "card_brand") and self.card_brand is not None:
+            params['cardBrand'] = self.card_brand
         return params
 
 
@@ -127,3 +140,5 @@ class PaymentMethod:
             self.__require_issuer_authentication = response_body['requireIssuerAuthentication']
         if 'paymentMethodMetaData' in response_body:
             self.__payment_method_meta_data = response_body['paymentMethodMetaData']
+        if 'cardBrand' in response_body:
+            self.__card_brand = response_body['cardBrand']
