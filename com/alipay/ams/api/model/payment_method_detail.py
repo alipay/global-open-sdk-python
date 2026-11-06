@@ -5,6 +5,7 @@ from com.alipay.ams.api.model.external_payment_method_detail import ExternalPaym
 from com.alipay.ams.api.model.discount_payment_method_detail import DiscountPaymentMethodDetail
 from com.alipay.ams.api.model.coupon_payment_method_detail import CouponPaymentMethodDetail
 from com.alipay.ams.api.model.wallet import Wallet
+from com.alipay.ams.api.model.payment_method_meta_data import PaymentMethodMetaData
 
 
 
@@ -21,6 +22,7 @@ class PaymentMethodDetail:
         self.__extend_info = None  # type: str
         self.__wallet = None  # type: Wallet
         self.__interaction_type = None  # type: str
+        self.__payment_method_meta_data = None  # type: PaymentMethodMetaData
         
 
     @property
@@ -76,7 +78,7 @@ class PaymentMethodDetail:
     @property
     def payment_method_type(self):
         """
-        The type of payment method to be vaulted. The value of this parameter is fixed to CARD.    More information:  Maximum length: 64 characters 
+        The type of payment method to be vaulted. The value of this parameter is fixed to CARD.    More information:  Maximum length: 64 characters
         """
         return self.__payment_method_type
 
@@ -113,6 +115,15 @@ class PaymentMethodDetail:
     @interaction_type.setter
     def interaction_type(self, value):
         self.__interaction_type = value
+    @property
+    def payment_method_meta_data(self):
+        """Gets the payment_method_meta_data of this PaymentMethodDetail.
+        """
+        return self.__payment_method_meta_data
+
+    @payment_method_meta_data.setter
+    def payment_method_meta_data(self, value):
+        self.__payment_method_meta_data = value
 
 
     
@@ -137,6 +148,8 @@ class PaymentMethodDetail:
             params['wallet'] = self.wallet
         if hasattr(self, "interaction_type") and self.interaction_type is not None:
             params['interactionType'] = self.interaction_type
+        if hasattr(self, "payment_method_meta_data") and self.payment_method_meta_data is not None:
+            params['paymentMethodMetaData'] = self.payment_method_meta_data
         return params
 
 
@@ -167,3 +180,6 @@ class PaymentMethodDetail:
             self.__wallet.parse_rsp_body(response_body['wallet'])
         if 'interactionType' in response_body:
             self.__interaction_type = response_body['interactionType']
+        if 'paymentMethodMetaData' in response_body:
+            self.__payment_method_meta_data = PaymentMethodMetaData()
+            self.__payment_method_meta_data.parse_rsp_body(response_body['paymentMethodMetaData'])
