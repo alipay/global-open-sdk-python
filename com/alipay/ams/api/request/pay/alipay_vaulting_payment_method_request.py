@@ -1,5 +1,5 @@
 import json
-from com.alipay.ams.api.model.vaulting_payment_method_detail_payload import VaultingPaymentMethodDetailPayload
+from com.alipay.ams.api.model.payment_method_detail import PaymentMethodDetail
 from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.customized_info import CustomizedInfo
 
@@ -17,7 +17,7 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
         self.__vaulting_notification_url = None  # type: str
         self.__redirect_url = None  # type: str
         self.__merchant_region = None  # type: str
-        self.__payment_method_detail = None  # type: VaultingPaymentMethodDetailPayload
+        self.__payment_method_detail = None  # type: PaymentMethodDetail
         self.__env = None  # type: Env
         self.__vaulting_currency = None  # type: str
         self.__customized_info = None  # type: CustomizedInfo

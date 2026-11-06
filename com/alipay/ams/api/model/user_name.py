@@ -15,7 +15,7 @@ class UserName:
     @property
     def first_name(self):
         """
-        The cardholder&#39;s first name.   More information:  Maximum length: 32 characters 
+        The cardholder&#39;s first name.  More information:  Maximum length: 32 characters
         """
         return self.__first_name
 
@@ -25,7 +25,7 @@ class UserName:
     @property
     def middle_name(self):
         """
-        The cardholder&#39;s middle name.   More information:  Maximum length: 32 characters
+        Middle name  More information:  Maximum length: 32 characters
         """
         return self.__middle_name
 
@@ -35,7 +35,7 @@ class UserName:
     @property
     def last_name(self):
         """
-        The cardholder&#39;s last name. 
+        The cardholder&#39;s last name.  More information:  Maximum length: 32 characters
         """
         return self.__last_name
 
@@ -45,7 +45,7 @@ class UserName:
     @property
     def full_name(self):
         """
-        The cardholder&#39;s full name.   More information:  Maximum length: 128 characters
+        Full name  More information:  Maximum length: 128 characters
         """
         return self.__full_name
 
