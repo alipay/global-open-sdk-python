@@ -171,7 +171,7 @@ class AlipayVaultingPaymentMethodRequest(AlipayRequest):
         if 'merchantRegion' in response_body:
             self.__merchant_region = response_body['merchantRegion']
         if 'paymentMethodDetail' in response_body:
-            self.__payment_method_detail = VaultingPaymentMethodDetailPayload()
+            self.__payment_method_detail = PaymentMethodDetail()
             self.__payment_method_detail.parse_rsp_body(response_body['paymentMethodDetail'])
         if 'env' in response_body:
             self.__env = Env()
