@@ -76,7 +76,7 @@ class PaymentMethodDetail:
     @property
     def payment_method_type(self):
         """
-        The type of payment method to be vaulted. The value of this parameter is fixed to CARD.    More information:  Maximum length: 64 characters 
+        The type of payment method to be vaulted. The value of this parameter is fixed to CARD.    More information:  Maximum length: 64 characters
         """
         return self.__payment_method_type
 

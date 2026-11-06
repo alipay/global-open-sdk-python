@@ -64,7 +64,7 @@ class CardPaymentMethodDetail:
     @property
     def card_token(self):
         """
-        The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments.   More information:  Maximum length: 2048 characters
+        The token of the card. The value of this parameter is used by paymentMethodId in the pay (One-time Payments) API when initiating payments. 
         """
         return self.__card_token
 
