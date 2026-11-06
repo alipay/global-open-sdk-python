@@ -13,6 +13,7 @@ class AccountBalance:
         self.__available_balance = None  # type: Amount
         self.__frozen_balance = None  # type: Amount
         self.__total_balance = None  # type: Amount
+        self.__account_no = None  # type: str
         
 
     @property
@@ -55,6 +56,16 @@ class AccountBalance:
     @total_balance.setter
     def total_balance(self, value):
         self.__total_balance = value
+    @property
+    def account_no(self):
+        """
+        The balance account number.    More information:  Maximum length: 32 characters
+        """
+        return self.__account_no
+
+    @account_no.setter
+    def account_no(self, value):
+        self.__account_no = value
 
 
     
@@ -69,6 +80,8 @@ class AccountBalance:
             params['frozenBalance'] = self.frozen_balance
         if hasattr(self, "total_balance") and self.total_balance is not None:
             params['totalBalance'] = self.total_balance
+        if hasattr(self, "account_no") and self.account_no is not None:
+            params['accountNo'] = self.account_no
         return params
 
 
@@ -86,3 +99,5 @@ class AccountBalance:
         if 'totalBalance' in response_body:
             self.__total_balance = Amount()
             self.__total_balance.parse_rsp_body(response_body['totalBalance'])
+        if 'accountNo' in response_body:
+            self.__account_no = response_body['accountNo']

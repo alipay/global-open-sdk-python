@@ -217,7 +217,7 @@ class CardTransactionEvent:
     @property
     def card_product(self):
         """
-        The product category of the card used for the transaction, such as Mastercard MTA or MTB. Returned when available; the value is passed through as provided and has no fixed code pattern.
+        The card network product code for the original transaction, such as MTA or MTB. Returned as stored only when the mapped route is enabled, the merchant is configured to receive this field, and the code is a non-blank string of up to 16 characters. Otherwise, the field is omitted.
         """
         return self.__card_product
 
