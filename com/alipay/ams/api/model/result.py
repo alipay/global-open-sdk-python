@@ -15,7 +15,7 @@ class Result:
     @property
     def result_code(self):
         """
-        The result code.
+        The result code. The possible result codes are listed in the Result/Error codes table on this page. 
         """
         return self.__result_code
 
@@ -35,7 +35,7 @@ class Result:
     @property
     def result_message(self):
         """
-        The result message.
+        The result message that explains the result code. 
         """
         return self.__result_message
 

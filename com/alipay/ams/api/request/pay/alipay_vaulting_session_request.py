@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.alipay_vaulting_session_request_payment_method_meta_data import AlipayVaultingSessionRequestPaymentMethodMetaData
 
 
 
@@ -14,6 +15,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__redirect_url = None  # type: str
         self.__merchant_region = None  # type: str
         self.__is3_ds_authentication = None  # type: bool
+        self.__payment_method_meta_data = None  # type: AlipayVaultingSessionRequestPaymentMethodMetaData
         
 
     @property
@@ -76,6 +78,16 @@ class AlipayVaultingSessionRequest(AlipayRequest):
     @is3_ds_authentication.setter
     def is3_ds_authentication(self, value):
         self.__is3_ds_authentication = value
+    @property
+    def payment_method_meta_data(self):
+        """Gets the payment_method_meta_data of this AlipayVaultingSessionRequest.
+        
+        """
+        return self.__payment_method_meta_data
+
+    @payment_method_meta_data.setter
+    def payment_method_meta_data(self, value):
+        self.__payment_method_meta_data = value
 
 
     def to_ams_json(self): 
@@ -97,6 +109,8 @@ class AlipayVaultingSessionRequest(AlipayRequest):
             params['merchantRegion'] = self.merchant_region
         if hasattr(self, "is3_ds_authentication") and self.is3_ds_authentication is not None:
             params['is3DSAuthentication'] = self.is3_ds_authentication
+        if hasattr(self, "payment_method_meta_data") and self.payment_method_meta_data is not None:
+            params['paymentMethodMetaData'] = self.payment_method_meta_data
         return params
 
 
@@ -115,3 +129,6 @@ class AlipayVaultingSessionRequest(AlipayRequest):
             self.__merchant_region = response_body['merchantRegion']
         if 'is3DSAuthentication' in response_body:
             self.__is3_ds_authentication = response_body['is3DSAuthentication']
+        if 'paymentMethodMetaData' in response_body:
+            self.__payment_method_meta_data = AlipayVaultingSessionRequestPaymentMethodMetaData()
+            self.__payment_method_meta_data.parse_rsp_body(response_body['paymentMethodMetaData'])
