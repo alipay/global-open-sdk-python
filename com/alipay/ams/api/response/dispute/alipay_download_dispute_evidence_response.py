@@ -29,7 +29,7 @@ class AlipayDownloadDisputeEvidenceResponse(AlipayResponse):
     @property
     def dispute_evidence(self):
         """
-        The dispute evidence that is encoded in the Based64 format. Decode the Base64 document to get the Word or PDF file.  Note: This prameter is returned when the value of resultCode is SUCCESS.  More information:  Maximum length: 1000000 characters 
+        The dispute evidence that is encoded in the Based64 format. Decode the Base64 document to get the Word or PDF file.  Note: This prameter is returned when the value of resultCode is SUCCESS.  More information:  Maximum length: 4000000 characters 
         """
         return self.__dispute_evidence
 
