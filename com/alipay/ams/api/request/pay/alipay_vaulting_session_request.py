@@ -1,5 +1,4 @@
 import json
-from com.alipay.ams.api.model.payment_method_meta_data import PaymentMethodMetaData
 
 
 
@@ -15,7 +14,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__redirect_url = None  # type: str
         self.__merchant_region = None  # type: str
         self.__is3_ds_authentication = None  # type: bool
-        self.__payment_method_meta_data = None  # type: PaymentMethodMetaData
+        self.__payment_method_meta_data = None  # type: {str: ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},)}
         
 
     @property
@@ -80,8 +79,8 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__is3_ds_authentication = value
     @property
     def payment_method_meta_data(self):
-        """Gets the payment_method_meta_data of this AlipayVaultingSessionRequest.
-        
+        """
+        Card payment metadata declared when the vaulting session is created and passed through when the SDK submits the vaulting request. This object remains free-form. Applicable only when paymentMethodType is CARD. Only recurringType is merchant-facing: SCHEDULED for fixed-schedule deductions or UNSCHEDULED for on-demand deductions; if omitted, no recurring type is declared, and any other value returns PARAM_ILLEGAL. The transaction-initiated-type flag (merchantInitiated) is derived internally by Antom and must not be provided.  More information:  Maximum length: 2048 characters after serialization
         """
         return self.__payment_method_meta_data
 
@@ -130,5 +129,4 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         if 'is3DSAuthentication' in response_body:
             self.__is3_ds_authentication = response_body['is3DSAuthentication']
         if 'paymentMethodMetaData' in response_body:
-            self.__payment_method_meta_data = PaymentMethodMetaData()
-            self.__payment_method_meta_data.parse_rsp_body(response_body['paymentMethodMetaData'])
+            self.__payment_method_meta_data = response_body['paymentMethodMetaData']
