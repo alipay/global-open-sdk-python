@@ -10,6 +10,7 @@ from com.alipay.ams.api.model.order import Order
 from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
+from com.alipay.ams.api.model.excluded_payment_method import ExcludedPaymentMethod
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.credit_pay_plan import CreditPayPlan
 from com.alipay.ams.api.model.env import Env
@@ -48,6 +49,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__payment_redirect_url = None  # type: str
         self.__payment_notify_url = None  # type: str
         self.__payment_factor = None  # type: PaymentFactor
+        self.__excluded_payment_method = None  # type: ExcludedPaymentMethod
         self.__settlement_strategy = None  # type: SettlementStrategy
         self.__enable_installment_collection = None  # type: bool
         self.__credit_pay_plan = None  # type: CreditPayPlan
@@ -265,6 +267,16 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     def payment_factor(self, value):
         self.__payment_factor = value
     @property
+    def excluded_payment_method(self):
+        """Gets the excluded_payment_method of this AlipayPaymentSessionRequest.
+        
+        """
+        return self.__excluded_payment_method
+
+    @excluded_payment_method.setter
+    def excluded_payment_method(self, value):
+        self.__excluded_payment_method = value
+    @property
     def settlement_strategy(self):
         """Gets the settlement_strategy of this AlipayPaymentSessionRequest.
         
@@ -453,6 +465,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
             params['paymentNotifyUrl'] = self.payment_notify_url
         if hasattr(self, "payment_factor") and self.payment_factor is not None:
             params['paymentFactor'] = self.payment_factor
+        if hasattr(self, "excluded_payment_method") and self.excluded_payment_method is not None:
+            params['excludedPaymentMethod'] = self.excluded_payment_method
         if hasattr(self, "settlement_strategy") and self.settlement_strategy is not None:
             params['settlementStrategy'] = self.settlement_strategy
         if hasattr(self, "enable_installment_collection") and self.enable_installment_collection is not None:
@@ -538,6 +552,9 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         if 'paymentFactor' in response_body:
             self.__payment_factor = PaymentFactor()
             self.__payment_factor.parse_rsp_body(response_body['paymentFactor'])
+        if 'excludedPaymentMethod' in response_body:
+            self.__excluded_payment_method = ExcludedPaymentMethod()
+            self.__excluded_payment_method.parse_rsp_body(response_body['excludedPaymentMethod'])
         if 'settlementStrategy' in response_body:
             self.__settlement_strategy = SettlementStrategy()
             self.__settlement_strategy.parse_rsp_body(response_body['settlementStrategy'])
