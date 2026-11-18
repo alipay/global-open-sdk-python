@@ -5,12 +5,12 @@ from com.alipay.ams.api.model.recurring_settings import RecurringSettings
 from com.alipay.ams.api.model.tier import Tier
 
 
-
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
+
 
 class AlipayPriceUpdateResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__() 
+        super(AlipayResponse, self).__init__()
 
         self.__result = None  # type: Result
         self.__price_id = None  # type: str
@@ -31,19 +31,17 @@ class AlipayPriceUpdateResponse(AlipayResponse):
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
         self.__default_price = None  # type: bool
-        self.parse_rsp_body(rsp_body) 
-
+        self.parse_rsp_body(rsp_body)
 
     @property
     def result(self):
-        """Gets the result of this AlipayPriceUpdateResponse.
-        
-        """
+        """Gets the result of this AlipayPriceUpdateResponse."""
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
+
     @property
     def price_id(self):
         """
@@ -54,6 +52,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @price_id.setter
     def price_id(self, value):
         self.__price_id = value
+
     @property
     def product_id(self):
         """
@@ -64,6 +63,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @product_id.setter
     def product_id(self, value):
         self.__product_id = value
+
     @property
     def name(self):
         """
@@ -74,6 +74,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @name.setter
     def name(self, value):
         self.__name = value
+
     @property
     def pricing_model(self):
         """
@@ -84,6 +85,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @pricing_model.setter
     def pricing_model(self, value):
         self.__pricing_model = value
+
     @property
     def usage_type(self):
         """
@@ -94,6 +96,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @usage_type.setter
     def usage_type(self, value):
         self.__usage_type = value
+
     @property
     def unit_label(self):
         """
@@ -104,6 +107,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @unit_label.setter
     def unit_label(self, value):
         self.__unit_label = value
+
     @property
     def meter_id(self):
         """
@@ -114,26 +118,25 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @meter_id.setter
     def meter_id(self, value):
         self.__meter_id = value
+
     @property
     def unit_amount(self):
-        """Gets the unit_amount of this AlipayPriceUpdateResponse.
-        
-        """
+        """Gets the unit_amount of this AlipayPriceUpdateResponse."""
         return self.__unit_amount
 
     @unit_amount.setter
     def unit_amount(self, value):
         self.__unit_amount = value
+
     @property
     def recurring(self):
-        """Gets the recurring of this AlipayPriceUpdateResponse.
-        
-        """
+        """Gets the recurring of this AlipayPriceUpdateResponse."""
         return self.__recurring
 
     @recurring.setter
     def recurring(self, value):
         self.__recurring = value
+
     @property
     def active(self):
         """
@@ -144,6 +147,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @active.setter
     def active(self, value):
         self.__active = value
+
     @property
     def included_quantity(self):
         """
@@ -154,6 +158,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @included_quantity.setter
     def included_quantity(self, value):
         self.__included_quantity = value
+
     @property
     def tiers_mode(self):
         """
@@ -164,6 +169,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @tiers_mode.setter
     def tiers_mode(self, value):
         self.__tiers_mode = value
+
     @property
     def tiers(self):
         """
@@ -174,6 +180,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @tiers.setter
     def tiers(self, value):
         self.__tiers = value
+
     @property
     def metadata(self):
         """
@@ -184,6 +191,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def created_at(self):
         """
@@ -194,6 +202,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @created_at.setter
     def created_at(self, value):
         self.__created_at = value
+
     @property
     def deactivated_at(self):
         """
@@ -204,6 +213,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @deactivated_at.setter
     def deactivated_at(self, value):
         self.__deactivated_at = value
+
     @property
     def updated_at(self):
         """
@@ -214,6 +224,7 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     @updated_at.setter
     def updated_at(self, value):
         self.__updated_at = value
+
     @property
     def default_price(self):
         """
@@ -225,96 +236,94 @@ class AlipayPriceUpdateResponse(AlipayResponse):
     def default_price(self, value):
         self.__default_price = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params['result'] = self.result
+            params["result"] = self.result
         if hasattr(self, "price_id") and self.price_id is not None:
-            params['priceId'] = self.price_id
+            params["priceId"] = self.price_id
         if hasattr(self, "product_id") and self.product_id is not None:
-            params['productId'] = self.product_id
+            params["productId"] = self.product_id
         if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
+            params["name"] = self.name
         if hasattr(self, "pricing_model") and self.pricing_model is not None:
-            params['pricingModel'] = self.pricing_model
+            params["pricingModel"] = self.pricing_model
         if hasattr(self, "usage_type") and self.usage_type is not None:
-            params['usageType'] = self.usage_type
+            params["usageType"] = self.usage_type
         if hasattr(self, "unit_label") and self.unit_label is not None:
-            params['unitLabel'] = self.unit_label
+            params["unitLabel"] = self.unit_label
         if hasattr(self, "meter_id") and self.meter_id is not None:
-            params['meterId'] = self.meter_id
+            params["meterId"] = self.meter_id
         if hasattr(self, "unit_amount") and self.unit_amount is not None:
-            params['unitAmount'] = self.unit_amount
+            params["unitAmount"] = self.unit_amount
         if hasattr(self, "recurring") and self.recurring is not None:
-            params['recurring'] = self.recurring
+            params["recurring"] = self.recurring
         if hasattr(self, "active") and self.active is not None:
-            params['active'] = self.active
+            params["active"] = self.active
         if hasattr(self, "included_quantity") and self.included_quantity is not None:
-            params['includedQuantity'] = self.included_quantity
+            params["includedQuantity"] = self.included_quantity
         if hasattr(self, "tiers_mode") and self.tiers_mode is not None:
-            params['tiersMode'] = self.tiers_mode
+            params["tiersMode"] = self.tiers_mode
         if hasattr(self, "tiers") and self.tiers is not None:
-            params['tiers'] = self.tiers
+            params["tiers"] = self.tiers
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "created_at") and self.created_at is not None:
-            params['createdAt'] = self.created_at
+            params["createdAt"] = self.created_at
         if hasattr(self, "deactivated_at") and self.deactivated_at is not None:
-            params['deactivatedAt'] = self.deactivated_at
+            params["deactivatedAt"] = self.deactivated_at
         if hasattr(self, "updated_at") and self.updated_at is not None:
-            params['updatedAt'] = self.updated_at
+            params["updatedAt"] = self.updated_at
         if hasattr(self, "default_price") and self.default_price is not None:
-            params['defaultPrice'] = self.default_price
+            params["defaultPrice"] = self.default_price
         return params
 
-
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayPriceUpdateResponse, self).parse_rsp_body(response_body)
-        if 'result' in response_body:
+        response_body = super(AlipayPriceUpdateResponse, self).parse_rsp_body(
+            response_body
+        )
+        if "result" in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body['result'])
-        if 'priceId' in response_body:
-            self.__price_id = response_body['priceId']
-        if 'productId' in response_body:
-            self.__product_id = response_body['productId']
-        if 'name' in response_body:
-            self.__name = response_body['name']
-        if 'pricingModel' in response_body:
-            self.__pricing_model = response_body['pricingModel']
-        if 'usageType' in response_body:
-            self.__usage_type = response_body['usageType']
-        if 'unitLabel' in response_body:
-            self.__unit_label = response_body['unitLabel']
-        if 'meterId' in response_body:
-            self.__meter_id = response_body['meterId']
-        if 'unitAmount' in response_body:
+            self.__result.parse_rsp_body(response_body["result"])
+        if "priceId" in response_body:
+            self.__price_id = response_body["priceId"]
+        if "productId" in response_body:
+            self.__product_id = response_body["productId"]
+        if "name" in response_body:
+            self.__name = response_body["name"]
+        if "pricingModel" in response_body:
+            self.__pricing_model = response_body["pricingModel"]
+        if "usageType" in response_body:
+            self.__usage_type = response_body["usageType"]
+        if "unitLabel" in response_body:
+            self.__unit_label = response_body["unitLabel"]
+        if "meterId" in response_body:
+            self.__meter_id = response_body["meterId"]
+        if "unitAmount" in response_body:
             self.__unit_amount = Amount()
-            self.__unit_amount.parse_rsp_body(response_body['unitAmount'])
-        if 'recurring' in response_body:
+            self.__unit_amount.parse_rsp_body(response_body["unitAmount"])
+        if "recurring" in response_body:
             self.__recurring = RecurringSettings()
-            self.__recurring.parse_rsp_body(response_body['recurring'])
-        if 'active' in response_body:
-            self.__active = response_body['active']
-        if 'includedQuantity' in response_body:
-            self.__included_quantity = response_body['includedQuantity']
-        if 'tiersMode' in response_body:
-            self.__tiers_mode = response_body['tiersMode']
-        if 'tiers' in response_body:
+            self.__recurring.parse_rsp_body(response_body["recurring"])
+        if "active" in response_body:
+            self.__active = response_body["active"]
+        if "includedQuantity" in response_body:
+            self.__included_quantity = response_body["includedQuantity"]
+        if "tiersMode" in response_body:
+            self.__tiers_mode = response_body["tiersMode"]
+        if "tiers" in response_body:
             self.__tiers = []
-            for item in response_body['tiers']:
+            for item in response_body["tiers"]:
                 obj = Tier()
                 obj.parse_rsp_body(item)
                 self.__tiers.append(obj)
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'createdAt' in response_body:
-            self.__created_at = response_body['createdAt']
-        if 'deactivatedAt' in response_body:
-            self.__deactivated_at = response_body['deactivatedAt']
-        if 'updatedAt' in response_body:
-            self.__updated_at = response_body['updatedAt']
-        if 'defaultPrice' in response_body:
-            self.__default_price = response_body['defaultPrice']
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "createdAt" in response_body:
+            self.__created_at = response_body["createdAt"]
+        if "deactivatedAt" in response_body:
+            self.__deactivated_at = response_body["deactivatedAt"]
+        if "updatedAt" in response_body:
+            self.__updated_at = response_body["updatedAt"]
+        if "defaultPrice" in response_body:
+            self.__default_price = response_body["defaultPrice"]

@@ -5,12 +5,14 @@ from com.alipay.ams.api.model.order_info import OrderInfo
 from com.alipay.ams.api.model.proration_settings import ProrationSettings
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipaySubscriptionUpdateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySubscriptionUpdateRequest, self).__init__("/ams/api/v1/subscriptions/update") 
+        super(AlipaySubscriptionUpdateRequest, self).__init__(
+            "/ams/api/v1/subscriptions/update"
+        )
 
         self.__subscription_update_request_id = None  # type: str
         self.__subscription_id = None  # type: str
@@ -21,7 +23,6 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
         self.__order_info = None  # type: OrderInfo
         self.__proration_settings = None  # type: ProrationSettings
         self.__next_subscription_date = None  # type: str
-        
 
     @property
     def subscription_update_request_id(self):
@@ -33,6 +34,7 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     @subscription_update_request_id.setter
     def subscription_update_request_id(self, value):
         self.__subscription_update_request_id = value
+
     @property
     def subscription_id(self):
         """
@@ -43,6 +45,7 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     @subscription_id.setter
     def subscription_id(self, value):
         self.__subscription_id = value
+
     @property
     def subscription_description(self):
         """
@@ -53,26 +56,25 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     @subscription_description.setter
     def subscription_description(self, value):
         self.__subscription_description = value
+
     @property
     def period_rule(self):
-        """Gets the period_rule of this AlipaySubscriptionUpdateRequest.
-        
-        """
+        """Gets the period_rule of this AlipaySubscriptionUpdateRequest."""
         return self.__period_rule
 
     @period_rule.setter
     def period_rule(self, value):
         self.__period_rule = value
+
     @property
     def payment_amount(self):
-        """Gets the payment_amount of this AlipaySubscriptionUpdateRequest.
-        
-        """
+        """Gets the payment_amount of this AlipaySubscriptionUpdateRequest."""
         return self.__payment_amount
 
     @payment_amount.setter
     def payment_amount(self, value):
         self.__payment_amount = value
+
     @property
     def subscription_end_time(self):
         """
@@ -83,26 +85,25 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     @subscription_end_time.setter
     def subscription_end_time(self, value):
         self.__subscription_end_time = value
+
     @property
     def order_info(self):
-        """Gets the order_info of this AlipaySubscriptionUpdateRequest.
-        
-        """
+        """Gets the order_info of this AlipaySubscriptionUpdateRequest."""
         return self.__order_info
 
     @order_info.setter
     def order_info(self, value):
         self.__order_info = value
+
     @property
     def proration_settings(self):
-        """Gets the proration_settings of this AlipaySubscriptionUpdateRequest.
-        
-        """
+        """Gets the proration_settings of this AlipaySubscriptionUpdateRequest."""
         return self.__proration_settings
 
     @proration_settings.setter
     def proration_settings(self, value):
         self.__proration_settings = value
+
     @property
     def next_subscription_date(self):
         """
@@ -114,57 +115,70 @@ class AlipaySubscriptionUpdateRequest(AlipayRequest):
     def next_subscription_date(self, value):
         self.__next_subscription_date = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "subscription_update_request_id") and self.subscription_update_request_id is not None:
-            params['subscriptionUpdateRequestId'] = self.subscription_update_request_id
+        if (
+            hasattr(self, "subscription_update_request_id")
+            and self.subscription_update_request_id is not None
+        ):
+            params["subscriptionUpdateRequestId"] = self.subscription_update_request_id
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
-            params['subscriptionId'] = self.subscription_id
-        if hasattr(self, "subscription_description") and self.subscription_description is not None:
-            params['subscriptionDescription'] = self.subscription_description
+            params["subscriptionId"] = self.subscription_id
+        if (
+            hasattr(self, "subscription_description")
+            and self.subscription_description is not None
+        ):
+            params["subscriptionDescription"] = self.subscription_description
         if hasattr(self, "period_rule") and self.period_rule is not None:
-            params['periodRule'] = self.period_rule
+            params["periodRule"] = self.period_rule
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
-            params['paymentAmount'] = self.payment_amount
-        if hasattr(self, "subscription_end_time") and self.subscription_end_time is not None:
-            params['subscriptionEndTime'] = self.subscription_end_time
+            params["paymentAmount"] = self.payment_amount
+        if (
+            hasattr(self, "subscription_end_time")
+            and self.subscription_end_time is not None
+        ):
+            params["subscriptionEndTime"] = self.subscription_end_time
         if hasattr(self, "order_info") and self.order_info is not None:
-            params['orderInfo'] = self.order_info
+            params["orderInfo"] = self.order_info
         if hasattr(self, "proration_settings") and self.proration_settings is not None:
-            params['prorationSettings'] = self.proration_settings
-        if hasattr(self, "next_subscription_date") and self.next_subscription_date is not None:
-            params['nextSubscriptionDate'] = self.next_subscription_date
+            params["prorationSettings"] = self.proration_settings
+        if (
+            hasattr(self, "next_subscription_date")
+            and self.next_subscription_date is not None
+        ):
+            params["nextSubscriptionDate"] = self.next_subscription_date
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'subscriptionUpdateRequestId' in response_body:
-            self.__subscription_update_request_id = response_body['subscriptionUpdateRequestId']
-        if 'subscriptionId' in response_body:
-            self.__subscription_id = response_body['subscriptionId']
-        if 'subscriptionDescription' in response_body:
-            self.__subscription_description = response_body['subscriptionDescription']
-        if 'periodRule' in response_body:
+        if "subscriptionUpdateRequestId" in response_body:
+            self.__subscription_update_request_id = response_body[
+                "subscriptionUpdateRequestId"
+            ]
+        if "subscriptionId" in response_body:
+            self.__subscription_id = response_body["subscriptionId"]
+        if "subscriptionDescription" in response_body:
+            self.__subscription_description = response_body["subscriptionDescription"]
+        if "periodRule" in response_body:
             self.__period_rule = PeriodRule()
-            self.__period_rule.parse_rsp_body(response_body['periodRule'])
-        if 'paymentAmount' in response_body:
+            self.__period_rule.parse_rsp_body(response_body["periodRule"])
+        if "paymentAmount" in response_body:
             self.__payment_amount = Amount()
-            self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
-        if 'subscriptionEndTime' in response_body:
-            self.__subscription_end_time = response_body['subscriptionEndTime']
-        if 'orderInfo' in response_body:
+            self.__payment_amount.parse_rsp_body(response_body["paymentAmount"])
+        if "subscriptionEndTime" in response_body:
+            self.__subscription_end_time = response_body["subscriptionEndTime"]
+        if "orderInfo" in response_body:
             self.__order_info = OrderInfo()
-            self.__order_info.parse_rsp_body(response_body['orderInfo'])
-        if 'prorationSettings' in response_body:
+            self.__order_info.parse_rsp_body(response_body["orderInfo"])
+        if "prorationSettings" in response_body:
             self.__proration_settings = ProrationSettings()
-            self.__proration_settings.parse_rsp_body(response_body['prorationSettings'])
-        if 'nextSubscriptionDate' in response_body:
-            self.__next_subscription_date = response_body['nextSubscriptionDate']
+            self.__proration_settings.parse_rsp_body(response_body["prorationSettings"])
+        if "nextSubscriptionDate" in response_body:
+            self.__next_subscription_date = response_body["nextSubscriptionDate"]

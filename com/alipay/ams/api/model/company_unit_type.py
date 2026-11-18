@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class CompanyUnitType(Enum):
     """CompanyUnitType枚举类"""
@@ -25,4 +27,3 @@ class CompanyUnitType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class ClassType(Enum):
     """ClassType枚举类"""
@@ -29,4 +31,3 @@ class ClassType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

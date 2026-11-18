@@ -4,12 +4,12 @@ from com.alipay.ams.api.model.authorization_control import AuthorizationControl
 from com.alipay.ams.api.model.card_detail import CardDetail
 
 
-
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
+
 
 class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__() 
+        super(AlipayResponse, self).__init__()
 
         self.__result = None  # type: Result
         self.__asset_id = None  # type: str
@@ -19,19 +19,17 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
         self.__expired_year = None  # type: str
         self.__authorization_control = None  # type: AuthorizationControl
         self.__card_detail = None  # type: CardDetail
-        self.parse_rsp_body(rsp_body) 
-
+        self.parse_rsp_body(rsp_body)
 
     @property
     def result(self):
-        """Gets the result of this AlipayInquireCardSensitiveInfoResponse.
-        
-        """
+        """Gets the result of this AlipayInquireCardSensitiveInfoResponse."""
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
+
     @property
     def asset_id(self):
         """
@@ -42,6 +40,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @asset_id.setter
     def asset_id(self, value):
         self.__asset_id = value
+
     @property
     def cvv(self):
         """
@@ -52,6 +51,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @cvv.setter
     def cvv(self, value):
         self.__cvv = value
+
     @property
     def card_no(self):
         """
@@ -62,6 +62,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @card_no.setter
     def card_no(self, value):
         self.__card_no = value
+
     @property
     def expired_month(self):
         """
@@ -72,6 +73,7 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @expired_month.setter
     def expired_month(self, value):
         self.__expired_month = value
+
     @property
     def expired_year(self):
         """
@@ -82,69 +84,70 @@ class AlipayInquireCardSensitiveInfoResponse(AlipayResponse):
     @expired_year.setter
     def expired_year(self, value):
         self.__expired_year = value
+
     @property
     def authorization_control(self):
-        """Gets the authorization_control of this AlipayInquireCardSensitiveInfoResponse.
-        
-        """
+        """Gets the authorization_control of this AlipayInquireCardSensitiveInfoResponse."""
         return self.__authorization_control
 
     @authorization_control.setter
     def authorization_control(self, value):
         self.__authorization_control = value
+
     @property
     def card_detail(self):
-        """Gets the card_detail of this AlipayInquireCardSensitiveInfoResponse.
-        
-        """
+        """Gets the card_detail of this AlipayInquireCardSensitiveInfoResponse."""
         return self.__card_detail
 
     @card_detail.setter
     def card_detail(self, value):
         self.__card_detail = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params['result'] = self.result
+            params["result"] = self.result
         if hasattr(self, "asset_id") and self.asset_id is not None:
-            params['assetId'] = self.asset_id
+            params["assetId"] = self.asset_id
         if hasattr(self, "cvv") and self.cvv is not None:
-            params['cvv'] = self.cvv
+            params["cvv"] = self.cvv
         if hasattr(self, "card_no") and self.card_no is not None:
-            params['cardNo'] = self.card_no
+            params["cardNo"] = self.card_no
         if hasattr(self, "expired_month") and self.expired_month is not None:
-            params['expiredMonth'] = self.expired_month
+            params["expiredMonth"] = self.expired_month
         if hasattr(self, "expired_year") and self.expired_year is not None:
-            params['expiredYear'] = self.expired_year
-        if hasattr(self, "authorization_control") and self.authorization_control is not None:
-            params['authorizationControl'] = self.authorization_control
+            params["expiredYear"] = self.expired_year
+        if (
+            hasattr(self, "authorization_control")
+            and self.authorization_control is not None
+        ):
+            params["authorizationControl"] = self.authorization_control
         if hasattr(self, "card_detail") and self.card_detail is not None:
-            params['cardDetail'] = self.card_detail
+            params["cardDetail"] = self.card_detail
         return params
 
-
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayInquireCardSensitiveInfoResponse, self).parse_rsp_body(response_body)
-        if 'result' in response_body:
+        response_body = super(
+            AlipayInquireCardSensitiveInfoResponse, self
+        ).parse_rsp_body(response_body)
+        if "result" in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body['result'])
-        if 'assetId' in response_body:
-            self.__asset_id = response_body['assetId']
-        if 'cvv' in response_body:
-            self.__cvv = response_body['cvv']
-        if 'cardNo' in response_body:
-            self.__card_no = response_body['cardNo']
-        if 'expiredMonth' in response_body:
-            self.__expired_month = response_body['expiredMonth']
-        if 'expiredYear' in response_body:
-            self.__expired_year = response_body['expiredYear']
-        if 'authorizationControl' in response_body:
+            self.__result.parse_rsp_body(response_body["result"])
+        if "assetId" in response_body:
+            self.__asset_id = response_body["assetId"]
+        if "cvv" in response_body:
+            self.__cvv = response_body["cvv"]
+        if "cardNo" in response_body:
+            self.__card_no = response_body["cardNo"]
+        if "expiredMonth" in response_body:
+            self.__expired_month = response_body["expiredMonth"]
+        if "expiredYear" in response_body:
+            self.__expired_year = response_body["expiredYear"]
+        if "authorizationControl" in response_body:
             self.__authorization_control = AuthorizationControl()
-            self.__authorization_control.parse_rsp_body(response_body['authorizationControl'])
-        if 'cardDetail' in response_body:
+            self.__authorization_control.parse_rsp_body(
+                response_body["authorizationControl"]
+            )
+        if "cardDetail" in response_body:
             self.__card_detail = CardDetail()
-            self.__card_detail.parse_rsp_body(response_body['cardDetail'])
+            self.__card_detail.parse_rsp_body(response_body["cardDetail"])

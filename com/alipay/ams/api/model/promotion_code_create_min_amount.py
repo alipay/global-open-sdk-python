@@ -1,14 +1,11 @@
 import json
 
 
-
-
 class PromotionCodeCreateMinAmount:
     def __init__(self):
-        
+
         self.__value = None  # type: str
         self.__currency = None  # type: str
-        
 
     @property
     def value(self):
@@ -20,6 +17,7 @@ class PromotionCodeCreateMinAmount:
     @value.setter
     def value(self, value):
         self.__value = value
+
     @property
     def currency(self):
         """
@@ -31,22 +29,18 @@ class PromotionCodeCreateMinAmount:
     def currency(self, value):
         self.__currency = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "value") and self.value is not None:
-            params['value'] = self.value
+            params["value"] = self.value
         if hasattr(self, "currency") and self.currency is not None:
-            params['currency'] = self.currency
+            params["currency"] = self.currency
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'value' in response_body:
-            self.__value = response_body['value']
-        if 'currency' in response_body:
-            self.__currency = response_body['currency']
+        if "value" in response_body:
+            self.__value = response_body["value"]
+        if "currency" in response_body:
+            self.__currency = response_body["currency"]

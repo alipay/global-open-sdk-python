@@ -1,13 +1,10 @@
 import json
 
 
-
-
 class RefundPreference:
     def __init__(self):
-        
+
         self.__preference_type = None  # type: str
-        
 
     @property
     def preference_type(self):
@@ -20,18 +17,14 @@ class RefundPreference:
     def preference_type(self, value):
         self.__preference_type = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "preference_type") and self.preference_type is not None:
-            params['preferenceType'] = self.preference_type
+            params["preferenceType"] = self.preference_type
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'preferenceType' in response_body:
-            self.__preference_type = response_body['preferenceType']
+        if "preferenceType" in response_body:
+            self.__preference_type = response_body["preferenceType"]

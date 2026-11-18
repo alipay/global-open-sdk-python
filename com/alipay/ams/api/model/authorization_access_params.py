@@ -1,13 +1,10 @@
 import json
 
 
-
-
 class AuthorizationAccessParams:
     def __init__(self):
-        
+
         self.__channel = None  # type: str
-        
 
     @property
     def channel(self):
@@ -20,18 +17,14 @@ class AuthorizationAccessParams:
     def channel(self, value):
         self.__channel = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "channel") and self.channel is not None:
-            params['channel'] = self.channel
+            params["channel"] = self.channel
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'channel' in response_body:
-            self.__channel = response_body['channel']
+        if "channel" in response_body:
+            self.__channel = response_body["channel"]

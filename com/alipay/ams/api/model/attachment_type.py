@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class AttachmentType(Enum):
     """AttachmentType枚举类"""
@@ -6,7 +8,9 @@ class AttachmentType(Enum):
     SIGNATURE_AUTHORIZATION_LETTER = "SIGNATURE_AUTHORIZATION_LETTER"
     ARTICLES_OF_ASSOCIATION = "ARTICLES_OF_ASSOCIATION"
     LOGO = "LOGO"
-    AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER = "AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER"
+    AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER = (
+        "AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER"
+    )
     ASSOCIATION_ARTICLE = "ASSOCIATION_ARTICLE"
     FINANCIAL_REPORT = "FINANCIAL_REPORT"
     OWNERSHIP_STRUCTURE_PIC = "OWNERSHIP_STRUCTURE_PIC"
@@ -81,4 +85,3 @@ class AttachmentType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

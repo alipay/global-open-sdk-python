@@ -4,12 +4,14 @@ from com.alipay.ams.api.model.agentic_payment_method import AgenticPaymentMethod
 from com.alipay.ams.api.model.order import Order
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayInquirePaymentTokenRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquirePaymentTokenRequest, self).__init__("/ams/api/v1/agenticPayment/inquirePaymentToken") 
+        super(AlipayInquirePaymentTokenRequest, self).__init__(
+            "/ams/api/v1/agenticPayment/inquirePaymentToken"
+        )
 
         self.__payment_token_request_id = None  # type: str
         self.__user_login_id = None  # type: str
@@ -18,7 +20,6 @@ class AlipayInquirePaymentTokenRequest(AlipayRequest):
         self.__mandate_id = None  # type: str
         self.__metadata = None  # type: str
         self.__order = None  # type: Order
-        
 
     @property
     def payment_token_request_id(self):
@@ -30,6 +31,7 @@ class AlipayInquirePaymentTokenRequest(AlipayRequest):
     @payment_token_request_id.setter
     def payment_token_request_id(self, value):
         self.__payment_token_request_id = value
+
     @property
     def user_login_id(self):
         """
@@ -40,26 +42,25 @@ class AlipayInquirePaymentTokenRequest(AlipayRequest):
     @user_login_id.setter
     def user_login_id(self, value):
         self.__user_login_id = value
+
     @property
     def agent(self):
-        """Gets the agent of this AlipayInquirePaymentTokenRequest.
-        
-        """
+        """Gets the agent of this AlipayInquirePaymentTokenRequest."""
         return self.__agent
 
     @agent.setter
     def agent(self, value):
         self.__agent = value
+
     @property
     def payment_method(self):
-        """Gets the payment_method of this AlipayInquirePaymentTokenRequest.
-        
-        """
+        """Gets the payment_method of this AlipayInquirePaymentTokenRequest."""
         return self.__payment_method
 
     @payment_method.setter
     def payment_method(self, value):
         self.__payment_method = value
+
     @property
     def mandate_id(self):
         """
@@ -70,6 +71,7 @@ class AlipayInquirePaymentTokenRequest(AlipayRequest):
     @mandate_id.setter
     def mandate_id(self, value):
         self.__mandate_id = value
+
     @property
     def metadata(self):
         """
@@ -80,59 +82,60 @@ class AlipayInquirePaymentTokenRequest(AlipayRequest):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def order(self):
-        """Gets the order of this AlipayInquirePaymentTokenRequest.
-        
-        """
+        """Gets the order of this AlipayInquirePaymentTokenRequest."""
         return self.__order
 
     @order.setter
     def order(self, value):
         self.__order = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "payment_token_request_id") and self.payment_token_request_id is not None:
-            params['paymentTokenRequestId'] = self.payment_token_request_id
+        if (
+            hasattr(self, "payment_token_request_id")
+            and self.payment_token_request_id is not None
+        ):
+            params["paymentTokenRequestId"] = self.payment_token_request_id
         if hasattr(self, "user_login_id") and self.user_login_id is not None:
-            params['userLoginId'] = self.user_login_id
+            params["userLoginId"] = self.user_login_id
         if hasattr(self, "agent") and self.agent is not None:
-            params['agent'] = self.agent
+            params["agent"] = self.agent
         if hasattr(self, "payment_method") and self.payment_method is not None:
-            params['paymentMethod'] = self.payment_method
+            params["paymentMethod"] = self.payment_method
         if hasattr(self, "mandate_id") and self.mandate_id is not None:
-            params['mandateId'] = self.mandate_id
+            params["mandateId"] = self.mandate_id
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "order") and self.order is not None:
-            params['order'] = self.order
+            params["order"] = self.order
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'paymentTokenRequestId' in response_body:
-            self.__payment_token_request_id = response_body['paymentTokenRequestId']
-        if 'userLoginId' in response_body:
-            self.__user_login_id = response_body['userLoginId']
-        if 'agent' in response_body:
+        if "paymentTokenRequestId" in response_body:
+            self.__payment_token_request_id = response_body["paymentTokenRequestId"]
+        if "userLoginId" in response_body:
+            self.__user_login_id = response_body["userLoginId"]
+        if "agent" in response_body:
             self.__agent = AgenticAgentInfo()
-            self.__agent.parse_rsp_body(response_body['agent'])
-        if 'paymentMethod' in response_body:
+            self.__agent.parse_rsp_body(response_body["agent"])
+        if "paymentMethod" in response_body:
             self.__payment_method = AgenticPaymentMethod()
-            self.__payment_method.parse_rsp_body(response_body['paymentMethod'])
-        if 'mandateId' in response_body:
-            self.__mandate_id = response_body['mandateId']
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'order' in response_body:
+            self.__payment_method.parse_rsp_body(response_body["paymentMethod"])
+        if "mandateId" in response_body:
+            self.__mandate_id = response_body["mandateId"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "order" in response_body:
             self.__order = Order()
-            self.__order.parse_rsp_body(response_body['order'])
+            self.__order.parse_rsp_body(response_body["order"])

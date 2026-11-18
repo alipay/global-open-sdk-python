@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class FundsType(Enum):
     """The funds type. The current version supports COLLATERAL only."""
@@ -21,4 +23,3 @@ class FundsType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

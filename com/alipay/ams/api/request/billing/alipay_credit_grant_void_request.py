@@ -1,16 +1,17 @@
 import json
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayCreditGrantVoidRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreditGrantVoidRequest, self).__init__("/ams/api/v1/meter/creditGrant/void") 
+        super(AlipayCreditGrantVoidRequest, self).__init__(
+            "/ams/api/v1/meter/creditGrant/void"
+        )
 
         self.__credit_grant_id = None  # type: str
         self.__void_reason = None  # type: str
-        
 
     @property
     def credit_grant_id(self):
@@ -22,6 +23,7 @@ class AlipayCreditGrantVoidRequest(AlipayRequest):
     @credit_grant_id.setter
     def credit_grant_id(self, value):
         self.__credit_grant_id = value
+
     @property
     def void_reason(self):
         """
@@ -33,25 +35,24 @@ class AlipayCreditGrantVoidRequest(AlipayRequest):
     def void_reason(self, value):
         self.__void_reason = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "credit_grant_id") and self.credit_grant_id is not None:
-            params['creditGrantId'] = self.credit_grant_id
+            params["creditGrantId"] = self.credit_grant_id
         if hasattr(self, "void_reason") and self.void_reason is not None:
-            params['voidReason'] = self.void_reason
+            params["voidReason"] = self.void_reason
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'creditGrantId' in response_body:
-            self.__credit_grant_id = response_body['creditGrantId']
-        if 'voidReason' in response_body:
-            self.__void_reason = response_body['voidReason']
+        if "creditGrantId" in response_body:
+            self.__credit_grant_id = response_body["creditGrantId"]
+        if "voidReason" in response_body:
+            self.__void_reason = response_body["voidReason"]

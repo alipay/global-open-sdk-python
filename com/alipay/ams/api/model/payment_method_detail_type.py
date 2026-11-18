@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class PaymentMethodDetailType(Enum):
     """PaymentMethodDetailType枚举类"""
@@ -33,4 +35,3 @@ class PaymentMethodDetailType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

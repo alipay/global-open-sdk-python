@@ -53,7 +53,9 @@ class AlipayCardStatusChangeNotify(AlipayNotify):
         return self.__card_type
 
     def __parse_notify_body(self, notify_body):
-        notify = super(AlipayCardStatusChangeNotify, self).parse_notify_body(notify_body)
+        notify = super(AlipayCardStatusChangeNotify, self).parse_notify_body(
+            notify_body
+        )
 
         if "requestId" in notify:
             self.__request_id = notify["requestId"]

@@ -22,11 +22,11 @@ class AlipaySubscriptionCancelNotify(AlipayNotify):
 
     # --- Properties for payment_amount ---
     @property
-    def payment_amount(self) -> Optional['PaymentAmount']:
+    def payment_amount(self) -> Optional["PaymentAmount"]:
         return self.__payment_amount
 
     @payment_amount.setter
-    def payment_amount(self, value: Optional['PaymentAmount']):
+    def payment_amount(self, value: Optional["PaymentAmount"]):
         self.__payment_amount = value
 
     # --- Properties for payment_create_time ---
@@ -64,7 +64,6 @@ class AlipaySubscriptionCancelNotify(AlipayNotify):
     @phase_no.setter
     def phase_no(self, value: Optional[str]):
         self.__phase_no = value
-
 
     # --- Properties for subscription_id ---
     @property
@@ -116,32 +115,35 @@ class AlipaySubscriptionCancelNotify(AlipayNotify):
         params = {}
 
         if self.payment_amount is not None:
-            params['paymentAmount'] = self.payment_amount.to_ams_dict()
+            params["paymentAmount"] = self.payment_amount.to_ams_dict()
         if self.payment_create_time is not None:
-            params['paymentCreateTime'] = self.payment_create_time
+            params["paymentCreateTime"] = self.payment_create_time
         if self.payment_time is not None:
-            params['paymentTime'] = self.payment_time
+            params["paymentTime"] = self.payment_time
         if self.period_end_time is not None:
-            params['periodEndTime'] = self.period_end_time
+            params["periodEndTime"] = self.period_end_time
         if self.phase_no is not None:
-            params['phaseNo'] = self.phase_no
+            params["phaseNo"] = self.phase_no
         if self.subscription_id is not None:
-            params['subscriptionId'] = self.subscription_id
+            params["subscriptionId"] = self.subscription_id
         if self.subscription_order_id is not None:
-            params['subscriptionOrderId'] = self.subscription_order_id
+            params["subscriptionOrderId"] = self.subscription_order_id
         if self.subscription_order_status is not None:
-            params['subscriptionOrderStatus'] = self.subscription_order_status
+            params["subscriptionOrderStatus"] = self.subscription_order_status
         if self.subscription_request_id is not None:
-            params['subscriptionRequestId'] = self.subscription_request_id
+            params["subscriptionRequestId"] = self.subscription_request_id
         if self.subscription_trans_id is not None:
-            params['subscriptionTransId'] = self.subscription_trans_id
+            params["subscriptionTransId"] = self.subscription_trans_id
 
         return params
 
     def __parse_notify_body(self, notify_body):
-        notify = super(AlipaySubscriptionCancelNotify, self).parse_notify_body(notify_body)
+        notify = super(AlipaySubscriptionCancelNotify, self).parse_notify_body(
+            notify_body
+        )
         if "paymentAmount" in notify:
             from com.alipay.ams.api.model.amount import Amount
+
             self.__payment_amount = Amount()
             self.__payment_amount.parse_rsp_body(notify["paymentAmount"])
         if "paymentCreateTime" in notify:

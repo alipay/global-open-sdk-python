@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class RateType(Enum):
     """RateType枚举类"""
@@ -29,4 +31,3 @@ class RateType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

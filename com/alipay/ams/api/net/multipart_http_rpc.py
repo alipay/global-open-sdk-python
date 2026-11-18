@@ -117,8 +117,11 @@ def _sanitize_file_name(file_name):
         file_name = str(file_name)
     file_name = file_name.replace("\\", "/").rsplit("/", 1)[-1]
     return "".join(
-        "_" if character == '"' or ord(character) < 0x20 or ord(character) == 0x7F
-        else character
+        (
+            "_"
+            if character == '"' or ord(character) < 0x20 or ord(character) == 0x7F
+            else character
+        )
         for character in file_name
     )
 

@@ -1,12 +1,14 @@
 import json
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayPromotionCodeInquireListRequest, self).__init__("/ams/api/v1/billing/promotionCode/inquireList") 
+        super(AlipayPromotionCodeInquireListRequest, self).__init__(
+            "/ams/api/v1/billing/promotionCode/inquireList"
+        )
 
         self.__coupon_id = None  # type: str
         self.__status = None  # type: str
@@ -14,7 +16,6 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
         self.__ending_before = None  # type: str
         self.__limit = None  # type: int
         self.__include_total = None  # type: bool
-        
 
     @property
     def coupon_id(self):
@@ -26,6 +27,7 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     @coupon_id.setter
     def coupon_id(self, value):
         self.__coupon_id = value
+
     @property
     def status(self):
         """
@@ -36,6 +38,7 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
+
     @property
     def starting_after(self):
         """
@@ -46,6 +49,7 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     @starting_after.setter
     def starting_after(self, value):
         self.__starting_after = value
+
     @property
     def ending_before(self):
         """
@@ -56,6 +60,7 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     @ending_before.setter
     def ending_before(self, value):
         self.__ending_before = value
+
     @property
     def limit(self):
         """
@@ -66,6 +71,7 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     @limit.setter
     def limit(self, value):
         self.__limit = value
+
     @property
     def include_total(self):
         """
@@ -77,41 +83,40 @@ class AlipayPromotionCodeInquireListRequest(AlipayRequest):
     def include_total(self, value):
         self.__include_total = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "coupon_id") and self.coupon_id is not None:
-            params['couponId'] = self.coupon_id
+            params["couponId"] = self.coupon_id
         if hasattr(self, "status") and self.status is not None:
-            params['status'] = self.status
+            params["status"] = self.status
         if hasattr(self, "starting_after") and self.starting_after is not None:
-            params['startingAfter'] = self.starting_after
+            params["startingAfter"] = self.starting_after
         if hasattr(self, "ending_before") and self.ending_before is not None:
-            params['endingBefore'] = self.ending_before
+            params["endingBefore"] = self.ending_before
         if hasattr(self, "limit") and self.limit is not None:
-            params['limit'] = self.limit
+            params["limit"] = self.limit
         if hasattr(self, "include_total") and self.include_total is not None:
-            params['includeTotal'] = self.include_total
+            params["includeTotal"] = self.include_total
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'couponId' in response_body:
-            self.__coupon_id = response_body['couponId']
-        if 'status' in response_body:
-            self.__status = response_body['status']
-        if 'startingAfter' in response_body:
-            self.__starting_after = response_body['startingAfter']
-        if 'endingBefore' in response_body:
-            self.__ending_before = response_body['endingBefore']
-        if 'limit' in response_body:
-            self.__limit = response_body['limit']
-        if 'includeTotal' in response_body:
-            self.__include_total = response_body['includeTotal']
+        if "couponId" in response_body:
+            self.__coupon_id = response_body["couponId"]
+        if "status" in response_body:
+            self.__status = response_body["status"]
+        if "startingAfter" in response_body:
+            self.__starting_after = response_body["startingAfter"]
+        if "endingBefore" in response_body:
+            self.__ending_before = response_body["endingBefore"]
+        if "limit" in response_body:
+            self.__limit = response_body["limit"]
+        if "includeTotal" in response_body:
+            self.__include_total = response_body["includeTotal"]

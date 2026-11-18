@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class CustomerBelongsTo(Enum):
     """CustomerBelongsTo枚举类"""
@@ -137,4 +139,3 @@ class CustomerBelongsTo(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

@@ -19,7 +19,9 @@ def to_amount(amount, currency):
     minor_unit = _minor_unit(currency)
     _require_string(amount, "amount")
     if not _AMOUNT.match(amount):
-        _fail("INVALID_AMOUNT_FORMAT", "amount must be an unsigned ASCII decimal string")
+        _fail(
+            "INVALID_AMOUNT_FORMAT", "amount must be an unsigned ASCII decimal string"
+        )
     parts = amount.split(".", 1)
     whole = parts[0]
     fraction = parts[1] if len(parts) == 2 else ""
@@ -58,8 +60,15 @@ def _minor_unit(currency):
         _fail("UNSUPPORTED_CURRENCY", "currency is not supported by AmountUtil")
     minor_unit = currencies[currency].get("minorUnit")
     if minor_unit is None:
-        raise RuntimeError("RULE_DATA_ERROR: supported currency has no numeric minor unit")
-    if isinstance(minor_unit, bool) or not isinstance(minor_unit, int) or minor_unit < 0 or minor_unit > 4:
+        raise RuntimeError(
+            "RULE_DATA_ERROR: supported currency has no numeric minor unit"
+        )
+    if (
+        isinstance(minor_unit, bool)
+        or not isinstance(minor_unit, int)
+        or minor_unit < 0
+        or minor_unit > 4
+    ):
         raise RuntimeError("RULE_DATA_ERROR: invalid minor unit")
     return minor_unit
 
@@ -84,7 +93,9 @@ def _validate_canonical(value, currency):
         if not isinstance(multiple, _STRING_TYPES) or not re.match(r"^10*\Z", multiple):
             raise RuntimeError("RULE_DATA_ERROR: invalid amount constraint")
         if not value.endswith(multiple[1:]):
-            _fail("RULE_VIOLATION", "value does not satisfy the Antom currency constraint")
+            _fail(
+                "RULE_VIOLATION", "value does not satisfy the Antom currency constraint"
+            )
 
 
 def _require_string(value, name):

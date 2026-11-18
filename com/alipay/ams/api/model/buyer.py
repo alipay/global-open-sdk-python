@@ -5,11 +5,9 @@ from com.alipay.ams.api.model.buyer_tax_id import BuyerTaxId
 from com.alipay.ams.api.model.address import Address
 
 
-
-
 class Buyer:
     def __init__(self):
-        
+
         self.__preferred_locales = None  # type: [str]
         self.__business_name = None  # type: str
         self.__buyer_type = None  # type: str
@@ -26,7 +24,6 @@ class Buyer:
         self.__date_of_first_paid_purchase = None  # type: str
         self.__tax_ids = None  # type: [BuyerTaxId]
         self.__business_address = None  # type: Address
-        
 
     @property
     def preferred_locales(self):
@@ -38,6 +35,7 @@ class Buyer:
     @preferred_locales.setter
     def preferred_locales(self, value):
         self.__preferred_locales = value
+
     @property
     def business_name(self):
         """
@@ -48,6 +46,7 @@ class Buyer:
     @business_name.setter
     def business_name(self, value):
         self.__business_name = value
+
     @property
     def buyer_type(self):
         """
@@ -58,6 +57,7 @@ class Buyer:
     @buyer_type.setter
     def buyer_type(self, value):
         self.__buyer_type = value
+
     @property
     def reference_buyer_id(self):
         """
@@ -68,26 +68,27 @@ class Buyer:
     @reference_buyer_id.setter
     def reference_buyer_id(self, value):
         self.__reference_buyer_id = value
+
     @property
     def buyer_name(self):
-        """Gets the buyer_name of this Buyer.
-        
-        """
+        """Gets the buyer_name of this Buyer."""
         return self.__buyer_name
 
     @buyer_name.setter
     def buyer_name(self, value):
         self.__buyer_name = value
+
     @property
     def buyer_phone_no(self):
         """
-        The mobile phone number of the buyer.  Specify this parameter when one of the following conditions is met:  You require risk control. The value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 24 characters 
+        The mobile phone number of the buyer.  Specify this parameter when one of the following conditions is met:  You require risk control. The value of paymentMethodType is CARD. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.   More information:  Maximum length: 24 characters
         """
         return self.__buyer_phone_no
 
     @buyer_phone_no.setter
     def buyer_phone_no(self, value):
         self.__buyer_phone_no = value
+
     @property
     def buyer_email(self):
         """
@@ -98,36 +99,36 @@ class Buyer:
     @buyer_email.setter
     def buyer_email(self, value):
         self.__buyer_email = value
+
     @property
     def buyer_registration_time(self):
         """
-        The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.    More information:  Maximum length: 64 characters The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;. 
+        The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.    More information:  Maximum length: 64 characters The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__buyer_registration_time
 
     @buyer_registration_time.setter
     def buyer_registration_time(self, value):
         self.__buyer_registration_time = value
+
     @property
     def is_account_verified(self):
-        """Gets the is_account_verified of this Buyer.
-        
-        """
+        """Gets the is_account_verified of this Buyer."""
         return self.__is_account_verified
 
     @is_account_verified.setter
     def is_account_verified(self, value):
         self.__is_account_verified = value
+
     @property
     def successful_order_count(self):
-        """Gets the successful_order_count of this Buyer.
-        
-        """
+        """Gets the successful_order_count of this Buyer."""
         return self.__successful_order_count
 
     @successful_order_count.setter
     def successful_order_count(self, value):
         self.__successful_order_count = value
+
     @property
     def buyer_phone_no_contry_code(self):
         """
@@ -138,16 +139,16 @@ class Buyer:
     @buyer_phone_no_contry_code.setter
     def buyer_phone_no_contry_code(self, value):
         self.__buyer_phone_no_contry_code = value
+
     @property
     def successful_order_amount(self):
-        """Gets the successful_order_amount of this Buyer.
-        
-        """
+        """Gets the successful_order_amount of this Buyer."""
         return self.__successful_order_amount
 
     @successful_order_amount.setter
     def successful_order_amount(self, value):
         self.__successful_order_amount = value
+
     @property
     def date_of_last_paid_purchase(self):
         """
@@ -158,6 +159,7 @@ class Buyer:
     @date_of_last_paid_purchase.setter
     def date_of_last_paid_purchase(self, value):
         self.__date_of_last_paid_purchase = value
+
     @property
     def date_of_first_paid_purchase(self):
         """
@@ -168,6 +170,7 @@ class Buyer:
     @date_of_first_paid_purchase.setter
     def date_of_first_paid_purchase(self, value):
         self.__date_of_first_paid_purchase = value
+
     @property
     def tax_ids(self):
         """
@@ -178,96 +181,116 @@ class Buyer:
     @tax_ids.setter
     def tax_ids(self, value):
         self.__tax_ids = value
+
     @property
     def business_address(self):
-        """Gets the business_address of this Buyer.
-        
-        """
+        """Gets the business_address of this Buyer."""
         return self.__business_address
 
     @business_address.setter
     def business_address(self, value):
         self.__business_address = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "preferred_locales") and self.preferred_locales is not None:
-            params['preferredLocales'] = self.preferred_locales
+            params["preferredLocales"] = self.preferred_locales
         if hasattr(self, "business_name") and self.business_name is not None:
-            params['businessName'] = self.business_name
+            params["businessName"] = self.business_name
         if hasattr(self, "buyer_type") and self.buyer_type is not None:
-            params['buyerType'] = self.buyer_type
+            params["buyerType"] = self.buyer_type
         if hasattr(self, "reference_buyer_id") and self.reference_buyer_id is not None:
-            params['referenceBuyerId'] = self.reference_buyer_id
+            params["referenceBuyerId"] = self.reference_buyer_id
         if hasattr(self, "buyer_name") and self.buyer_name is not None:
-            params['buyerName'] = self.buyer_name
+            params["buyerName"] = self.buyer_name
         if hasattr(self, "buyer_phone_no") and self.buyer_phone_no is not None:
-            params['buyerPhoneNo'] = self.buyer_phone_no
+            params["buyerPhoneNo"] = self.buyer_phone_no
         if hasattr(self, "buyer_email") and self.buyer_email is not None:
-            params['buyerEmail'] = self.buyer_email
-        if hasattr(self, "buyer_registration_time") and self.buyer_registration_time is not None:
-            params['buyerRegistrationTime'] = self.buyer_registration_time
-        if hasattr(self, "is_account_verified") and self.is_account_verified is not None:
-            params['isAccountVerified'] = self.is_account_verified
-        if hasattr(self, "successful_order_count") and self.successful_order_count is not None:
-            params['successfulOrderCount'] = self.successful_order_count
-        if hasattr(self, "buyer_phone_no_contry_code") and self.buyer_phone_no_contry_code is not None:
-            params['buyerPhoneNoContryCode'] = self.buyer_phone_no_contry_code
-        if hasattr(self, "successful_order_amount") and self.successful_order_amount is not None:
-            params['successfulOrderAmount'] = self.successful_order_amount
-        if hasattr(self, "date_of_last_paid_purchase") and self.date_of_last_paid_purchase is not None:
-            params['dateOfLastPaidPurchase'] = self.date_of_last_paid_purchase
-        if hasattr(self, "date_of_first_paid_purchase") and self.date_of_first_paid_purchase is not None:
-            params['dateOfFirstPaidPurchase'] = self.date_of_first_paid_purchase
+            params["buyerEmail"] = self.buyer_email
+        if (
+            hasattr(self, "buyer_registration_time")
+            and self.buyer_registration_time is not None
+        ):
+            params["buyerRegistrationTime"] = self.buyer_registration_time
+        if (
+            hasattr(self, "is_account_verified")
+            and self.is_account_verified is not None
+        ):
+            params["isAccountVerified"] = self.is_account_verified
+        if (
+            hasattr(self, "successful_order_count")
+            and self.successful_order_count is not None
+        ):
+            params["successfulOrderCount"] = self.successful_order_count
+        if (
+            hasattr(self, "buyer_phone_no_contry_code")
+            and self.buyer_phone_no_contry_code is not None
+        ):
+            params["buyerPhoneNoContryCode"] = self.buyer_phone_no_contry_code
+        if (
+            hasattr(self, "successful_order_amount")
+            and self.successful_order_amount is not None
+        ):
+            params["successfulOrderAmount"] = self.successful_order_amount
+        if (
+            hasattr(self, "date_of_last_paid_purchase")
+            and self.date_of_last_paid_purchase is not None
+        ):
+            params["dateOfLastPaidPurchase"] = self.date_of_last_paid_purchase
+        if (
+            hasattr(self, "date_of_first_paid_purchase")
+            and self.date_of_first_paid_purchase is not None
+        ):
+            params["dateOfFirstPaidPurchase"] = self.date_of_first_paid_purchase
         if hasattr(self, "tax_ids") and self.tax_ids is not None:
-            params['taxIds'] = self.tax_ids
+            params["taxIds"] = self.tax_ids
         if hasattr(self, "business_address") and self.business_address is not None:
-            params['businessAddress'] = self.business_address
+            params["businessAddress"] = self.business_address
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'preferredLocales' in response_body:
-            self.__preferred_locales = response_body['preferredLocales']
-        if 'businessName' in response_body:
-            self.__business_name = response_body['businessName']
-        if 'buyerType' in response_body:
-            self.__buyer_type = response_body['buyerType']
-        if 'referenceBuyerId' in response_body:
-            self.__reference_buyer_id = response_body['referenceBuyerId']
-        if 'buyerName' in response_body:
+        if "preferredLocales" in response_body:
+            self.__preferred_locales = response_body["preferredLocales"]
+        if "businessName" in response_body:
+            self.__business_name = response_body["businessName"]
+        if "buyerType" in response_body:
+            self.__buyer_type = response_body["buyerType"]
+        if "referenceBuyerId" in response_body:
+            self.__reference_buyer_id = response_body["referenceBuyerId"]
+        if "buyerName" in response_body:
             self.__buyer_name = UserName()
-            self.__buyer_name.parse_rsp_body(response_body['buyerName'])
-        if 'buyerPhoneNo' in response_body:
-            self.__buyer_phone_no = response_body['buyerPhoneNo']
-        if 'buyerEmail' in response_body:
-            self.__buyer_email = response_body['buyerEmail']
-        if 'buyerRegistrationTime' in response_body:
-            self.__buyer_registration_time = response_body['buyerRegistrationTime']
-        if 'isAccountVerified' in response_body:
-            self.__is_account_verified = response_body['isAccountVerified']
-        if 'successfulOrderCount' in response_body:
-            self.__successful_order_count = response_body['successfulOrderCount']
-        if 'buyerPhoneNoContryCode' in response_body:
-            self.__buyer_phone_no_contry_code = response_body['buyerPhoneNoContryCode']
-        if 'successfulOrderAmount' in response_body:
+            self.__buyer_name.parse_rsp_body(response_body["buyerName"])
+        if "buyerPhoneNo" in response_body:
+            self.__buyer_phone_no = response_body["buyerPhoneNo"]
+        if "buyerEmail" in response_body:
+            self.__buyer_email = response_body["buyerEmail"]
+        if "buyerRegistrationTime" in response_body:
+            self.__buyer_registration_time = response_body["buyerRegistrationTime"]
+        if "isAccountVerified" in response_body:
+            self.__is_account_verified = response_body["isAccountVerified"]
+        if "successfulOrderCount" in response_body:
+            self.__successful_order_count = response_body["successfulOrderCount"]
+        if "buyerPhoneNoContryCode" in response_body:
+            self.__buyer_phone_no_contry_code = response_body["buyerPhoneNoContryCode"]
+        if "successfulOrderAmount" in response_body:
             self.__successful_order_amount = Amount()
-            self.__successful_order_amount.parse_rsp_body(response_body['successfulOrderAmount'])
-        if 'dateOfLastPaidPurchase' in response_body:
-            self.__date_of_last_paid_purchase = response_body['dateOfLastPaidPurchase']
-        if 'dateOfFirstPaidPurchase' in response_body:
-            self.__date_of_first_paid_purchase = response_body['dateOfFirstPaidPurchase']
-        if 'taxIds' in response_body:
+            self.__successful_order_amount.parse_rsp_body(
+                response_body["successfulOrderAmount"]
+            )
+        if "dateOfLastPaidPurchase" in response_body:
+            self.__date_of_last_paid_purchase = response_body["dateOfLastPaidPurchase"]
+        if "dateOfFirstPaidPurchase" in response_body:
+            self.__date_of_first_paid_purchase = response_body[
+                "dateOfFirstPaidPurchase"
+            ]
+        if "taxIds" in response_body:
             self.__tax_ids = []
-            for item in response_body['taxIds']:
+            for item in response_body["taxIds"]:
                 obj = BuyerTaxId()
                 obj.parse_rsp_body(item)
                 self.__tax_ids.append(obj)
-        if 'businessAddress' in response_body:
+        if "businessAddress" in response_body:
             self.__business_address = Address()
-            self.__business_address.parse_rsp_body(response_body['businessAddress'])
+            self.__business_address.parse_rsp_body(response_body["businessAddress"])

@@ -85,10 +85,12 @@ class AlipayCreditNoteNotify(AlipayNotify):
                 self.__credit_note.status = cn["status"]
             if "totalAmount" in cn:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__credit_note.total_amount = Amount()
                 self.__credit_note.total_amount.parse_rsp_body(cn["totalAmount"])
             if "refundAmount" in cn:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__credit_note.refund_amount = Amount()
                 self.__credit_note.refund_amount.parse_rsp_body(cn["refundAmount"])
             if "refundStatus" in cn:
@@ -122,17 +124,25 @@ class AlipayCreditNoteNotify(AlipayNotify):
                 self.__invoice.invoice_status = inv["invoiceStatus"]
             if "originalAmount" in inv:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__invoice.original_amount = Amount()
                 self.__invoice.original_amount.parse_rsp_body(inv["originalAmount"])
             if "prePaymentCreditNotesAmount" in inv:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__invoice.pre_payment_credit_notes_amount = Amount()
-                self.__invoice.pre_payment_credit_notes_amount.parse_rsp_body(inv["prePaymentCreditNotesAmount"])
+                self.__invoice.pre_payment_credit_notes_amount.parse_rsp_body(
+                    inv["prePaymentCreditNotesAmount"]
+                )
             if "postPaymentCreditNotesAmount" in inv:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__invoice.post_payment_credit_notes_amount = Amount()
-                self.__invoice.post_payment_credit_notes_amount.parse_rsp_body(inv["postPaymentCreditNotesAmount"])
+                self.__invoice.post_payment_credit_notes_amount.parse_rsp_body(
+                    inv["postPaymentCreditNotesAmount"]
+                )
             if "adjustedAmount" in inv:
                 from com.alipay.ams.api.model.amount import Amount
+
                 self.__invoice.adjusted_amount = Amount()
                 self.__invoice.adjusted_amount.parse_rsp_body(inv["adjustedAmount"])

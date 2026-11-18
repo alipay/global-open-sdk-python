@@ -1,12 +1,14 @@
 import json
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayProductUpdateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayProductUpdateRequest, self).__init__("/ams/api/v1/billing/product/update") 
+        super(AlipayProductUpdateRequest, self).__init__(
+            "/ams/api/v1/billing/product/update"
+        )
 
         self.__product_id = None  # type: str
         self.__name = None  # type: str
@@ -15,7 +17,6 @@ class AlipayProductUpdateRequest(AlipayRequest):
         self.__unit_label = None  # type: str
         self.__metadata = None  # type: str
         self.__active = None  # type: bool
-        
 
     @property
     def product_id(self):
@@ -27,6 +28,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @product_id.setter
     def product_id(self, value):
         self.__product_id = value
+
     @property
     def name(self):
         """
@@ -37,6 +39,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @name.setter
     def name(self, value):
         self.__name = value
+
     @property
     def description(self):
         """
@@ -47,6 +50,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @description.setter
     def description(self, value):
         self.__description = value
+
     @property
     def images(self):
         """
@@ -57,6 +61,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @images.setter
     def images(self, value):
         self.__images = value
+
     @property
     def unit_label(self):
         """
@@ -67,6 +72,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @unit_label.setter
     def unit_label(self, value):
         self.__unit_label = value
+
     @property
     def metadata(self):
         """
@@ -77,6 +83,7 @@ class AlipayProductUpdateRequest(AlipayRequest):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def active(self):
         """
@@ -88,45 +95,44 @@ class AlipayProductUpdateRequest(AlipayRequest):
     def active(self, value):
         self.__active = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "product_id") and self.product_id is not None:
-            params['productId'] = self.product_id
+            params["productId"] = self.product_id
         if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
+            params["name"] = self.name
         if hasattr(self, "description") and self.description is not None:
-            params['description'] = self.description
+            params["description"] = self.description
         if hasattr(self, "images") and self.images is not None:
-            params['images'] = self.images
+            params["images"] = self.images
         if hasattr(self, "unit_label") and self.unit_label is not None:
-            params['unitLabel'] = self.unit_label
+            params["unitLabel"] = self.unit_label
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "active") and self.active is not None:
-            params['active'] = self.active
+            params["active"] = self.active
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'productId' in response_body:
-            self.__product_id = response_body['productId']
-        if 'name' in response_body:
-            self.__name = response_body['name']
-        if 'description' in response_body:
-            self.__description = response_body['description']
-        if 'images' in response_body:
-            self.__images = response_body['images']
-        if 'unitLabel' in response_body:
-            self.__unit_label = response_body['unitLabel']
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'active' in response_body:
-            self.__active = response_body['active']
+        if "productId" in response_body:
+            self.__product_id = response_body["productId"]
+        if "name" in response_body:
+            self.__name = response_body["name"]
+        if "description" in response_body:
+            self.__description = response_body["description"]
+        if "images" in response_body:
+            self.__images = response_body["images"]
+        if "unitLabel" in response_body:
+            self.__unit_label = response_body["unitLabel"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "active" in response_body:
+            self.__active = response_body["active"]

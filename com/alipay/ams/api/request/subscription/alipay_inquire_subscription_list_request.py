@@ -3,12 +3,14 @@ from com.alipay.ams.api.model.subscription_status import SubscriptionStatus
 from com.alipay.ams.api.model.period_type import PeriodType
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayInquireSubscriptionListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireSubscriptionListRequest, self).__init__("/ams/api/v1/subscriptions/inquireSubscriptionList") 
+        super(AlipayInquireSubscriptionListRequest, self).__init__(
+            "/ams/api/v1/subscriptions/inquireSubscriptionList"
+        )
 
         self.__merchant_account_id = None  # type: str
         self.__start_time_from = None  # type: str
@@ -19,7 +21,6 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
         self.__period_types = None  # type: [PeriodType]
         self.__current_page = None  # type: int
         self.__page_size = None  # type: int
-        
 
     @property
     def merchant_account_id(self):
@@ -31,6 +32,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @merchant_account_id.setter
     def merchant_account_id(self, value):
         self.__merchant_account_id = value
+
     @property
     def start_time_from(self):
         """
@@ -41,6 +43,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @start_time_from.setter
     def start_time_from(self, value):
         self.__start_time_from = value
+
     @property
     def start_time_to(self):
         """
@@ -51,6 +54,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @start_time_to.setter
     def start_time_to(self, value):
         self.__start_time_to = value
+
     @property
     def statuses(self):
         """
@@ -61,6 +65,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @statuses.setter
     def statuses(self, value):
         self.__statuses = value
+
     @property
     def payment_method_types(self):
         """
@@ -71,6 +76,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @payment_method_types.setter
     def payment_method_types(self, value):
         self.__payment_method_types = value
+
     @property
     def currencies(self):
         """
@@ -81,6 +87,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @currencies.setter
     def currencies(self, value):
         self.__currencies = value
+
     @property
     def period_types(self):
         """
@@ -91,6 +98,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @period_types.setter
     def period_types(self, value):
         self.__period_types = value
+
     @property
     def current_page(self):
         """
@@ -101,6 +109,7 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     @current_page.setter
     def current_page(self, value):
         self.__current_page = value
+
     @property
     def page_size(self):
         """
@@ -112,57 +121,62 @@ class AlipayInquireSubscriptionListRequest(AlipayRequest):
     def page_size(self, value):
         self.__page_size = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
-            params['merchantAccountId'] = self.merchant_account_id
+        if (
+            hasattr(self, "merchant_account_id")
+            and self.merchant_account_id is not None
+        ):
+            params["merchantAccountId"] = self.merchant_account_id
         if hasattr(self, "start_time_from") and self.start_time_from is not None:
-            params['startTimeFrom'] = self.start_time_from
+            params["startTimeFrom"] = self.start_time_from
         if hasattr(self, "start_time_to") and self.start_time_to is not None:
-            params['startTimeTo'] = self.start_time_to
+            params["startTimeTo"] = self.start_time_to
         if hasattr(self, "statuses") and self.statuses is not None:
-            params['statuses'] = self.statuses
-        if hasattr(self, "payment_method_types") and self.payment_method_types is not None:
-            params['paymentMethodTypes'] = self.payment_method_types
+            params["statuses"] = self.statuses
+        if (
+            hasattr(self, "payment_method_types")
+            and self.payment_method_types is not None
+        ):
+            params["paymentMethodTypes"] = self.payment_method_types
         if hasattr(self, "currencies") and self.currencies is not None:
-            params['currencies'] = self.currencies
+            params["currencies"] = self.currencies
         if hasattr(self, "period_types") and self.period_types is not None:
-            params['periodTypes'] = self.period_types
+            params["periodTypes"] = self.period_types
         if hasattr(self, "current_page") and self.current_page is not None:
-            params['currentPage'] = self.current_page
+            params["currentPage"] = self.current_page
         if hasattr(self, "page_size") and self.page_size is not None:
-            params['pageSize'] = self.page_size
+            params["pageSize"] = self.page_size
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'merchantAccountId' in response_body:
-            self.__merchant_account_id = response_body['merchantAccountId']
-        if 'startTimeFrom' in response_body:
-            self.__start_time_from = response_body['startTimeFrom']
-        if 'startTimeTo' in response_body:
-            self.__start_time_to = response_body['startTimeTo']
-        if 'statuses' in response_body:
+        if "merchantAccountId" in response_body:
+            self.__merchant_account_id = response_body["merchantAccountId"]
+        if "startTimeFrom" in response_body:
+            self.__start_time_from = response_body["startTimeFrom"]
+        if "startTimeTo" in response_body:
+            self.__start_time_to = response_body["startTimeTo"]
+        if "statuses" in response_body:
             self.__statuses = []
-            for item in response_body['statuses']:
+            for item in response_body["statuses"]:
                 self.__statuses.append(item)
-        if 'paymentMethodTypes' in response_body:
-            self.__payment_method_types = response_body['paymentMethodTypes']
-        if 'currencies' in response_body:
-            self.__currencies = response_body['currencies']
-        if 'periodTypes' in response_body:
+        if "paymentMethodTypes" in response_body:
+            self.__payment_method_types = response_body["paymentMethodTypes"]
+        if "currencies" in response_body:
+            self.__currencies = response_body["currencies"]
+        if "periodTypes" in response_body:
             self.__period_types = []
-            for item in response_body['periodTypes']:
+            for item in response_body["periodTypes"]:
                 self.__period_types.append(item)
-        if 'currentPage' in response_body:
-            self.__current_page = response_body['currentPage']
-        if 'pageSize' in response_body:
-            self.__page_size = response_body['pageSize']
+        if "currentPage" in response_body:
+            self.__current_page = response_body["currentPage"]
+        if "pageSize" in response_body:
+            self.__page_size = response_body["pageSize"]

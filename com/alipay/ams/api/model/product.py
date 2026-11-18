@@ -1,11 +1,9 @@
 import json
 
 
-
-
 class Product:
     def __init__(self):
-        
+
         self.__product_id = None  # type: str
         self.__product_request_id = None  # type: str
         self.__name = None  # type: str
@@ -18,7 +16,6 @@ class Product:
         self.__created_at = None  # type: str
         self.__deactivated_at = None  # type: str
         self.__updated_at = None  # type: str
-        
 
     @property
     def product_id(self):
@@ -30,6 +27,7 @@ class Product:
     @product_id.setter
     def product_id(self, value):
         self.__product_id = value
+
     @property
     def product_request_id(self):
         """
@@ -40,6 +38,7 @@ class Product:
     @product_request_id.setter
     def product_request_id(self, value):
         self.__product_request_id = value
+
     @property
     def name(self):
         """
@@ -50,6 +49,7 @@ class Product:
     @name.setter
     def name(self, value):
         self.__name = value
+
     @property
     def type(self):
         """
@@ -60,6 +60,7 @@ class Product:
     @type.setter
     def type(self, value):
         self.__type = value
+
     @property
     def description(self):
         """
@@ -70,6 +71,7 @@ class Product:
     @description.setter
     def description(self, value):
         self.__description = value
+
     @property
     def images(self):
         """
@@ -80,6 +82,7 @@ class Product:
     @images.setter
     def images(self, value):
         self.__images = value
+
     @property
     def unit_label(self):
         """
@@ -90,6 +93,7 @@ class Product:
     @unit_label.setter
     def unit_label(self, value):
         self.__unit_label = value
+
     @property
     def metadata(self):
         """
@@ -100,6 +104,7 @@ class Product:
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def active(self):
         """
@@ -110,6 +115,7 @@ class Product:
     @active.setter
     def active(self, value):
         self.__active = value
+
     @property
     def created_at(self):
         """
@@ -120,6 +126,7 @@ class Product:
     @created_at.setter
     def created_at(self, value):
         self.__created_at = value
+
     @property
     def deactivated_at(self):
         """
@@ -130,6 +137,7 @@ class Product:
     @deactivated_at.setter
     def deactivated_at(self, value):
         self.__deactivated_at = value
+
     @property
     def updated_at(self):
         """
@@ -141,62 +149,58 @@ class Product:
     def updated_at(self, value):
         self.__updated_at = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "product_id") and self.product_id is not None:
-            params['productId'] = self.product_id
+            params["productId"] = self.product_id
         if hasattr(self, "product_request_id") and self.product_request_id is not None:
-            params['productRequestId'] = self.product_request_id
+            params["productRequestId"] = self.product_request_id
         if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
+            params["name"] = self.name
         if hasattr(self, "type") and self.type is not None:
-            params['type'] = self.type
+            params["type"] = self.type
         if hasattr(self, "description") and self.description is not None:
-            params['description'] = self.description
+            params["description"] = self.description
         if hasattr(self, "images") and self.images is not None:
-            params['images'] = self.images
+            params["images"] = self.images
         if hasattr(self, "unit_label") and self.unit_label is not None:
-            params['unitLabel'] = self.unit_label
+            params["unitLabel"] = self.unit_label
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "active") and self.active is not None:
-            params['active'] = self.active
+            params["active"] = self.active
         if hasattr(self, "created_at") and self.created_at is not None:
-            params['createdAt'] = self.created_at
+            params["createdAt"] = self.created_at
         if hasattr(self, "deactivated_at") and self.deactivated_at is not None:
-            params['deactivatedAt'] = self.deactivated_at
+            params["deactivatedAt"] = self.deactivated_at
         if hasattr(self, "updated_at") and self.updated_at is not None:
-            params['updatedAt'] = self.updated_at
+            params["updatedAt"] = self.updated_at
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'productId' in response_body:
-            self.__product_id = response_body['productId']
-        if 'productRequestId' in response_body:
-            self.__product_request_id = response_body['productRequestId']
-        if 'name' in response_body:
-            self.__name = response_body['name']
-        if 'type' in response_body:
-            self.__type = response_body['type']
-        if 'description' in response_body:
-            self.__description = response_body['description']
-        if 'images' in response_body:
-            self.__images = response_body['images']
-        if 'unitLabel' in response_body:
-            self.__unit_label = response_body['unitLabel']
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'active' in response_body:
-            self.__active = response_body['active']
-        if 'createdAt' in response_body:
-            self.__created_at = response_body['createdAt']
-        if 'deactivatedAt' in response_body:
-            self.__deactivated_at = response_body['deactivatedAt']
-        if 'updatedAt' in response_body:
-            self.__updated_at = response_body['updatedAt']
+        if "productId" in response_body:
+            self.__product_id = response_body["productId"]
+        if "productRequestId" in response_body:
+            self.__product_request_id = response_body["productRequestId"]
+        if "name" in response_body:
+            self.__name = response_body["name"]
+        if "type" in response_body:
+            self.__type = response_body["type"]
+        if "description" in response_body:
+            self.__description = response_body["description"]
+        if "images" in response_body:
+            self.__images = response_body["images"]
+        if "unitLabel" in response_body:
+            self.__unit_label = response_body["unitLabel"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "active" in response_body:
+            self.__active = response_body["active"]
+        if "createdAt" in response_body:
+            self.__created_at = response_body["createdAt"]
+        if "deactivatedAt" in response_body:
+            self.__deactivated_at = response_body["deactivatedAt"]
+        if "updatedAt" in response_body:
+            self.__updated_at = response_body["updatedAt"]

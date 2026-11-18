@@ -1,12 +1,14 @@
 import json
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayMeterInquireListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayMeterInquireListRequest, self).__init__("/ams/api/v1/meter/inquireList") 
+        super(AlipayMeterInquireListRequest, self).__init__(
+            "/ams/api/v1/meter/inquireList"
+        )
 
         self.__page_num = None  # type: int
         self.__page_size = None  # type: int
@@ -15,7 +17,6 @@ class AlipayMeterInquireListRequest(AlipayRequest):
         self.__status = None  # type: str
         self.__start_date_time = None  # type: str
         self.__end_date_time = None  # type: str
-        
 
     @property
     def page_num(self):
@@ -27,6 +28,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @page_num.setter
     def page_num(self, value):
         self.__page_num = value
+
     @property
     def page_size(self):
         """
@@ -37,6 +39,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @page_size.setter
     def page_size(self, value):
         self.__page_size = value
+
     @property
     def meter_name(self):
         """
@@ -47,6 +50,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @meter_name.setter
     def meter_name(self, value):
         self.__meter_name = value
+
     @property
     def event_name(self):
         """
@@ -57,6 +61,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @event_name.setter
     def event_name(self, value):
         self.__event_name = value
+
     @property
     def status(self):
         """
@@ -67,6 +72,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
+
     @property
     def start_date_time(self):
         """
@@ -77,6 +83,7 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     @start_date_time.setter
     def start_date_time(self, value):
         self.__start_date_time = value
+
     @property
     def end_date_time(self):
         """
@@ -88,45 +95,44 @@ class AlipayMeterInquireListRequest(AlipayRequest):
     def end_date_time(self, value):
         self.__end_date_time = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "page_num") and self.page_num is not None:
-            params['pageNum'] = self.page_num
+            params["pageNum"] = self.page_num
         if hasattr(self, "page_size") and self.page_size is not None:
-            params['pageSize'] = self.page_size
+            params["pageSize"] = self.page_size
         if hasattr(self, "meter_name") and self.meter_name is not None:
-            params['meterName'] = self.meter_name
+            params["meterName"] = self.meter_name
         if hasattr(self, "event_name") and self.event_name is not None:
-            params['eventName'] = self.event_name
+            params["eventName"] = self.event_name
         if hasattr(self, "status") and self.status is not None:
-            params['status'] = self.status
+            params["status"] = self.status
         if hasattr(self, "start_date_time") and self.start_date_time is not None:
-            params['startDateTime'] = self.start_date_time
+            params["startDateTime"] = self.start_date_time
         if hasattr(self, "end_date_time") and self.end_date_time is not None:
-            params['endDateTime'] = self.end_date_time
+            params["endDateTime"] = self.end_date_time
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'pageNum' in response_body:
-            self.__page_num = response_body['pageNum']
-        if 'pageSize' in response_body:
-            self.__page_size = response_body['pageSize']
-        if 'meterName' in response_body:
-            self.__meter_name = response_body['meterName']
-        if 'eventName' in response_body:
-            self.__event_name = response_body['eventName']
-        if 'status' in response_body:
-            self.__status = response_body['status']
-        if 'startDateTime' in response_body:
-            self.__start_date_time = response_body['startDateTime']
-        if 'endDateTime' in response_body:
-            self.__end_date_time = response_body['endDateTime']
+        if "pageNum" in response_body:
+            self.__page_num = response_body["pageNum"]
+        if "pageSize" in response_body:
+            self.__page_size = response_body["pageSize"]
+        if "meterName" in response_body:
+            self.__meter_name = response_body["meterName"]
+        if "eventName" in response_body:
+            self.__event_name = response_body["eventName"]
+        if "status" in response_body:
+            self.__status = response_body["status"]
+        if "startDateTime" in response_body:
+            self.__start_date_time = response_body["startDateTime"]
+        if "endDateTime" in response_body:
+            self.__end_date_time = response_body["endDateTime"]

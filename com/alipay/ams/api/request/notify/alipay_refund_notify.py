@@ -61,6 +61,7 @@ class AlipayRefundNotify(AlipayNotify):
     @property
     def actual_refund_amount(self):
         return self.__actual_refund_amount
+
     @property
     def metadata(self):
         return self.__metadata

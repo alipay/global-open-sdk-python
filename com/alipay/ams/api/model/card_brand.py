@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class CardBrand(Enum):
     """CardBrand枚举类"""
@@ -165,4 +167,3 @@ class CardBrand(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

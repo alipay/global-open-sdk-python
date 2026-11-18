@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class StatementTransactionType(Enum):
     """The type of transaction.  Valid values: - OVERFLOW_DEBIT: Indicates a fund outflow from the main account to the overflow account. Applicable to MY region merchants only. - OVERFLOW_CREDIT: Indicates a fund inflow to the main account back from the overflow account. Applicable to MY region merchants only. - CASH_BACK: Indicates a fund inflow for cashBack credit settlement to the merchant&#39;s main account. Applicable to CN and HK region merchants with VCC cashback feature enabled only."""

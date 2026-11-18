@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class FundingType(Enum):
     """The funding source type for the payment method"""
@@ -37,4 +39,3 @@ class FundingType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

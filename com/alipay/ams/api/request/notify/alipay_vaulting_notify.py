@@ -25,6 +25,7 @@ class AlipayVaultingNotify(AlipayNotify):
     @property
     def vaulting_create_time(self):
         return self.__vaulting_create_time
+
     @property
     def metadata(self):
         return self.__metadata

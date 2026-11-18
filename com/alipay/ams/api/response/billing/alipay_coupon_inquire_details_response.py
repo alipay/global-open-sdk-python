@@ -1,15 +1,17 @@
 import json
 from com.alipay.ams.api.model.result_info import ResultInfo
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.coupon_inquire_details_applies_to import CouponInquireDetailsAppliesTo
-
+from com.alipay.ams.api.model.coupon_inquire_details_applies_to import (
+    CouponInquireDetailsAppliesTo,
+)
 
 
 from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+
 class AlipayCouponInquireDetailsResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__() 
+        super(AlipayResponse, self).__init__()
 
         self.__result = None  # type: ResultInfo
         self.__coupon_id = None  # type: str
@@ -28,19 +30,17 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
         self.__gmt_create = None  # type: str
         self.__max_redemptions = None  # type: int
         self.__redeemed_count = None  # type: int
-        self.parse_rsp_body(rsp_body) 
-
+        self.parse_rsp_body(rsp_body)
 
     @property
     def result(self):
-        """Gets the result of this AlipayCouponInquireDetailsResponse.
-        
-        """
+        """Gets the result of this AlipayCouponInquireDetailsResponse."""
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
+
     @property
     def coupon_id(self):
         """
@@ -51,6 +51,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @coupon_id.setter
     def coupon_id(self, value):
         self.__coupon_id = value
+
     @property
     def coupon_request_id(self):
         """
@@ -61,6 +62,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @coupon_request_id.setter
     def coupon_request_id(self, value):
         self.__coupon_request_id = value
+
     @property
     def coupon_name(self):
         """
@@ -71,6 +73,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @coupon_name.setter
     def coupon_name(self, value):
         self.__coupon_name = value
+
     @property
     def discount_type(self):
         """
@@ -81,6 +84,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @discount_type.setter
     def discount_type(self, value):
         self.__discount_type = value
+
     @property
     def percent_off(self):
         """
@@ -91,16 +95,16 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @percent_off.setter
     def percent_off(self, value):
         self.__percent_off = value
+
     @property
     def amount_off(self):
-        """Gets the amount_off of this AlipayCouponInquireDetailsResponse.
-        
-        """
+        """Gets the amount_off of this AlipayCouponInquireDetailsResponse."""
         return self.__amount_off
 
     @amount_off.setter
     def amount_off(self, value):
         self.__amount_off = value
+
     @property
     def duration_type(self):
         """
@@ -111,6 +115,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @duration_type.setter
     def duration_type(self, value):
         self.__duration_type = value
+
     @property
     def duration_value(self):
         """
@@ -121,6 +126,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @duration_value.setter
     def duration_value(self, value):
         self.__duration_value = value
+
     @property
     def duration_unit(self):
         """
@@ -131,6 +137,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @duration_unit.setter
     def duration_unit(self, value):
         self.__duration_unit = value
+
     @property
     def redeem_by(self):
         """
@@ -141,16 +148,16 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @redeem_by.setter
     def redeem_by(self, value):
         self.__redeem_by = value
+
     @property
     def applies_to(self):
-        """Gets the applies_to of this AlipayCouponInquireDetailsResponse.
-        
-        """
+        """Gets the applies_to of this AlipayCouponInquireDetailsResponse."""
         return self.__applies_to
 
     @applies_to.setter
     def applies_to(self, value):
         self.__applies_to = value
+
     @property
     def status(self):
         """
@@ -161,6 +168,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @status.setter
     def status(self, value):
         self.__status = value
+
     @property
     def metadata(self):
         """
@@ -171,6 +179,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def gmt_create(self):
         """
@@ -181,6 +190,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @gmt_create.setter
     def gmt_create(self, value):
         self.__gmt_create = value
+
     @property
     def max_redemptions(self):
         """
@@ -191,6 +201,7 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     @max_redemptions.setter
     def max_redemptions(self, value):
         self.__max_redemptions = value
+
     @property
     def redeemed_count(self):
         """
@@ -202,84 +213,82 @@ class AlipayCouponInquireDetailsResponse(AlipayResponse):
     def redeemed_count(self, value):
         self.__redeemed_count = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params['result'] = self.result
+            params["result"] = self.result
         if hasattr(self, "coupon_id") and self.coupon_id is not None:
-            params['couponId'] = self.coupon_id
+            params["couponId"] = self.coupon_id
         if hasattr(self, "coupon_request_id") and self.coupon_request_id is not None:
-            params['couponRequestId'] = self.coupon_request_id
+            params["couponRequestId"] = self.coupon_request_id
         if hasattr(self, "coupon_name") and self.coupon_name is not None:
-            params['couponName'] = self.coupon_name
+            params["couponName"] = self.coupon_name
         if hasattr(self, "discount_type") and self.discount_type is not None:
-            params['discountType'] = self.discount_type
+            params["discountType"] = self.discount_type
         if hasattr(self, "percent_off") and self.percent_off is not None:
-            params['percentOff'] = self.percent_off
+            params["percentOff"] = self.percent_off
         if hasattr(self, "amount_off") and self.amount_off is not None:
-            params['amountOff'] = self.amount_off
+            params["amountOff"] = self.amount_off
         if hasattr(self, "duration_type") and self.duration_type is not None:
-            params['durationType'] = self.duration_type
+            params["durationType"] = self.duration_type
         if hasattr(self, "duration_value") and self.duration_value is not None:
-            params['durationValue'] = self.duration_value
+            params["durationValue"] = self.duration_value
         if hasattr(self, "duration_unit") and self.duration_unit is not None:
-            params['durationUnit'] = self.duration_unit
+            params["durationUnit"] = self.duration_unit
         if hasattr(self, "redeem_by") and self.redeem_by is not None:
-            params['redeemBy'] = self.redeem_by
+            params["redeemBy"] = self.redeem_by
         if hasattr(self, "applies_to") and self.applies_to is not None:
-            params['appliesTo'] = self.applies_to
+            params["appliesTo"] = self.applies_to
         if hasattr(self, "status") and self.status is not None:
-            params['status'] = self.status
+            params["status"] = self.status
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "gmt_create") and self.gmt_create is not None:
-            params['gmtCreate'] = self.gmt_create
+            params["gmtCreate"] = self.gmt_create
         if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
-            params['maxRedemptions'] = self.max_redemptions
+            params["maxRedemptions"] = self.max_redemptions
         if hasattr(self, "redeemed_count") and self.redeemed_count is not None:
-            params['redeemedCount'] = self.redeemed_count
+            params["redeemedCount"] = self.redeemed_count
         return params
 
-
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayCouponInquireDetailsResponse, self).parse_rsp_body(response_body)
-        if 'result' in response_body:
+        response_body = super(AlipayCouponInquireDetailsResponse, self).parse_rsp_body(
+            response_body
+        )
+        if "result" in response_body:
             self.__result = ResultInfo()
-            self.__result.parse_rsp_body(response_body['result'])
-        if 'couponId' in response_body:
-            self.__coupon_id = response_body['couponId']
-        if 'couponRequestId' in response_body:
-            self.__coupon_request_id = response_body['couponRequestId']
-        if 'couponName' in response_body:
-            self.__coupon_name = response_body['couponName']
-        if 'discountType' in response_body:
-            self.__discount_type = response_body['discountType']
-        if 'percentOff' in response_body:
-            self.__percent_off = response_body['percentOff']
-        if 'amountOff' in response_body:
+            self.__result.parse_rsp_body(response_body["result"])
+        if "couponId" in response_body:
+            self.__coupon_id = response_body["couponId"]
+        if "couponRequestId" in response_body:
+            self.__coupon_request_id = response_body["couponRequestId"]
+        if "couponName" in response_body:
+            self.__coupon_name = response_body["couponName"]
+        if "discountType" in response_body:
+            self.__discount_type = response_body["discountType"]
+        if "percentOff" in response_body:
+            self.__percent_off = response_body["percentOff"]
+        if "amountOff" in response_body:
             self.__amount_off = Amount()
-            self.__amount_off.parse_rsp_body(response_body['amountOff'])
-        if 'durationType' in response_body:
-            self.__duration_type = response_body['durationType']
-        if 'durationValue' in response_body:
-            self.__duration_value = response_body['durationValue']
-        if 'durationUnit' in response_body:
-            self.__duration_unit = response_body['durationUnit']
-        if 'redeemBy' in response_body:
-            self.__redeem_by = response_body['redeemBy']
-        if 'appliesTo' in response_body:
+            self.__amount_off.parse_rsp_body(response_body["amountOff"])
+        if "durationType" in response_body:
+            self.__duration_type = response_body["durationType"]
+        if "durationValue" in response_body:
+            self.__duration_value = response_body["durationValue"]
+        if "durationUnit" in response_body:
+            self.__duration_unit = response_body["durationUnit"]
+        if "redeemBy" in response_body:
+            self.__redeem_by = response_body["redeemBy"]
+        if "appliesTo" in response_body:
             self.__applies_to = CouponInquireDetailsAppliesTo()
-            self.__applies_to.parse_rsp_body(response_body['appliesTo'])
-        if 'status' in response_body:
-            self.__status = response_body['status']
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'gmtCreate' in response_body:
-            self.__gmt_create = response_body['gmtCreate']
-        if 'maxRedemptions' in response_body:
-            self.__max_redemptions = response_body['maxRedemptions']
-        if 'redeemedCount' in response_body:
-            self.__redeemed_count = response_body['redeemedCount']
+            self.__applies_to.parse_rsp_body(response_body["appliesTo"])
+        if "status" in response_body:
+            self.__status = response_body["status"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "gmtCreate" in response_body:
+            self.__gmt_create = response_body["gmtCreate"]
+        if "maxRedemptions" in response_body:
+            self.__max_redemptions = response_body["maxRedemptions"]
+        if "redeemedCount" in response_body:
+            self.__redeemed_count = response_body["redeemedCount"]

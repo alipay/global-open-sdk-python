@@ -1,14 +1,11 @@
 import json
 
 
-
-
 class AgenticDeclineThreshold:
     def __init__(self):
-        
+
         self.__currency = None  # type: str
         self.__value = None  # type: str
-        
 
     @property
     def currency(self):
@@ -20,6 +17,7 @@ class AgenticDeclineThreshold:
     @currency.setter
     def currency(self, value):
         self.__currency = value
+
     @property
     def value(self):
         """
@@ -31,22 +29,18 @@ class AgenticDeclineThreshold:
     def value(self, value):
         self.__value = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "currency") and self.currency is not None:
-            params['currency'] = self.currency
+            params["currency"] = self.currency
         if hasattr(self, "value") and self.value is not None:
-            params['value'] = self.value
+            params["value"] = self.value
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'currency' in response_body:
-            self.__currency = response_body['currency']
-        if 'value' in response_body:
-            self.__value = response_body['value']
+        if "currency" in response_body:
+            self.__currency = response_body["currency"]
+        if "value" in response_body:
+            self.__value = response_body["value"]

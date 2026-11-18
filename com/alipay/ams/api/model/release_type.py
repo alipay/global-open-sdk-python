@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class ReleaseType(Enum):
     """The release schedule type. FIXED_TIME uses releaseTime and INTERVAL_TIME uses retentionTime."""
@@ -25,4 +27,3 @@ class ReleaseType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

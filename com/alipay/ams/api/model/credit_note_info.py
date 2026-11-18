@@ -23,7 +23,6 @@ class CreditNoteInfo:
         self.__created_at = None  # type: str
         self.__items = None  # type: [LineItem]
 
-
     @property
     def credit_note_id(self):
         """The credit note ID. Maximum length: 64 characters."""

@@ -2,11 +2,9 @@ import json
 from com.alipay.ams.api.model.amount import Amount
 
 
-
-
 class InvoicePayment:
     def __init__(self):
-        
+
         self.__invoice_payment_id = None  # type: str
         self.__attempt_no = None  # type: int
         self.__payment_request_id = None  # type: str
@@ -23,7 +21,6 @@ class InvoicePayment:
         self.__next_retry_at = None  # type: str
         self.__gmt_create = None  # type: str
         self.__gmt_update = None  # type: str
-        
 
     @property
     def invoice_payment_id(self):
@@ -35,6 +32,7 @@ class InvoicePayment:
     @invoice_payment_id.setter
     def invoice_payment_id(self, value):
         self.__invoice_payment_id = value
+
     @property
     def attempt_no(self):
         """
@@ -45,6 +43,7 @@ class InvoicePayment:
     @attempt_no.setter
     def attempt_no(self, value):
         self.__attempt_no = value
+
     @property
     def payment_request_id(self):
         """
@@ -55,6 +54,7 @@ class InvoicePayment:
     @payment_request_id.setter
     def payment_request_id(self, value):
         self.__payment_request_id = value
+
     @property
     def payment_id(self):
         """
@@ -65,6 +65,7 @@ class InvoicePayment:
     @payment_id.setter
     def payment_id(self, value):
         self.__payment_id = value
+
     @property
     def pay_to_request_id(self):
         """
@@ -75,6 +76,7 @@ class InvoicePayment:
     @pay_to_request_id.setter
     def pay_to_request_id(self, value):
         self.__pay_to_request_id = value
+
     @property
     def pay_to_id(self):
         """
@@ -85,16 +87,16 @@ class InvoicePayment:
     @pay_to_id.setter
     def pay_to_id(self, value):
         self.__pay_to_id = value
+
     @property
     def payment_amount(self):
-        """Gets the payment_amount of this InvoicePayment.
-        
-        """
+        """Gets the payment_amount of this InvoicePayment."""
         return self.__payment_amount
 
     @payment_amount.setter
     def payment_amount(self, value):
         self.__payment_amount = value
+
     @property
     def payment_order_status(self):
         """
@@ -105,6 +107,7 @@ class InvoicePayment:
     @payment_order_status.setter
     def payment_order_status(self, value):
         self.__payment_order_status = value
+
     @property
     def payment_method(self):
         """
@@ -115,6 +118,7 @@ class InvoicePayment:
     @payment_method.setter
     def payment_method(self, value):
         self.__payment_method = value
+
     @property
     def error_code(self):
         """
@@ -125,6 +129,7 @@ class InvoicePayment:
     @error_code.setter
     def error_code(self, value):
         self.__error_code = value
+
     @property
     def error_message(self):
         """
@@ -135,6 +140,7 @@ class InvoicePayment:
     @error_message.setter
     def error_message(self, value):
         self.__error_message = value
+
     @property
     def retry_reason(self):
         """
@@ -145,6 +151,7 @@ class InvoicePayment:
     @retry_reason.setter
     def retry_reason(self, value):
         self.__retry_reason = value
+
     @property
     def payment_time(self):
         """
@@ -155,6 +162,7 @@ class InvoicePayment:
     @payment_time.setter
     def payment_time(self, value):
         self.__payment_time = value
+
     @property
     def next_retry_at(self):
         """
@@ -165,6 +173,7 @@ class InvoicePayment:
     @next_retry_at.setter
     def next_retry_at(self, value):
         self.__next_retry_at = value
+
     @property
     def gmt_create(self):
         """
@@ -175,6 +184,7 @@ class InvoicePayment:
     @gmt_create.setter
     def gmt_create(self, value):
         self.__gmt_create = value
+
     @property
     def gmt_update(self):
         """
@@ -186,79 +196,78 @@ class InvoicePayment:
     def gmt_update(self, value):
         self.__gmt_update = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "invoice_payment_id") and self.invoice_payment_id is not None:
-            params['invoicePaymentId'] = self.invoice_payment_id
+            params["invoicePaymentId"] = self.invoice_payment_id
         if hasattr(self, "attempt_no") and self.attempt_no is not None:
-            params['attemptNo'] = self.attempt_no
+            params["attemptNo"] = self.attempt_no
         if hasattr(self, "payment_request_id") and self.payment_request_id is not None:
-            params['paymentRequestId'] = self.payment_request_id
+            params["paymentRequestId"] = self.payment_request_id
         if hasattr(self, "payment_id") and self.payment_id is not None:
-            params['paymentId'] = self.payment_id
+            params["paymentId"] = self.payment_id
         if hasattr(self, "pay_to_request_id") and self.pay_to_request_id is not None:
-            params['payToRequestId'] = self.pay_to_request_id
+            params["payToRequestId"] = self.pay_to_request_id
         if hasattr(self, "pay_to_id") and self.pay_to_id is not None:
-            params['payToId'] = self.pay_to_id
+            params["payToId"] = self.pay_to_id
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
-            params['paymentAmount'] = self.payment_amount
-        if hasattr(self, "payment_order_status") and self.payment_order_status is not None:
-            params['paymentOrderStatus'] = self.payment_order_status
+            params["paymentAmount"] = self.payment_amount
+        if (
+            hasattr(self, "payment_order_status")
+            and self.payment_order_status is not None
+        ):
+            params["paymentOrderStatus"] = self.payment_order_status
         if hasattr(self, "payment_method") and self.payment_method is not None:
-            params['paymentMethod'] = self.payment_method
+            params["paymentMethod"] = self.payment_method
         if hasattr(self, "error_code") and self.error_code is not None:
-            params['errorCode'] = self.error_code
+            params["errorCode"] = self.error_code
         if hasattr(self, "error_message") and self.error_message is not None:
-            params['errorMessage'] = self.error_message
+            params["errorMessage"] = self.error_message
         if hasattr(self, "retry_reason") and self.retry_reason is not None:
-            params['retryReason'] = self.retry_reason
+            params["retryReason"] = self.retry_reason
         if hasattr(self, "payment_time") and self.payment_time is not None:
-            params['paymentTime'] = self.payment_time
+            params["paymentTime"] = self.payment_time
         if hasattr(self, "next_retry_at") and self.next_retry_at is not None:
-            params['nextRetryAt'] = self.next_retry_at
+            params["nextRetryAt"] = self.next_retry_at
         if hasattr(self, "gmt_create") and self.gmt_create is not None:
-            params['gmtCreate'] = self.gmt_create
+            params["gmtCreate"] = self.gmt_create
         if hasattr(self, "gmt_update") and self.gmt_update is not None:
-            params['gmtUpdate'] = self.gmt_update
+            params["gmtUpdate"] = self.gmt_update
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'invoicePaymentId' in response_body:
-            self.__invoice_payment_id = response_body['invoicePaymentId']
-        if 'attemptNo' in response_body:
-            self.__attempt_no = response_body['attemptNo']
-        if 'paymentRequestId' in response_body:
-            self.__payment_request_id = response_body['paymentRequestId']
-        if 'paymentId' in response_body:
-            self.__payment_id = response_body['paymentId']
-        if 'payToRequestId' in response_body:
-            self.__pay_to_request_id = response_body['payToRequestId']
-        if 'payToId' in response_body:
-            self.__pay_to_id = response_body['payToId']
-        if 'paymentAmount' in response_body:
+        if "invoicePaymentId" in response_body:
+            self.__invoice_payment_id = response_body["invoicePaymentId"]
+        if "attemptNo" in response_body:
+            self.__attempt_no = response_body["attemptNo"]
+        if "paymentRequestId" in response_body:
+            self.__payment_request_id = response_body["paymentRequestId"]
+        if "paymentId" in response_body:
+            self.__payment_id = response_body["paymentId"]
+        if "payToRequestId" in response_body:
+            self.__pay_to_request_id = response_body["payToRequestId"]
+        if "payToId" in response_body:
+            self.__pay_to_id = response_body["payToId"]
+        if "paymentAmount" in response_body:
             self.__payment_amount = Amount()
-            self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
-        if 'paymentOrderStatus' in response_body:
-            self.__payment_order_status = response_body['paymentOrderStatus']
-        if 'paymentMethod' in response_body:
-            self.__payment_method = response_body['paymentMethod']
-        if 'errorCode' in response_body:
-            self.__error_code = response_body['errorCode']
-        if 'errorMessage' in response_body:
-            self.__error_message = response_body['errorMessage']
-        if 'retryReason' in response_body:
-            self.__retry_reason = response_body['retryReason']
-        if 'paymentTime' in response_body:
-            self.__payment_time = response_body['paymentTime']
-        if 'nextRetryAt' in response_body:
-            self.__next_retry_at = response_body['nextRetryAt']
-        if 'gmtCreate' in response_body:
-            self.__gmt_create = response_body['gmtCreate']
-        if 'gmtUpdate' in response_body:
-            self.__gmt_update = response_body['gmtUpdate']
+            self.__payment_amount.parse_rsp_body(response_body["paymentAmount"])
+        if "paymentOrderStatus" in response_body:
+            self.__payment_order_status = response_body["paymentOrderStatus"]
+        if "paymentMethod" in response_body:
+            self.__payment_method = response_body["paymentMethod"]
+        if "errorCode" in response_body:
+            self.__error_code = response_body["errorCode"]
+        if "errorMessage" in response_body:
+            self.__error_message = response_body["errorMessage"]
+        if "retryReason" in response_body:
+            self.__retry_reason = response_body["retryReason"]
+        if "paymentTime" in response_body:
+            self.__payment_time = response_body["paymentTime"]
+        if "nextRetryAt" in response_body:
+            self.__next_retry_at = response_body["nextRetryAt"]
+        if "gmtCreate" in response_body:
+            self.__gmt_create = response_body["gmtCreate"]
+        if "gmtUpdate" in response_body:
+            self.__gmt_update = response_body["gmtUpdate"]

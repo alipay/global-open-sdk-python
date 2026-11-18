@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class InteractionType(Enum):
     """The interaction type for the payment method."""
@@ -45,4 +47,3 @@ class InteractionType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

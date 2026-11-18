@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class CertificateType(Enum):
     """CertificateType枚举类"""
@@ -45,4 +47,3 @@ class CertificateType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

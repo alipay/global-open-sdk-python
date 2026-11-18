@@ -24,11 +24,16 @@ class AlipayFileRequest(object):
         if not resolved_name:
             resolved_name = getattr(file_object, "name", None)
         if not isinstance(resolved_name, string_types) or not resolved_name.strip():
-            raise AlipayApiException("filename is required for an anonymous file object")
+            raise AlipayApiException(
+                "filename is required for an anonymous file object"
+            )
         resolved_name = resolved_name.replace("\\", "/").rsplit("/", 1)[-1]
         resolved_name = "".join(
-            "_" if character == '"' or ord(character) < 0x20 or ord(character) == 0x7F
-            else character
+            (
+                "_"
+                if character == '"' or ord(character) < 0x20 or ord(character) == 0x7F
+                else character
+            )
             for character in resolved_name
         )
         if not resolved_name:

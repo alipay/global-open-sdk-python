@@ -1,4 +1,6 @@
 from enum import Enum, unique
+
+
 @unique
 class PaymentStatus(Enum):
     """Indicates the payment status. Valid values are: - SUCCESS: Indicates that the payment succeeds. - FAIL: Indicates that the payment fails."""
@@ -25,4 +27,3 @@ class PaymentStatus(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
-

@@ -1,16 +1,13 @@
 import json
 
 
-
-
 class FundTransferPartyAddress:
     def __init__(self):
-        
+
         self.__address1 = None  # type: str
         self.__city = None  # type: str
         self.__state = None  # type: str
         self.__region = None  # type: str
-        
 
     @property
     def address1(self):
@@ -22,6 +19,7 @@ class FundTransferPartyAddress:
     @address1.setter
     def address1(self, value):
         self.__address1 = value
+
     @property
     def city(self):
         """
@@ -32,6 +30,7 @@ class FundTransferPartyAddress:
     @city.setter
     def city(self, value):
         self.__city = value
+
     @property
     def state(self):
         """
@@ -42,6 +41,7 @@ class FundTransferPartyAddress:
     @state.setter
     def state(self, value):
         self.__state = value
+
     @property
     def region(self):
         """
@@ -53,30 +53,26 @@ class FundTransferPartyAddress:
     def region(self, value):
         self.__region = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "address1") and self.address1 is not None:
-            params['address1'] = self.address1
+            params["address1"] = self.address1
         if hasattr(self, "city") and self.city is not None:
-            params['city'] = self.city
+            params["city"] = self.city
         if hasattr(self, "state") and self.state is not None:
-            params['state'] = self.state
+            params["state"] = self.state
         if hasattr(self, "region") and self.region is not None:
-            params['region'] = self.region
+            params["region"] = self.region
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'address1' in response_body:
-            self.__address1 = response_body['address1']
-        if 'city' in response_body:
-            self.__city = response_body['city']
-        if 'state' in response_body:
-            self.__state = response_body['state']
-        if 'region' in response_body:
-            self.__region = response_body['region']
+        if "address1" in response_body:
+            self.__address1 = response_body["address1"]
+        if "city" in response_body:
+            self.__city = response_body["city"]
+        if "state" in response_body:
+            self.__state = response_body["state"]
+        if "region" in response_body:
+            self.__region = response_body["region"]

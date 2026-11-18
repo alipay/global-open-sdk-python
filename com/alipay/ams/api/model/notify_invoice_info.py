@@ -11,7 +11,6 @@ class NotifyInvoiceInfo:
         self.__post_payment_credit_notes_amount = None  # type: Amount
         self.__adjusted_amount = None  # type: Amount
 
-
     @property
     def invoice_id(self):
         """The invoice ID adjusted by this credit note."""

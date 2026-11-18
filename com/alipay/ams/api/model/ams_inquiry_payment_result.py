@@ -4,11 +4,9 @@ from com.alipay.ams.api.model.payment_result_info import PaymentResultInfo
 from com.alipay.ams.api.model.batch_payment_transaction import BatchPaymentTransaction
 
 
-
-
 class AmsInquiryPaymentResult:
     def __init__(self):
-        
+
         self.__payment_request_id = None  # type: str
         self.__payment_id = None  # type: str
         self.__payment_amount = None  # type: Amount
@@ -17,7 +15,6 @@ class AmsInquiryPaymentResult:
         self.__payment_result_message = None  # type: str
         self.__payment_result_info = None  # type: PaymentResultInfo
         self.__transactions = None  # type: [BatchPaymentTransaction]
-        
 
     @property
     def payment_request_id(self):
@@ -29,6 +26,7 @@ class AmsInquiryPaymentResult:
     @payment_request_id.setter
     def payment_request_id(self, value):
         self.__payment_request_id = value
+
     @property
     def payment_id(self):
         """
@@ -39,16 +37,16 @@ class AmsInquiryPaymentResult:
     @payment_id.setter
     def payment_id(self, value):
         self.__payment_id = value
+
     @property
     def payment_amount(self):
-        """Gets the payment_amount of this AmsInquiryPaymentResult.
-        
-        """
+        """Gets the payment_amount of this AmsInquiryPaymentResult."""
         return self.__payment_amount
 
     @payment_amount.setter
     def payment_amount(self, value):
         self.__payment_amount = value
+
     @property
     def payment_status(self):
         """
@@ -59,6 +57,7 @@ class AmsInquiryPaymentResult:
     @payment_status.setter
     def payment_status(self, value):
         self.__payment_status = value
+
     @property
     def payment_result_code(self):
         """
@@ -69,6 +68,7 @@ class AmsInquiryPaymentResult:
     @payment_result_code.setter
     def payment_result_code(self, value):
         self.__payment_result_code = value
+
     @property
     def payment_result_message(self):
         """
@@ -79,16 +79,16 @@ class AmsInquiryPaymentResult:
     @payment_result_message.setter
     def payment_result_message(self, value):
         self.__payment_result_message = value
+
     @property
     def payment_result_info(self):
-        """Gets the payment_result_info of this AmsInquiryPaymentResult.
-        
-        """
+        """Gets the payment_result_info of this AmsInquiryPaymentResult."""
         return self.__payment_result_info
 
     @payment_result_info.setter
     def payment_result_info(self, value):
         self.__payment_result_info = value
+
     @property
     def transactions(self):
         """
@@ -100,52 +100,59 @@ class AmsInquiryPaymentResult:
     def transactions(self, value):
         self.__transactions = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "payment_request_id") and self.payment_request_id is not None:
-            params['paymentRequestId'] = self.payment_request_id
+            params["paymentRequestId"] = self.payment_request_id
         if hasattr(self, "payment_id") and self.payment_id is not None:
-            params['paymentId'] = self.payment_id
+            params["paymentId"] = self.payment_id
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
-            params['paymentAmount'] = self.payment_amount
+            params["paymentAmount"] = self.payment_amount
         if hasattr(self, "payment_status") and self.payment_status is not None:
-            params['paymentStatus'] = self.payment_status
-        if hasattr(self, "payment_result_code") and self.payment_result_code is not None:
-            params['paymentResultCode'] = self.payment_result_code
-        if hasattr(self, "payment_result_message") and self.payment_result_message is not None:
-            params['paymentResultMessage'] = self.payment_result_message
-        if hasattr(self, "payment_result_info") and self.payment_result_info is not None:
-            params['paymentResultInfo'] = self.payment_result_info
+            params["paymentStatus"] = self.payment_status
+        if (
+            hasattr(self, "payment_result_code")
+            and self.payment_result_code is not None
+        ):
+            params["paymentResultCode"] = self.payment_result_code
+        if (
+            hasattr(self, "payment_result_message")
+            and self.payment_result_message is not None
+        ):
+            params["paymentResultMessage"] = self.payment_result_message
+        if (
+            hasattr(self, "payment_result_info")
+            and self.payment_result_info is not None
+        ):
+            params["paymentResultInfo"] = self.payment_result_info
         if hasattr(self, "transactions") and self.transactions is not None:
-            params['transactions'] = self.transactions
+            params["transactions"] = self.transactions
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'paymentRequestId' in response_body:
-            self.__payment_request_id = response_body['paymentRequestId']
-        if 'paymentId' in response_body:
-            self.__payment_id = response_body['paymentId']
-        if 'paymentAmount' in response_body:
+        if "paymentRequestId" in response_body:
+            self.__payment_request_id = response_body["paymentRequestId"]
+        if "paymentId" in response_body:
+            self.__payment_id = response_body["paymentId"]
+        if "paymentAmount" in response_body:
             self.__payment_amount = Amount()
-            self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
-        if 'paymentStatus' in response_body:
-            self.__payment_status = response_body['paymentStatus']
-        if 'paymentResultCode' in response_body:
-            self.__payment_result_code = response_body['paymentResultCode']
-        if 'paymentResultMessage' in response_body:
-            self.__payment_result_message = response_body['paymentResultMessage']
-        if 'paymentResultInfo' in response_body:
+            self.__payment_amount.parse_rsp_body(response_body["paymentAmount"])
+        if "paymentStatus" in response_body:
+            self.__payment_status = response_body["paymentStatus"]
+        if "paymentResultCode" in response_body:
+            self.__payment_result_code = response_body["paymentResultCode"]
+        if "paymentResultMessage" in response_body:
+            self.__payment_result_message = response_body["paymentResultMessage"]
+        if "paymentResultInfo" in response_body:
             self.__payment_result_info = PaymentResultInfo()
-            self.__payment_result_info.parse_rsp_body(response_body['paymentResultInfo'])
-        if 'transactions' in response_body:
+            self.__payment_result_info.parse_rsp_body(
+                response_body["paymentResultInfo"]
+            )
+        if "transactions" in response_body:
             self.__transactions = []
-            for item in response_body['transactions']:
+            for item in response_body["transactions"]:
                 obj = BatchPaymentTransaction()
                 obj.parse_rsp_body(item)
                 self.__transactions.append(obj)

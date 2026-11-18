@@ -11,7 +11,9 @@ from com.alipay.ams.api.tools._amount_rules import get_rules
 class AmountUtilTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = os.path.join(os.path.dirname(__file__), "resources", "amount-conversion-test-cases.json")
+        path = os.path.join(
+            os.path.dirname(__file__), "resources", "amount-conversion-test-cases.json"
+        )
         with open(path, "r") as stream:
             cls.vectors = json.load(stream)
 
@@ -19,7 +21,9 @@ class AmountUtilTest(unittest.TestCase):
         for vector in self.vectors["toAmount"]:
             self._check(vector, lambda: to_amount(vector["amount"], vector["currency"]))
         for vector in self.vectors["fromAmount"]:
-            self._check(vector, lambda: from_amount(vector["value"], vector["currency"]))
+            self._check(
+                vector, lambda: from_amount(vector["value"], vector["currency"])
+            )
         for vector in self.vectors["validate"]:
             self._check(vector, lambda: validate(vector["value"], vector["currency"]))
 
@@ -37,7 +41,12 @@ class AmountUtilTest(unittest.TestCase):
         for vector in self.vectors["toAmount"]:
             if "result" in vector:
                 value = vector["result"]
-                self.assertEqual(value, to_amount(from_amount(value, vector["currency"]), vector["currency"]))
+                self.assertEqual(
+                    value,
+                    to_amount(
+                        from_amount(value, vector["currency"]), vector["currency"]
+                    ),
+                )
 
     def test_trailing_newline_is_rejected(self):
         with self._assert_raises_pattern(ValueError, "^INVALID_AMOUNT_FORMAT:"):

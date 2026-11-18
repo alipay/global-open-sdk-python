@@ -1,11 +1,9 @@
 import json
 
 
-
-
 class FundMoveDetail:
     def __init__(self):
-        
+
         self.__payer_name = None  # type: str
         self.__payer_account_no = None  # type: str
         self.__payer_chaneel_accountnumber = None  # type: str
@@ -20,7 +18,6 @@ class FundMoveDetail:
         self.__description = None  # type: str
         self.__memo = None  # type: str
         self.__reference_transaction_id = None  # type: str
-        
 
     @property
     def payer_name(self):
@@ -32,6 +29,7 @@ class FundMoveDetail:
     @payer_name.setter
     def payer_name(self, value):
         self.__payer_name = value
+
     @property
     def payer_account_no(self):
         """
@@ -42,6 +40,7 @@ class FundMoveDetail:
     @payer_account_no.setter
     def payer_account_no(self, value):
         self.__payer_account_no = value
+
     @property
     def payer_chaneel_accountnumber(self):
         """
@@ -52,6 +51,7 @@ class FundMoveDetail:
     @payer_chaneel_accountnumber.setter
     def payer_chaneel_accountnumber(self, value):
         self.__payer_chaneel_accountnumber = value
+
     @property
     def payer_account_type(self):
         """
@@ -62,6 +62,7 @@ class FundMoveDetail:
     @payer_account_type.setter
     def payer_account_type(self, value):
         self.__payer_account_type = value
+
     @property
     def payer_asset_id(self):
         """
@@ -72,6 +73,7 @@ class FundMoveDetail:
     @payer_asset_id.setter
     def payer_asset_id(self, value):
         self.__payer_asset_id = value
+
     @property
     def beneficiary_name(self):
         """
@@ -82,6 +84,7 @@ class FundMoveDetail:
     @beneficiary_name.setter
     def beneficiary_name(self, value):
         self.__beneficiary_name = value
+
     @property
     def beneficiary_account_type(self):
         """
@@ -92,6 +95,7 @@ class FundMoveDetail:
     @beneficiary_account_type.setter
     def beneficiary_account_type(self, value):
         self.__beneficiary_account_type = value
+
     @property
     def beneficiary_bank_country(self):
         """
@@ -102,6 +106,7 @@ class FundMoveDetail:
     @beneficiary_bank_country.setter
     def beneficiary_bank_country(self, value):
         self.__beneficiary_bank_country = value
+
     @property
     def beneficiary_bank_name(self):
         """
@@ -112,6 +117,7 @@ class FundMoveDetail:
     @beneficiary_bank_name.setter
     def beneficiary_bank_name(self, value):
         self.__beneficiary_bank_name = value
+
     @property
     def beneficiary_asset_id(self):
         """
@@ -122,6 +128,7 @@ class FundMoveDetail:
     @beneficiary_asset_id.setter
     def beneficiary_asset_id(self, value):
         self.__beneficiary_asset_id = value
+
     @property
     def remarks(self):
         """
@@ -132,6 +139,7 @@ class FundMoveDetail:
     @remarks.setter
     def remarks(self, value):
         self.__remarks = value
+
     @property
     def description(self):
         """
@@ -142,6 +150,7 @@ class FundMoveDetail:
     @description.setter
     def description(self, value):
         self.__description = value
+
     @property
     def memo(self):
         """
@@ -152,6 +161,7 @@ class FundMoveDetail:
     @memo.setter
     def memo(self, value):
         self.__memo = value
+
     @property
     def reference_transaction_id(self):
         """
@@ -163,70 +173,86 @@ class FundMoveDetail:
     def reference_transaction_id(self, value):
         self.__reference_transaction_id = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "payer_name") and self.payer_name is not None:
-            params['payerName'] = self.payer_name
+            params["payerName"] = self.payer_name
         if hasattr(self, "payer_account_no") and self.payer_account_no is not None:
-            params['payerAccountNo'] = self.payer_account_no
-        if hasattr(self, "payer_chaneel_accountnumber") and self.payer_chaneel_accountnumber is not None:
-            params['payerChaneelAccountnumber'] = self.payer_chaneel_accountnumber
+            params["payerAccountNo"] = self.payer_account_no
+        if (
+            hasattr(self, "payer_chaneel_accountnumber")
+            and self.payer_chaneel_accountnumber is not None
+        ):
+            params["payerChaneelAccountnumber"] = self.payer_chaneel_accountnumber
         if hasattr(self, "payer_account_type") and self.payer_account_type is not None:
-            params['payerAccountType'] = self.payer_account_type
+            params["payerAccountType"] = self.payer_account_type
         if hasattr(self, "payer_asset_id") and self.payer_asset_id is not None:
-            params['payerAssetId'] = self.payer_asset_id
+            params["payerAssetId"] = self.payer_asset_id
         if hasattr(self, "beneficiary_name") and self.beneficiary_name is not None:
-            params['beneficiaryName'] = self.beneficiary_name
-        if hasattr(self, "beneficiary_account_type") and self.beneficiary_account_type is not None:
-            params['beneficiaryAccountType'] = self.beneficiary_account_type
-        if hasattr(self, "beneficiary_bank_country") and self.beneficiary_bank_country is not None:
-            params['beneficiaryBankCountry'] = self.beneficiary_bank_country
-        if hasattr(self, "beneficiary_bank_name") and self.beneficiary_bank_name is not None:
-            params['beneficiaryBankName'] = self.beneficiary_bank_name
-        if hasattr(self, "beneficiary_asset_id") and self.beneficiary_asset_id is not None:
-            params['beneficiaryAssetId'] = self.beneficiary_asset_id
+            params["beneficiaryName"] = self.beneficiary_name
+        if (
+            hasattr(self, "beneficiary_account_type")
+            and self.beneficiary_account_type is not None
+        ):
+            params["beneficiaryAccountType"] = self.beneficiary_account_type
+        if (
+            hasattr(self, "beneficiary_bank_country")
+            and self.beneficiary_bank_country is not None
+        ):
+            params["beneficiaryBankCountry"] = self.beneficiary_bank_country
+        if (
+            hasattr(self, "beneficiary_bank_name")
+            and self.beneficiary_bank_name is not None
+        ):
+            params["beneficiaryBankName"] = self.beneficiary_bank_name
+        if (
+            hasattr(self, "beneficiary_asset_id")
+            and self.beneficiary_asset_id is not None
+        ):
+            params["beneficiaryAssetId"] = self.beneficiary_asset_id
         if hasattr(self, "remarks") and self.remarks is not None:
-            params['remarks'] = self.remarks
+            params["remarks"] = self.remarks
         if hasattr(self, "description") and self.description is not None:
-            params['description'] = self.description
+            params["description"] = self.description
         if hasattr(self, "memo") and self.memo is not None:
-            params['memo'] = self.memo
-        if hasattr(self, "reference_transaction_id") and self.reference_transaction_id is not None:
-            params['referenceTransactionId'] = self.reference_transaction_id
+            params["memo"] = self.memo
+        if (
+            hasattr(self, "reference_transaction_id")
+            and self.reference_transaction_id is not None
+        ):
+            params["referenceTransactionId"] = self.reference_transaction_id
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'payerName' in response_body:
-            self.__payer_name = response_body['payerName']
-        if 'payerAccountNo' in response_body:
-            self.__payer_account_no = response_body['payerAccountNo']
-        if 'payerChaneelAccountnumber' in response_body:
-            self.__payer_chaneel_accountnumber = response_body['payerChaneelAccountnumber']
-        if 'payerAccountType' in response_body:
-            self.__payer_account_type = response_body['payerAccountType']
-        if 'payerAssetId' in response_body:
-            self.__payer_asset_id = response_body['payerAssetId']
-        if 'beneficiaryName' in response_body:
-            self.__beneficiary_name = response_body['beneficiaryName']
-        if 'beneficiaryAccountType' in response_body:
-            self.__beneficiary_account_type = response_body['beneficiaryAccountType']
-        if 'beneficiaryBankCountry' in response_body:
-            self.__beneficiary_bank_country = response_body['beneficiaryBankCountry']
-        if 'beneficiaryBankName' in response_body:
-            self.__beneficiary_bank_name = response_body['beneficiaryBankName']
-        if 'beneficiaryAssetId' in response_body:
-            self.__beneficiary_asset_id = response_body['beneficiaryAssetId']
-        if 'remarks' in response_body:
-            self.__remarks = response_body['remarks']
-        if 'description' in response_body:
-            self.__description = response_body['description']
-        if 'memo' in response_body:
-            self.__memo = response_body['memo']
-        if 'referenceTransactionId' in response_body:
-            self.__reference_transaction_id = response_body['referenceTransactionId']
+        if "payerName" in response_body:
+            self.__payer_name = response_body["payerName"]
+        if "payerAccountNo" in response_body:
+            self.__payer_account_no = response_body["payerAccountNo"]
+        if "payerChaneelAccountnumber" in response_body:
+            self.__payer_chaneel_accountnumber = response_body[
+                "payerChaneelAccountnumber"
+            ]
+        if "payerAccountType" in response_body:
+            self.__payer_account_type = response_body["payerAccountType"]
+        if "payerAssetId" in response_body:
+            self.__payer_asset_id = response_body["payerAssetId"]
+        if "beneficiaryName" in response_body:
+            self.__beneficiary_name = response_body["beneficiaryName"]
+        if "beneficiaryAccountType" in response_body:
+            self.__beneficiary_account_type = response_body["beneficiaryAccountType"]
+        if "beneficiaryBankCountry" in response_body:
+            self.__beneficiary_bank_country = response_body["beneficiaryBankCountry"]
+        if "beneficiaryBankName" in response_body:
+            self.__beneficiary_bank_name = response_body["beneficiaryBankName"]
+        if "beneficiaryAssetId" in response_body:
+            self.__beneficiary_asset_id = response_body["beneficiaryAssetId"]
+        if "remarks" in response_body:
+            self.__remarks = response_body["remarks"]
+        if "description" in response_body:
+            self.__description = response_body["description"]
+        if "memo" in response_body:
+            self.__memo = response_body["memo"]
+        if "referenceTransactionId" in response_body:
+            self.__reference_transaction_id = response_body["referenceTransactionId"]

@@ -1,13 +1,10 @@
 import json
 
 
-
-
 class RiskEnv:
     def __init__(self):
-        
+
         self.__ip_address_type = None  # type: str
-        
 
     @property
     def ip_address_type(self):
@@ -20,18 +17,14 @@ class RiskEnv:
     def ip_address_type(self, value):
         self.__ip_address_type = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "ip_address_type") and self.ip_address_type is not None:
-            params['ipAddressType'] = self.ip_address_type
+            params["ipAddressType"] = self.ip_address_type
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'ipAddressType' in response_body:
-            self.__ip_address_type = response_body['ipAddressType']
+        if "ipAddressType" in response_body:
+            self.__ip_address_type = response_body["ipAddressType"]

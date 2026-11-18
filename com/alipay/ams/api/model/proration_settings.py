@@ -2,14 +2,11 @@ import json
 from com.alipay.ams.api.model.amount import Amount
 
 
-
-
 class ProrationSettings:
     def __init__(self):
-        
+
         self.__proration_mode = None  # type: str
         self.__custom_amount = None  # type: Amount
-        
 
     @property
     def proration_mode(self):
@@ -21,34 +18,29 @@ class ProrationSettings:
     @proration_mode.setter
     def proration_mode(self, value):
         self.__proration_mode = value
+
     @property
     def custom_amount(self):
-        """Gets the custom_amount of this ProrationSettings.
-        
-        """
+        """Gets the custom_amount of this ProrationSettings."""
         return self.__custom_amount
 
     @custom_amount.setter
     def custom_amount(self, value):
         self.__custom_amount = value
 
-
-    
-
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "proration_mode") and self.proration_mode is not None:
-            params['prorationMode'] = self.proration_mode
+            params["prorationMode"] = self.proration_mode
         if hasattr(self, "custom_amount") and self.custom_amount is not None:
-            params['customAmount'] = self.custom_amount
+            params["customAmount"] = self.custom_amount
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'prorationMode' in response_body:
-            self.__proration_mode = response_body['prorationMode']
-        if 'customAmount' in response_body:
+        if "prorationMode" in response_body:
+            self.__proration_mode = response_body["prorationMode"]
+        if "customAmount" in response_body:
             self.__custom_amount = Amount()
-            self.__custom_amount.parse_rsp_body(response_body['customAmount'])
+            self.__custom_amount.parse_rsp_body(response_body["customAmount"])

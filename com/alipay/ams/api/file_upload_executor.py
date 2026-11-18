@@ -160,7 +160,9 @@ def _read_bounded_file(file_object, max_file_size):
                 file_object.seek(position)
             except (IOError, OSError) as exc:
                 if read_error is None:
-                    raise AlipayApiException("Unable to restore file position: " + str(exc))
+                    raise AlipayApiException(
+                        "Unable to restore file position: " + str(exc)
+                    )
 
     if read_error is not None:
         raise AlipayApiException("Unable to read file: " + str(read_error))
@@ -253,9 +255,13 @@ def _normalize_gateway(gateway_url, require_known_host):
     if parsed.scheme.lower() != "https" or not parsed.hostname:
         raise AlipayApiException("upload gateway URL must use HTTPS")
     if parsed.username or parsed.password or parsed.path not in ("", "/"):
-        raise AlipayApiException("upload gateway URL must not contain credentials or a path")
+        raise AlipayApiException(
+            "upload gateway URL must not contain credentials or a path"
+        )
     if parsed.params or parsed.query or parsed.fragment:
-        raise AlipayApiException("upload gateway URL must not contain params, query, or fragment")
+        raise AlipayApiException(
+            "upload gateway URL must not contain params, query, or fragment"
+        )
     try:
         port = parsed.port
     except ValueError as exc:
@@ -268,7 +274,9 @@ def _normalize_gateway(gateway_url, require_known_host):
         mapped_host = _GATEWAY_HOSTS.get(host)
         if mapped_host is None:
             raise AlipayApiException(
-                "No upload gateway mapping for {0}; configure one explicitly".format(host)
+                "No upload gateway mapping for {0}; configure one explicitly".format(
+                    host
+                )
             )
         host = mapped_host
     authority = host

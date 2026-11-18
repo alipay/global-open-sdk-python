@@ -107,13 +107,16 @@ class AlipayInvoiceNotify(AlipayNotify):
             payment_info_data = notify["paymentInfo"]
             if "result" in payment_info_data:
                 from com.alipay.ams.api.model.result import Result
+
                 self.__payment_info.result = Result()
                 self.__payment_info.result.parse_rsp_body(payment_info_data["result"])
             if "paymentId" in payment_info_data:
                 self.__payment_info.payment_id = payment_info_data["paymentId"]
             if "paymentAmount" in payment_info_data:
                 self.__payment_info.payment_amount = Amount()
-                self.__payment_info.payment_amount.parse_rsp_body(payment_info_data["paymentAmount"])
+                self.__payment_info.payment_amount.parse_rsp_body(
+                    payment_info_data["paymentAmount"]
+                )
             if "paymentTime" in payment_info_data:
                 self.__payment_info.payment_time = payment_info_data["paymentTime"]
         if "subscription" in notify:

@@ -1,19 +1,20 @@
 import json
 
 
-
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
+
 
 class AlipayPriceUpdateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayPriceUpdateRequest, self).__init__("/ams/api/v1/billing/price/update") 
+        super(AlipayPriceUpdateRequest, self).__init__(
+            "/ams/api/v1/billing/price/update"
+        )
 
         self.__price_id = None  # type: str
         self.__name = None  # type: str
         self.__metadata = None  # type: str
         self.__active = None  # type: bool
         self.__default_price = None  # type: bool
-        
 
     @property
     def price_id(self):
@@ -25,6 +26,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @price_id.setter
     def price_id(self, value):
         self.__price_id = value
+
     @property
     def name(self):
         """
@@ -35,6 +37,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @name.setter
     def name(self, value):
         self.__name = value
+
     @property
     def metadata(self):
         """
@@ -45,6 +48,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
+
     @property
     def active(self):
         """
@@ -55,6 +59,7 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     @active.setter
     def active(self, value):
         self.__active = value
+
     @property
     def default_price(self):
         """
@@ -66,37 +71,36 @@ class AlipayPriceUpdateRequest(AlipayRequest):
     def default_price(self, value):
         self.__default_price = value
 
-
-    def to_ams_json(self): 
-        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
+    def to_ams_json(self):
+        json_str = json.dumps(
+            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
+        )
         return json_str
-
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "price_id") and self.price_id is not None:
-            params['priceId'] = self.price_id
+            params["priceId"] = self.price_id
         if hasattr(self, "name") and self.name is not None:
-            params['name'] = self.name
+            params["name"] = self.name
         if hasattr(self, "metadata") and self.metadata is not None:
-            params['metadata'] = self.metadata
+            params["metadata"] = self.metadata
         if hasattr(self, "active") and self.active is not None:
-            params['active'] = self.active
+            params["active"] = self.active
         if hasattr(self, "default_price") and self.default_price is not None:
-            params['defaultPrice'] = self.default_price
+            params["defaultPrice"] = self.default_price
         return params
 
-
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str): 
+        if isinstance(response_body, str):
             response_body = json.loads(response_body)
-        if 'priceId' in response_body:
-            self.__price_id = response_body['priceId']
-        if 'name' in response_body:
-            self.__name = response_body['name']
-        if 'metadata' in response_body:
-            self.__metadata = response_body['metadata']
-        if 'active' in response_body:
-            self.__active = response_body['active']
-        if 'defaultPrice' in response_body:
-            self.__default_price = response_body['defaultPrice']
+        if "priceId" in response_body:
+            self.__price_id = response_body["priceId"]
+        if "name" in response_body:
+            self.__name = response_body["name"]
+        if "metadata" in response_body:
+            self.__metadata = response_body["metadata"]
+        if "active" in response_body:
+            self.__active = response_body["active"]
+        if "defaultPrice" in response_body:
+            self.__default_price = response_body["defaultPrice"]
