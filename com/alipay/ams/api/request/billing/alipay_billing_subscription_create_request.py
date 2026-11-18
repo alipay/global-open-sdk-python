@@ -4,14 +4,12 @@ from com.alipay.ams.api.model.billing_trial_settings import BillingTrialSettings
 from com.alipay.ams.api.model.billing_discount import BillingDiscount
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayBillingSubscriptionCreateRequest, self).__init__(
-            "/ams/api/v1/billing/subscription/create"
-        )
+        super(AlipayBillingSubscriptionCreateRequest, self).__init__("/ams/api/v1/billing/subscription/create") 
 
         self.__subscription_request_id = None  # type: str
         self.__customer_id = None  # type: str
@@ -27,6 +25,7 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
         self.__description = None  # type: str
         self.__subscription_notify_url = None  # type: str
         self.__metadata = None  # type: str
+        
 
     @property
     def subscription_request_id(self):
@@ -38,7 +37,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @subscription_request_id.setter
     def subscription_request_id(self, value):
         self.__subscription_request_id = value
-
     @property
     def customer_id(self):
         """
@@ -49,7 +47,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @customer_id.setter
     def customer_id(self, value):
         self.__customer_id = value
-
     @property
     def customer_email(self):
         """
@@ -60,7 +57,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @customer_email.setter
     def customer_email(self, value):
         self.__customer_email = value
-
     @property
     def price_items(self):
         """
@@ -71,16 +67,16 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @price_items.setter
     def price_items(self, value):
         self.__price_items = value
-
     @property
     def trial_settings(self):
-        """Gets the trial_settings of this AlipayBillingSubscriptionCreateRequest."""
+        """Gets the trial_settings of this AlipayBillingSubscriptionCreateRequest.
+        
+        """
         return self.__trial_settings
 
     @trial_settings.setter
     def trial_settings(self, value):
         self.__trial_settings = value
-
     @property
     def discounts(self):
         """
@@ -91,7 +87,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @discounts.setter
     def discounts(self, value):
         self.__discounts = value
-
     @property
     def payment_behavior(self):
         """
@@ -102,7 +97,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @payment_behavior.setter
     def payment_behavior(self, value):
         self.__payment_behavior = value
-
     @property
     def collection_method(self):
         """
@@ -113,7 +107,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @collection_method.setter
     def collection_method(self, value):
         self.__collection_method = value
-
     @property
     def days_until_due(self):
         """
@@ -124,7 +117,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @days_until_due.setter
     def days_until_due(self, value):
         self.__days_until_due = value
-
     @property
     def cancel_at(self):
         """
@@ -135,7 +127,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @cancel_at.setter
     def cancel_at(self, value):
         self.__cancel_at = value
-
     @property
     def cancel_at_period_end(self):
         """
@@ -146,7 +137,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @cancel_at_period_end.setter
     def cancel_at_period_end(self, value):
         self.__cancel_at_period_end = value
-
     @property
     def description(self):
         """
@@ -157,7 +147,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @description.setter
     def description(self, value):
         self.__description = value
-
     @property
     def subscription_notify_url(self):
         """
@@ -168,7 +157,6 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     @subscription_notify_url.setter
     def subscription_notify_url(self, value):
         self.__subscription_notify_url = value
-
     @property
     def metadata(self):
         """
@@ -180,90 +168,82 @@ class AlipayBillingSubscriptionCreateRequest(AlipayRequest):
     def metadata(self, value):
         self.__metadata = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "subscription_request_id")
-            and self.subscription_request_id is not None
-        ):
-            params["subscriptionRequestId"] = self.subscription_request_id
+        if hasattr(self, "subscription_request_id") and self.subscription_request_id is not None:
+            params['subscriptionRequestId'] = self.subscription_request_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
-            params["customerId"] = self.customer_id
+            params['customerId'] = self.customer_id
         if hasattr(self, "customer_email") and self.customer_email is not None:
-            params["customerEmail"] = self.customer_email
+            params['customerEmail'] = self.customer_email
         if hasattr(self, "price_items") and self.price_items is not None:
-            params["priceItems"] = self.price_items
+            params['priceItems'] = self.price_items
         if hasattr(self, "trial_settings") and self.trial_settings is not None:
-            params["trialSettings"] = self.trial_settings
+            params['trialSettings'] = self.trial_settings
         if hasattr(self, "discounts") and self.discounts is not None:
-            params["discounts"] = self.discounts
+            params['discounts'] = self.discounts
         if hasattr(self, "payment_behavior") and self.payment_behavior is not None:
-            params["paymentBehavior"] = self.payment_behavior
+            params['paymentBehavior'] = self.payment_behavior
         if hasattr(self, "collection_method") and self.collection_method is not None:
-            params["collectionMethod"] = self.collection_method
+            params['collectionMethod'] = self.collection_method
         if hasattr(self, "days_until_due") and self.days_until_due is not None:
-            params["daysUntilDue"] = self.days_until_due
+            params['daysUntilDue'] = self.days_until_due
         if hasattr(self, "cancel_at") and self.cancel_at is not None:
-            params["cancelAt"] = self.cancel_at
-        if (
-            hasattr(self, "cancel_at_period_end")
-            and self.cancel_at_period_end is not None
-        ):
-            params["cancelAtPeriodEnd"] = self.cancel_at_period_end
+            params['cancelAt'] = self.cancel_at
+        if hasattr(self, "cancel_at_period_end") and self.cancel_at_period_end is not None:
+            params['cancelAtPeriodEnd'] = self.cancel_at_period_end
         if hasattr(self, "description") and self.description is not None:
-            params["description"] = self.description
-        if (
-            hasattr(self, "subscription_notify_url")
-            and self.subscription_notify_url is not None
-        ):
-            params["subscriptionNotifyUrl"] = self.subscription_notify_url
+            params['description'] = self.description
+        if hasattr(self, "subscription_notify_url") and self.subscription_notify_url is not None:
+            params['subscriptionNotifyUrl'] = self.subscription_notify_url
         if hasattr(self, "metadata") and self.metadata is not None:
-            params["metadata"] = self.metadata
+            params['metadata'] = self.metadata
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "subscriptionRequestId" in response_body:
-            self.__subscription_request_id = response_body["subscriptionRequestId"]
-        if "customerId" in response_body:
-            self.__customer_id = response_body["customerId"]
-        if "customerEmail" in response_body:
-            self.__customer_email = response_body["customerEmail"]
-        if "priceItems" in response_body:
+        if 'subscriptionRequestId' in response_body:
+            self.__subscription_request_id = response_body['subscriptionRequestId']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'customerEmail' in response_body:
+            self.__customer_email = response_body['customerEmail']
+        if 'priceItems' in response_body:
             self.__price_items = []
-            for item in response_body["priceItems"]:
+            for item in response_body['priceItems']:
                 obj = PriceItem()
                 obj.parse_rsp_body(item)
                 self.__price_items.append(obj)
-        if "trialSettings" in response_body:
+        if 'trialSettings' in response_body:
             self.__trial_settings = BillingTrialSettings()
-            self.__trial_settings.parse_rsp_body(response_body["trialSettings"])
-        if "discounts" in response_body:
+            self.__trial_settings.parse_rsp_body(response_body['trialSettings'])
+        if 'discounts' in response_body:
             self.__discounts = []
-            for item in response_body["discounts"]:
+            for item in response_body['discounts']:
                 obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
-        if "paymentBehavior" in response_body:
-            self.__payment_behavior = response_body["paymentBehavior"]
-        if "collectionMethod" in response_body:
-            self.__collection_method = response_body["collectionMethod"]
-        if "daysUntilDue" in response_body:
-            self.__days_until_due = response_body["daysUntilDue"]
-        if "cancelAt" in response_body:
-            self.__cancel_at = response_body["cancelAt"]
-        if "cancelAtPeriodEnd" in response_body:
-            self.__cancel_at_period_end = response_body["cancelAtPeriodEnd"]
-        if "description" in response_body:
-            self.__description = response_body["description"]
-        if "subscriptionNotifyUrl" in response_body:
-            self.__subscription_notify_url = response_body["subscriptionNotifyUrl"]
-        if "metadata" in response_body:
-            self.__metadata = response_body["metadata"]
+        if 'paymentBehavior' in response_body:
+            self.__payment_behavior = response_body['paymentBehavior']
+        if 'collectionMethod' in response_body:
+            self.__collection_method = response_body['collectionMethod']
+        if 'daysUntilDue' in response_body:
+            self.__days_until_due = response_body['daysUntilDue']
+        if 'cancelAt' in response_body:
+            self.__cancel_at = response_body['cancelAt']
+        if 'cancelAtPeriodEnd' in response_body:
+            self.__cancel_at_period_end = response_body['cancelAtPeriodEnd']
+        if 'description' in response_body:
+            self.__description = response_body['description']
+        if 'subscriptionNotifyUrl' in response_body:
+            self.__subscription_notify_url = response_body['subscriptionNotifyUrl']
+        if 'metadata' in response_body:
+            self.__metadata = response_body['metadata']

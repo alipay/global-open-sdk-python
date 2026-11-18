@@ -1,9 +1,11 @@
 import json
 
 
+
+
 class AuthorizationConsultSubscriptionParams:
     def __init__(self):
-
+        
         self.__subscribe_tpl_type = None  # type: str
         self.__first_subscription_info = None  # type: str
         self.__follow_subscription_infos = None  # type: str
@@ -15,6 +17,7 @@ class AuthorizationConsultSubscriptionParams:
         self.__offset_amount = None  # type: str
         self.__deduct_name = None  # type: str
         self.__deduct_desc = None  # type: str
+        
 
     @property
     def subscribe_tpl_type(self):
@@ -26,7 +29,6 @@ class AuthorizationConsultSubscriptionParams:
     @subscribe_tpl_type.setter
     def subscribe_tpl_type(self, value):
         self.__subscribe_tpl_type = value
-
     @property
     def first_subscription_info(self):
         """
@@ -37,7 +39,6 @@ class AuthorizationConsultSubscriptionParams:
     @first_subscription_info.setter
     def first_subscription_info(self, value):
         self.__first_subscription_info = value
-
     @property
     def follow_subscription_infos(self):
         """
@@ -48,7 +49,6 @@ class AuthorizationConsultSubscriptionParams:
     @follow_subscription_infos.setter
     def follow_subscription_infos(self, value):
         self.__follow_subscription_infos = value
-
     @property
     def origin_subscription_info(self):
         """
@@ -59,7 +59,6 @@ class AuthorizationConsultSubscriptionParams:
     @origin_subscription_info.setter
     def origin_subscription_info(self, value):
         self.__origin_subscription_info = value
-
     @property
     def target_subscription_info(self):
         """
@@ -70,7 +69,6 @@ class AuthorizationConsultSubscriptionParams:
     @target_subscription_info.setter
     def target_subscription_info(self, value):
         self.__target_subscription_info = value
-
     @property
     def next_payment_date(self):
         """
@@ -81,7 +79,6 @@ class AuthorizationConsultSubscriptionParams:
     @next_payment_date.setter
     def next_payment_date(self, value):
         self.__next_payment_date = value
-
     @property
     def expire_at(self):
         """
@@ -92,7 +89,6 @@ class AuthorizationConsultSubscriptionParams:
     @expire_at.setter
     def expire_at(self, value):
         self.__expire_at = value
-
     @property
     def base_amount(self):
         """
@@ -103,7 +99,6 @@ class AuthorizationConsultSubscriptionParams:
     @base_amount.setter
     def base_amount(self, value):
         self.__base_amount = value
-
     @property
     def offset_amount(self):
         """
@@ -114,7 +109,6 @@ class AuthorizationConsultSubscriptionParams:
     @offset_amount.setter
     def offset_amount(self, value):
         self.__offset_amount = value
-
     @property
     def deduct_name(self):
         """
@@ -125,7 +119,6 @@ class AuthorizationConsultSubscriptionParams:
     @deduct_name.setter
     def deduct_name(self, value):
         self.__deduct_name = value
-
     @property
     def deduct_desc(self):
         """
@@ -137,66 +130,58 @@ class AuthorizationConsultSubscriptionParams:
     def deduct_desc(self, value):
         self.__deduct_desc = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "subscribe_tpl_type") and self.subscribe_tpl_type is not None:
-            params["subscribeTplType"] = self.subscribe_tpl_type
-        if (
-            hasattr(self, "first_subscription_info")
-            and self.first_subscription_info is not None
-        ):
-            params["firstSubscriptionInfo"] = self.first_subscription_info
-        if (
-            hasattr(self, "follow_subscription_infos")
-            and self.follow_subscription_infos is not None
-        ):
-            params["followSubscriptionInfos"] = self.follow_subscription_infos
-        if (
-            hasattr(self, "origin_subscription_info")
-            and self.origin_subscription_info is not None
-        ):
-            params["originSubscriptionInfo"] = self.origin_subscription_info
-        if (
-            hasattr(self, "target_subscription_info")
-            and self.target_subscription_info is not None
-        ):
-            params["targetSubscriptionInfo"] = self.target_subscription_info
+            params['subscribeTplType'] = self.subscribe_tpl_type
+        if hasattr(self, "first_subscription_info") and self.first_subscription_info is not None:
+            params['firstSubscriptionInfo'] = self.first_subscription_info
+        if hasattr(self, "follow_subscription_infos") and self.follow_subscription_infos is not None:
+            params['followSubscriptionInfos'] = self.follow_subscription_infos
+        if hasattr(self, "origin_subscription_info") and self.origin_subscription_info is not None:
+            params['originSubscriptionInfo'] = self.origin_subscription_info
+        if hasattr(self, "target_subscription_info") and self.target_subscription_info is not None:
+            params['targetSubscriptionInfo'] = self.target_subscription_info
         if hasattr(self, "next_payment_date") and self.next_payment_date is not None:
-            params["nextPaymentDate"] = self.next_payment_date
+            params['nextPaymentDate'] = self.next_payment_date
         if hasattr(self, "expire_at") and self.expire_at is not None:
-            params["expireAt"] = self.expire_at
+            params['expireAt'] = self.expire_at
         if hasattr(self, "base_amount") and self.base_amount is not None:
-            params["baseAmount"] = self.base_amount
+            params['baseAmount'] = self.base_amount
         if hasattr(self, "offset_amount") and self.offset_amount is not None:
-            params["offsetAmount"] = self.offset_amount
+            params['offsetAmount'] = self.offset_amount
         if hasattr(self, "deduct_name") and self.deduct_name is not None:
-            params["deductName"] = self.deduct_name
+            params['deductName'] = self.deduct_name
         if hasattr(self, "deduct_desc") and self.deduct_desc is not None:
-            params["deductDesc"] = self.deduct_desc
+            params['deductDesc'] = self.deduct_desc
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "subscribeTplType" in response_body:
-            self.__subscribe_tpl_type = response_body["subscribeTplType"]
-        if "firstSubscriptionInfo" in response_body:
-            self.__first_subscription_info = response_body["firstSubscriptionInfo"]
-        if "followSubscriptionInfos" in response_body:
-            self.__follow_subscription_infos = response_body["followSubscriptionInfos"]
-        if "originSubscriptionInfo" in response_body:
-            self.__origin_subscription_info = response_body["originSubscriptionInfo"]
-        if "targetSubscriptionInfo" in response_body:
-            self.__target_subscription_info = response_body["targetSubscriptionInfo"]
-        if "nextPaymentDate" in response_body:
-            self.__next_payment_date = response_body["nextPaymentDate"]
-        if "expireAt" in response_body:
-            self.__expire_at = response_body["expireAt"]
-        if "baseAmount" in response_body:
-            self.__base_amount = response_body["baseAmount"]
-        if "offsetAmount" in response_body:
-            self.__offset_amount = response_body["offsetAmount"]
-        if "deductName" in response_body:
-            self.__deduct_name = response_body["deductName"]
-        if "deductDesc" in response_body:
-            self.__deduct_desc = response_body["deductDesc"]
+        if 'subscribeTplType' in response_body:
+            self.__subscribe_tpl_type = response_body['subscribeTplType']
+        if 'firstSubscriptionInfo' in response_body:
+            self.__first_subscription_info = response_body['firstSubscriptionInfo']
+        if 'followSubscriptionInfos' in response_body:
+            self.__follow_subscription_infos = response_body['followSubscriptionInfos']
+        if 'originSubscriptionInfo' in response_body:
+            self.__origin_subscription_info = response_body['originSubscriptionInfo']
+        if 'targetSubscriptionInfo' in response_body:
+            self.__target_subscription_info = response_body['targetSubscriptionInfo']
+        if 'nextPaymentDate' in response_body:
+            self.__next_payment_date = response_body['nextPaymentDate']
+        if 'expireAt' in response_body:
+            self.__expire_at = response_body['expireAt']
+        if 'baseAmount' in response_body:
+            self.__base_amount = response_body['baseAmount']
+        if 'offsetAmount' in response_body:
+            self.__offset_amount = response_body['offsetAmount']
+        if 'deductName' in response_body:
+            self.__deduct_name = response_body['deductName']
+        if 'deductDesc' in response_body:
+            self.__deduct_desc = response_body['deductDesc']

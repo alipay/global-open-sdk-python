@@ -1,14 +1,12 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCustomerInquireListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCustomerInquireListRequest, self).__init__(
-            "/ams/api/v1/billing/customer/inquireList"
-        )
+        super(AlipayCustomerInquireListRequest, self).__init__("/ams/api/v1/billing/customer/inquireList") 
 
         self.__starting_after = None  # type: str
         self.__ending_before = None  # type: str
@@ -21,6 +19,7 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
         self.__country = None  # type: [str]
         self.__email_prefix = None  # type: str
         self.__gmt_create_start = None  # type: str
+        
 
     @property
     def starting_after(self):
@@ -32,7 +31,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @starting_after.setter
     def starting_after(self, value):
         self.__starting_after = value
-
     @property
     def ending_before(self):
         """
@@ -43,7 +41,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @ending_before.setter
     def ending_before(self, value):
         self.__ending_before = value
-
     @property
     def limit(self):
         """
@@ -54,7 +51,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @limit.setter
     def limit(self, value):
         self.__limit = value
-
     @property
     def include_total(self):
         """
@@ -65,7 +61,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @include_total.setter
     def include_total(self, value):
         self.__include_total = value
-
     @property
     def status(self):
         """
@@ -76,7 +71,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def email(self):
         """
@@ -87,7 +81,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @email.setter
     def email(self, value):
         self.__email = value
-
     @property
     def gmt_create_end(self):
         """
@@ -98,7 +91,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @gmt_create_end.setter
     def gmt_create_end(self, value):
         self.__gmt_create_end = value
-
     @property
     def customer_id(self):
         """
@@ -109,7 +101,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @customer_id.setter
     def customer_id(self, value):
         self.__customer_id = value
-
     @property
     def country(self):
         """
@@ -120,7 +111,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @country.setter
     def country(self, value):
         self.__country = value
-
     @property
     def email_prefix(self):
         """
@@ -131,7 +121,6 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     @email_prefix.setter
     def email_prefix(self, value):
         self.__email_prefix = value
-
     @property
     def gmt_create_start(self):
         """
@@ -143,60 +132,61 @@ class AlipayCustomerInquireListRequest(AlipayRequest):
     def gmt_create_start(self, value):
         self.__gmt_create_start = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "starting_after") and self.starting_after is not None:
-            params["startingAfter"] = self.starting_after
+            params['startingAfter'] = self.starting_after
         if hasattr(self, "ending_before") and self.ending_before is not None:
-            params["endingBefore"] = self.ending_before
+            params['endingBefore'] = self.ending_before
         if hasattr(self, "limit") and self.limit is not None:
-            params["limit"] = self.limit
+            params['limit'] = self.limit
         if hasattr(self, "include_total") and self.include_total is not None:
-            params["includeTotal"] = self.include_total
+            params['includeTotal'] = self.include_total
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "email") and self.email is not None:
-            params["email"] = self.email
+            params['email'] = self.email
         if hasattr(self, "gmt_create_end") and self.gmt_create_end is not None:
-            params["gmtCreateEnd"] = self.gmt_create_end
+            params['gmtCreateEnd'] = self.gmt_create_end
         if hasattr(self, "customer_id") and self.customer_id is not None:
-            params["customerId"] = self.customer_id
+            params['customerId'] = self.customer_id
         if hasattr(self, "country") and self.country is not None:
-            params["country"] = self.country
+            params['country'] = self.country
         if hasattr(self, "email_prefix") and self.email_prefix is not None:
-            params["emailPrefix"] = self.email_prefix
+            params['emailPrefix'] = self.email_prefix
         if hasattr(self, "gmt_create_start") and self.gmt_create_start is not None:
-            params["gmtCreateStart"] = self.gmt_create_start
+            params['gmtCreateStart'] = self.gmt_create_start
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "startingAfter" in response_body:
-            self.__starting_after = response_body["startingAfter"]
-        if "endingBefore" in response_body:
-            self.__ending_before = response_body["endingBefore"]
-        if "limit" in response_body:
-            self.__limit = response_body["limit"]
-        if "includeTotal" in response_body:
-            self.__include_total = response_body["includeTotal"]
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "email" in response_body:
-            self.__email = response_body["email"]
-        if "gmtCreateEnd" in response_body:
-            self.__gmt_create_end = response_body["gmtCreateEnd"]
-        if "customerId" in response_body:
-            self.__customer_id = response_body["customerId"]
-        if "country" in response_body:
-            self.__country = response_body["country"]
-        if "emailPrefix" in response_body:
-            self.__email_prefix = response_body["emailPrefix"]
-        if "gmtCreateStart" in response_body:
-            self.__gmt_create_start = response_body["gmtCreateStart"]
+        if 'startingAfter' in response_body:
+            self.__starting_after = response_body['startingAfter']
+        if 'endingBefore' in response_body:
+            self.__ending_before = response_body['endingBefore']
+        if 'limit' in response_body:
+            self.__limit = response_body['limit']
+        if 'includeTotal' in response_body:
+            self.__include_total = response_body['includeTotal']
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'email' in response_body:
+            self.__email = response_body['email']
+        if 'gmtCreateEnd' in response_body:
+            self.__gmt_create_end = response_body['gmtCreateEnd']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'country' in response_body:
+            self.__country = response_body['country']
+        if 'emailPrefix' in response_body:
+            self.__email_prefix = response_body['emailPrefix']
+        if 'gmtCreateStart' in response_body:
+            self.__gmt_create_start = response_body['gmtCreateStart']

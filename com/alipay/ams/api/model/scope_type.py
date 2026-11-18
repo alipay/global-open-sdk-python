@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ScopeType(Enum):
     """ScopeType枚举类"""
@@ -47,3 +45,4 @@ class ScopeType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

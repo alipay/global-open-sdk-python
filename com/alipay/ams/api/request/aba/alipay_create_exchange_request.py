@@ -4,14 +4,12 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCreateExchangeRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCreateExchangeRequest, self).__init__(
-            "/ams/api/v1/aba/funds/createExchange"
-        )
+        super(AlipayCreateExchangeRequest, self).__init__("/ams/api/v1/aba/funds/createExchange") 
 
         self.__quote = None  # type: Quote
         self.__buy_amount = None  # type: Amount
@@ -19,34 +17,38 @@ class AlipayCreateExchangeRequest(AlipayRequest):
         self.__exchange_trade_type = None  # type: str
         self.__exchange_request_id = None  # type: str
         self.__exchange_mode = None  # type: str
+        
 
     @property
     def quote(self):
-        """Gets the quote of this AlipayCreateExchangeRequest."""
+        """Gets the quote of this AlipayCreateExchangeRequest.
+        
+        """
         return self.__quote
 
     @quote.setter
     def quote(self, value):
         self.__quote = value
-
     @property
     def buy_amount(self):
-        """Gets the buy_amount of this AlipayCreateExchangeRequest."""
+        """Gets the buy_amount of this AlipayCreateExchangeRequest.
+        
+        """
         return self.__buy_amount
 
     @buy_amount.setter
     def buy_amount(self, value):
         self.__buy_amount = value
-
     @property
     def sell_amount(self):
-        """Gets the sell_amount of this AlipayCreateExchangeRequest."""
+        """Gets the sell_amount of this AlipayCreateExchangeRequest.
+        
+        """
         return self.__sell_amount
 
     @sell_amount.setter
     def sell_amount(self, value):
         self.__sell_amount = value
-
     @property
     def exchange_trade_type(self):
         """
@@ -57,16 +59,16 @@ class AlipayCreateExchangeRequest(AlipayRequest):
     @exchange_trade_type.setter
     def exchange_trade_type(self, value):
         self.__exchange_trade_type = value
-
     @property
     def exchange_request_id(self):
-        """Gets the exchange_request_id of this AlipayCreateExchangeRequest."""
+        """Gets the exchange_request_id of this AlipayCreateExchangeRequest.
+        
+        """
         return self.__exchange_request_id
 
     @exchange_request_id.setter
     def exchange_request_id(self, value):
         self.__exchange_request_id = value
-
     @property
     def exchange_mode(self):
         """
@@ -78,49 +80,44 @@ class AlipayCreateExchangeRequest(AlipayRequest):
     def exchange_mode(self, value):
         self.__exchange_mode = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "quote") and self.quote is not None:
-            params["quote"] = self.quote
+            params['quote'] = self.quote
         if hasattr(self, "buy_amount") and self.buy_amount is not None:
-            params["buyAmount"] = self.buy_amount
+            params['buyAmount'] = self.buy_amount
         if hasattr(self, "sell_amount") and self.sell_amount is not None:
-            params["sellAmount"] = self.sell_amount
-        if (
-            hasattr(self, "exchange_trade_type")
-            and self.exchange_trade_type is not None
-        ):
-            params["exchangeTradeType"] = self.exchange_trade_type
-        if (
-            hasattr(self, "exchange_request_id")
-            and self.exchange_request_id is not None
-        ):
-            params["exchangeRequestId"] = self.exchange_request_id
+            params['sellAmount'] = self.sell_amount
+        if hasattr(self, "exchange_trade_type") and self.exchange_trade_type is not None:
+            params['exchangeTradeType'] = self.exchange_trade_type
+        if hasattr(self, "exchange_request_id") and self.exchange_request_id is not None:
+            params['exchangeRequestId'] = self.exchange_request_id
         if hasattr(self, "exchange_mode") and self.exchange_mode is not None:
-            params["exchangeMode"] = self.exchange_mode
+            params['exchangeMode'] = self.exchange_mode
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "quote" in response_body:
+        if 'quote' in response_body:
             self.__quote = Quote()
-            self.__quote.parse_rsp_body(response_body["quote"])
-        if "buyAmount" in response_body:
+            self.__quote.parse_rsp_body(response_body['quote'])
+        if 'buyAmount' in response_body:
             self.__buy_amount = Amount()
-            self.__buy_amount.parse_rsp_body(response_body["buyAmount"])
-        if "sellAmount" in response_body:
+            self.__buy_amount.parse_rsp_body(response_body['buyAmount'])
+        if 'sellAmount' in response_body:
             self.__sell_amount = Amount()
-            self.__sell_amount.parse_rsp_body(response_body["sellAmount"])
-        if "exchangeTradeType" in response_body:
-            self.__exchange_trade_type = response_body["exchangeTradeType"]
-        if "exchangeRequestId" in response_body:
-            self.__exchange_request_id = response_body["exchangeRequestId"]
-        if "exchangeMode" in response_body:
-            self.__exchange_mode = response_body["exchangeMode"]
+            self.__sell_amount.parse_rsp_body(response_body['sellAmount'])
+        if 'exchangeTradeType' in response_body:
+            self.__exchange_trade_type = response_body['exchangeTradeType']
+        if 'exchangeRequestId' in response_body:
+            self.__exchange_request_id = response_body['exchangeRequestId']
+        if 'exchangeMode' in response_body:
+            self.__exchange_mode = response_body['exchangeMode']

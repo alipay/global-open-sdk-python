@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class DisplayType(Enum):
     """DisplayType枚举类"""
@@ -39,3 +37,4 @@ class DisplayType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

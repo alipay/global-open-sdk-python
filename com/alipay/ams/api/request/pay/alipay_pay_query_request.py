@@ -1,18 +1,17 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayPayQueryRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayPayQueryRequest, self).__init__(
-            "/ams/api/v1/payments/inquiryPayment"
-        )
+        super(AlipayPayQueryRequest, self).__init__("/ams/api/v1/payments/inquiryPayment") 
 
         self.__payment_request_id = None  # type: str
         self.__payment_id = None  # type: str
         self.__merchant_account_id = None  # type: str
+        
 
     @property
     def payment_request_id(self):
@@ -24,7 +23,6 @@ class AlipayPayQueryRequest(AlipayRequest):
     @payment_request_id.setter
     def payment_request_id(self, value):
         self.__payment_request_id = value
-
     @property
     def payment_id(self):
         """
@@ -35,7 +33,6 @@ class AlipayPayQueryRequest(AlipayRequest):
     @payment_id.setter
     def payment_id(self, value):
         self.__payment_id = value
-
     @property
     def merchant_account_id(self):
         """
@@ -47,31 +44,29 @@ class AlipayPayQueryRequest(AlipayRequest):
     def merchant_account_id(self, value):
         self.__merchant_account_id = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "payment_request_id") and self.payment_request_id is not None:
-            params["paymentRequestId"] = self.payment_request_id
+            params['paymentRequestId'] = self.payment_request_id
         if hasattr(self, "payment_id") and self.payment_id is not None:
-            params["paymentId"] = self.payment_id
-        if (
-            hasattr(self, "merchant_account_id")
-            and self.merchant_account_id is not None
-        ):
-            params["merchantAccountId"] = self.merchant_account_id
+            params['paymentId'] = self.payment_id
+        if hasattr(self, "merchant_account_id") and self.merchant_account_id is not None:
+            params['merchantAccountId'] = self.merchant_account_id
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "paymentRequestId" in response_body:
-            self.__payment_request_id = response_body["paymentRequestId"]
-        if "paymentId" in response_body:
-            self.__payment_id = response_body["paymentId"]
-        if "merchantAccountId" in response_body:
-            self.__merchant_account_id = response_body["merchantAccountId"]
+        if 'paymentRequestId' in response_body:
+            self.__payment_request_id = response_body['paymentRequestId']
+        if 'paymentId' in response_body:
+            self.__payment_id = response_body['paymentId']
+        if 'merchantAccountId' in response_body:
+            self.__merchant_account_id = response_body['merchantAccountId']

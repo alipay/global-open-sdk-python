@@ -1,7 +1,5 @@
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
-from com.alipay.ams.api.model.dispute_evidence_recommendation import (
-    DisputeEvidenceRecommendation,
-)
+from com.alipay.ams.api.model.dispute_evidence_recommendation import DisputeEvidenceRecommendation
 
 
 class AlipayDefenseStrategySuggestionNotify(AlipayNotify):
@@ -48,9 +46,7 @@ class AlipayDefenseStrategySuggestionNotify(AlipayNotify):
         return self.__defense_strategy_description
 
     def __parse_notify_body(self, notify_body):
-        body = super(AlipayDefenseStrategySuggestionNotify, self).parse_notify_body(
-            notify_body
-        )
+        body = super(AlipayDefenseStrategySuggestionNotify, self).parse_notify_body(notify_body)
         self.__dispute_id = body.get("disputeId")
         self.__notify_time = body.get("notifyTime")
         self.__win_rate_level = body.get("winRateLevel")

@@ -1,10 +1,13 @@
 import json
 
 
+
+
 class BillingSubscriptionStatusChange:
     def __init__(self):
-
+        
         self.__action = None  # type: str
+        
 
     @property
     def action(self):
@@ -17,14 +20,18 @@ class BillingSubscriptionStatusChange:
     def action(self, value):
         self.__action = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "action") and self.action is not None:
-            params["action"] = self.action
+            params['action'] = self.action
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "action" in response_body:
-            self.__action = response_body["action"]
+        if 'action' in response_body:
+            self.__action = response_body['action']

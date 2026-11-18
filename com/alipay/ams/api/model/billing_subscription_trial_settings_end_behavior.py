@@ -1,10 +1,13 @@
 import json
 
 
+
+
 class BillingSubscriptionTrialSettingsEndBehavior:
     def __init__(self):
-
+        
         self.__missing_payment_method = None  # type: str
+        
 
     @property
     def missing_payment_method(self):
@@ -17,17 +20,18 @@ class BillingSubscriptionTrialSettingsEndBehavior:
     def missing_payment_method(self, value):
         self.__missing_payment_method = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "missing_payment_method")
-            and self.missing_payment_method is not None
-        ):
-            params["missingPaymentMethod"] = self.missing_payment_method
+        if hasattr(self, "missing_payment_method") and self.missing_payment_method is not None:
+            params['missingPaymentMethod'] = self.missing_payment_method
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "missingPaymentMethod" in response_body:
-            self.__missing_payment_method = response_body["missingPaymentMethod"]
+        if 'missingPaymentMethod' in response_body:
+            self.__missing_payment_method = response_body['missingPaymentMethod']

@@ -92,9 +92,7 @@ class AlipayBillingSubscriptionNotify(AlipayNotify):
         self.__fixed_amount = value
 
     def __parse_notify_body(self, notify_body):
-        notify = super(AlipayBillingSubscriptionNotify, self).parse_notify_body(
-            notify_body
-        )
+        notify = super(AlipayBillingSubscriptionNotify, self).parse_notify_body(notify_body)
         if "subscriptionRequestId" in notify:
             self.__subscription_request_id = notify["subscriptionRequestId"]
         if "eventTime" in notify:

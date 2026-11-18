@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class DisputeEvidenceType(Enum):
     """DisputeEvidenceType枚举类"""
@@ -31,3 +29,4 @@ class DisputeEvidenceType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

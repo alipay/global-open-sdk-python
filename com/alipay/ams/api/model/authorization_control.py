@@ -4,9 +4,11 @@ from com.alipay.ams.api.model.card_limit_info import CardLimitInfo
 from com.alipay.ams.api.model.refund_preference import RefundPreference
 
 
+
+
 class AuthorizationControl:
     def __init__(self):
-
+        
         self.__card_active_time = None  # type: str
         self.__card_cancel_time = None  # type: str
         self.__allowed_merchant_category_list = None  # type: [str]
@@ -20,6 +22,7 @@ class AuthorizationControl:
         self.__card_limit_detail = None  # type: CardLimitDetail
         self.__card_limit_info = None  # type: CardLimitInfo
         self.__refund_preference = None  # type: RefundPreference
+        
 
     @property
     def card_active_time(self):
@@ -31,7 +34,6 @@ class AuthorizationControl:
     @card_active_time.setter
     def card_active_time(self, value):
         self.__card_active_time = value
-
     @property
     def card_cancel_time(self):
         """
@@ -42,7 +44,6 @@ class AuthorizationControl:
     @card_cancel_time.setter
     def card_cancel_time(self, value):
         self.__card_cancel_time = value
-
     @property
     def allowed_merchant_category_list(self):
         """
@@ -53,7 +54,6 @@ class AuthorizationControl:
     @allowed_merchant_category_list.setter
     def allowed_merchant_category_list(self, value):
         self.__allowed_merchant_category_list = value
-
     @property
     def allowed_auth_times(self):
         """
@@ -64,7 +64,6 @@ class AuthorizationControl:
     @allowed_auth_times.setter
     def allowed_auth_times(self, value):
         self.__allowed_auth_times = value
-
     @property
     def allowed_currencies(self):
         """
@@ -75,7 +74,6 @@ class AuthorizationControl:
     @allowed_currencies.setter
     def allowed_currencies(self, value):
         self.__allowed_currencies = value
-
     @property
     def payment_preference_currencies(self):
         """
@@ -86,7 +84,6 @@ class AuthorizationControl:
     @payment_preference_currencies.setter
     def payment_preference_currencies(self, value):
         self.__payment_preference_currencies = value
-
     @property
     def same_currency_preference(self):
         """
@@ -97,7 +94,6 @@ class AuthorizationControl:
     @same_currency_preference.setter
     def same_currency_preference(self, value):
         self.__same_currency_preference = value
-
     @property
     def three_ds_mode(self):
         """
@@ -108,7 +104,6 @@ class AuthorizationControl:
     @three_ds_mode.setter
     def three_ds_mode(self, value):
         self.__three_ds_mode = value
-
     @property
     def phone_no(self):
         """
@@ -119,7 +114,6 @@ class AuthorizationControl:
     @phone_no.setter
     def phone_no(self, value):
         self.__phone_no = value
-
     @property
     def email(self):
         """
@@ -130,106 +124,100 @@ class AuthorizationControl:
     @email.setter
     def email(self, value):
         self.__email = value
-
     @property
     def card_limit_detail(self):
-        """Gets the card_limit_detail of this AuthorizationControl."""
+        """Gets the card_limit_detail of this AuthorizationControl.
+        
+        """
         return self.__card_limit_detail
 
     @card_limit_detail.setter
     def card_limit_detail(self, value):
         self.__card_limit_detail = value
-
     @property
     def card_limit_info(self):
-        """Gets the card_limit_info of this AuthorizationControl."""
+        """Gets the card_limit_info of this AuthorizationControl.
+        
+        """
         return self.__card_limit_info
 
     @card_limit_info.setter
     def card_limit_info(self, value):
         self.__card_limit_info = value
-
     @property
     def refund_preference(self):
-        """Gets the refund_preference of this AuthorizationControl."""
+        """Gets the refund_preference of this AuthorizationControl.
+        
+        """
         return self.__refund_preference
 
     @refund_preference.setter
     def refund_preference(self, value):
         self.__refund_preference = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "card_active_time") and self.card_active_time is not None:
-            params["cardActiveTime"] = self.card_active_time
+            params['cardActiveTime'] = self.card_active_time
         if hasattr(self, "card_cancel_time") and self.card_cancel_time is not None:
-            params["cardCancelTime"] = self.card_cancel_time
-        if (
-            hasattr(self, "allowed_merchant_category_list")
-            and self.allowed_merchant_category_list is not None
-        ):
-            params["allowedMerchantCategoryList"] = self.allowed_merchant_category_list
+            params['cardCancelTime'] = self.card_cancel_time
+        if hasattr(self, "allowed_merchant_category_list") and self.allowed_merchant_category_list is not None:
+            params['allowedMerchantCategoryList'] = self.allowed_merchant_category_list
         if hasattr(self, "allowed_auth_times") and self.allowed_auth_times is not None:
-            params["allowedAuthTimes"] = self.allowed_auth_times
+            params['allowedAuthTimes'] = self.allowed_auth_times
         if hasattr(self, "allowed_currencies") and self.allowed_currencies is not None:
-            params["allowedCurrencies"] = self.allowed_currencies
-        if (
-            hasattr(self, "payment_preference_currencies")
-            and self.payment_preference_currencies is not None
-        ):
-            params["paymentPreferenceCurrencies"] = self.payment_preference_currencies
-        if (
-            hasattr(self, "same_currency_preference")
-            and self.same_currency_preference is not None
-        ):
-            params["sameCurrencyPreference"] = self.same_currency_preference
+            params['allowedCurrencies'] = self.allowed_currencies
+        if hasattr(self, "payment_preference_currencies") and self.payment_preference_currencies is not None:
+            params['paymentPreferenceCurrencies'] = self.payment_preference_currencies
+        if hasattr(self, "same_currency_preference") and self.same_currency_preference is not None:
+            params['sameCurrencyPreference'] = self.same_currency_preference
         if hasattr(self, "three_ds_mode") and self.three_ds_mode is not None:
-            params["threeDSMode"] = self.three_ds_mode
+            params['threeDSMode'] = self.three_ds_mode
         if hasattr(self, "phone_no") and self.phone_no is not None:
-            params["phoneNo"] = self.phone_no
+            params['phoneNo'] = self.phone_no
         if hasattr(self, "email") and self.email is not None:
-            params["email"] = self.email
+            params['email'] = self.email
         if hasattr(self, "card_limit_detail") and self.card_limit_detail is not None:
-            params["cardLimitDetail"] = self.card_limit_detail
+            params['cardLimitDetail'] = self.card_limit_detail
         if hasattr(self, "card_limit_info") and self.card_limit_info is not None:
-            params["cardLimitInfo"] = self.card_limit_info
+            params['cardLimitInfo'] = self.card_limit_info
         if hasattr(self, "refund_preference") and self.refund_preference is not None:
-            params["refundPreference"] = self.refund_preference
+            params['refundPreference'] = self.refund_preference
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "cardActiveTime" in response_body:
-            self.__card_active_time = response_body["cardActiveTime"]
-        if "cardCancelTime" in response_body:
-            self.__card_cancel_time = response_body["cardCancelTime"]
-        if "allowedMerchantCategoryList" in response_body:
-            self.__allowed_merchant_category_list = response_body[
-                "allowedMerchantCategoryList"
-            ]
-        if "allowedAuthTimes" in response_body:
-            self.__allowed_auth_times = response_body["allowedAuthTimes"]
-        if "allowedCurrencies" in response_body:
-            self.__allowed_currencies = response_body["allowedCurrencies"]
-        if "paymentPreferenceCurrencies" in response_body:
-            self.__payment_preference_currencies = response_body[
-                "paymentPreferenceCurrencies"
-            ]
-        if "sameCurrencyPreference" in response_body:
-            self.__same_currency_preference = response_body["sameCurrencyPreference"]
-        if "threeDSMode" in response_body:
-            self.__three_ds_mode = response_body["threeDSMode"]
-        if "phoneNo" in response_body:
-            self.__phone_no = response_body["phoneNo"]
-        if "email" in response_body:
-            self.__email = response_body["email"]
-        if "cardLimitDetail" in response_body:
+        if 'cardActiveTime' in response_body:
+            self.__card_active_time = response_body['cardActiveTime']
+        if 'cardCancelTime' in response_body:
+            self.__card_cancel_time = response_body['cardCancelTime']
+        if 'allowedMerchantCategoryList' in response_body:
+            self.__allowed_merchant_category_list = response_body['allowedMerchantCategoryList']
+        if 'allowedAuthTimes' in response_body:
+            self.__allowed_auth_times = response_body['allowedAuthTimes']
+        if 'allowedCurrencies' in response_body:
+            self.__allowed_currencies = response_body['allowedCurrencies']
+        if 'paymentPreferenceCurrencies' in response_body:
+            self.__payment_preference_currencies = response_body['paymentPreferenceCurrencies']
+        if 'sameCurrencyPreference' in response_body:
+            self.__same_currency_preference = response_body['sameCurrencyPreference']
+        if 'threeDSMode' in response_body:
+            self.__three_ds_mode = response_body['threeDSMode']
+        if 'phoneNo' in response_body:
+            self.__phone_no = response_body['phoneNo']
+        if 'email' in response_body:
+            self.__email = response_body['email']
+        if 'cardLimitDetail' in response_body:
             self.__card_limit_detail = CardLimitDetail()
-            self.__card_limit_detail.parse_rsp_body(response_body["cardLimitDetail"])
-        if "cardLimitInfo" in response_body:
+            self.__card_limit_detail.parse_rsp_body(response_body['cardLimitDetail'])
+        if 'cardLimitInfo' in response_body:
             self.__card_limit_info = CardLimitInfo()
-            self.__card_limit_info.parse_rsp_body(response_body["cardLimitInfo"])
-        if "refundPreference" in response_body:
+            self.__card_limit_info.parse_rsp_body(response_body['cardLimitInfo'])
+        if 'refundPreference' in response_body:
             self.__refund_preference = RefundPreference()
-            self.__refund_preference.parse_rsp_body(response_body["refundPreference"])
+            self.__refund_preference.parse_rsp_body(response_body['refundPreference'])

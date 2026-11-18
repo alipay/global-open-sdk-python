@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class ResultStatusType(Enum):
     """ResultStatusType枚举类"""
@@ -31,3 +29,4 @@ class ResultStatusType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

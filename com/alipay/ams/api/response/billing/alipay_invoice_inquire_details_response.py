@@ -17,12 +17,12 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__invoice_id = None  # type: str
@@ -61,17 +61,19 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
         self.__post_payment_credit_notes_amount = None  # type: Amount
         self.__pre_payment_credit_notes_amount = None  # type: Amount
         self.__payment_deducted = None  # type: Amount
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the result of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def invoice_id(self):
         """
@@ -82,7 +84,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @invoice_id.setter
     def invoice_id(self, value):
         self.__invoice_id = value
-
     @property
     def invoice_request_id(self):
         """
@@ -93,7 +94,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @invoice_request_id.setter
     def invoice_request_id(self, value):
         self.__invoice_request_id = value
-
     @property
     def subscription_id(self):
         """
@@ -104,7 +104,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @subscription_id.setter
     def subscription_id(self, value):
         self.__subscription_id = value
-
     @property
     def customer_id(self):
         """
@@ -115,7 +114,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @customer_id.setter
     def customer_id(self, value):
         self.__customer_id = value
-
     @property
     def invoice_number(self):
         """
@@ -126,7 +124,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @invoice_number.setter
     def invoice_number(self, value):
         self.__invoice_number = value
-
     @property
     def customer_first_name(self):
         """
@@ -137,7 +134,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @customer_first_name.setter
     def customer_first_name(self, value):
         self.__customer_first_name = value
-
     @property
     def customer_last_name(self):
         """
@@ -148,7 +144,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @customer_last_name.setter
     def customer_last_name(self, value):
         self.__customer_last_name = value
-
     @property
     def customer_email(self):
         """
@@ -159,7 +154,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @customer_email.setter
     def customer_email(self, value):
         self.__customer_email = value
-
     @property
     def reason(self):
         """
@@ -170,7 +164,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @reason.setter
     def reason(self, value):
         self.__reason = value
-
     @property
     def phase_no(self):
         """
@@ -181,7 +174,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @phase_no.setter
     def phase_no(self, value):
         self.__phase_no = value
-
     @property
     def status(self):
         """
@@ -192,7 +184,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def currency(self):
         """
@@ -203,61 +194,66 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @currency.setter
     def currency(self, value):
         self.__currency = value
-
     @property
     def subtotal(self):
-        """Gets the subtotal of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the subtotal of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__subtotal
 
     @subtotal.setter
     def subtotal(self, value):
         self.__subtotal = value
-
     @property
     def discount_amount(self):
-        """Gets the discount_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the discount_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__discount_amount
 
     @discount_amount.setter
     def discount_amount(self, value):
         self.__discount_amount = value
-
     @property
     def total_amount(self):
-        """Gets the total_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the total_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__total_amount
 
     @total_amount.setter
     def total_amount(self, value):
         self.__total_amount = value
-
     @property
     def paid_amount(self):
-        """Gets the paid_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the paid_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__paid_amount
 
     @paid_amount.setter
     def paid_amount(self, value):
         self.__paid_amount = value
-
     @property
     def remain_amount(self):
-        """Gets the remain_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the remain_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__remain_amount
 
     @remain_amount.setter
     def remain_amount(self, value):
         self.__remain_amount = value
-
     @property
     def tax_amount(self):
-        """Gets the tax_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the tax_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__tax_amount
 
     @tax_amount.setter
     def tax_amount(self, value):
         self.__tax_amount = value
-
     @property
     def collection_method(self):
         """
@@ -268,25 +264,26 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @collection_method.setter
     def collection_method(self, value):
         self.__collection_method = value
-
     @property
     def payment_method(self):
-        """Gets the payment_method of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the payment_method of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__payment_method
 
     @payment_method.setter
     def payment_method(self, value):
         self.__payment_method = value
-
     @property
     def shipping(self):
-        """Gets the shipping of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the shipping of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__shipping
 
     @shipping.setter
     def shipping(self, value):
         self.__shipping = value
-
     @property
     def hosted_invoice_url(self):
         """
@@ -297,7 +294,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @hosted_invoice_url.setter
     def hosted_invoice_url(self, value):
         self.__hosted_invoice_url = value
-
     @property
     def period_start(self):
         """
@@ -308,7 +304,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @period_start.setter
     def period_start(self, value):
         self.__period_start = value
-
     @property
     def period_end(self):
         """
@@ -319,7 +314,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @period_end.setter
     def period_end(self, value):
         self.__period_end = value
-
     @property
     def due_date(self):
         """
@@ -330,7 +324,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @due_date.setter
     def due_date(self, value):
         self.__due_date = value
-
     @property
     def paid_time(self):
         """
@@ -341,7 +334,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @paid_time.setter
     def paid_time(self, value):
         self.__paid_time = value
-
     @property
     def description(self):
         """
@@ -352,7 +344,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @description.setter
     def description(self, value):
         self.__description = value
-
     @property
     def items(self):
         """
@@ -363,7 +354,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @items.setter
     def items(self, value):
         self.__items = value
-
     @property
     def payments(self):
         """
@@ -374,7 +364,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @payments.setter
     def payments(self, value):
         self.__payments = value
-
     @property
     def invoice_notes(self):
         """
@@ -385,7 +374,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @invoice_notes.setter
     def invoice_notes(self, value):
         self.__invoice_notes = value
-
     @property
     def gmt_create(self):
         """
@@ -396,7 +384,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @gmt_create.setter
     def gmt_create(self, value):
         self.__gmt_create = value
-
     @property
     def gmt_update(self):
         """
@@ -407,7 +394,6 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @gmt_update.setter
     def gmt_update(self, value):
         self.__gmt_update = value
-
     @property
     def discounts(self):
         """
@@ -418,230 +404,220 @@ class AlipayInvoiceInquireDetailsResponse(AlipayResponse):
     @discounts.setter
     def discounts(self, value):
         self.__discounts = value
-
     @property
     def post_payment_credit_notes_amount(self):
-        """Gets the post_payment_credit_notes_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the post_payment_credit_notes_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__post_payment_credit_notes_amount
 
     @post_payment_credit_notes_amount.setter
     def post_payment_credit_notes_amount(self, value):
         self.__post_payment_credit_notes_amount = value
-
     @property
     def pre_payment_credit_notes_amount(self):
-        """Gets the pre_payment_credit_notes_amount of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the pre_payment_credit_notes_amount of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__pre_payment_credit_notes_amount
 
     @pre_payment_credit_notes_amount.setter
     def pre_payment_credit_notes_amount(self, value):
         self.__pre_payment_credit_notes_amount = value
-
     @property
     def payment_deducted(self):
-        """Gets the payment_deducted of this AlipayInvoiceInquireDetailsResponse."""
+        """Gets the payment_deducted of this AlipayInvoiceInquireDetailsResponse.
+        
+        """
         return self.__payment_deducted
 
     @payment_deducted.setter
     def payment_deducted(self, value):
         self.__payment_deducted = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
-            params["invoiceId"] = self.invoice_id
+            params['invoiceId'] = self.invoice_id
         if hasattr(self, "invoice_request_id") and self.invoice_request_id is not None:
-            params["invoiceRequestId"] = self.invoice_request_id
+            params['invoiceRequestId'] = self.invoice_request_id
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
-            params["subscriptionId"] = self.subscription_id
+            params['subscriptionId'] = self.subscription_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
-            params["customerId"] = self.customer_id
+            params['customerId'] = self.customer_id
         if hasattr(self, "invoice_number") and self.invoice_number is not None:
-            params["invoiceNumber"] = self.invoice_number
-        if (
-            hasattr(self, "customer_first_name")
-            and self.customer_first_name is not None
-        ):
-            params["customerFirstName"] = self.customer_first_name
+            params['invoiceNumber'] = self.invoice_number
+        if hasattr(self, "customer_first_name") and self.customer_first_name is not None:
+            params['customerFirstName'] = self.customer_first_name
         if hasattr(self, "customer_last_name") and self.customer_last_name is not None:
-            params["customerLastName"] = self.customer_last_name
+            params['customerLastName'] = self.customer_last_name
         if hasattr(self, "customer_email") and self.customer_email is not None:
-            params["customerEmail"] = self.customer_email
+            params['customerEmail'] = self.customer_email
         if hasattr(self, "reason") and self.reason is not None:
-            params["reason"] = self.reason
+            params['reason'] = self.reason
         if hasattr(self, "phase_no") and self.phase_no is not None:
-            params["phaseNo"] = self.phase_no
+            params['phaseNo'] = self.phase_no
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "currency") and self.currency is not None:
-            params["currency"] = self.currency
+            params['currency'] = self.currency
         if hasattr(self, "subtotal") and self.subtotal is not None:
-            params["subtotal"] = self.subtotal
+            params['subtotal'] = self.subtotal
         if hasattr(self, "discount_amount") and self.discount_amount is not None:
-            params["discountAmount"] = self.discount_amount
+            params['discountAmount'] = self.discount_amount
         if hasattr(self, "total_amount") and self.total_amount is not None:
-            params["totalAmount"] = self.total_amount
+            params['totalAmount'] = self.total_amount
         if hasattr(self, "paid_amount") and self.paid_amount is not None:
-            params["paidAmount"] = self.paid_amount
+            params['paidAmount'] = self.paid_amount
         if hasattr(self, "remain_amount") and self.remain_amount is not None:
-            params["remainAmount"] = self.remain_amount
+            params['remainAmount'] = self.remain_amount
         if hasattr(self, "tax_amount") and self.tax_amount is not None:
-            params["taxAmount"] = self.tax_amount
+            params['taxAmount'] = self.tax_amount
         if hasattr(self, "collection_method") and self.collection_method is not None:
-            params["collectionMethod"] = self.collection_method
+            params['collectionMethod'] = self.collection_method
         if hasattr(self, "payment_method") and self.payment_method is not None:
-            params["paymentMethod"] = self.payment_method
+            params['paymentMethod'] = self.payment_method
         if hasattr(self, "shipping") and self.shipping is not None:
-            params["shipping"] = self.shipping
+            params['shipping'] = self.shipping
         if hasattr(self, "hosted_invoice_url") and self.hosted_invoice_url is not None:
-            params["hostedInvoiceUrl"] = self.hosted_invoice_url
+            params['hostedInvoiceUrl'] = self.hosted_invoice_url
         if hasattr(self, "period_start") and self.period_start is not None:
-            params["periodStart"] = self.period_start
+            params['periodStart'] = self.period_start
         if hasattr(self, "period_end") and self.period_end is not None:
-            params["periodEnd"] = self.period_end
+            params['periodEnd'] = self.period_end
         if hasattr(self, "due_date") and self.due_date is not None:
-            params["dueDate"] = self.due_date
+            params['dueDate'] = self.due_date
         if hasattr(self, "paid_time") and self.paid_time is not None:
-            params["paidTime"] = self.paid_time
+            params['paidTime'] = self.paid_time
         if hasattr(self, "description") and self.description is not None:
-            params["description"] = self.description
+            params['description'] = self.description
         if hasattr(self, "items") and self.items is not None:
-            params["items"] = self.items
+            params['items'] = self.items
         if hasattr(self, "payments") and self.payments is not None:
-            params["payments"] = self.payments
+            params['payments'] = self.payments
         if hasattr(self, "invoice_notes") and self.invoice_notes is not None:
-            params["invoiceNotes"] = self.invoice_notes
+            params['invoiceNotes'] = self.invoice_notes
         if hasattr(self, "gmt_create") and self.gmt_create is not None:
-            params["gmtCreate"] = self.gmt_create
+            params['gmtCreate'] = self.gmt_create
         if hasattr(self, "gmt_update") and self.gmt_update is not None:
-            params["gmtUpdate"] = self.gmt_update
+            params['gmtUpdate'] = self.gmt_update
         if hasattr(self, "discounts") and self.discounts is not None:
-            params["discounts"] = self.discounts
-        if (
-            hasattr(self, "post_payment_credit_notes_amount")
-            and self.post_payment_credit_notes_amount is not None
-        ):
-            params["postPaymentCreditNotesAmount"] = (
-                self.post_payment_credit_notes_amount
-            )
-        if (
-            hasattr(self, "pre_payment_credit_notes_amount")
-            and self.pre_payment_credit_notes_amount is not None
-        ):
-            params["prePaymentCreditNotesAmount"] = self.pre_payment_credit_notes_amount
+            params['discounts'] = self.discounts
+        if hasattr(self, "post_payment_credit_notes_amount") and self.post_payment_credit_notes_amount is not None:
+            params['postPaymentCreditNotesAmount'] = self.post_payment_credit_notes_amount
+        if hasattr(self, "pre_payment_credit_notes_amount") and self.pre_payment_credit_notes_amount is not None:
+            params['prePaymentCreditNotesAmount'] = self.pre_payment_credit_notes_amount
         if hasattr(self, "payment_deducted") and self.payment_deducted is not None:
-            params["paymentDeducted"] = self.payment_deducted
+            params['paymentDeducted'] = self.payment_deducted
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayInvoiceInquireDetailsResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayInvoiceInquireDetailsResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "invoiceId" in response_body:
-            self.__invoice_id = response_body["invoiceId"]
-        if "invoiceRequestId" in response_body:
-            self.__invoice_request_id = response_body["invoiceRequestId"]
-        if "subscriptionId" in response_body:
-            self.__subscription_id = response_body["subscriptionId"]
-        if "customerId" in response_body:
-            self.__customer_id = response_body["customerId"]
-        if "invoiceNumber" in response_body:
-            self.__invoice_number = response_body["invoiceNumber"]
-        if "customerFirstName" in response_body:
-            self.__customer_first_name = response_body["customerFirstName"]
-        if "customerLastName" in response_body:
-            self.__customer_last_name = response_body["customerLastName"]
-        if "customerEmail" in response_body:
-            self.__customer_email = response_body["customerEmail"]
-        if "reason" in response_body:
-            self.__reason = response_body["reason"]
-        if "phaseNo" in response_body:
-            self.__phase_no = response_body["phaseNo"]
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "currency" in response_body:
-            self.__currency = response_body["currency"]
-        if "subtotal" in response_body:
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'invoiceId' in response_body:
+            self.__invoice_id = response_body['invoiceId']
+        if 'invoiceRequestId' in response_body:
+            self.__invoice_request_id = response_body['invoiceRequestId']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'invoiceNumber' in response_body:
+            self.__invoice_number = response_body['invoiceNumber']
+        if 'customerFirstName' in response_body:
+            self.__customer_first_name = response_body['customerFirstName']
+        if 'customerLastName' in response_body:
+            self.__customer_last_name = response_body['customerLastName']
+        if 'customerEmail' in response_body:
+            self.__customer_email = response_body['customerEmail']
+        if 'reason' in response_body:
+            self.__reason = response_body['reason']
+        if 'phaseNo' in response_body:
+            self.__phase_no = response_body['phaseNo']
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'currency' in response_body:
+            self.__currency = response_body['currency']
+        if 'subtotal' in response_body:
             self.__subtotal = Amount()
-            self.__subtotal.parse_rsp_body(response_body["subtotal"])
-        if "discountAmount" in response_body:
+            self.__subtotal.parse_rsp_body(response_body['subtotal'])
+        if 'discountAmount' in response_body:
             self.__discount_amount = Amount()
-            self.__discount_amount.parse_rsp_body(response_body["discountAmount"])
-        if "totalAmount" in response_body:
+            self.__discount_amount.parse_rsp_body(response_body['discountAmount'])
+        if 'totalAmount' in response_body:
             self.__total_amount = Amount()
-            self.__total_amount.parse_rsp_body(response_body["totalAmount"])
-        if "paidAmount" in response_body:
+            self.__total_amount.parse_rsp_body(response_body['totalAmount'])
+        if 'paidAmount' in response_body:
             self.__paid_amount = Amount()
-            self.__paid_amount.parse_rsp_body(response_body["paidAmount"])
-        if "remainAmount" in response_body:
+            self.__paid_amount.parse_rsp_body(response_body['paidAmount'])
+        if 'remainAmount' in response_body:
             self.__remain_amount = Amount()
-            self.__remain_amount.parse_rsp_body(response_body["remainAmount"])
-        if "taxAmount" in response_body:
+            self.__remain_amount.parse_rsp_body(response_body['remainAmount'])
+        if 'taxAmount' in response_body:
             self.__tax_amount = Amount()
-            self.__tax_amount.parse_rsp_body(response_body["taxAmount"])
-        if "collectionMethod" in response_body:
-            self.__collection_method = response_body["collectionMethod"]
-        if "paymentMethod" in response_body:
+            self.__tax_amount.parse_rsp_body(response_body['taxAmount'])
+        if 'collectionMethod' in response_body:
+            self.__collection_method = response_body['collectionMethod']
+        if 'paymentMethod' in response_body:
             self.__payment_method = PaymentMethod()
-            self.__payment_method.parse_rsp_body(response_body["paymentMethod"])
-        if "shipping" in response_body:
+            self.__payment_method.parse_rsp_body(response_body['paymentMethod'])
+        if 'shipping' in response_body:
             self.__shipping = InvoiceShipping()
-            self.__shipping.parse_rsp_body(response_body["shipping"])
-        if "hostedInvoiceUrl" in response_body:
-            self.__hosted_invoice_url = response_body["hostedInvoiceUrl"]
-        if "periodStart" in response_body:
-            self.__period_start = response_body["periodStart"]
-        if "periodEnd" in response_body:
-            self.__period_end = response_body["periodEnd"]
-        if "dueDate" in response_body:
-            self.__due_date = response_body["dueDate"]
-        if "paidTime" in response_body:
-            self.__paid_time = response_body["paidTime"]
-        if "description" in response_body:
-            self.__description = response_body["description"]
-        if "items" in response_body:
+            self.__shipping.parse_rsp_body(response_body['shipping'])
+        if 'hostedInvoiceUrl' in response_body:
+            self.__hosted_invoice_url = response_body['hostedInvoiceUrl']
+        if 'periodStart' in response_body:
+            self.__period_start = response_body['periodStart']
+        if 'periodEnd' in response_body:
+            self.__period_end = response_body['periodEnd']
+        if 'dueDate' in response_body:
+            self.__due_date = response_body['dueDate']
+        if 'paidTime' in response_body:
+            self.__paid_time = response_body['paidTime']
+        if 'description' in response_body:
+            self.__description = response_body['description']
+        if 'items' in response_body:
             self.__items = []
-            for item in response_body["items"]:
+            for item in response_body['items']:
                 obj = InvoiceItem()
                 obj.parse_rsp_body(item)
                 self.__items.append(obj)
-        if "payments" in response_body:
+        if 'payments' in response_body:
             self.__payments = []
-            for item in response_body["payments"]:
+            for item in response_body['payments']:
                 obj = InvoicePayment()
                 obj.parse_rsp_body(item)
                 self.__payments.append(obj)
-        if "invoiceNotes" in response_body:
+        if 'invoiceNotes' in response_body:
             self.__invoice_notes = []
-            for item in response_body["invoiceNotes"]:
+            for item in response_body['invoiceNotes']:
                 obj = InvoiceNote()
                 obj.parse_rsp_body(item)
                 self.__invoice_notes.append(obj)
-        if "gmtCreate" in response_body:
-            self.__gmt_create = response_body["gmtCreate"]
-        if "gmtUpdate" in response_body:
-            self.__gmt_update = response_body["gmtUpdate"]
-        if "discounts" in response_body:
+        if 'gmtCreate' in response_body:
+            self.__gmt_create = response_body['gmtCreate']
+        if 'gmtUpdate' in response_body:
+            self.__gmt_update = response_body['gmtUpdate']
+        if 'discounts' in response_body:
             self.__discounts = []
-            for item in response_body["discounts"]:
+            for item in response_body['discounts']:
                 obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
-        if "postPaymentCreditNotesAmount" in response_body:
+        if 'postPaymentCreditNotesAmount' in response_body:
             self.__post_payment_credit_notes_amount = Amount()
-            self.__post_payment_credit_notes_amount.parse_rsp_body(
-                response_body["postPaymentCreditNotesAmount"]
-            )
-        if "prePaymentCreditNotesAmount" in response_body:
+            self.__post_payment_credit_notes_amount.parse_rsp_body(response_body['postPaymentCreditNotesAmount'])
+        if 'prePaymentCreditNotesAmount' in response_body:
             self.__pre_payment_credit_notes_amount = Amount()
-            self.__pre_payment_credit_notes_amount.parse_rsp_body(
-                response_body["prePaymentCreditNotesAmount"]
-            )
-        if "paymentDeducted" in response_body:
+            self.__pre_payment_credit_notes_amount.parse_rsp_body(response_body['prePaymentCreditNotesAmount'])
+        if 'paymentDeducted' in response_body:
             self.__payment_deducted = Amount()
-            self.__payment_deducted.parse_rsp_body(response_body["paymentDeducted"])
+            self.__payment_deducted.parse_rsp_body(response_body['paymentDeducted'])

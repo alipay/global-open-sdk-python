@@ -24,12 +24,11 @@ class UserPresentedCodePaymentRequestTest(unittest.TestCase):
     def test_upcp(self):
         TEST_CLIENT_ID = "T_385XSM502Y108602A"
         script_dir = os.path.dirname(__file__)
-        with (
-            io.open(
-                os.path.join(script_dir, "../private-pkcs1.pem"), encoding="utf-8"
-            ) as pri,
-            io.open(os.path.join(script_dir, "../public.pem"), encoding="utf-8") as pub,
-        ):
+        with io.open(
+            os.path.join(script_dir, "../private-pkcs1.pem"), encoding="utf-8"
+        ) as pri, io.open(
+            os.path.join(script_dir, "../public.pem"), encoding="utf-8"
+        ) as pub:
             PRIVATE_KEY = pri.read()
             alipay_public_key = pub.read()
 

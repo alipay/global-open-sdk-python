@@ -2,16 +2,17 @@ import json
 from com.alipay.ams.api.model.settlement_detail import SettlementDetail
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipaySettleRequest(AlipayRequest):
     def __init__(self):
-        super(AlipaySettleRequest, self).__init__("/ams/api/v1/payments/settle")
+        super(AlipaySettleRequest, self).__init__("/ams/api/v1/payments/settle") 
 
         self.__settlement_request_id = None  # type: str
         self.__payment_id = None  # type: str
         self.__settlement_details = None  # type: [SettlementDetail]
+        
 
     @property
     def settlement_request_id(self):
@@ -23,7 +24,6 @@ class AlipaySettleRequest(AlipayRequest):
     @settlement_request_id.setter
     def settlement_request_id(self, value):
         self.__settlement_request_id = value
-
     @property
     def payment_id(self):
         """
@@ -34,7 +34,6 @@ class AlipaySettleRequest(AlipayRequest):
     @payment_id.setter
     def payment_id(self, value):
         self.__payment_id = value
-
     @property
     def settlement_details(self):
         """
@@ -46,35 +45,33 @@ class AlipaySettleRequest(AlipayRequest):
     def settlement_details(self, value):
         self.__settlement_details = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "settlement_request_id")
-            and self.settlement_request_id is not None
-        ):
-            params["settlementRequestId"] = self.settlement_request_id
+        if hasattr(self, "settlement_request_id") and self.settlement_request_id is not None:
+            params['settlementRequestId'] = self.settlement_request_id
         if hasattr(self, "payment_id") and self.payment_id is not None:
-            params["paymentId"] = self.payment_id
+            params['paymentId'] = self.payment_id
         if hasattr(self, "settlement_details") and self.settlement_details is not None:
-            params["settlementDetails"] = self.settlement_details
+            params['settlementDetails'] = self.settlement_details
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "settlementRequestId" in response_body:
-            self.__settlement_request_id = response_body["settlementRequestId"]
-        if "paymentId" in response_body:
-            self.__payment_id = response_body["paymentId"]
-        if "settlementDetails" in response_body:
+        if 'settlementRequestId' in response_body:
+            self.__settlement_request_id = response_body['settlementRequestId']
+        if 'paymentId' in response_body:
+            self.__payment_id = response_body['paymentId']
+        if 'settlementDetails' in response_body:
             self.__settlement_details = []
-            for item in response_body["settlementDetails"]:
+            for item in response_body['settlementDetails']:
                 obj = SettlementDetail()
                 obj.parse_rsp_body(item)
                 self.__settlement_details.append(obj)

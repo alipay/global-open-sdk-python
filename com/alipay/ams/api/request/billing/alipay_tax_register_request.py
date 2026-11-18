@@ -2,12 +2,12 @@ import json
 from com.alipay.ams.api.model.tax_jurisdiction import TaxJurisdiction
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayTaxRegisterRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayTaxRegisterRequest, self).__init__("/ams/api/v1/tax/register")
+        super(AlipayTaxRegisterRequest, self).__init__("/ams/api/v1/tax/register") 
 
         self.__registration_request_id = None  # type: str
         self.__tax_type = None  # type: str
@@ -16,6 +16,7 @@ class AlipayTaxRegisterRequest(AlipayRequest):
         self.__tax_id = None  # type: str
         self.__active_from = None  # type: str
         self.__expire_at = None  # type: str
+        
 
     @property
     def registration_request_id(self):
@@ -27,7 +28,6 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     @registration_request_id.setter
     def registration_request_id(self, value):
         self.__registration_request_id = value
-
     @property
     def tax_type(self):
         """
@@ -38,16 +38,16 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     @tax_type.setter
     def tax_type(self, value):
         self.__tax_type = value
-
     @property
     def jurisdiction(self):
-        """Gets the jurisdiction of this AlipayTaxRegisterRequest."""
+        """Gets the jurisdiction of this AlipayTaxRegisterRequest.
+        
+        """
         return self.__jurisdiction
 
     @jurisdiction.setter
     def jurisdiction(self, value):
         self.__jurisdiction = value
-
     @property
     def registration_type(self):
         """
@@ -58,7 +58,6 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     @registration_type.setter
     def registration_type(self, value):
         self.__registration_type = value
-
     @property
     def tax_id(self):
         """
@@ -69,7 +68,6 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     @tax_id.setter
     def tax_id(self, value):
         self.__tax_id = value
-
     @property
     def active_from(self):
         """
@@ -80,7 +78,6 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     @active_from.setter
     def active_from(self, value):
         self.__active_from = value
-
     @property
     def expire_at(self):
         """
@@ -92,48 +89,46 @@ class AlipayTaxRegisterRequest(AlipayRequest):
     def expire_at(self, value):
         self.__expire_at = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "registration_request_id")
-            and self.registration_request_id is not None
-        ):
-            params["registrationRequestId"] = self.registration_request_id
+        if hasattr(self, "registration_request_id") and self.registration_request_id is not None:
+            params['registrationRequestId'] = self.registration_request_id
         if hasattr(self, "tax_type") and self.tax_type is not None:
-            params["taxType"] = self.tax_type
+            params['taxType'] = self.tax_type
         if hasattr(self, "jurisdiction") and self.jurisdiction is not None:
-            params["jurisdiction"] = self.jurisdiction
+            params['jurisdiction'] = self.jurisdiction
         if hasattr(self, "registration_type") and self.registration_type is not None:
-            params["registrationType"] = self.registration_type
+            params['registrationType'] = self.registration_type
         if hasattr(self, "tax_id") and self.tax_id is not None:
-            params["taxId"] = self.tax_id
+            params['taxId'] = self.tax_id
         if hasattr(self, "active_from") and self.active_from is not None:
-            params["activeFrom"] = self.active_from
+            params['activeFrom'] = self.active_from
         if hasattr(self, "expire_at") and self.expire_at is not None:
-            params["expireAt"] = self.expire_at
+            params['expireAt'] = self.expire_at
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "registrationRequestId" in response_body:
-            self.__registration_request_id = response_body["registrationRequestId"]
-        if "taxType" in response_body:
-            self.__tax_type = response_body["taxType"]
-        if "jurisdiction" in response_body:
+        if 'registrationRequestId' in response_body:
+            self.__registration_request_id = response_body['registrationRequestId']
+        if 'taxType' in response_body:
+            self.__tax_type = response_body['taxType']
+        if 'jurisdiction' in response_body:
             self.__jurisdiction = TaxJurisdiction()
-            self.__jurisdiction.parse_rsp_body(response_body["jurisdiction"])
-        if "registrationType" in response_body:
-            self.__registration_type = response_body["registrationType"]
-        if "taxId" in response_body:
-            self.__tax_id = response_body["taxId"]
-        if "activeFrom" in response_body:
-            self.__active_from = response_body["activeFrom"]
-        if "expireAt" in response_body:
-            self.__expire_at = response_body["expireAt"]
+            self.__jurisdiction.parse_rsp_body(response_body['jurisdiction'])
+        if 'registrationType' in response_body:
+            self.__registration_type = response_body['registrationType']
+        if 'taxId' in response_body:
+            self.__tax_id = response_body['taxId']
+        if 'activeFrom' in response_body:
+            self.__active_from = response_body['activeFrom']
+        if 'expireAt' in response_body:
+            self.__expire_at = response_body['expireAt']

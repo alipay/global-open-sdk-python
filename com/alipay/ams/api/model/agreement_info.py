@@ -1,13 +1,16 @@
 import json
 
 
+
+
 class AgreementInfo:
     def __init__(self):
-
+        
         self.__auth_state = None  # type: str
         self.__user_login_id = None  # type: str
         self.__user_login_type = None  # type: str
         self.__display_user_login_id = None  # type: str
+        
 
     @property
     def auth_state(self):
@@ -19,7 +22,6 @@ class AgreementInfo:
     @auth_state.setter
     def auth_state(self, value):
         self.__auth_state = value
-
     @property
     def user_login_id(self):
         """
@@ -30,7 +32,6 @@ class AgreementInfo:
     @user_login_id.setter
     def user_login_id(self, value):
         self.__user_login_id = value
-
     @property
     def user_login_type(self):
         """
@@ -41,7 +42,6 @@ class AgreementInfo:
     @user_login_type.setter
     def user_login_type(self, value):
         self.__user_login_type = value
-
     @property
     def display_user_login_id(self):
         """
@@ -53,29 +53,30 @@ class AgreementInfo:
     def display_user_login_id(self, value):
         self.__display_user_login_id = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "auth_state") and self.auth_state is not None:
-            params["authState"] = self.auth_state
+            params['authState'] = self.auth_state
         if hasattr(self, "user_login_id") and self.user_login_id is not None:
-            params["userLoginId"] = self.user_login_id
+            params['userLoginId'] = self.user_login_id
         if hasattr(self, "user_login_type") and self.user_login_type is not None:
-            params["userLoginType"] = self.user_login_type
-        if (
-            hasattr(self, "display_user_login_id")
-            and self.display_user_login_id is not None
-        ):
-            params["displayUserLoginId"] = self.display_user_login_id
+            params['userLoginType'] = self.user_login_type
+        if hasattr(self, "display_user_login_id") and self.display_user_login_id is not None:
+            params['displayUserLoginId'] = self.display_user_login_id
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "authState" in response_body:
-            self.__auth_state = response_body["authState"]
-        if "userLoginId" in response_body:
-            self.__user_login_id = response_body["userLoginId"]
-        if "userLoginType" in response_body:
-            self.__user_login_type = response_body["userLoginType"]
-        if "displayUserLoginId" in response_body:
-            self.__display_user_login_id = response_body["displayUserLoginId"]
+        if 'authState' in response_body:
+            self.__auth_state = response_body['authState']
+        if 'userLoginId' in response_body:
+            self.__user_login_id = response_body['userLoginId']
+        if 'userLoginType' in response_body:
+            self.__user_login_type = response_body['userLoginType']
+        if 'displayUserLoginId' in response_body:
+            self.__display_user_login_id = response_body['displayUserLoginId']

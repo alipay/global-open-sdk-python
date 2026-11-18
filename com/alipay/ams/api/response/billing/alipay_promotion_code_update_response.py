@@ -2,27 +2,29 @@ import json
 from com.alipay.ams.api.model.result import Result
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayPromotionCodeUpdateResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__promotion_code_id = None  # type: str
         self.__status = None  # type: str
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayPromotionCodeUpdateResponse."""
+        """Gets the result of this AlipayPromotionCodeUpdateResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def promotion_code_id(self):
         """
@@ -33,7 +35,6 @@ class AlipayPromotionCodeUpdateResponse(AlipayResponse):
     @promotion_code_id.setter
     def promotion_code_id(self, value):
         self.__promotion_code_id = value
-
     @property
     def status(self):
         """
@@ -45,24 +46,26 @@ class AlipayPromotionCodeUpdateResponse(AlipayResponse):
     def status(self, value):
         self.__status = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "promotion_code_id") and self.promotion_code_id is not None:
-            params["promotionCodeId"] = self.promotion_code_id
+            params['promotionCodeId'] = self.promotion_code_id
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayPromotionCodeUpdateResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayPromotionCodeUpdateResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "promotionCodeId" in response_body:
-            self.__promotion_code_id = response_body["promotionCodeId"]
-        if "status" in response_body:
-            self.__status = response_body["status"]
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'promotionCodeId' in response_body:
+            self.__promotion_code_id = response_body['promotionCodeId']
+        if 'status' in response_body:
+            self.__status = response_body['status']

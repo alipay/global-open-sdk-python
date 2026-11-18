@@ -148,20 +148,14 @@ class AlipayDisputeNotify(AlipayNotify):
         self.__dispute_id = get_value("disputeId", "dispute_id")
         self.__payment_id = get_value("paymentId", "payment_id")
         self.__dispute_time = get_value("disputeTime", "dispute_time")
-        self.__dispute_cancelled_time = get_value(
-            "disputeCancelledTime", "dispute_cancelled_time"
-        )
-        self.__defense_supplied_time = get_value(
-            "defenseSuppliedTime", "defense_supplied_time"
-        )
+        self.__dispute_cancelled_time = get_value("disputeCancelledTime", "dispute_cancelled_time")
+        self.__defense_supplied_time = get_value("defenseSuppliedTime", "defense_supplied_time")
         self.__dispute_amount = get_value("disputeAmount", "dispute_amount")
         self.__dispute_notification_type = get_value(
             "disputeNotificationType", "dispute_notification_type"
         )
         self.__dispute_reason_msg = get_value("disputeReasonMsg", "dispute_reason_msg")
-        self.__dispute_judged_time = get_value(
-            "disputeJudgedTime", "dispute_judged_time"
-        )
+        self.__dispute_judged_time = get_value("disputeJudgedTime", "dispute_judged_time")
         self.__dispute_judged_amount = get_value(
             "disputeJudgedAmount", "dispute_judged_amount"
         )
@@ -169,17 +163,13 @@ class AlipayDisputeNotify(AlipayNotify):
             "disputeJudgedResult", "dispute_judged_result"
         )
         self.__defense_due_time = get_value("defenseDueTime", "defense_due_time")
-        self.__dispute_reason_code = get_value(
-            "disputeReasonCode", "dispute_reason_code"
-        )
+        self.__dispute_reason_code = get_value("disputeReasonCode", "dispute_reason_code")
         self.__dispute_source = get_value("disputeSource", "dispute_source")
         self.__arn = get_value("arn")
         self.__dispute_accept_reason = get_value(
             "disputeAcceptReason", "dispute_accept_reason"
         )
-        self.__dispute_accept_time = get_value(
-            "disputeAcceptTime", "dispute_accept_time"
-        )
+        self.__dispute_accept_time = get_value("disputeAcceptTime", "dispute_accept_time")
         self.__dispute_type = get_value("disputeType", "dispute_type")
         self.__defendable = get_value("defendable")
         self.__capture_id = get_value("captureId", "capture_id")
@@ -192,17 +182,13 @@ class AlipayDisputeNotify(AlipayNotify):
             self.__issuer_comments.cardholder_comments = issuer_comments_body.get(
                 "cardholderComments", issuer_comments_body.get("cardholder_comments")
             )
-            self.__issuer_comments.reason_of_invalid_authorization = (
-                issuer_comments_body.get(
-                    "reasonOfInvalidAuthorization",
-                    issuer_comments_body.get("reason_of_invalid_authorization"),
-                )
+            self.__issuer_comments.reason_of_invalid_authorization = issuer_comments_body.get(
+                "reasonOfInvalidAuthorization",
+                issuer_comments_body.get("reason_of_invalid_authorization"),
             )
-            self.__issuer_comments.explanation_of_credit_presented = (
-                issuer_comments_body.get(
-                    "explanationOfCreditPresented",
-                    issuer_comments_body.get("explanation_of_credit_presented"),
-                )
+            self.__issuer_comments.explanation_of_credit_presented = issuer_comments_body.get(
+                "explanationOfCreditPresented",
+                issuer_comments_body.get("explanation_of_credit_presented"),
             )
             self.__issuer_comments.judge_reason = issuer_comments_body.get(
                 "judgeReason", issuer_comments_body.get("judge_reason")

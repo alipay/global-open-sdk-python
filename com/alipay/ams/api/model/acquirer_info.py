@@ -1,9 +1,11 @@
 import json
 
 
+
+
 class AcquirerInfo:
     def __init__(self):
-
+        
         self.__acquirer_name = None  # type: str
         self.__reference_request_id = None  # type: str
         self.__acquirer_transaction_id = None  # type: str
@@ -16,6 +18,7 @@ class AcquirerInfo:
         self.__acquirer_card_token = None  # type: str
         self.__acquirer_fingerprint = None  # type: str
         self.__acquirer_account_name = None  # type: str
+        
 
     @property
     def acquirer_name(self):
@@ -27,7 +30,6 @@ class AcquirerInfo:
     @acquirer_name.setter
     def acquirer_name(self, value):
         self.__acquirer_name = value
-
     @property
     def reference_request_id(self):
         """
@@ -38,7 +40,6 @@ class AcquirerInfo:
     @reference_request_id.setter
     def reference_request_id(self, value):
         self.__reference_request_id = value
-
     @property
     def acquirer_transaction_id(self):
         """
@@ -49,18 +50,16 @@ class AcquirerInfo:
     @acquirer_transaction_id.setter
     def acquirer_transaction_id(self, value):
         self.__acquirer_transaction_id = value
-
     @property
     def acquirer_merchant_id(self):
         """
-        The unique ID that is assigned by the acquirer to identify a merchant.   Note: This parameter is returned if you integrate the APO product.    More information:  Maximum length: 64 characters
+        The unique ID that is assigned by the acquirer to identify a merchant.   Note: This parameter is returned if you integrate the APO product.    More information:  Maximum length: 64 characters 
         """
         return self.__acquirer_merchant_id
 
     @acquirer_merchant_id.setter
     def acquirer_merchant_id(self, value):
         self.__acquirer_merchant_id = value
-
     @property
     def acquirer_result_code(self):
         """
@@ -71,7 +70,6 @@ class AcquirerInfo:
     @acquirer_result_code.setter
     def acquirer_result_code(self, value):
         self.__acquirer_result_code = value
-
     @property
     def acquirer_result_message(self):
         """
@@ -82,7 +80,6 @@ class AcquirerInfo:
     @acquirer_result_message.setter
     def acquirer_result_message(self, value):
         self.__acquirer_result_message = value
-
     @property
     def acquirer_merchant_name(self):
         """
@@ -93,7 +90,6 @@ class AcquirerInfo:
     @acquirer_merchant_name.setter
     def acquirer_merchant_name(self, value):
         self.__acquirer_merchant_name = value
-
     @property
     def acquirer_reason_description(self):
         """
@@ -104,16 +100,16 @@ class AcquirerInfo:
     @acquirer_reason_description.setter
     def acquirer_reason_description(self, value):
         self.__acquirer_reason_description = value
-
     @property
     def ptsp_transaction_id(self):
-        """Gets the ptsp_transaction_id of this AcquirerInfo."""
+        """Gets the ptsp_transaction_id of this AcquirerInfo.
+        
+        """
         return self.__ptsp_transaction_id
 
     @ptsp_transaction_id.setter
     def ptsp_transaction_id(self, value):
         self.__ptsp_transaction_id = value
-
     @property
     def acquirer_card_token(self):
         """
@@ -124,7 +120,6 @@ class AcquirerInfo:
     @acquirer_card_token.setter
     def acquirer_card_token(self, value):
         self.__acquirer_card_token = value
-
     @property
     def acquirer_fingerprint(self):
         """
@@ -135,7 +130,6 @@ class AcquirerInfo:
     @acquirer_fingerprint.setter
     def acquirer_fingerprint(self, value):
         self.__acquirer_fingerprint = value
-
     @property
     def acquirer_account_name(self):
         """
@@ -147,93 +141,62 @@ class AcquirerInfo:
     def acquirer_account_name(self, value):
         self.__acquirer_account_name = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "acquirer_name") and self.acquirer_name is not None:
-            params["acquirerName"] = self.acquirer_name
-        if (
-            hasattr(self, "reference_request_id")
-            and self.reference_request_id is not None
-        ):
-            params["referenceRequestId"] = self.reference_request_id
-        if (
-            hasattr(self, "acquirer_transaction_id")
-            and self.acquirer_transaction_id is not None
-        ):
-            params["acquirerTransactionId"] = self.acquirer_transaction_id
-        if (
-            hasattr(self, "acquirer_merchant_id")
-            and self.acquirer_merchant_id is not None
-        ):
-            params["acquirerMerchantId"] = self.acquirer_merchant_id
-        if (
-            hasattr(self, "acquirer_result_code")
-            and self.acquirer_result_code is not None
-        ):
-            params["acquirerResultCode"] = self.acquirer_result_code
-        if (
-            hasattr(self, "acquirer_result_message")
-            and self.acquirer_result_message is not None
-        ):
-            params["acquirerResultMessage"] = self.acquirer_result_message
-        if (
-            hasattr(self, "acquirer_merchant_name")
-            and self.acquirer_merchant_name is not None
-        ):
-            params["acquirerMerchantName"] = self.acquirer_merchant_name
-        if (
-            hasattr(self, "acquirer_reason_description")
-            and self.acquirer_reason_description is not None
-        ):
-            params["acquirerReasonDescription"] = self.acquirer_reason_description
-        if (
-            hasattr(self, "ptsp_transaction_id")
-            and self.ptsp_transaction_id is not None
-        ):
-            params["ptspTransactionId"] = self.ptsp_transaction_id
-        if (
-            hasattr(self, "acquirer_card_token")
-            and self.acquirer_card_token is not None
-        ):
-            params["acquirerCardToken"] = self.acquirer_card_token
-        if (
-            hasattr(self, "acquirer_fingerprint")
-            and self.acquirer_fingerprint is not None
-        ):
-            params["acquirerFingerprint"] = self.acquirer_fingerprint
-        if (
-            hasattr(self, "acquirer_account_name")
-            and self.acquirer_account_name is not None
-        ):
-            params["acquirerAccountName"] = self.acquirer_account_name
+            params['acquirerName'] = self.acquirer_name
+        if hasattr(self, "reference_request_id") and self.reference_request_id is not None:
+            params['referenceRequestId'] = self.reference_request_id
+        if hasattr(self, "acquirer_transaction_id") and self.acquirer_transaction_id is not None:
+            params['acquirerTransactionId'] = self.acquirer_transaction_id
+        if hasattr(self, "acquirer_merchant_id") and self.acquirer_merchant_id is not None:
+            params['acquirerMerchantId'] = self.acquirer_merchant_id
+        if hasattr(self, "acquirer_result_code") and self.acquirer_result_code is not None:
+            params['acquirerResultCode'] = self.acquirer_result_code
+        if hasattr(self, "acquirer_result_message") and self.acquirer_result_message is not None:
+            params['acquirerResultMessage'] = self.acquirer_result_message
+        if hasattr(self, "acquirer_merchant_name") and self.acquirer_merchant_name is not None:
+            params['acquirerMerchantName'] = self.acquirer_merchant_name
+        if hasattr(self, "acquirer_reason_description") and self.acquirer_reason_description is not None:
+            params['acquirerReasonDescription'] = self.acquirer_reason_description
+        if hasattr(self, "ptsp_transaction_id") and self.ptsp_transaction_id is not None:
+            params['ptspTransactionId'] = self.ptsp_transaction_id
+        if hasattr(self, "acquirer_card_token") and self.acquirer_card_token is not None:
+            params['acquirerCardToken'] = self.acquirer_card_token
+        if hasattr(self, "acquirer_fingerprint") and self.acquirer_fingerprint is not None:
+            params['acquirerFingerprint'] = self.acquirer_fingerprint
+        if hasattr(self, "acquirer_account_name") and self.acquirer_account_name is not None:
+            params['acquirerAccountName'] = self.acquirer_account_name
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "acquirerName" in response_body:
-            self.__acquirer_name = response_body["acquirerName"]
-        if "referenceRequestId" in response_body:
-            self.__reference_request_id = response_body["referenceRequestId"]
-        if "acquirerTransactionId" in response_body:
-            self.__acquirer_transaction_id = response_body["acquirerTransactionId"]
-        if "acquirerMerchantId" in response_body:
-            self.__acquirer_merchant_id = response_body["acquirerMerchantId"]
-        if "acquirerResultCode" in response_body:
-            self.__acquirer_result_code = response_body["acquirerResultCode"]
-        if "acquirerResultMessage" in response_body:
-            self.__acquirer_result_message = response_body["acquirerResultMessage"]
-        if "acquirerMerchantName" in response_body:
-            self.__acquirer_merchant_name = response_body["acquirerMerchantName"]
-        if "acquirerReasonDescription" in response_body:
-            self.__acquirer_reason_description = response_body[
-                "acquirerReasonDescription"
-            ]
-        if "ptspTransactionId" in response_body:
-            self.__ptsp_transaction_id = response_body["ptspTransactionId"]
-        if "acquirerCardToken" in response_body:
-            self.__acquirer_card_token = response_body["acquirerCardToken"]
-        if "acquirerFingerprint" in response_body:
-            self.__acquirer_fingerprint = response_body["acquirerFingerprint"]
-        if "acquirerAccountName" in response_body:
-            self.__acquirer_account_name = response_body["acquirerAccountName"]
+        if 'acquirerName' in response_body:
+            self.__acquirer_name = response_body['acquirerName']
+        if 'referenceRequestId' in response_body:
+            self.__reference_request_id = response_body['referenceRequestId']
+        if 'acquirerTransactionId' in response_body:
+            self.__acquirer_transaction_id = response_body['acquirerTransactionId']
+        if 'acquirerMerchantId' in response_body:
+            self.__acquirer_merchant_id = response_body['acquirerMerchantId']
+        if 'acquirerResultCode' in response_body:
+            self.__acquirer_result_code = response_body['acquirerResultCode']
+        if 'acquirerResultMessage' in response_body:
+            self.__acquirer_result_message = response_body['acquirerResultMessage']
+        if 'acquirerMerchantName' in response_body:
+            self.__acquirer_merchant_name = response_body['acquirerMerchantName']
+        if 'acquirerReasonDescription' in response_body:
+            self.__acquirer_reason_description = response_body['acquirerReasonDescription']
+        if 'ptspTransactionId' in response_body:
+            self.__ptsp_transaction_id = response_body['ptspTransactionId']
+        if 'acquirerCardToken' in response_body:
+            self.__acquirer_card_token = response_body['acquirerCardToken']
+        if 'acquirerFingerprint' in response_body:
+            self.__acquirer_fingerprint = response_body['acquirerFingerprint']
+        if 'acquirerAccountName' in response_body:
+            self.__acquirer_account_name = response_body['acquirerAccountName']

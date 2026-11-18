@@ -10,6 +10,7 @@ class InvoicePaymentInfo:
         self.__payment_amount = None  # type: Amount
         self.__payment_time = None  # type: str
 
+
     @property
     def result(self):
         """Payment result details. resultStatus=S for success, F for failure."""

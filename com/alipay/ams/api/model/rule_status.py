@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class RuleStatus(Enum):
     """The reserve rule configuration status. This status does not indicate whether retained funds have been released."""
@@ -27,3 +25,4 @@ class RuleStatus(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

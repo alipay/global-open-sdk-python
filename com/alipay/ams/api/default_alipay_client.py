@@ -221,7 +221,9 @@ class DefaultAlipayClient(object):
                 execute_session_http2,
             )
 
-            return execute_session_http2(self.__gateway_url, request, extra_headers)
+            return execute_session_http2(
+                self.__gateway_url, request, extra_headers
+            )
 
         client_id = self.__client_id
         self.__is_sandbox_mode = client_id.startswith("SANDBOX_")

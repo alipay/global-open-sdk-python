@@ -1,14 +1,12 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayReceiptExportRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayReceiptExportRequest, self).__init__(
-            "/ams/api/v1/billing/receipt/export"
-        )
+        super(AlipayReceiptExportRequest, self).__init__("/ams/api/v1/billing/receipt/export") 
 
         self.__status = None  # type: str
         self.__subscription_id = None  # type: str
@@ -20,6 +18,7 @@ class AlipayReceiptExportRequest(AlipayRequest):
         self.__language = None  # type: str
         self.__download_type = None  # type: str
         self.__column_preset = None  # type: str
+        
 
     @property
     def status(self):
@@ -31,7 +30,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def subscription_id(self):
         """
@@ -42,7 +40,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @subscription_id.setter
     def subscription_id(self, value):
         self.__subscription_id = value
-
     @property
     def customer_id(self):
         """
@@ -53,7 +50,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @customer_id.setter
     def customer_id(self, value):
         self.__customer_id = value
-
     @property
     def start_date(self):
         """
@@ -64,7 +60,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @start_date.setter
     def start_date(self, value):
         self.__start_date = value
-
     @property
     def end_date(self):
         """
@@ -75,7 +70,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @end_date.setter
     def end_date(self, value):
         self.__end_date = value
-
     @property
     def receipt_ids(self):
         """
@@ -86,7 +80,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @receipt_ids.setter
     def receipt_ids(self, value):
         self.__receipt_ids = value
-
     @property
     def file_format(self):
         """
@@ -97,7 +90,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @file_format.setter
     def file_format(self, value):
         self.__file_format = value
-
     @property
     def language(self):
         """
@@ -108,7 +100,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @language.setter
     def language(self, value):
         self.__language = value
-
     @property
     def download_type(self):
         """
@@ -119,7 +110,6 @@ class AlipayReceiptExportRequest(AlipayRequest):
     @download_type.setter
     def download_type(self, value):
         self.__download_type = value
-
     @property
     def column_preset(self):
         """
@@ -131,56 +121,57 @@ class AlipayReceiptExportRequest(AlipayRequest):
     def column_preset(self, value):
         self.__column_preset = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
-            params["subscriptionId"] = self.subscription_id
+            params['subscriptionId'] = self.subscription_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
-            params["customerId"] = self.customer_id
+            params['customerId'] = self.customer_id
         if hasattr(self, "start_date") and self.start_date is not None:
-            params["startDate"] = self.start_date
+            params['startDate'] = self.start_date
         if hasattr(self, "end_date") and self.end_date is not None:
-            params["endDate"] = self.end_date
+            params['endDate'] = self.end_date
         if hasattr(self, "receipt_ids") and self.receipt_ids is not None:
-            params["receiptIds"] = self.receipt_ids
+            params['receiptIds'] = self.receipt_ids
         if hasattr(self, "file_format") and self.file_format is not None:
-            params["fileFormat"] = self.file_format
+            params['fileFormat'] = self.file_format
         if hasattr(self, "language") and self.language is not None:
-            params["language"] = self.language
+            params['language'] = self.language
         if hasattr(self, "download_type") and self.download_type is not None:
-            params["downloadType"] = self.download_type
+            params['downloadType'] = self.download_type
         if hasattr(self, "column_preset") and self.column_preset is not None:
-            params["columnPreset"] = self.column_preset
+            params['columnPreset'] = self.column_preset
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "subscriptionId" in response_body:
-            self.__subscription_id = response_body["subscriptionId"]
-        if "customerId" in response_body:
-            self.__customer_id = response_body["customerId"]
-        if "startDate" in response_body:
-            self.__start_date = response_body["startDate"]
-        if "endDate" in response_body:
-            self.__end_date = response_body["endDate"]
-        if "receiptIds" in response_body:
-            self.__receipt_ids = response_body["receiptIds"]
-        if "fileFormat" in response_body:
-            self.__file_format = response_body["fileFormat"]
-        if "language" in response_body:
-            self.__language = response_body["language"]
-        if "downloadType" in response_body:
-            self.__download_type = response_body["downloadType"]
-        if "columnPreset" in response_body:
-            self.__column_preset = response_body["columnPreset"]
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'startDate' in response_body:
+            self.__start_date = response_body['startDate']
+        if 'endDate' in response_body:
+            self.__end_date = response_body['endDate']
+        if 'receiptIds' in response_body:
+            self.__receipt_ids = response_body['receiptIds']
+        if 'fileFormat' in response_body:
+            self.__file_format = response_body['fileFormat']
+        if 'language' in response_body:
+            self.__language = response_body['language']
+        if 'downloadType' in response_body:
+            self.__download_type = response_body['downloadType']
+        if 'columnPreset' in response_body:
+            self.__column_preset = response_body['columnPreset']

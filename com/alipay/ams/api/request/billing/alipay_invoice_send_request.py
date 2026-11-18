@@ -1,19 +1,18 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInvoiceSendRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInvoiceSendRequest, self).__init__(
-            "/ams/api/v1/billing/invoice/send"
-        )
+        super(AlipayInvoiceSendRequest, self).__init__("/ams/api/v1/billing/invoice/send") 
 
         self.__invoice_id = None  # type: str
         self.__cc_emails = None  # type: [str]
         self.__internal_note = None  # type: str
         self.__include_payment_link = None  # type: bool
+        
 
     @property
     def invoice_id(self):
@@ -25,7 +24,6 @@ class AlipayInvoiceSendRequest(AlipayRequest):
     @invoice_id.setter
     def invoice_id(self, value):
         self.__invoice_id = value
-
     @property
     def cc_emails(self):
         """
@@ -36,7 +34,6 @@ class AlipayInvoiceSendRequest(AlipayRequest):
     @cc_emails.setter
     def cc_emails(self, value):
         self.__cc_emails = value
-
     @property
     def internal_note(self):
         """
@@ -47,7 +44,6 @@ class AlipayInvoiceSendRequest(AlipayRequest):
     @internal_note.setter
     def internal_note(self, value):
         self.__internal_note = value
-
     @property
     def include_payment_link(self):
         """
@@ -59,35 +55,33 @@ class AlipayInvoiceSendRequest(AlipayRequest):
     def include_payment_link(self, value):
         self.__include_payment_link = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
-            params["invoiceId"] = self.invoice_id
+            params['invoiceId'] = self.invoice_id
         if hasattr(self, "cc_emails") and self.cc_emails is not None:
-            params["ccEmails"] = self.cc_emails
+            params['ccEmails'] = self.cc_emails
         if hasattr(self, "internal_note") and self.internal_note is not None:
-            params["internalNote"] = self.internal_note
-        if (
-            hasattr(self, "include_payment_link")
-            and self.include_payment_link is not None
-        ):
-            params["includePaymentLink"] = self.include_payment_link
+            params['internalNote'] = self.internal_note
+        if hasattr(self, "include_payment_link") and self.include_payment_link is not None:
+            params['includePaymentLink'] = self.include_payment_link
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "invoiceId" in response_body:
-            self.__invoice_id = response_body["invoiceId"]
-        if "ccEmails" in response_body:
-            self.__cc_emails = response_body["ccEmails"]
-        if "internalNote" in response_body:
-            self.__internal_note = response_body["internalNote"]
-        if "includePaymentLink" in response_body:
-            self.__include_payment_link = response_body["includePaymentLink"]
+        if 'invoiceId' in response_body:
+            self.__invoice_id = response_body['invoiceId']
+        if 'ccEmails' in response_body:
+            self.__cc_emails = response_body['ccEmails']
+        if 'internalNote' in response_body:
+            self.__internal_note = response_body['internalNote']
+        if 'includePaymentLink' in response_body:
+            self.__include_payment_link = response_body['includePaymentLink']

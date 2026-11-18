@@ -2,28 +2,30 @@ import json
 from com.alipay.ams.api.model.result import Result
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayPayCancelResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__payment_id = None  # type: str
         self.__payment_request_id = None  # type: str
         self.__cancel_time = None  # type: str
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayPayCancelResponse."""
+        """Gets the result of this AlipayPayCancelResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def payment_id(self):
         """
@@ -34,7 +36,6 @@ class AlipayPayCancelResponse(AlipayResponse):
     @payment_id.setter
     def payment_id(self, value):
         self.__payment_id = value
-
     @property
     def payment_request_id(self):
         """
@@ -45,7 +46,6 @@ class AlipayPayCancelResponse(AlipayResponse):
     @payment_request_id.setter
     def payment_request_id(self, value):
         self.__payment_request_id = value
-
     @property
     def cancel_time(self):
         """
@@ -57,28 +57,30 @@ class AlipayPayCancelResponse(AlipayResponse):
     def cancel_time(self, value):
         self.__cancel_time = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "payment_id") and self.payment_id is not None:
-            params["paymentId"] = self.payment_id
+            params['paymentId'] = self.payment_id
         if hasattr(self, "payment_request_id") and self.payment_request_id is not None:
-            params["paymentRequestId"] = self.payment_request_id
+            params['paymentRequestId'] = self.payment_request_id
         if hasattr(self, "cancel_time") and self.cancel_time is not None:
-            params["cancelTime"] = self.cancel_time
+            params['cancelTime'] = self.cancel_time
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayPayCancelResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayPayCancelResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "paymentId" in response_body:
-            self.__payment_id = response_body["paymentId"]
-        if "paymentRequestId" in response_body:
-            self.__payment_request_id = response_body["paymentRequestId"]
-        if "cancelTime" in response_body:
-            self.__cancel_time = response_body["cancelTime"]
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'paymentId' in response_body:
+            self.__payment_id = response_body['paymentId']
+        if 'paymentRequestId' in response_body:
+            self.__payment_request_id = response_body['paymentRequestId']
+        if 'cancelTime' in response_body:
+            self.__cancel_time = response_body['cancelTime']

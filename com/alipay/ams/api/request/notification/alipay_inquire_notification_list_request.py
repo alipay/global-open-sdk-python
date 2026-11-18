@@ -1,20 +1,19 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquireNotificationListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireNotificationListRequest, self).__init__(
-            "/ams/api/v1/notification/inquireNotificationList"
-        )
+        super(AlipayInquireNotificationListRequest, self).__init__("/ams/api/v1/notification/inquireNotificationList") 
 
         self.__notify_type = None  # type: [str]
         self.__event_create_time_from = None  # type: str
         self.__event_create_time_to = None  # type: str
         self.__limit = None  # type: int
         self.__starting_after = None  # type: str
+        
 
     @property
     def notify_type(self):
@@ -26,7 +25,6 @@ class AlipayInquireNotificationListRequest(AlipayRequest):
     @notify_type.setter
     def notify_type(self, value):
         self.__notify_type = value
-
     @property
     def event_create_time_from(self):
         """
@@ -37,7 +35,6 @@ class AlipayInquireNotificationListRequest(AlipayRequest):
     @event_create_time_from.setter
     def event_create_time_from(self, value):
         self.__event_create_time_from = value
-
     @property
     def event_create_time_to(self):
         """
@@ -48,7 +45,6 @@ class AlipayInquireNotificationListRequest(AlipayRequest):
     @event_create_time_to.setter
     def event_create_time_to(self, value):
         self.__event_create_time_to = value
-
     @property
     def limit(self):
         """
@@ -59,7 +55,6 @@ class AlipayInquireNotificationListRequest(AlipayRequest):
     @limit.setter
     def limit(self, value):
         self.__limit = value
-
     @property
     def starting_after(self):
         """
@@ -71,42 +66,37 @@ class AlipayInquireNotificationListRequest(AlipayRequest):
     def starting_after(self, value):
         self.__starting_after = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "notify_type") and self.notify_type is not None:
-            params["notifyType"] = self.notify_type
-        if (
-            hasattr(self, "event_create_time_from")
-            and self.event_create_time_from is not None
-        ):
-            params["eventCreateTimeFrom"] = self.event_create_time_from
-        if (
-            hasattr(self, "event_create_time_to")
-            and self.event_create_time_to is not None
-        ):
-            params["eventCreateTimeTo"] = self.event_create_time_to
+            params['notifyType'] = self.notify_type
+        if hasattr(self, "event_create_time_from") and self.event_create_time_from is not None:
+            params['eventCreateTimeFrom'] = self.event_create_time_from
+        if hasattr(self, "event_create_time_to") and self.event_create_time_to is not None:
+            params['eventCreateTimeTo'] = self.event_create_time_to
         if hasattr(self, "limit") and self.limit is not None:
-            params["limit"] = self.limit
+            params['limit'] = self.limit
         if hasattr(self, "starting_after") and self.starting_after is not None:
-            params["startingAfter"] = self.starting_after
+            params['startingAfter'] = self.starting_after
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "notifyType" in response_body:
-            self.__notify_type = response_body["notifyType"]
-        if "eventCreateTimeFrom" in response_body:
-            self.__event_create_time_from = response_body["eventCreateTimeFrom"]
-        if "eventCreateTimeTo" in response_body:
-            self.__event_create_time_to = response_body["eventCreateTimeTo"]
-        if "limit" in response_body:
-            self.__limit = response_body["limit"]
-        if "startingAfter" in response_body:
-            self.__starting_after = response_body["startingAfter"]
+        if 'notifyType' in response_body:
+            self.__notify_type = response_body['notifyType']
+        if 'eventCreateTimeFrom' in response_body:
+            self.__event_create_time_from = response_body['eventCreateTimeFrom']
+        if 'eventCreateTimeTo' in response_body:
+            self.__event_create_time_to = response_body['eventCreateTimeTo']
+        if 'limit' in response_body:
+            self.__limit = response_body['limit']
+        if 'startingAfter' in response_body:
+            self.__starting_after = response_body['startingAfter']

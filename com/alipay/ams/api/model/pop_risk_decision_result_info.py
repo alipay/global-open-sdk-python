@@ -1,12 +1,15 @@
 import json
 
 
+
+
 class PopRiskDecisionResultInfo:
     def __init__(self):
-
+        
         self.__risk_auth_decision = None  # type: str
         self.__risk_decision = None  # type: str
         self.__post_risk_decision = None  # type: str
+        
 
     @property
     def risk_auth_decision(self):
@@ -18,7 +21,6 @@ class PopRiskDecisionResultInfo:
     @risk_auth_decision.setter
     def risk_auth_decision(self, value):
         self.__risk_auth_decision = value
-
     @property
     def risk_decision(self):
         """
@@ -29,7 +31,6 @@ class PopRiskDecisionResultInfo:
     @risk_decision.setter
     def risk_decision(self, value):
         self.__risk_decision = value
-
     @property
     def post_risk_decision(self):
         """
@@ -41,22 +42,26 @@ class PopRiskDecisionResultInfo:
     def post_risk_decision(self, value):
         self.__post_risk_decision = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "risk_auth_decision") and self.risk_auth_decision is not None:
-            params["riskAuthDecision"] = self.risk_auth_decision
+            params['riskAuthDecision'] = self.risk_auth_decision
         if hasattr(self, "risk_decision") and self.risk_decision is not None:
-            params["riskDecision"] = self.risk_decision
+            params['riskDecision'] = self.risk_decision
         if hasattr(self, "post_risk_decision") and self.post_risk_decision is not None:
-            params["postRiskDecision"] = self.post_risk_decision
+            params['postRiskDecision'] = self.post_risk_decision
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "riskAuthDecision" in response_body:
-            self.__risk_auth_decision = response_body["riskAuthDecision"]
-        if "riskDecision" in response_body:
-            self.__risk_decision = response_body["riskDecision"]
-        if "postRiskDecision" in response_body:
-            self.__post_risk_decision = response_body["postRiskDecision"]
+        if 'riskAuthDecision' in response_body:
+            self.__risk_auth_decision = response_body['riskAuthDecision']
+        if 'riskDecision' in response_body:
+            self.__risk_decision = response_body['riskDecision']
+        if 'postRiskDecision' in response_body:
+            self.__post_risk_decision = response_body['postRiskDecision']

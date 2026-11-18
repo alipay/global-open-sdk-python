@@ -1,17 +1,18 @@
 import json
 
 
+
+
 class NotificationEvent:
     def __init__(self):
-
+        
         self.__event_id = None  # type: str
         self.__notify_type = None  # type: str
         self.__event_create_time = None  # type: str
         self.__delivery_status = None  # type: str
         self.__reference_merchant_id = None  # type: str
-        self.__notification_data = (
-            None
-        )  # type: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        self.__notification_data = None  # type: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
+        
 
     @property
     def event_id(self):
@@ -23,7 +24,6 @@ class NotificationEvent:
     @event_id.setter
     def event_id(self, value):
         self.__event_id = value
-
     @property
     def notify_type(self):
         """
@@ -34,7 +34,6 @@ class NotificationEvent:
     @notify_type.setter
     def notify_type(self, value):
         self.__notify_type = value
-
     @property
     def event_create_time(self):
         """
@@ -45,7 +44,6 @@ class NotificationEvent:
     @event_create_time.setter
     def event_create_time(self, value):
         self.__event_create_time = value
-
     @property
     def delivery_status(self):
         """
@@ -56,7 +54,6 @@ class NotificationEvent:
     @delivery_status.setter
     def delivery_status(self, value):
         self.__delivery_status = value
-
     @property
     def reference_merchant_id(self):
         """
@@ -67,7 +64,6 @@ class NotificationEvent:
     @reference_merchant_id.setter
     def reference_merchant_id(self, value):
         self.__reference_merchant_id = value
-
     @property
     def notification_data(self):
         """
@@ -79,37 +75,38 @@ class NotificationEvent:
     def notification_data(self, value):
         self.__notification_data = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "event_id") and self.event_id is not None:
-            params["eventId"] = self.event_id
+            params['eventId'] = self.event_id
         if hasattr(self, "notify_type") and self.notify_type is not None:
-            params["notifyType"] = self.notify_type
+            params['notifyType'] = self.notify_type
         if hasattr(self, "event_create_time") and self.event_create_time is not None:
-            params["eventCreateTime"] = self.event_create_time
+            params['eventCreateTime'] = self.event_create_time
         if hasattr(self, "delivery_status") and self.delivery_status is not None:
-            params["deliveryStatus"] = self.delivery_status
-        if (
-            hasattr(self, "reference_merchant_id")
-            and self.reference_merchant_id is not None
-        ):
-            params["referenceMerchantId"] = self.reference_merchant_id
+            params['deliveryStatus'] = self.delivery_status
+        if hasattr(self, "reference_merchant_id") and self.reference_merchant_id is not None:
+            params['referenceMerchantId'] = self.reference_merchant_id
         if hasattr(self, "notification_data") and self.notification_data is not None:
-            params["notificationData"] = self.notification_data
+            params['notificationData'] = self.notification_data
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "eventId" in response_body:
-            self.__event_id = response_body["eventId"]
-        if "notifyType" in response_body:
-            self.__notify_type = response_body["notifyType"]
-        if "eventCreateTime" in response_body:
-            self.__event_create_time = response_body["eventCreateTime"]
-        if "deliveryStatus" in response_body:
-            self.__delivery_status = response_body["deliveryStatus"]
-        if "referenceMerchantId" in response_body:
-            self.__reference_merchant_id = response_body["referenceMerchantId"]
-        if "notificationData" in response_body:
-            self.__notification_data = response_body["notificationData"]
+        if 'eventId' in response_body:
+            self.__event_id = response_body['eventId']
+        if 'notifyType' in response_body:
+            self.__notify_type = response_body['notifyType']
+        if 'eventCreateTime' in response_body:
+            self.__event_create_time = response_body['eventCreateTime']
+        if 'deliveryStatus' in response_body:
+            self.__delivery_status = response_body['deliveryStatus']
+        if 'referenceMerchantId' in response_body:
+            self.__reference_merchant_id = response_body['referenceMerchantId']
+        if 'notificationData' in response_body:
+            self.__notification_data = response_body['notificationData']

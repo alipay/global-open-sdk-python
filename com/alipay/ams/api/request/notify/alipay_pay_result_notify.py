@@ -1,7 +1,5 @@
 from com.alipay.ams.api.model.acquirer_info import AcquirerInfo
-from com.alipay.ams.api.model.pop_risk_decision_result_info import (
-    PopRiskDecisionResultInfo,
-)
+from com.alipay.ams.api.model.pop_risk_decision_result_info import PopRiskDecisionResultInfo
 from com.alipay.ams.api.model.refund_to_bank_info import RefundToBankInfo
 from com.alipay.ams.api.model.retry_info import RetryInfo
 from com.alipay.ams.api.request.notify.alipay_notify import AlipayNotify
@@ -27,8 +25,8 @@ class AlipayPayResultNotify(AlipayNotify):
         self.__payment_method_type = None
         self.__metadata = None  # type: str
         self.__subscriptionOrderId = None
-        self.__subscription_id = None  # type: str
-        self.__retry_info = None  # type: RetryInfo
+        self.__subscription_id = None # type: str
+        self.__retry_info = None # type: RetryInfo
         self.__update_request_id = None  # type: str
         self.__auth_expiry_time = None  # type: str
         self.__tax_calculation_id = None  # type: str
@@ -108,7 +106,6 @@ class AlipayPayResultNotify(AlipayNotify):
     @property
     def retry_info(self):
         return self.__retry_info
-
     @retry_info.setter
     def retry_info(self, value):
         self.__retry_info = value

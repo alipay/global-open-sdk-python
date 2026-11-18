@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class RefundFromType(Enum):
     """RefundFromType枚举类"""
@@ -31,3 +29,4 @@ class RefundFromType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

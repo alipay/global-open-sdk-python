@@ -7,14 +7,12 @@ from com.alipay.ams.api.model.invoice_shipping import InvoiceShipping
 from com.alipay.ams.api.model.billing_discount import BillingDiscount
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInvoiceCreateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInvoiceCreateRequest, self).__init__(
-            "/ams/api/v1/billing/invoice/create"
-        )
+        super(AlipayInvoiceCreateRequest, self).__init__("/ams/api/v1/billing/invoice/create") 
 
         self.__include_payment_link = None  # type: bool
         self.__automatic_tax = None  # type: AutomaticTax
@@ -34,6 +32,7 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
         self.__shipping = None  # type: InvoiceShipping
         self.__discounts = None  # type: [BillingDiscount]
         self.__invoice_notify_url = None  # type: str
+        
 
     @property
     def include_payment_link(self):
@@ -45,25 +44,26 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @include_payment_link.setter
     def include_payment_link(self, value):
         self.__include_payment_link = value
-
     @property
     def automatic_tax(self):
-        """Gets the automatic_tax of this AlipayInvoiceCreateRequest."""
+        """Gets the automatic_tax of this AlipayInvoiceCreateRequest.
+        
+        """
         return self.__automatic_tax
 
     @automatic_tax.setter
     def automatic_tax(self, value):
         self.__automatic_tax = value
-
     @property
     def customer_details(self):
-        """Gets the customer_details of this AlipayInvoiceCreateRequest."""
+        """Gets the customer_details of this AlipayInvoiceCreateRequest.
+        
+        """
         return self.__customer_details
 
     @customer_details.setter
     def customer_details(self, value):
         self.__customer_details = value
-
     @property
     def invoice_request_id(self):
         """
@@ -74,7 +74,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @invoice_request_id.setter
     def invoice_request_id(self, value):
         self.__invoice_request_id = value
-
     @property
     def customer_id(self):
         """
@@ -85,7 +84,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @customer_id.setter
     def customer_id(self, value):
         self.__customer_id = value
-
     @property
     def subscription_id(self):
         """
@@ -96,7 +94,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @subscription_id.setter
     def subscription_id(self, value):
         self.__subscription_id = value
-
     @property
     def currency(self):
         """
@@ -107,7 +104,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @currency.setter
     def currency(self, value):
         self.__currency = value
-
     @property
     def items(self):
         """
@@ -118,7 +114,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @items.setter
     def items(self, value):
         self.__items = value
-
     @property
     def status(self):
         """
@@ -129,7 +124,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def auto_send(self):
         """
@@ -140,7 +134,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @auto_send.setter
     def auto_send(self, value):
         self.__auto_send = value
-
     @property
     def cc_emails(self):
         """
@@ -151,7 +144,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @cc_emails.setter
     def cc_emails(self, value):
         self.__cc_emails = value
-
     @property
     def description(self):
         """
@@ -162,7 +154,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @description.setter
     def description(self, value):
         self.__description = value
-
     @property
     def due_date(self):
         """
@@ -173,7 +164,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @due_date.setter
     def due_date(self, value):
         self.__due_date = value
-
     @property
     def collection_method(self):
         """
@@ -184,25 +174,26 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @collection_method.setter
     def collection_method(self, value):
         self.__collection_method = value
-
     @property
     def payment_method(self):
-        """Gets the payment_method of this AlipayInvoiceCreateRequest."""
+        """Gets the payment_method of this AlipayInvoiceCreateRequest.
+        
+        """
         return self.__payment_method
 
     @payment_method.setter
     def payment_method(self, value):
         self.__payment_method = value
-
     @property
     def shipping(self):
-        """Gets the shipping of this AlipayInvoiceCreateRequest."""
+        """Gets the shipping of this AlipayInvoiceCreateRequest.
+        
+        """
         return self.__shipping
 
     @shipping.setter
     def shipping(self, value):
         self.__shipping = value
-
     @property
     def discounts(self):
         """
@@ -213,7 +204,6 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     @discounts.setter
     def discounts(self, value):
         self.__discounts = value
-
     @property
     def invoice_notify_url(self):
         """
@@ -225,103 +215,101 @@ class AlipayInvoiceCreateRequest(AlipayRequest):
     def invoice_notify_url(self, value):
         self.__invoice_notify_url = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
-        if (
-            hasattr(self, "include_payment_link")
-            and self.include_payment_link is not None
-        ):
-            params["includePaymentLink"] = self.include_payment_link
+        if hasattr(self, "include_payment_link") and self.include_payment_link is not None:
+            params['includePaymentLink'] = self.include_payment_link
         if hasattr(self, "automatic_tax") and self.automatic_tax is not None:
-            params["automaticTax"] = self.automatic_tax
+            params['automaticTax'] = self.automatic_tax
         if hasattr(self, "customer_details") and self.customer_details is not None:
-            params["customerDetails"] = self.customer_details
+            params['customerDetails'] = self.customer_details
         if hasattr(self, "invoice_request_id") and self.invoice_request_id is not None:
-            params["invoiceRequestId"] = self.invoice_request_id
+            params['invoiceRequestId'] = self.invoice_request_id
         if hasattr(self, "customer_id") and self.customer_id is not None:
-            params["customerId"] = self.customer_id
+            params['customerId'] = self.customer_id
         if hasattr(self, "subscription_id") and self.subscription_id is not None:
-            params["subscriptionId"] = self.subscription_id
+            params['subscriptionId'] = self.subscription_id
         if hasattr(self, "currency") and self.currency is not None:
-            params["currency"] = self.currency
+            params['currency'] = self.currency
         if hasattr(self, "items") and self.items is not None:
-            params["items"] = self.items
+            params['items'] = self.items
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "auto_send") and self.auto_send is not None:
-            params["autoSend"] = self.auto_send
+            params['autoSend'] = self.auto_send
         if hasattr(self, "cc_emails") and self.cc_emails is not None:
-            params["ccEmails"] = self.cc_emails
+            params['ccEmails'] = self.cc_emails
         if hasattr(self, "description") and self.description is not None:
-            params["description"] = self.description
+            params['description'] = self.description
         if hasattr(self, "due_date") and self.due_date is not None:
-            params["dueDate"] = self.due_date
+            params['dueDate'] = self.due_date
         if hasattr(self, "collection_method") and self.collection_method is not None:
-            params["collectionMethod"] = self.collection_method
+            params['collectionMethod'] = self.collection_method
         if hasattr(self, "payment_method") and self.payment_method is not None:
-            params["paymentMethod"] = self.payment_method
+            params['paymentMethod'] = self.payment_method
         if hasattr(self, "shipping") and self.shipping is not None:
-            params["shipping"] = self.shipping
+            params['shipping'] = self.shipping
         if hasattr(self, "discounts") and self.discounts is not None:
-            params["discounts"] = self.discounts
+            params['discounts'] = self.discounts
         if hasattr(self, "invoice_notify_url") and self.invoice_notify_url is not None:
-            params["invoiceNotifyUrl"] = self.invoice_notify_url
+            params['invoiceNotifyUrl'] = self.invoice_notify_url
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "includePaymentLink" in response_body:
-            self.__include_payment_link = response_body["includePaymentLink"]
-        if "automaticTax" in response_body:
+        if 'includePaymentLink' in response_body:
+            self.__include_payment_link = response_body['includePaymentLink']
+        if 'automaticTax' in response_body:
             self.__automatic_tax = AutomaticTax()
-            self.__automatic_tax.parse_rsp_body(response_body["automaticTax"])
-        if "customerDetails" in response_body:
+            self.__automatic_tax.parse_rsp_body(response_body['automaticTax'])
+        if 'customerDetails' in response_body:
             self.__customer_details = InvoiceCustomerDetails()
-            self.__customer_details.parse_rsp_body(response_body["customerDetails"])
-        if "invoiceRequestId" in response_body:
-            self.__invoice_request_id = response_body["invoiceRequestId"]
-        if "customerId" in response_body:
-            self.__customer_id = response_body["customerId"]
-        if "subscriptionId" in response_body:
-            self.__subscription_id = response_body["subscriptionId"]
-        if "currency" in response_body:
-            self.__currency = response_body["currency"]
-        if "items" in response_body:
+            self.__customer_details.parse_rsp_body(response_body['customerDetails'])
+        if 'invoiceRequestId' in response_body:
+            self.__invoice_request_id = response_body['invoiceRequestId']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
+        if 'subscriptionId' in response_body:
+            self.__subscription_id = response_body['subscriptionId']
+        if 'currency' in response_body:
+            self.__currency = response_body['currency']
+        if 'items' in response_body:
             self.__items = []
-            for item in response_body["items"]:
+            for item in response_body['items']:
                 obj = InvoiceCreateItem()
                 obj.parse_rsp_body(item)
                 self.__items.append(obj)
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "autoSend" in response_body:
-            self.__auto_send = response_body["autoSend"]
-        if "ccEmails" in response_body:
-            self.__cc_emails = response_body["ccEmails"]
-        if "description" in response_body:
-            self.__description = response_body["description"]
-        if "dueDate" in response_body:
-            self.__due_date = response_body["dueDate"]
-        if "collectionMethod" in response_body:
-            self.__collection_method = response_body["collectionMethod"]
-        if "paymentMethod" in response_body:
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'autoSend' in response_body:
+            self.__auto_send = response_body['autoSend']
+        if 'ccEmails' in response_body:
+            self.__cc_emails = response_body['ccEmails']
+        if 'description' in response_body:
+            self.__description = response_body['description']
+        if 'dueDate' in response_body:
+            self.__due_date = response_body['dueDate']
+        if 'collectionMethod' in response_body:
+            self.__collection_method = response_body['collectionMethod']
+        if 'paymentMethod' in response_body:
             self.__payment_method = PaymentMethod()
-            self.__payment_method.parse_rsp_body(response_body["paymentMethod"])
-        if "shipping" in response_body:
+            self.__payment_method.parse_rsp_body(response_body['paymentMethod'])
+        if 'shipping' in response_body:
             self.__shipping = InvoiceShipping()
-            self.__shipping.parse_rsp_body(response_body["shipping"])
-        if "discounts" in response_body:
+            self.__shipping.parse_rsp_body(response_body['shipping'])
+        if 'discounts' in response_body:
             self.__discounts = []
-            for item in response_body["discounts"]:
+            for item in response_body['discounts']:
                 obj = BillingDiscount()
                 obj.parse_rsp_body(item)
                 self.__discounts.append(obj)
-        if "invoiceNotifyUrl" in response_body:
-            self.__invoice_notify_url = response_body["invoiceNotifyUrl"]
+        if 'invoiceNotifyUrl' in response_body:
+            self.__invoice_notify_url = response_body['invoiceNotifyUrl']

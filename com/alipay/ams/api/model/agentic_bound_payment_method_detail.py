@@ -1,11 +1,14 @@
 import json
 
 
+
+
 class AgenticBoundPaymentMethodDetail:
     def __init__(self):
-
+        
         self.__card_brand = None  # type: str
         self.__last_four = None  # type: str
+        
 
     @property
     def card_brand(self):
@@ -17,7 +20,6 @@ class AgenticBoundPaymentMethodDetail:
     @card_brand.setter
     def card_brand(self, value):
         self.__card_brand = value
-
     @property
     def last_four(self):
         """
@@ -29,18 +31,22 @@ class AgenticBoundPaymentMethodDetail:
     def last_four(self, value):
         self.__last_four = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "card_brand") and self.card_brand is not None:
-            params["cardBrand"] = self.card_brand
+            params['cardBrand'] = self.card_brand
         if hasattr(self, "last_four") and self.last_four is not None:
-            params["lastFour"] = self.last_four
+            params['lastFour'] = self.last_four
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "cardBrand" in response_body:
-            self.__card_brand = response_body["cardBrand"]
-        if "lastFour" in response_body:
-            self.__last_four = response_body["lastFour"]
+        if 'cardBrand' in response_body:
+            self.__card_brand = response_body['cardBrand']
+        if 'lastFour' in response_body:
+            self.__last_four = response_body['lastFour']

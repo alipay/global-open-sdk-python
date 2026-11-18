@@ -2,12 +2,12 @@ import json
 from com.alipay.ams.api.model.result import Result
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayInvoiceExportResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__file_format = None  # type: str
@@ -16,17 +16,19 @@ class AlipayInvoiceExportResponse(AlipayResponse):
         self.__file_size = None  # type: int
         self.__file_name = None  # type: str
         self.__mode = None  # type: str
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayInvoiceExportResponse."""
+        """Gets the result of this AlipayInvoiceExportResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def file_format(self):
         """
@@ -37,7 +39,6 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @file_format.setter
     def file_format(self, value):
         self.__file_format = value
-
     @property
     def expires_at(self):
         """
@@ -48,7 +49,6 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @expires_at.setter
     def expires_at(self, value):
         self.__expires_at = value
-
     @property
     def file_url(self):
         """
@@ -59,7 +59,6 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @file_url.setter
     def file_url(self, value):
         self.__file_url = value
-
     @property
     def file_size(self):
         """
@@ -70,7 +69,6 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @file_size.setter
     def file_size(self, value):
         self.__file_size = value
-
     @property
     def file_name(self):
         """
@@ -81,7 +79,6 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     @file_name.setter
     def file_name(self, value):
         self.__file_name = value
-
     @property
     def mode(self):
         """
@@ -93,40 +90,42 @@ class AlipayInvoiceExportResponse(AlipayResponse):
     def mode(self, value):
         self.__mode = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "file_format") and self.file_format is not None:
-            params["fileFormat"] = self.file_format
+            params['fileFormat'] = self.file_format
         if hasattr(self, "expires_at") and self.expires_at is not None:
-            params["expiresAt"] = self.expires_at
+            params['expiresAt'] = self.expires_at
         if hasattr(self, "file_url") and self.file_url is not None:
-            params["fileUrl"] = self.file_url
+            params['fileUrl'] = self.file_url
         if hasattr(self, "file_size") and self.file_size is not None:
-            params["fileSize"] = self.file_size
+            params['fileSize'] = self.file_size
         if hasattr(self, "file_name") and self.file_name is not None:
-            params["fileName"] = self.file_name
+            params['fileName'] = self.file_name
         if hasattr(self, "mode") and self.mode is not None:
-            params["mode"] = self.mode
+            params['mode'] = self.mode
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayInvoiceExportResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayInvoiceExportResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "fileFormat" in response_body:
-            self.__file_format = response_body["fileFormat"]
-        if "expiresAt" in response_body:
-            self.__expires_at = response_body["expiresAt"]
-        if "fileUrl" in response_body:
-            self.__file_url = response_body["fileUrl"]
-        if "fileSize" in response_body:
-            self.__file_size = response_body["fileSize"]
-        if "fileName" in response_body:
-            self.__file_name = response_body["fileName"]
-        if "mode" in response_body:
-            self.__mode = response_body["mode"]
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'fileFormat' in response_body:
+            self.__file_format = response_body['fileFormat']
+        if 'expiresAt' in response_body:
+            self.__expires_at = response_body['expiresAt']
+        if 'fileUrl' in response_body:
+            self.__file_url = response_body['fileUrl']
+        if 'fileSize' in response_body:
+            self.__file_size = response_body['fileSize']
+        if 'fileName' in response_body:
+            self.__file_name = response_body['fileName']
+        if 'mode' in response_body:
+            self.__mode = response_body['mode']

@@ -1,14 +1,12 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInvoiceConfirmPaymentRequest, self).__init__(
-            "/ams/api/v1/billing/invoice/confirmPayment"
-        )
+        super(AlipayInvoiceConfirmPaymentRequest, self).__init__("/ams/api/v1/billing/invoice/confirmPayment") 
 
         self.__invoice_id = None  # type: str
         self.__confirmation_type = None  # type: str
@@ -17,6 +15,7 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
         self.__auto_send = None  # type: bool
         self.__invoice_note = None  # type: str
         self.__cc_emails = None  # type: [str]
+        
 
     @property
     def invoice_id(self):
@@ -28,7 +27,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @invoice_id.setter
     def invoice_id(self, value):
         self.__invoice_id = value
-
     @property
     def confirmation_type(self):
         """
@@ -39,7 +37,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @confirmation_type.setter
     def confirmation_type(self, value):
         self.__confirmation_type = value
-
     @property
     def payment_method(self):
         """
@@ -50,7 +47,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @payment_method.setter
     def payment_method(self, value):
         self.__payment_method = value
-
     @property
     def reference(self):
         """
@@ -61,7 +57,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @reference.setter
     def reference(self, value):
         self.__reference = value
-
     @property
     def auto_send(self):
         """
@@ -72,7 +67,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @auto_send.setter
     def auto_send(self, value):
         self.__auto_send = value
-
     @property
     def invoice_note(self):
         """
@@ -83,7 +77,6 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     @invoice_note.setter
     def invoice_note(self, value):
         self.__invoice_note = value
-
     @property
     def cc_emails(self):
         """
@@ -95,44 +88,45 @@ class AlipayInvoiceConfirmPaymentRequest(AlipayRequest):
     def cc_emails(self, value):
         self.__cc_emails = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
-            params["invoiceId"] = self.invoice_id
+            params['invoiceId'] = self.invoice_id
         if hasattr(self, "confirmation_type") and self.confirmation_type is not None:
-            params["confirmationType"] = self.confirmation_type
+            params['confirmationType'] = self.confirmation_type
         if hasattr(self, "payment_method") and self.payment_method is not None:
-            params["paymentMethod"] = self.payment_method
+            params['paymentMethod'] = self.payment_method
         if hasattr(self, "reference") and self.reference is not None:
-            params["reference"] = self.reference
+            params['reference'] = self.reference
         if hasattr(self, "auto_send") and self.auto_send is not None:
-            params["autoSend"] = self.auto_send
+            params['autoSend'] = self.auto_send
         if hasattr(self, "invoice_note") and self.invoice_note is not None:
-            params["invoiceNote"] = self.invoice_note
+            params['invoiceNote'] = self.invoice_note
         if hasattr(self, "cc_emails") and self.cc_emails is not None:
-            params["ccEmails"] = self.cc_emails
+            params['ccEmails'] = self.cc_emails
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "invoiceId" in response_body:
-            self.__invoice_id = response_body["invoiceId"]
-        if "confirmationType" in response_body:
-            self.__confirmation_type = response_body["confirmationType"]
-        if "paymentMethod" in response_body:
-            self.__payment_method = response_body["paymentMethod"]
-        if "reference" in response_body:
-            self.__reference = response_body["reference"]
-        if "autoSend" in response_body:
-            self.__auto_send = response_body["autoSend"]
-        if "invoiceNote" in response_body:
-            self.__invoice_note = response_body["invoiceNote"]
-        if "ccEmails" in response_body:
-            self.__cc_emails = response_body["ccEmails"]
+        if 'invoiceId' in response_body:
+            self.__invoice_id = response_body['invoiceId']
+        if 'confirmationType' in response_body:
+            self.__confirmation_type = response_body['confirmationType']
+        if 'paymentMethod' in response_body:
+            self.__payment_method = response_body['paymentMethod']
+        if 'reference' in response_body:
+            self.__reference = response_body['reference']
+        if 'autoSend' in response_body:
+            self.__auto_send = response_body['autoSend']
+        if 'invoiceNote' in response_body:
+            self.__invoice_note = response_body['invoiceNote']
+        if 'ccEmails' in response_body:
+            self.__cc_emails = response_body['ccEmails']

@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class PaymentMethodCategoryType(Enum):
     """PaymentMethodCategoryType枚举类"""
@@ -51,3 +49,4 @@ class PaymentMethodCategoryType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

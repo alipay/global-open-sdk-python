@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class CardTransactionEventFilterType(Enum):
     """CardTransactionEventFilterType枚举类"""
@@ -43,3 +41,4 @@ class CardTransactionEventFilterType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

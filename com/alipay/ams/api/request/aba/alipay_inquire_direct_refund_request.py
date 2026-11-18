@@ -1,17 +1,16 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayInquireDirectRefundRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayInquireDirectRefundRequest, self).__init__(
-            "/ams/api/v1/aba/funds/inquireDirectRefund"
-        )
+        super(AlipayInquireDirectRefundRequest, self).__init__("/ams/api/v1/aba/funds/inquireDirectRefund") 
 
         self.__refund_id = None  # type: str
         self.__refund_request_id = None  # type: str
+        
 
     @property
     def refund_id(self):
@@ -23,7 +22,6 @@ class AlipayInquireDirectRefundRequest(AlipayRequest):
     @refund_id.setter
     def refund_id(self, value):
         self.__refund_id = value
-
     @property
     def refund_request_id(self):
         """
@@ -35,24 +33,25 @@ class AlipayInquireDirectRefundRequest(AlipayRequest):
     def refund_request_id(self, value):
         self.__refund_request_id = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "refund_id") and self.refund_id is not None:
-            params["refundId"] = self.refund_id
+            params['refundId'] = self.refund_id
         if hasattr(self, "refund_request_id") and self.refund_request_id is not None:
-            params["refundRequestId"] = self.refund_request_id
+            params['refundRequestId'] = self.refund_request_id
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "refundId" in response_body:
-            self.__refund_id = response_body["refundId"]
-        if "refundRequestId" in response_body:
-            self.__refund_request_id = response_body["refundRequestId"]
+        if 'refundId' in response_body:
+            self.__refund_id = response_body['refundId']
+        if 'refundRequestId' in response_body:
+            self.__refund_request_id = response_body['refundRequestId']

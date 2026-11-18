@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class AccountHolderType(Enum):
     """AccountHolderType枚举类"""
@@ -27,3 +25,4 @@ class AccountHolderType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

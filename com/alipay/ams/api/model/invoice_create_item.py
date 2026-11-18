@@ -4,9 +4,11 @@ from com.alipay.ams.api.model.amount import Amount
 from com.alipay.ams.api.model.amount import Amount
 
 
+
+
 class InvoiceCreateItem:
     def __init__(self):
-
+        
         self.__discount_amount = None  # type: Amount
         self.__tax_behavior = None  # type: str
         self.__tax_code = None  # type: str
@@ -19,16 +21,18 @@ class InvoiceCreateItem:
         self.__item_id = None  # type: str
         self.__supply_start = None  # type: str
         self.__supply_end = None  # type: str
+        
 
     @property
     def discount_amount(self):
-        """Gets the discount_amount of this InvoiceCreateItem."""
+        """Gets the discount_amount of this InvoiceCreateItem.
+        
+        """
         return self.__discount_amount
 
     @discount_amount.setter
     def discount_amount(self, value):
         self.__discount_amount = value
-
     @property
     def tax_behavior(self):
         """
@@ -39,7 +43,6 @@ class InvoiceCreateItem:
     @tax_behavior.setter
     def tax_behavior(self, value):
         self.__tax_behavior = value
-
     @property
     def tax_code(self):
         """
@@ -50,7 +53,6 @@ class InvoiceCreateItem:
     @tax_code.setter
     def tax_code(self, value):
         self.__tax_code = value
-
     @property
     def description(self):
         """
@@ -61,25 +63,26 @@ class InvoiceCreateItem:
     @description.setter
     def description(self, value):
         self.__description = value
-
     @property
     def item_amount(self):
-        """Gets the item_amount of this InvoiceCreateItem."""
+        """Gets the item_amount of this InvoiceCreateItem.
+        
+        """
         return self.__item_amount
 
     @item_amount.setter
     def item_amount(self, value):
         self.__item_amount = value
-
     @property
     def unit_amount(self):
-        """Gets the unit_amount of this InvoiceCreateItem."""
+        """Gets the unit_amount of this InvoiceCreateItem.
+        
+        """
         return self.__unit_amount
 
     @unit_amount.setter
     def unit_amount(self, value):
         self.__unit_amount = value
-
     @property
     def price_id(self):
         """
@@ -90,7 +93,6 @@ class InvoiceCreateItem:
     @price_id.setter
     def price_id(self, value):
         self.__price_id = value
-
     @property
     def product_id(self):
         """
@@ -101,7 +103,6 @@ class InvoiceCreateItem:
     @product_id.setter
     def product_id(self, value):
         self.__product_id = value
-
     @property
     def quantity(self):
         """
@@ -112,7 +113,6 @@ class InvoiceCreateItem:
     @quantity.setter
     def quantity(self, value):
         self.__quantity = value
-
     @property
     def item_id(self):
         """
@@ -123,7 +123,6 @@ class InvoiceCreateItem:
     @item_id.setter
     def item_id(self, value):
         self.__item_id = value
-
     @property
     def supply_start(self):
         """
@@ -134,7 +133,6 @@ class InvoiceCreateItem:
     @supply_start.setter
     def supply_start(self, value):
         self.__supply_start = value
-
     @property
     def supply_end(self):
         """
@@ -146,61 +144,65 @@ class InvoiceCreateItem:
     def supply_end(self, value):
         self.__supply_end = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "discount_amount") and self.discount_amount is not None:
-            params["discountAmount"] = self.discount_amount
+            params['discountAmount'] = self.discount_amount
         if hasattr(self, "tax_behavior") and self.tax_behavior is not None:
-            params["taxBehavior"] = self.tax_behavior
+            params['taxBehavior'] = self.tax_behavior
         if hasattr(self, "tax_code") and self.tax_code is not None:
-            params["taxCode"] = self.tax_code
+            params['taxCode'] = self.tax_code
         if hasattr(self, "description") and self.description is not None:
-            params["description"] = self.description
+            params['description'] = self.description
         if hasattr(self, "item_amount") and self.item_amount is not None:
-            params["itemAmount"] = self.item_amount
+            params['itemAmount'] = self.item_amount
         if hasattr(self, "unit_amount") and self.unit_amount is not None:
-            params["unitAmount"] = self.unit_amount
+            params['unitAmount'] = self.unit_amount
         if hasattr(self, "price_id") and self.price_id is not None:
-            params["priceId"] = self.price_id
+            params['priceId'] = self.price_id
         if hasattr(self, "product_id") and self.product_id is not None:
-            params["productId"] = self.product_id
+            params['productId'] = self.product_id
         if hasattr(self, "quantity") and self.quantity is not None:
-            params["quantity"] = self.quantity
+            params['quantity'] = self.quantity
         if hasattr(self, "item_id") and self.item_id is not None:
-            params["itemId"] = self.item_id
+            params['itemId'] = self.item_id
         if hasattr(self, "supply_start") and self.supply_start is not None:
-            params["supplyStart"] = self.supply_start
+            params['supplyStart'] = self.supply_start
         if hasattr(self, "supply_end") and self.supply_end is not None:
-            params["supplyEnd"] = self.supply_end
+            params['supplyEnd'] = self.supply_end
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "discountAmount" in response_body:
+        if 'discountAmount' in response_body:
             self.__discount_amount = Amount()
-            self.__discount_amount.parse_rsp_body(response_body["discountAmount"])
-        if "taxBehavior" in response_body:
-            self.__tax_behavior = response_body["taxBehavior"]
-        if "taxCode" in response_body:
-            self.__tax_code = response_body["taxCode"]
-        if "description" in response_body:
-            self.__description = response_body["description"]
-        if "itemAmount" in response_body:
+            self.__discount_amount.parse_rsp_body(response_body['discountAmount'])
+        if 'taxBehavior' in response_body:
+            self.__tax_behavior = response_body['taxBehavior']
+        if 'taxCode' in response_body:
+            self.__tax_code = response_body['taxCode']
+        if 'description' in response_body:
+            self.__description = response_body['description']
+        if 'itemAmount' in response_body:
             self.__item_amount = Amount()
-            self.__item_amount.parse_rsp_body(response_body["itemAmount"])
-        if "unitAmount" in response_body:
+            self.__item_amount.parse_rsp_body(response_body['itemAmount'])
+        if 'unitAmount' in response_body:
             self.__unit_amount = Amount()
-            self.__unit_amount.parse_rsp_body(response_body["unitAmount"])
-        if "priceId" in response_body:
-            self.__price_id = response_body["priceId"]
-        if "productId" in response_body:
-            self.__product_id = response_body["productId"]
-        if "quantity" in response_body:
-            self.__quantity = response_body["quantity"]
-        if "itemId" in response_body:
-            self.__item_id = response_body["itemId"]
-        if "supplyStart" in response_body:
-            self.__supply_start = response_body["supplyStart"]
-        if "supplyEnd" in response_body:
-            self.__supply_end = response_body["supplyEnd"]
+            self.__unit_amount.parse_rsp_body(response_body['unitAmount'])
+        if 'priceId' in response_body:
+            self.__price_id = response_body['priceId']
+        if 'productId' in response_body:
+            self.__product_id = response_body['productId']
+        if 'quantity' in response_body:
+            self.__quantity = response_body['quantity']
+        if 'itemId' in response_body:
+            self.__item_id = response_body['itemId']
+        if 'supplyStart' in response_body:
+            self.__supply_start = response_body['supplyStart']
+        if 'supplyEnd' in response_body:
+            self.__supply_end = response_body['supplyEnd']

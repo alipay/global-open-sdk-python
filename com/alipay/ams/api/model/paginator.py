@@ -1,13 +1,16 @@
 import json
 
 
+
+
 class Paginator:
     def __init__(self):
-
+        
         self.__current_page = None  # type: int
         self.__page_size = None  # type: int
         self.__total_page = None  # type: int
         self.__total_count = None  # type: int
+        
 
     @property
     def current_page(self):
@@ -19,7 +22,6 @@ class Paginator:
     @current_page.setter
     def current_page(self, value):
         self.__current_page = value
-
     @property
     def page_size(self):
         """
@@ -30,7 +32,6 @@ class Paginator:
     @page_size.setter
     def page_size(self, value):
         self.__page_size = value
-
     @property
     def total_page(self):
         """
@@ -41,7 +42,6 @@ class Paginator:
     @total_page.setter
     def total_page(self, value):
         self.__total_page = value
-
     @property
     def total_count(self):
         """
@@ -53,26 +53,30 @@ class Paginator:
     def total_count(self, value):
         self.__total_count = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "current_page") and self.current_page is not None:
-            params["currentPage"] = self.current_page
+            params['currentPage'] = self.current_page
         if hasattr(self, "page_size") and self.page_size is not None:
-            params["pageSize"] = self.page_size
+            params['pageSize'] = self.page_size
         if hasattr(self, "total_page") and self.total_page is not None:
-            params["totalPage"] = self.total_page
+            params['totalPage'] = self.total_page
         if hasattr(self, "total_count") and self.total_count is not None:
-            params["totalCount"] = self.total_count
+            params['totalCount'] = self.total_count
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "currentPage" in response_body:
-            self.__current_page = response_body["currentPage"]
-        if "pageSize" in response_body:
-            self.__page_size = response_body["pageSize"]
-        if "totalPage" in response_body:
-            self.__total_page = response_body["totalPage"]
-        if "totalCount" in response_body:
-            self.__total_count = response_body["totalCount"]
+        if 'currentPage' in response_body:
+            self.__current_page = response_body['currentPage']
+        if 'pageSize' in response_body:
+            self.__page_size = response_body['pageSize']
+        if 'totalPage' in response_body:
+            self.__total_page = response_body['totalPage']
+        if 'totalCount' in response_body:
+            self.__total_count = response_body['totalCount']

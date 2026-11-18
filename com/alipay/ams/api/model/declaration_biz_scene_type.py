@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class DeclarationBizSceneType(Enum):
     """申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。"""
@@ -27,3 +25,4 @@ class DeclarationBizSceneType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

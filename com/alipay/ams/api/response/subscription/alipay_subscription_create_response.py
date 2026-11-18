@@ -2,29 +2,31 @@ import json
 from com.alipay.ams.api.model.result import Result
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipaySubscriptionCreateResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__scheme_url = None  # type: str
         self.__applink_url = None  # type: str
         self.__normal_url = None  # type: str
         self.__app_identifier = None  # type: str
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipaySubscriptionCreateResponse."""
+        """Gets the result of this AlipaySubscriptionCreateResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def scheme_url(self):
         """
@@ -35,7 +37,6 @@ class AlipaySubscriptionCreateResponse(AlipayResponse):
     @scheme_url.setter
     def scheme_url(self, value):
         self.__scheme_url = value
-
     @property
     def applink_url(self):
         """
@@ -46,7 +47,6 @@ class AlipaySubscriptionCreateResponse(AlipayResponse):
     @applink_url.setter
     def applink_url(self, value):
         self.__applink_url = value
-
     @property
     def normal_url(self):
         """
@@ -57,7 +57,6 @@ class AlipaySubscriptionCreateResponse(AlipayResponse):
     @normal_url.setter
     def normal_url(self, value):
         self.__normal_url = value
-
     @property
     def app_identifier(self):
         """
@@ -69,32 +68,34 @@ class AlipaySubscriptionCreateResponse(AlipayResponse):
     def app_identifier(self, value):
         self.__app_identifier = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "scheme_url") and self.scheme_url is not None:
-            params["schemeUrl"] = self.scheme_url
+            params['schemeUrl'] = self.scheme_url
         if hasattr(self, "applink_url") and self.applink_url is not None:
-            params["applinkUrl"] = self.applink_url
+            params['applinkUrl'] = self.applink_url
         if hasattr(self, "normal_url") and self.normal_url is not None:
-            params["normalUrl"] = self.normal_url
+            params['normalUrl'] = self.normal_url
         if hasattr(self, "app_identifier") and self.app_identifier is not None:
-            params["appIdentifier"] = self.app_identifier
+            params['appIdentifier'] = self.app_identifier
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipaySubscriptionCreateResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipaySubscriptionCreateResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "schemeUrl" in response_body:
-            self.__scheme_url = response_body["schemeUrl"]
-        if "applinkUrl" in response_body:
-            self.__applink_url = response_body["applinkUrl"]
-        if "normalUrl" in response_body:
-            self.__normal_url = response_body["normalUrl"]
-        if "appIdentifier" in response_body:
-            self.__app_identifier = response_body["appIdentifier"]
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'schemeUrl' in response_body:
+            self.__scheme_url = response_body['schemeUrl']
+        if 'applinkUrl' in response_body:
+            self.__applink_url = response_body['applinkUrl']
+        if 'normalUrl' in response_body:
+            self.__normal_url = response_body['normalUrl']
+        if 'appIdentifier' in response_body:
+            self.__app_identifier = response_body['appIdentifier']

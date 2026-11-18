@@ -1,9 +1,11 @@
 import json
 
 
+
+
 class AgenticPaymentToken:
     def __init__(self):
-
+        
         self.__token = None  # type: str
         self.__token_expiration_year = None  # type: str
         self.__token_expiration_month = None  # type: str
@@ -11,6 +13,7 @@ class AgenticPaymentToken:
         self.__status = None  # type: str
         self.__dynamic_data_type = None  # type: str
         self.__dynamic_data_value = None  # type: str
+        
 
     @property
     def token(self):
@@ -22,7 +25,6 @@ class AgenticPaymentToken:
     @token.setter
     def token(self, value):
         self.__token = value
-
     @property
     def token_expiration_year(self):
         """
@@ -33,7 +35,6 @@ class AgenticPaymentToken:
     @token_expiration_year.setter
     def token_expiration_year(self, value):
         self.__token_expiration_year = value
-
     @property
     def token_expiration_month(self):
         """
@@ -44,7 +45,6 @@ class AgenticPaymentToken:
     @token_expiration_month.setter
     def token_expiration_month(self, value):
         self.__token_expiration_month = value
-
     @property
     def token_expiration(self):
         """
@@ -55,7 +55,6 @@ class AgenticPaymentToken:
     @token_expiration.setter
     def token_expiration(self, value):
         self.__token_expiration = value
-
     @property
     def status(self):
         """
@@ -66,7 +65,6 @@ class AgenticPaymentToken:
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def dynamic_data_type(self):
         """
@@ -77,7 +75,6 @@ class AgenticPaymentToken:
     @dynamic_data_type.setter
     def dynamic_data_type(self, value):
         self.__dynamic_data_type = value
-
     @property
     def dynamic_data_value(self):
         """
@@ -89,44 +86,42 @@ class AgenticPaymentToken:
     def dynamic_data_value(self, value):
         self.__dynamic_data_value = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "token") and self.token is not None:
-            params["token"] = self.token
-        if (
-            hasattr(self, "token_expiration_year")
-            and self.token_expiration_year is not None
-        ):
-            params["tokenExpirationYear"] = self.token_expiration_year
-        if (
-            hasattr(self, "token_expiration_month")
-            and self.token_expiration_month is not None
-        ):
-            params["tokenExpirationMonth"] = self.token_expiration_month
+            params['token'] = self.token
+        if hasattr(self, "token_expiration_year") and self.token_expiration_year is not None:
+            params['tokenExpirationYear'] = self.token_expiration_year
+        if hasattr(self, "token_expiration_month") and self.token_expiration_month is not None:
+            params['tokenExpirationMonth'] = self.token_expiration_month
         if hasattr(self, "token_expiration") and self.token_expiration is not None:
-            params["tokenExpiration"] = self.token_expiration
+            params['tokenExpiration'] = self.token_expiration
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "dynamic_data_type") and self.dynamic_data_type is not None:
-            params["dynamicDataType"] = self.dynamic_data_type
+            params['dynamicDataType'] = self.dynamic_data_type
         if hasattr(self, "dynamic_data_value") and self.dynamic_data_value is not None:
-            params["dynamicDataValue"] = self.dynamic_data_value
+            params['dynamicDataValue'] = self.dynamic_data_value
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "token" in response_body:
-            self.__token = response_body["token"]
-        if "tokenExpirationYear" in response_body:
-            self.__token_expiration_year = response_body["tokenExpirationYear"]
-        if "tokenExpirationMonth" in response_body:
-            self.__token_expiration_month = response_body["tokenExpirationMonth"]
-        if "tokenExpiration" in response_body:
-            self.__token_expiration = response_body["tokenExpiration"]
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "dynamicDataType" in response_body:
-            self.__dynamic_data_type = response_body["dynamicDataType"]
-        if "dynamicDataValue" in response_body:
-            self.__dynamic_data_value = response_body["dynamicDataValue"]
+        if 'token' in response_body:
+            self.__token = response_body['token']
+        if 'tokenExpirationYear' in response_body:
+            self.__token_expiration_year = response_body['tokenExpirationYear']
+        if 'tokenExpirationMonth' in response_body:
+            self.__token_expiration_month = response_body['tokenExpirationMonth']
+        if 'tokenExpiration' in response_body:
+            self.__token_expiration = response_body['tokenExpiration']
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'dynamicDataType' in response_body:
+            self.__dynamic_data_type = response_body['dynamicDataType']
+        if 'dynamicDataValue' in response_body:
+            self.__dynamic_data_value = response_body['dynamicDataValue']

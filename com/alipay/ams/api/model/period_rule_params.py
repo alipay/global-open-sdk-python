@@ -1,12 +1,15 @@
 import json
 
 
+
+
 class PeriodRuleParams:
     def __init__(self):
-
+        
         self.__period_type = None  # type: str
         self.__period = None  # type: str
         self.__single_amount = None  # type: str
+        
 
     @property
     def period_type(self):
@@ -18,7 +21,6 @@ class PeriodRuleParams:
     @period_type.setter
     def period_type(self, value):
         self.__period_type = value
-
     @property
     def period(self):
         """
@@ -29,7 +31,6 @@ class PeriodRuleParams:
     @period.setter
     def period(self, value):
         self.__period = value
-
     @property
     def single_amount(self):
         """
@@ -41,22 +42,26 @@ class PeriodRuleParams:
     def single_amount(self, value):
         self.__single_amount = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "period_type") and self.period_type is not None:
-            params["periodType"] = self.period_type
+            params['periodType'] = self.period_type
         if hasattr(self, "period") and self.period is not None:
-            params["period"] = self.period
+            params['period'] = self.period
         if hasattr(self, "single_amount") and self.single_amount is not None:
-            params["singleAmount"] = self.single_amount
+            params['singleAmount'] = self.single_amount
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "periodType" in response_body:
-            self.__period_type = response_body["periodType"]
-        if "period" in response_body:
-            self.__period = response_body["period"]
-        if "singleAmount" in response_body:
-            self.__single_amount = response_body["singleAmount"]
+        if 'periodType' in response_body:
+            self.__period_type = response_body['periodType']
+        if 'period' in response_body:
+            self.__period = response_body['period']
+        if 'singleAmount' in response_body:
+            self.__single_amount = response_body['singleAmount']

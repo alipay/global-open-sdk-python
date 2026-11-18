@@ -14,9 +14,11 @@ from com.alipay.ams.api.model.declaration import Declaration
 from com.alipay.ams.api.model.amount import Amount
 
 
+
+
 class Order:
     def __init__(self):
-
+        
         self.__send_receipt = None  # type: bool
         self.__reference_order_id = None  # type: str
         self.__order_description = None  # type: str
@@ -38,6 +40,7 @@ class Order:
         self.__tax_calculation_id = None  # type: str
         self.__payment_amount = None  # type: Amount
         self.__checkout_jwt = None  # type: str
+        
 
     @property
     def send_receipt(self):
@@ -49,7 +52,6 @@ class Order:
     @send_receipt.setter
     def send_receipt(self, value):
         self.__send_receipt = value
-
     @property
     def reference_order_id(self):
         """
@@ -60,7 +62,6 @@ class Order:
     @reference_order_id.setter
     def reference_order_id(self, value):
         self.__reference_order_id = value
-
     @property
     def order_description(self):
         """
@@ -71,43 +72,46 @@ class Order:
     @order_description.setter
     def order_description(self, value):
         self.__order_description = value
-
     @property
     def order_amount(self):
-        """Gets the order_amount of this Order."""
+        """Gets the order_amount of this Order.
+        
+        """
         return self.__order_amount
 
     @order_amount.setter
     def order_amount(self, value):
         self.__order_amount = value
-
     @property
     def order_discount_amount(self):
-        """Gets the order_discount_amount of this Order."""
+        """Gets the order_discount_amount of this Order.
+        
+        """
         return self.__order_discount_amount
 
     @order_discount_amount.setter
     def order_discount_amount(self, value):
         self.__order_discount_amount = value
-
     @property
     def sub_total_order_amount(self):
-        """Gets the sub_total_order_amount of this Order."""
+        """Gets the sub_total_order_amount of this Order.
+        
+        """
         return self.__sub_total_order_amount
 
     @sub_total_order_amount.setter
     def sub_total_order_amount(self, value):
         self.__sub_total_order_amount = value
-
     @property
     def merchant(self):
-        """Gets the merchant of this Order."""
+        """Gets the merchant of this Order.
+        
+        """
         return self.__merchant
 
     @merchant.setter
     def merchant(self, value):
         self.__merchant = value
-
     @property
     def goods(self):
         """
@@ -118,101 +122,106 @@ class Order:
     @goods.setter
     def goods(self, value):
         self.__goods = value
-
     @property
     def shipping(self):
-        """Gets the shipping of this Order."""
+        """Gets the shipping of this Order.
+        
+        """
         return self.__shipping
 
     @shipping.setter
     def shipping(self, value):
         self.__shipping = value
-
     @property
     def buyer(self):
-        """Gets the buyer of this Order."""
+        """Gets the buyer of this Order.
+        
+        """
         return self.__buyer
 
     @buyer.setter
     def buyer(self, value):
         self.__buyer = value
-
     @property
     def env(self):
-        """Gets the env of this Order."""
+        """Gets the env of this Order.
+        
+        """
         return self.__env
 
     @env.setter
     def env(self, value):
         self.__env = value
-
     @property
     def extend_info(self):
         """
-        Extended information data, including information for special use cases.  Note: Specify this field when you need to use the extended information.
+        Extended information data, including information for special use cases.  Note: Specify this field when you need to use the extended information.  
         """
         return self.__extend_info
 
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
-
     @property
     def transit(self):
-        """Gets the transit of this Order."""
+        """Gets the transit of this Order.
+        
+        """
         return self.__transit
 
     @transit.setter
     def transit(self, value):
         self.__transit = value
-
     @property
     def lodging(self):
-        """Gets the lodging of this Order."""
+        """Gets the lodging of this Order.
+        
+        """
         return self.__lodging
 
     @lodging.setter
     def lodging(self, value):
         self.__lodging = value
-
     @property
     def gaming(self):
-        """Gets the gaming of this Order."""
+        """Gets the gaming of this Order.
+        
+        """
         return self.__gaming
 
     @gaming.setter
     def gaming(self, value):
         self.__gaming = value
-
     @property
     def need_declaration(self):
-        """Gets the need_declaration of this Order."""
+        """Gets the need_declaration of this Order.
+        
+        """
         return self.__need_declaration
 
     @need_declaration.setter
     def need_declaration(self, value):
         self.__need_declaration = value
-
     @property
     def declaration(self):
-        """Gets the declaration of this Order."""
+        """Gets the declaration of this Order.
+        
+        """
         return self.__declaration
 
     @declaration.setter
     def declaration(self, value):
         self.__declaration = value
-
     @property
     def order_type(self):
         """
-        test
+        test 
         """
         return self.__order_type
 
     @order_type.setter
     def order_type(self, value):
         self.__order_type = value
-
     @property
     def tax_calculation_id(self):
         """
@@ -223,16 +232,16 @@ class Order:
     @tax_calculation_id.setter
     def tax_calculation_id(self, value):
         self.__tax_calculation_id = value
-
     @property
     def payment_amount(self):
-        """Gets the payment_amount of this Order."""
+        """Gets the payment_amount of this Order.
+        
+        """
         return self.__payment_amount
 
     @payment_amount.setter
     def payment_amount(self, value):
         self.__payment_amount = value
-
     @property
     def checkout_jwt(self):
         """
@@ -244,120 +253,114 @@ class Order:
     def checkout_jwt(self, value):
         self.__checkout_jwt = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "send_receipt") and self.send_receipt is not None:
-            params["sendReceipt"] = self.send_receipt
+            params['sendReceipt'] = self.send_receipt
         if hasattr(self, "reference_order_id") and self.reference_order_id is not None:
-            params["referenceOrderId"] = self.reference_order_id
+            params['referenceOrderId'] = self.reference_order_id
         if hasattr(self, "order_description") and self.order_description is not None:
-            params["orderDescription"] = self.order_description
+            params['orderDescription'] = self.order_description
         if hasattr(self, "order_amount") and self.order_amount is not None:
-            params["orderAmount"] = self.order_amount
-        if (
-            hasattr(self, "order_discount_amount")
-            and self.order_discount_amount is not None
-        ):
-            params["orderDiscountAmount"] = self.order_discount_amount
-        if (
-            hasattr(self, "sub_total_order_amount")
-            and self.sub_total_order_amount is not None
-        ):
-            params["subTotalOrderAmount"] = self.sub_total_order_amount
+            params['orderAmount'] = self.order_amount
+        if hasattr(self, "order_discount_amount") and self.order_discount_amount is not None:
+            params['orderDiscountAmount'] = self.order_discount_amount
+        if hasattr(self, "sub_total_order_amount") and self.sub_total_order_amount is not None:
+            params['subTotalOrderAmount'] = self.sub_total_order_amount
         if hasattr(self, "merchant") and self.merchant is not None:
-            params["merchant"] = self.merchant
+            params['merchant'] = self.merchant
         if hasattr(self, "goods") and self.goods is not None:
-            params["goods"] = self.goods
+            params['goods'] = self.goods
         if hasattr(self, "shipping") and self.shipping is not None:
-            params["shipping"] = self.shipping
+            params['shipping'] = self.shipping
         if hasattr(self, "buyer") and self.buyer is not None:
-            params["buyer"] = self.buyer
+            params['buyer'] = self.buyer
         if hasattr(self, "env") and self.env is not None:
-            params["env"] = self.env
+            params['env'] = self.env
         if hasattr(self, "extend_info") and self.extend_info is not None:
-            params["extendInfo"] = self.extend_info
+            params['extendInfo'] = self.extend_info
         if hasattr(self, "transit") and self.transit is not None:
-            params["transit"] = self.transit
+            params['transit'] = self.transit
         if hasattr(self, "lodging") and self.lodging is not None:
-            params["lodging"] = self.lodging
+            params['lodging'] = self.lodging
         if hasattr(self, "gaming") and self.gaming is not None:
-            params["gaming"] = self.gaming
+            params['gaming'] = self.gaming
         if hasattr(self, "need_declaration") and self.need_declaration is not None:
-            params["needDeclaration"] = self.need_declaration
+            params['needDeclaration'] = self.need_declaration
         if hasattr(self, "declaration") and self.declaration is not None:
-            params["declaration"] = self.declaration
+            params['declaration'] = self.declaration
         if hasattr(self, "order_type") and self.order_type is not None:
-            params["orderType"] = self.order_type
+            params['orderType'] = self.order_type
         if hasattr(self, "tax_calculation_id") and self.tax_calculation_id is not None:
-            params["taxCalculationId"] = self.tax_calculation_id
+            params['taxCalculationId'] = self.tax_calculation_id
         if hasattr(self, "payment_amount") and self.payment_amount is not None:
-            params["paymentAmount"] = self.payment_amount
+            params['paymentAmount'] = self.payment_amount
         if hasattr(self, "checkout_jwt") and self.checkout_jwt is not None:
-            params["checkoutJwt"] = self.checkout_jwt
+            params['checkoutJwt'] = self.checkout_jwt
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "sendReceipt" in response_body:
-            self.__send_receipt = response_body["sendReceipt"]
-        if "referenceOrderId" in response_body:
-            self.__reference_order_id = response_body["referenceOrderId"]
-        if "orderDescription" in response_body:
-            self.__order_description = response_body["orderDescription"]
-        if "orderAmount" in response_body:
+        if 'sendReceipt' in response_body:
+            self.__send_receipt = response_body['sendReceipt']
+        if 'referenceOrderId' in response_body:
+            self.__reference_order_id = response_body['referenceOrderId']
+        if 'orderDescription' in response_body:
+            self.__order_description = response_body['orderDescription']
+        if 'orderAmount' in response_body:
             self.__order_amount = Amount()
-            self.__order_amount.parse_rsp_body(response_body["orderAmount"])
-        if "orderDiscountAmount" in response_body:
+            self.__order_amount.parse_rsp_body(response_body['orderAmount'])
+        if 'orderDiscountAmount' in response_body:
             self.__order_discount_amount = Amount()
-            self.__order_discount_amount.parse_rsp_body(
-                response_body["orderDiscountAmount"]
-            )
-        if "subTotalOrderAmount" in response_body:
+            self.__order_discount_amount.parse_rsp_body(response_body['orderDiscountAmount'])
+        if 'subTotalOrderAmount' in response_body:
             self.__sub_total_order_amount = Amount()
-            self.__sub_total_order_amount.parse_rsp_body(
-                response_body["subTotalOrderAmount"]
-            )
-        if "merchant" in response_body:
+            self.__sub_total_order_amount.parse_rsp_body(response_body['subTotalOrderAmount'])
+        if 'merchant' in response_body:
             self.__merchant = Merchant()
-            self.__merchant.parse_rsp_body(response_body["merchant"])
-        if "goods" in response_body:
+            self.__merchant.parse_rsp_body(response_body['merchant'])
+        if 'goods' in response_body:
             self.__goods = []
-            for item in response_body["goods"]:
+            for item in response_body['goods']:
                 obj = Goods()
                 obj.parse_rsp_body(item)
                 self.__goods.append(obj)
-        if "shipping" in response_body:
+        if 'shipping' in response_body:
             self.__shipping = Shipping()
-            self.__shipping.parse_rsp_body(response_body["shipping"])
-        if "buyer" in response_body:
+            self.__shipping.parse_rsp_body(response_body['shipping'])
+        if 'buyer' in response_body:
             self.__buyer = Buyer()
-            self.__buyer.parse_rsp_body(response_body["buyer"])
-        if "env" in response_body:
+            self.__buyer.parse_rsp_body(response_body['buyer'])
+        if 'env' in response_body:
             self.__env = Env()
-            self.__env.parse_rsp_body(response_body["env"])
-        if "extendInfo" in response_body:
-            self.__extend_info = response_body["extendInfo"]
-        if "transit" in response_body:
+            self.__env.parse_rsp_body(response_body['env'])
+        if 'extendInfo' in response_body:
+            self.__extend_info = response_body['extendInfo']
+        if 'transit' in response_body:
             self.__transit = Transit()
-            self.__transit.parse_rsp_body(response_body["transit"])
-        if "lodging" in response_body:
+            self.__transit.parse_rsp_body(response_body['transit'])
+        if 'lodging' in response_body:
             self.__lodging = Lodging()
-            self.__lodging.parse_rsp_body(response_body["lodging"])
-        if "gaming" in response_body:
+            self.__lodging.parse_rsp_body(response_body['lodging'])
+        if 'gaming' in response_body:
             self.__gaming = Gaming()
-            self.__gaming.parse_rsp_body(response_body["gaming"])
-        if "needDeclaration" in response_body:
-            self.__need_declaration = response_body["needDeclaration"]
-        if "declaration" in response_body:
+            self.__gaming.parse_rsp_body(response_body['gaming'])
+        if 'needDeclaration' in response_body:
+            self.__need_declaration = response_body['needDeclaration']
+        if 'declaration' in response_body:
             self.__declaration = Declaration()
-            self.__declaration.parse_rsp_body(response_body["declaration"])
-        if "orderType" in response_body:
-            self.__order_type = response_body["orderType"]
-        if "taxCalculationId" in response_body:
-            self.__tax_calculation_id = response_body["taxCalculationId"]
-        if "paymentAmount" in response_body:
+            self.__declaration.parse_rsp_body(response_body['declaration'])
+        if 'orderType' in response_body:
+            self.__order_type = response_body['orderType']
+        if 'taxCalculationId' in response_body:
+            self.__tax_calculation_id = response_body['taxCalculationId']
+        if 'paymentAmount' in response_body:
             self.__payment_amount = Amount()
-            self.__payment_amount.parse_rsp_body(response_body["paymentAmount"])
-        if "checkoutJwt" in response_body:
-            self.__checkout_jwt = response_body["checkoutJwt"]
+            self.__payment_amount.parse_rsp_body(response_body['paymentAmount'])
+        if 'checkoutJwt' in response_body:
+            self.__checkout_jwt = response_body['checkoutJwt']

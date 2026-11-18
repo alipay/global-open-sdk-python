@@ -3,12 +3,12 @@ from com.alipay.ams.api.model.result import Result
 from com.alipay.ams.api.model.auth_code_form import AuthCodeForm
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayAuthConsultResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__auth_url = None  # type: str
@@ -18,46 +18,49 @@ class AlipayAuthConsultResponse(AlipayResponse):
         self.__applink_url = None  # type: str
         self.__app_identifier = None  # type: str
         self.__auth_code_form = None  # type: AuthCodeForm
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayAuthConsultResponse."""
+        """Gets the result of this AlipayAuthConsultResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def auth_url(self):
-        """Gets the auth_url of this AlipayAuthConsultResponse."""
+        """Gets the auth_url of this AlipayAuthConsultResponse.
+        
+        """
         return self.__auth_url
 
     @auth_url.setter
     def auth_url(self, value):
         self.__auth_url = value
-
     @property
     def extend_info(self):
-        """Gets the extend_info of this AlipayAuthConsultResponse."""
+        """Gets the extend_info of this AlipayAuthConsultResponse.
+        
+        """
         return self.__extend_info
 
     @extend_info.setter
     def extend_info(self, value):
         self.__extend_info = value
-
     @property
     def normal_url(self):
         """
-        The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.  Note: When the value of result.resultCode is SUCCESS, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.  More information:  Maximum length: 2048 characters
+        The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.  Note: When the value of result.resultCode is SUCCESS, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.  More information:  Maximum length: 2048 characters 
         """
         return self.__normal_url
 
     @normal_url.setter
     def normal_url(self, value):
         self.__normal_url = value
-
     @property
     def scheme_url(self):
         """
@@ -68,7 +71,6 @@ class AlipayAuthConsultResponse(AlipayResponse):
     @scheme_url.setter
     def scheme_url(self, value):
         self.__scheme_url = value
-
     @property
     def applink_url(self):
         """
@@ -79,7 +81,6 @@ class AlipayAuthConsultResponse(AlipayResponse):
     @applink_url.setter
     def applink_url(self, value):
         self.__applink_url = value
-
     @property
     def app_identifier(self):
         """
@@ -90,55 +91,58 @@ class AlipayAuthConsultResponse(AlipayResponse):
     @app_identifier.setter
     def app_identifier(self, value):
         self.__app_identifier = value
-
     @property
     def auth_code_form(self):
-        """Gets the auth_code_form of this AlipayAuthConsultResponse."""
+        """Gets the auth_code_form of this AlipayAuthConsultResponse.
+        
+        """
         return self.__auth_code_form
 
     @auth_code_form.setter
     def auth_code_form(self, value):
         self.__auth_code_form = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "auth_url") and self.auth_url is not None:
-            params["authUrl"] = self.auth_url
+            params['authUrl'] = self.auth_url
         if hasattr(self, "extend_info") and self.extend_info is not None:
-            params["extendInfo"] = self.extend_info
+            params['extendInfo'] = self.extend_info
         if hasattr(self, "normal_url") and self.normal_url is not None:
-            params["normalUrl"] = self.normal_url
+            params['normalUrl'] = self.normal_url
         if hasattr(self, "scheme_url") and self.scheme_url is not None:
-            params["schemeUrl"] = self.scheme_url
+            params['schemeUrl'] = self.scheme_url
         if hasattr(self, "applink_url") and self.applink_url is not None:
-            params["applinkUrl"] = self.applink_url
+            params['applinkUrl'] = self.applink_url
         if hasattr(self, "app_identifier") and self.app_identifier is not None:
-            params["appIdentifier"] = self.app_identifier
+            params['appIdentifier'] = self.app_identifier
         if hasattr(self, "auth_code_form") and self.auth_code_form is not None:
-            params["authCodeForm"] = self.auth_code_form
+            params['authCodeForm'] = self.auth_code_form
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayAuthConsultResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayAuthConsultResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "authUrl" in response_body:
-            self.__auth_url = response_body["authUrl"]
-        if "extendInfo" in response_body:
-            self.__extend_info = response_body["extendInfo"]
-        if "normalUrl" in response_body:
-            self.__normal_url = response_body["normalUrl"]
-        if "schemeUrl" in response_body:
-            self.__scheme_url = response_body["schemeUrl"]
-        if "applinkUrl" in response_body:
-            self.__applink_url = response_body["applinkUrl"]
-        if "appIdentifier" in response_body:
-            self.__app_identifier = response_body["appIdentifier"]
-        if "authCodeForm" in response_body:
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'authUrl' in response_body:
+            self.__auth_url = response_body['authUrl']
+        if 'extendInfo' in response_body:
+            self.__extend_info = response_body['extendInfo']
+        if 'normalUrl' in response_body:
+            self.__normal_url = response_body['normalUrl']
+        if 'schemeUrl' in response_body:
+            self.__scheme_url = response_body['schemeUrl']
+        if 'applinkUrl' in response_body:
+            self.__applink_url = response_body['applinkUrl']
+        if 'appIdentifier' in response_body:
+            self.__app_identifier = response_body['appIdentifier']
+        if 'authCodeForm' in response_body:
             self.__auth_code_form = AuthCodeForm()
-            self.__auth_code_form.parse_rsp_body(response_body["authCodeForm"])
+            self.__auth_code_form.parse_rsp_body(response_body['authCodeForm'])

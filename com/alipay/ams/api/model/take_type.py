@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class TakeType(Enum):
     """The collateral collection type. The current version supports ROLLING only."""
@@ -23,3 +21,4 @@ class TakeType(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

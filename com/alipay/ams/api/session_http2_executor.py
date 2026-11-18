@@ -13,7 +13,9 @@ _SESSION_HEADER = "X-Session-Id"
 def execute_session_http2(gateway_url, request, extra_headers):
     session_id = _validate_and_get_session_id(extra_headers)
     request_body = request.to_ams_json()
-    response_body = post_http2_json(gateway_url, request.path, session_id, request_body)
+    response_body = post_http2_json(
+        gateway_url, request.path, session_id, request_body
+    )
     try:
         response_data = json.loads(response_body)
     except (TypeError, ValueError) as exc:
@@ -44,5 +46,7 @@ def _validate_and_get_session_id(extra_headers):
     if not isinstance(session_id, str) or not session_id.strip():
         raise AlipayApiException("X-Session-Id cannot be null or blank")
     if "\r" in session_id or "\n" in session_id:
-        raise AlipayApiException("X-Session-Id cannot contain CR or LF characters")
+        raise AlipayApiException(
+            "X-Session-Id cannot contain CR or LF characters"
+        )
     return session_id

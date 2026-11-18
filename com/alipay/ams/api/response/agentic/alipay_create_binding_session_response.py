@@ -2,29 +2,31 @@ import json
 from com.alipay.ams.api.model.result import Result
 
 
-from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
+from com.alipay.ams.api.response.alipay_response import AlipayResponse
 
 class AlipayCreateBindingSessionResponse(AlipayResponse):
     def __init__(self, rsp_body):
-        super(AlipayResponse, self).__init__()
+        super(AlipayResponse, self).__init__() 
 
         self.__result = None  # type: Result
         self.__normal_url = None  # type: str
         self.__sd_hash = None  # type: str
         self.__binding_session_data = None  # type: str
         self.__binding_session_expiry_time = None  # type: str
-        self.parse_rsp_body(rsp_body)
+        self.parse_rsp_body(rsp_body) 
+
 
     @property
     def result(self):
-        """Gets the result of this AlipayCreateBindingSessionResponse."""
+        """Gets the result of this AlipayCreateBindingSessionResponse.
+        
+        """
         return self.__result
 
     @result.setter
     def result(self, value):
         self.__result = value
-
     @property
     def normal_url(self):
         """
@@ -35,7 +37,6 @@ class AlipayCreateBindingSessionResponse(AlipayResponse):
     @normal_url.setter
     def normal_url(self, value):
         self.__normal_url = value
-
     @property
     def sd_hash(self):
         """
@@ -46,7 +47,6 @@ class AlipayCreateBindingSessionResponse(AlipayResponse):
     @sd_hash.setter
     def sd_hash(self, value):
         self.__sd_hash = value
-
     @property
     def binding_session_data(self):
         """
@@ -57,7 +57,6 @@ class AlipayCreateBindingSessionResponse(AlipayResponse):
     @binding_session_data.setter
     def binding_session_data(self, value):
         self.__binding_session_data = value
-
     @property
     def binding_session_expiry_time(self):
         """
@@ -69,40 +68,34 @@ class AlipayCreateBindingSessionResponse(AlipayResponse):
     def binding_session_expiry_time(self, value):
         self.__binding_session_expiry_time = value
 
+
+    
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "result") and self.result is not None:
-            params["result"] = self.result
+            params['result'] = self.result
         if hasattr(self, "normal_url") and self.normal_url is not None:
-            params["normalUrl"] = self.normal_url
+            params['normalUrl'] = self.normal_url
         if hasattr(self, "sd_hash") and self.sd_hash is not None:
-            params["sdHash"] = self.sd_hash
-        if (
-            hasattr(self, "binding_session_data")
-            and self.binding_session_data is not None
-        ):
-            params["bindingSessionData"] = self.binding_session_data
-        if (
-            hasattr(self, "binding_session_expiry_time")
-            and self.binding_session_expiry_time is not None
-        ):
-            params["bindingSessionExpiryTime"] = self.binding_session_expiry_time
+            params['sdHash'] = self.sd_hash
+        if hasattr(self, "binding_session_data") and self.binding_session_data is not None:
+            params['bindingSessionData'] = self.binding_session_data
+        if hasattr(self, "binding_session_expiry_time") and self.binding_session_expiry_time is not None:
+            params['bindingSessionExpiryTime'] = self.binding_session_expiry_time
         return params
 
+
     def parse_rsp_body(self, response_body):
-        response_body = super(AlipayCreateBindingSessionResponse, self).parse_rsp_body(
-            response_body
-        )
-        if "result" in response_body:
+        response_body = super(AlipayCreateBindingSessionResponse, self).parse_rsp_body(response_body)
+        if 'result' in response_body:
             self.__result = Result()
-            self.__result.parse_rsp_body(response_body["result"])
-        if "normalUrl" in response_body:
-            self.__normal_url = response_body["normalUrl"]
-        if "sdHash" in response_body:
-            self.__sd_hash = response_body["sdHash"]
-        if "bindingSessionData" in response_body:
-            self.__binding_session_data = response_body["bindingSessionData"]
-        if "bindingSessionExpiryTime" in response_body:
-            self.__binding_session_expiry_time = response_body[
-                "bindingSessionExpiryTime"
-            ]
+            self.__result.parse_rsp_body(response_body['result'])
+        if 'normalUrl' in response_body:
+            self.__normal_url = response_body['normalUrl']
+        if 'sdHash' in response_body:
+            self.__sd_hash = response_body['sdHash']
+        if 'bindingSessionData' in response_body:
+            self.__binding_session_data = response_body['bindingSessionData']
+        if 'bindingSessionExpiryTime' in response_body:
+            self.__binding_session_expiry_time = response_body['bindingSessionExpiryTime']

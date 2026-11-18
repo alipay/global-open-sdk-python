@@ -1,14 +1,12 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayPriceInquireListRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayPriceInquireListRequest, self).__init__(
-            "/ams/api/v1/billing/price/inquireList"
-        )
+        super(AlipayPriceInquireListRequest, self).__init__("/ams/api/v1/billing/price/inquireList") 
 
         self.__product_id = None  # type: str
         self.__pricing_model = None  # type: str
@@ -17,6 +15,7 @@ class AlipayPriceInquireListRequest(AlipayRequest):
         self.__ending_before = None  # type: str
         self.__limit = None  # type: int
         self.__include_total = None  # type: bool
+        
 
     @property
     def product_id(self):
@@ -28,7 +27,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @product_id.setter
     def product_id(self, value):
         self.__product_id = value
-
     @property
     def pricing_model(self):
         """
@@ -39,7 +37,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @pricing_model.setter
     def pricing_model(self, value):
         self.__pricing_model = value
-
     @property
     def active(self):
         """
@@ -50,7 +47,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @active.setter
     def active(self, value):
         self.__active = value
-
     @property
     def starting_after(self):
         """
@@ -61,7 +57,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @starting_after.setter
     def starting_after(self, value):
         self.__starting_after = value
-
     @property
     def ending_before(self):
         """
@@ -72,7 +67,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @ending_before.setter
     def ending_before(self, value):
         self.__ending_before = value
-
     @property
     def limit(self):
         """
@@ -83,7 +77,6 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     @limit.setter
     def limit(self, value):
         self.__limit = value
-
     @property
     def include_total(self):
         """
@@ -95,44 +88,45 @@ class AlipayPriceInquireListRequest(AlipayRequest):
     def include_total(self, value):
         self.__include_total = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "product_id") and self.product_id is not None:
-            params["productId"] = self.product_id
+            params['productId'] = self.product_id
         if hasattr(self, "pricing_model") and self.pricing_model is not None:
-            params["pricingModel"] = self.pricing_model
+            params['pricingModel'] = self.pricing_model
         if hasattr(self, "active") and self.active is not None:
-            params["active"] = self.active
+            params['active'] = self.active
         if hasattr(self, "starting_after") and self.starting_after is not None:
-            params["startingAfter"] = self.starting_after
+            params['startingAfter'] = self.starting_after
         if hasattr(self, "ending_before") and self.ending_before is not None:
-            params["endingBefore"] = self.ending_before
+            params['endingBefore'] = self.ending_before
         if hasattr(self, "limit") and self.limit is not None:
-            params["limit"] = self.limit
+            params['limit'] = self.limit
         if hasattr(self, "include_total") and self.include_total is not None:
-            params["includeTotal"] = self.include_total
+            params['includeTotal'] = self.include_total
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "productId" in response_body:
-            self.__product_id = response_body["productId"]
-        if "pricingModel" in response_body:
-            self.__pricing_model = response_body["pricingModel"]
-        if "active" in response_body:
-            self.__active = response_body["active"]
-        if "startingAfter" in response_body:
-            self.__starting_after = response_body["startingAfter"]
-        if "endingBefore" in response_body:
-            self.__ending_before = response_body["endingBefore"]
-        if "limit" in response_body:
-            self.__limit = response_body["limit"]
-        if "includeTotal" in response_body:
-            self.__include_total = response_body["includeTotal"]
+        if 'productId' in response_body:
+            self.__product_id = response_body['productId']
+        if 'pricingModel' in response_body:
+            self.__pricing_model = response_body['pricingModel']
+        if 'active' in response_body:
+            self.__active = response_body['active']
+        if 'startingAfter' in response_body:
+            self.__starting_after = response_body['startingAfter']
+        if 'endingBefore' in response_body:
+            self.__ending_before = response_body['endingBefore']
+        if 'limit' in response_body:
+            self.__limit = response_body['limit']
+        if 'includeTotal' in response_body:
+            self.__include_total = response_body['includeTotal']

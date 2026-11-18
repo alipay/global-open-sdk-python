@@ -1,14 +1,12 @@
 import json
 
 
-from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
+from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayCouponUpdateRequest(AlipayRequest):
     def __init__(self):
-        super(AlipayCouponUpdateRequest, self).__init__(
-            "/ams/api/v1/billing/coupon/update"
-        )
+        super(AlipayCouponUpdateRequest, self).__init__("/ams/api/v1/billing/coupon/update") 
 
         self.__coupon_id = None  # type: str
         self.__coupon_name = None  # type: str
@@ -16,6 +14,7 @@ class AlipayCouponUpdateRequest(AlipayRequest):
         self.__redeem_by = None  # type: str
         self.__metadata = None  # type: str
         self.__max_redemptions = None  # type: int
+        
 
     @property
     def coupon_id(self):
@@ -27,7 +26,6 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @coupon_id.setter
     def coupon_id(self, value):
         self.__coupon_id = value
-
     @property
     def coupon_name(self):
         """
@@ -38,7 +36,6 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @coupon_name.setter
     def coupon_name(self, value):
         self.__coupon_name = value
-
     @property
     def status(self):
         """
@@ -49,7 +46,6 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @status.setter
     def status(self, value):
         self.__status = value
-
     @property
     def redeem_by(self):
         """
@@ -60,7 +56,6 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @redeem_by.setter
     def redeem_by(self, value):
         self.__redeem_by = value
-
     @property
     def metadata(self):
         """
@@ -71,7 +66,6 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     @metadata.setter
     def metadata(self, value):
         self.__metadata = value
-
     @property
     def max_redemptions(self):
         """
@@ -83,40 +77,41 @@ class AlipayCouponUpdateRequest(AlipayRequest):
     def max_redemptions(self, value):
         self.__max_redemptions = value
 
-    def to_ams_json(self):
-        json_str = json.dumps(
-            obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3
-        )
+
+    def to_ams_json(self): 
+        json_str = json.dumps(obj=self.to_ams_dict(), default=lambda o: o.to_ams_dict(), indent=3) 
         return json_str
+
 
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "coupon_id") and self.coupon_id is not None:
-            params["couponId"] = self.coupon_id
+            params['couponId'] = self.coupon_id
         if hasattr(self, "coupon_name") and self.coupon_name is not None:
-            params["couponName"] = self.coupon_name
+            params['couponName'] = self.coupon_name
         if hasattr(self, "status") and self.status is not None:
-            params["status"] = self.status
+            params['status'] = self.status
         if hasattr(self, "redeem_by") and self.redeem_by is not None:
-            params["redeemBy"] = self.redeem_by
+            params['redeemBy'] = self.redeem_by
         if hasattr(self, "metadata") and self.metadata is not None:
-            params["metadata"] = self.metadata
+            params['metadata'] = self.metadata
         if hasattr(self, "max_redemptions") and self.max_redemptions is not None:
-            params["maxRedemptions"] = self.max_redemptions
+            params['maxRedemptions'] = self.max_redemptions
         return params
 
+
     def parse_rsp_body(self, response_body):
-        if isinstance(response_body, str):
+        if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if "couponId" in response_body:
-            self.__coupon_id = response_body["couponId"]
-        if "couponName" in response_body:
-            self.__coupon_name = response_body["couponName"]
-        if "status" in response_body:
-            self.__status = response_body["status"]
-        if "redeemBy" in response_body:
-            self.__redeem_by = response_body["redeemBy"]
-        if "metadata" in response_body:
-            self.__metadata = response_body["metadata"]
-        if "maxRedemptions" in response_body:
-            self.__max_redemptions = response_body["maxRedemptions"]
+        if 'couponId' in response_body:
+            self.__coupon_id = response_body['couponId']
+        if 'couponName' in response_body:
+            self.__coupon_name = response_body['couponName']
+        if 'status' in response_body:
+            self.__status = response_body['status']
+        if 'redeemBy' in response_body:
+            self.__redeem_by = response_body['redeemBy']
+        if 'metadata' in response_body:
+            self.__metadata = response_body['metadata']
+        if 'maxRedemptions' in response_body:
+            self.__max_redemptions = response_body['maxRedemptions']

@@ -14,46 +14,15 @@ class CardTransactionEventNotifyTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.fixtures = json.loads(
-            (
-                Path(__file__).parent / "resources/card-transaction-event-notify.json"
-            ).read_text()
+            (Path(__file__).parent / "resources/card-transaction-event-notify.json").read_text()
         )
 
     def test_all_fields_and_nested_models(self):
-        fields = [
-            "eventId",
-            "lifecycleId",
-            "eventType",
-            "authTime",
-            "authExpireTime",
-            "authType",
-            "authCode",
-            "failureReason",
-            "status",
-            "balanceType",
-            "transactionTime",
-            "billType",
-            "outAmount",
-            "inAmount",
-            "exchangeCurrencyPair",
-            "exchangeRate",
-            "transactionAmount",
-            "assetId",
-            "maskedCardNo",
-            "cardProduct",
-            "merchantInfo",
-            "metadata",
-        ]
-        self.assertEqual(
-            22,
-            len(
-                [
-                    name
-                    for name, value in vars(AlipayCardTransactionEventNotify).items()
-                    if isinstance(value, property)
-                ]
-            ),
-        )
+        fields = ["eventId","lifecycleId","eventType","authTime","authExpireTime","authType","authCode","failureReason","status","balanceType","transactionTime","billType","outAmount","inAmount","exchangeCurrencyPair","exchangeRate","transactionAmount","assetId","maskedCardNo","cardProduct","merchantInfo","metadata"]
+        self.assertEqual(22, len([
+            name for name, value in vars(AlipayCardTransactionEventNotify).items()
+            if isinstance(value, property)
+        ]))
         for fixture in self.fixtures:
             with self.subTest(fixture=fixture["name"]):
                 body = dict(fixture["body"], futureField={"ignored": True})
@@ -62,10 +31,7 @@ class CardTransactionEventNotifyTest(unittest.TestCase):
                     name = re.sub(r"[A-Z]", lambda match: "_" + match[0].lower(), key)
                     value = getattr(notify, name)
                     expected = fixture["body"].get(key)
-                    if (
-                        key in ("outAmount", "inAmount", "transactionAmount")
-                        and expected is not None
-                    ):
+                    if key in ("outAmount", "inAmount", "transactionAmount") and expected is not None:
                         self.assertIsInstance(value, Amount)
                         self.assertEqual(expected, value.to_ams_dict())
                         self.assertIsInstance(value.value, str)

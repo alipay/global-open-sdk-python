@@ -1,6 +1,4 @@
 from enum import Enum, unique
-
-
 @unique
 class SubscriptionStatus(Enum):
     """The subscription status. Valid values are: - ACTIVE: indicates that the subscription is active. - CANCELLED: indicates that the subscription is cancelled. - TERMINATED: indicates that the subscription is terminated."""
@@ -31,3 +29,4 @@ class SubscriptionStatus(Enum):
             if member.to_ams_dict() == value:
                 return member
         return None
+

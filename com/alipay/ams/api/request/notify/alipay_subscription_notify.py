@@ -13,9 +13,7 @@ class AlipaySubscriptionNotify:
         self.__subscription_request_id = None
         self.__subscription_id = None
         self.__subscription_status = None  # type: SubscriptionStatus
-        self.__subscription_notification_type = (
-            None
-        )  # type: SubscriptionNotificationType
+        self.__subscription_notification_type = None # type: SubscriptionNotificationType
         self.__subscription_start_time = None
         self.__subscription_end_time = None
         self.__period_rule = None  # type: PeriodRule
