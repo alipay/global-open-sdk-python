@@ -6,13 +6,6 @@ from com.alipay.ams.api.model.meter_event_batch import MeterEventBatch
 from com.alipay.ams.api.request.alipay_request import AlipayRequest
 
 class AlipayMeterUploadEventRequest(AlipayRequest):
-    """Request for uploading meter events over HTTP/2.
-
-    This API requires Python 3.9 or later and the optional SDK ``http2``
-    dependencies. Install them with
-    ``pip install "global-open-sdk-python[http2]"``.
-    """
-
     def __init__(self):
         super(AlipayMeterUploadEventRequest, self).__init__("/ams/api/v1/meter/uploadEvent") 
 
