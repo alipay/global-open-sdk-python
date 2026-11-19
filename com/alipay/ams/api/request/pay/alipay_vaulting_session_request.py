@@ -14,6 +14,7 @@ class AlipayVaultingSessionRequest(AlipayRequest):
         self.__redirect_url = None  # type: str
         self.__merchant_region = None  # type: str
         self.__is3_ds_authentication = None  # type: bool
+        self.__payment_method_meta_data = None  # type: {str: (bool, date, datetime, dict, float, int, list, str, none_type)}
         
 
     @property
@@ -76,6 +77,16 @@ class AlipayVaultingSessionRequest(AlipayRequest):
     @is3_ds_authentication.setter
     def is3_ds_authentication(self, value):
         self.__is3_ds_authentication = value
+    @property
+    def payment_method_meta_data(self):
+        """
+        Card payment metadata declared when the vaulting session is created and passed through when the SDK submits the vaulting request. This object remains free-form. Applicable only when paymentMethodType is CARD. Only recurringType is merchant-facing: SCHEDULED for fixed-schedule deductions or UNSCHEDULED for on-demand deductions; if omitted, no recurring type is declared, and any other value returns PARAM_ILLEGAL. The transaction-initiated-type flag (merchantInitiated) is derived internally by Antom and must not be provided.  More information:  Maximum length: 2048 characters after serialization
+        """
+        return self.__payment_method_meta_data
+
+    @payment_method_meta_data.setter
+    def payment_method_meta_data(self, value):
+        self.__payment_method_meta_data = value
 
 
     def to_ams_json(self): 
@@ -97,6 +108,8 @@ class AlipayVaultingSessionRequest(AlipayRequest):
             params['merchantRegion'] = self.merchant_region
         if hasattr(self, "is3_ds_authentication") and self.is3_ds_authentication is not None:
             params['is3DSAuthentication'] = self.is3_ds_authentication
+        if hasattr(self, "payment_method_meta_data") and self.payment_method_meta_data is not None:
+            params['paymentMethodMetaData'] = self.payment_method_meta_data
         return params
 
 
@@ -115,3 +128,5 @@ class AlipayVaultingSessionRequest(AlipayRequest):
             self.__merchant_region = response_body['merchantRegion']
         if 'is3DSAuthentication' in response_body:
             self.__is3_ds_authentication = response_body['is3DSAuthentication']
+        if 'paymentMethodMetaData' in response_body:
+            self.__payment_method_meta_data = response_body['paymentMethodMetaData']
