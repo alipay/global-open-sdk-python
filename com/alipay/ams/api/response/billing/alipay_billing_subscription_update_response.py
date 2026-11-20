@@ -19,7 +19,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
         self.__proration_invoice_currency = None  # type: str
         self.__credit_note_id = None  # type: str
         self.__credit_note_ids = None  # type: [str], none_type
-        self.__credit_note_amount = None  # type: str, none_type
+        self.__credit_note_amount = None  # type: int
         self.__credit_note_currency = None  # type: str
         self.__pending_update = None  # type: bool
         self.parse_rsp_body(rsp_body) 
@@ -108,7 +108,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     @property
     def credit_note_ids(self):
         """
-        All opaque Credit Note IDs issued by this update, without truncation or an independent item cap, ordered by ascending source invoiceId. For one note, the sole ID equals creditNoteId; when no note is issued, this field may be absent or null. Each non-null ID has at most 64 characters and identifies an issued Billing document without indicating refund completion.
+        All issued Credit Note IDs are non-null opaque strings of at most 64 characters, returned in ascending source invoiceId order after allocation without truncation or an independent item-count cap. Returned when a successful update issues notes, matching creditNoteId for a single note, and may be absent or null when none is issued.
         """
         return self.__credit_note_ids
 
@@ -118,7 +118,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     @property
     def credit_note_amount(self):
         """
-        The sum of this update&#39;s issued Credit Note amounts in the smallest currency unit, serialized as a non-negative integer string with the existing range and precision. Returned with creditNoteCurrency when notes are issued; zero is a measured credit amount, while absence or null does not mean zero.
+        The total amount of Credit Notes issued by this successful update in the smallest currency unit, retaining the per-note amount for a single note and the existing range, precision, and calculation. Represented as a signed 64-bit integer in the SDK and serialized as a JSON string, with zero meaning a measured zero credit amount and absence or null not meaning zero.
         """
         return self.__credit_note_amount
 
@@ -128,7 +128,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     @property
     def credit_note_currency(self):
         """
-        The currency of creditNoteAmount as a three-letter ISO 4217 code. Every note in this update shares the subscription currency, with no conversion or independent default; it must be returned and non-null when creditNoteAmount is returned.
+        The currency of creditNoteAmount as a three-letter ISO 4217 code. Returned with creditNoteAmount when a successful update issues notes, using the non-null subscription currency shared by every note without conversion or an independent default.
         """
         return self.__credit_note_currency
 
@@ -170,7 +170,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
         if hasattr(self, "credit_note_ids") and self.credit_note_ids is not None:
             params['creditNoteIds'] = self.credit_note_ids
         if hasattr(self, "credit_note_amount") and self.credit_note_amount is not None:
-            params['creditNoteAmount'] = self.credit_note_amount
+            params['creditNoteAmount'] = str(self.credit_note_amount)
         if hasattr(self, "credit_note_currency") and self.credit_note_currency is not None:
             params['creditNoteCurrency'] = self.credit_note_currency
         if hasattr(self, "pending_update") and self.pending_update is not None:
@@ -204,7 +204,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
         if 'creditNoteIds' in response_body:
             self.__credit_note_ids = response_body['creditNoteIds']
         if 'creditNoteAmount' in response_body:
-            self.__credit_note_amount = response_body['creditNoteAmount']
+            self.__credit_note_amount = int(response_body['creditNoteAmount']) if response_body['creditNoteAmount'] is not None else None
         if 'creditNoteCurrency' in response_body:
             self.__credit_note_currency = response_body['creditNoteCurrency']
         if 'pendingUpdate' in response_body:
