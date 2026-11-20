@@ -10,6 +10,7 @@ from com.alipay.ams.api.model.address import Address
 class Buyer:
     def __init__(self):
         
+        self.__buyer_access_group_flag = None  # type: str
         self.__preferred_locales = None  # type: [str]
         self.__business_name = None  # type: str
         self.__buyer_type = None  # type: str
@@ -28,6 +29,16 @@ class Buyer:
         self.__business_address = None  # type: Address
         
 
+    @property
+    def buyer_access_group_flag(self):
+        """
+        For Kwai-Bettr consult only, Kwai supplies this flag with referenceBuyerId when buyer is present: string \&quot;true\&quot; means within the access group and \&quot;false\&quot; means outside; omit it in all other uses. Antom passes it through without strict validation, and Bettr treats missing or invalid values as outside the group.
+        """
+        return self.__buyer_access_group_flag
+
+    @buyer_access_group_flag.setter
+    def buyer_access_group_flag(self, value):
+        self.__buyer_access_group_flag = value
     @property
     def preferred_locales(self):
         """
@@ -194,6 +205,8 @@ class Buyer:
 
     def to_ams_dict(self):
         params = dict()
+        if hasattr(self, "buyer_access_group_flag") and self.buyer_access_group_flag is not None:
+            params['buyerAccessGroupFlag'] = self.buyer_access_group_flag
         if hasattr(self, "preferred_locales") and self.preferred_locales is not None:
             params['preferredLocales'] = self.preferred_locales
         if hasattr(self, "business_name") and self.business_name is not None:
@@ -232,6 +245,8 @@ class Buyer:
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
+        if 'buyerAccessGroupFlag' in response_body:
+            self.__buyer_access_group_flag = response_body['buyerAccessGroupFlag']
         if 'preferredLocales' in response_body:
             self.__preferred_locales = response_body['preferredLocales']
         if 'businessName' in response_body:
