@@ -95,27 +95,27 @@ if 'ConsultBuyer' in catalog:
 for name in catalog:
     if not name.endswith('Response') or 'credit_note_ids' not in info(name)[0]:
         continue
-    for data in ({}, {'creditNoteIds':None}, {'creditNoteId':'cn_a','creditNoteIds':['cn_a'],'creditNoteAmount':'3000','creditNoteCurrency':'USD'}, {'creditNoteIds':['cn_a','cn_z'],'creditNoteAmount':'8000','creditNoteCurrency':'USD'}, {'creditNoteIds':[]}):
+    for data in ({}, {'creditNoteIds':None}, {'creditNoteId':'cn_a','creditNoteIds':['cn_a'],'creditNoteAmount':3000,'creditNoteCurrency':'USD'}, {'creditNoteIds':['cn_a','cn_z'],'creditNoteAmount':8000,'creditNoteCurrency':'USD'}, {'creditNoteIds':[]}):
         obj = make(name); obj.parse_rsp_body(json.dumps(data)); actual = wire(obj)
         for key, value in data.items():
             if value is not None:
                 assert actual[key] == value, (name, key, value, actual)
-    evidence.append('Actual subscription response parses single/multi/empty/absent/null lists, preserves ID order, scalar and string amount')
+    evidence.append('Actual subscription response parses single/multi/empty/absent/null lists, preserves ID order, scalar and integer amount')
 paths = {key.split(' ',1)[1].split('/requestBody/',1)[0].split('/responses/',1)[0] for key in req['operation_keys']}
 
 amount_class = cls('AlipayBillingSubscriptionUpdateResponse')
 assert info('AlipayBillingSubscriptionUpdateResponse')[0]['credit_note_amount'] == 'int'
-for amount in ('0','3000','8000','9007199254740993','9223372036854775807'):
+for amount in (0,3000,8000,9007199254740993,9223372036854775807):
     obj = make('AlipayBillingSubscriptionUpdateResponse')
     obj.parse_rsp_body(json.dumps({'creditNoteAmount': amount}))
-    assert type(obj.credit_note_amount) is int and obj.credit_note_amount == int(amount)
-    assert wire(obj)['creditNoteAmount'] == amount
-    obj.credit_note_amount = int(amount)
-    assert wire(obj)['creditNoteAmount'] == amount
+    assert type(obj.credit_note_amount) is int and obj.credit_note_amount == amount
+    assert type(wire(obj)['creditNoteAmount']) is int and wire(obj)['creditNoteAmount'] == amount
+    obj.credit_note_amount = amount
+    assert type(wire(obj)['creditNoteAmount']) is int and wire(obj)['creditNoteAmount'] == amount
 for missing in ({}, {'creditNoteAmount': None}):
     obj = make('AlipayBillingSubscriptionUpdateResponse'); obj.parse_rsp_body(json.dumps(missing))
     assert obj.credit_note_amount is None and 'creditNoteAmount' not in wire(obj)
-evidence.append('Integer public values, exact string wire, zero/>2^53/int64 max and absent/null checks')
+evidence.append('Int64 public values; integer JSON at zero/samples/>2^53/int64 max; absent/null')
 bindings = []
 for name, path in catalog.items():
     if not name.endswith('Request') or name == 'AlipayRequest':
