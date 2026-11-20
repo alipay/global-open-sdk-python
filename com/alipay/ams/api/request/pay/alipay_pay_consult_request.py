@@ -6,7 +6,7 @@ from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.payment_factor import PaymentFactor
 from com.alipay.ams.api.model.settlement_strategy import SettlementStrategy
 from com.alipay.ams.api.model.merchant import Merchant
-from com.alipay.ams.api.model.buyer import Buyer
+from com.alipay.ams.api.model.consult_buyer import ConsultBuyer
 
 
 
@@ -33,7 +33,7 @@ class AlipayPayConsultRequest(AlipayRequest):
         self.__settlement_strategy = None  # type: SettlementStrategy
         self.__merchant = None  # type: Merchant
         self.__allowed_psp_regions = None  # type: [str]
-        self.__buyer = None  # type: Buyer
+        self.__buyer = None  # type: ConsultBuyer
         self.__merchant_account_id = None  # type: str
         
 
@@ -322,7 +322,7 @@ class AlipayPayConsultRequest(AlipayRequest):
         if 'allowedPspRegions' in response_body:
             self.__allowed_psp_regions = response_body['allowedPspRegions']
         if 'buyer' in response_body:
-            self.__buyer = Buyer()
+            self.__buyer = ConsultBuyer()
             self.__buyer.parse_rsp_body(response_body['buyer'])
         if 'merchantAccountId' in response_body:
             self.__merchant_account_id = response_body['merchantAccountId']
