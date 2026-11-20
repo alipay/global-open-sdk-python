@@ -11,6 +11,7 @@ class CreditPayPlan:
         self.__interval = None  # type: str
         self.__credit_pay_fee_type = None  # type: CreditPayFeeType
         self.__fee_percentage = None  # type: int
+        self.__filtered_installment_periods = None  # type: [int]
         self.__interest_rate = None  # type: str
         
 
@@ -55,6 +56,16 @@ class CreditPayPlan:
     def fee_percentage(self, value):
         self.__fee_percentage = value
     @property
+    def filtered_installment_periods(self):
+        """
+        Select Installment Payment Plan Period that the merchant wants to offer.  Example: Available periods are 3,6,12,24 months, but if the merchant wants to restrict to 3 &amp; 6 months only, enter the value as [3,6]  Note: This field is mutually exclusive with installmentNum. When both fields are provided, installmentNum takes priority.  More information:  Maximum length: 100 elements Value range: 2 - 36
+        """
+        return self.__filtered_installment_periods
+
+    @filtered_installment_periods.setter
+    def filtered_installment_periods(self, value):
+        self.__filtered_installment_periods = value
+    @property
     def interest_rate(self):
         """
         The installment interest rate in percentage. For example, interestRate &#x3D; 0.1 indicates that the installment interest rate is 0.1%.  Note: This field is returned when the payment method is CARD, the payment is paid in installments, and the channel provides the interest rate information.  More information:  Maximum length: 16 characters The value must be a decimal.  Field attributes: - Idempotency: Not applicable for notification fields - Nullable: Yes - Invalid input restrictions: Must be a decimal number - Return condition: Returned when the payment method is CARD, the payment is paid in installments, and the channel provides the interest rate information
@@ -78,6 +89,8 @@ class CreditPayPlan:
             params['creditPayFeeType'] = self.credit_pay_fee_type
         if hasattr(self, "fee_percentage") and self.fee_percentage is not None:
             params['feePercentage'] = self.fee_percentage
+        if hasattr(self, "filtered_installment_periods") and self.filtered_installment_periods is not None:
+            params['filteredInstallmentPeriods'] = self.filtered_installment_periods
         if hasattr(self, "interest_rate") and self.interest_rate is not None:
             params['interestRate'] = self.interest_rate
         return params
@@ -95,5 +108,7 @@ class CreditPayPlan:
             self.__credit_pay_fee_type = credit_pay_fee_type_temp
         if 'feePercentage' in response_body:
             self.__fee_percentage = response_body['feePercentage']
+        if 'filteredInstallmentPeriods' in response_body:
+            self.__filtered_installment_periods = response_body['filteredInstallmentPeriods']
         if 'interestRate' in response_body:
             self.__interest_rate = response_body['interestRate']
