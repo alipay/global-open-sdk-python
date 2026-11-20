@@ -18,7 +18,8 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
         self.__proration_invoice_amount = None  # type: int
         self.__proration_invoice_currency = None  # type: str
         self.__credit_note_id = None  # type: str
-        self.__credit_note_amount = None  # type: int
+        self.__credit_note_ids = None  # type: [str]
+        self.__credit_note_amount = None  # type: int, none_type
         self.__credit_note_currency = None  # type: str
         self.__pending_update = None  # type: bool
         self.parse_rsp_body(rsp_body) 
@@ -105,9 +106,19 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     def credit_note_id(self, value):
         self.__credit_note_id = value
     @property
+    def credit_note_ids(self):
+        """
+        All Credit Note IDs issued by this update, ordered by ascending source invoiceId without truncation or an independent item cap. For one note, the sole element equals creditNoteId; when no note is issued, the field may be absent or null.
+        """
+        return self.__credit_note_ids
+
+    @credit_note_ids.setter
+    def credit_note_ids(self, value):
+        self.__credit_note_ids = value
+    @property
     def credit_note_amount(self):
         """
-        The credit note amount in the smallest currency unit. Returned together with creditNoteId.
+        Total amount of Credit Notes issued by this update as a non-negative signed 64-bit JSON integer in minor currency units, retaining the existing per-note value for a single note. Zero is a measured zero credit amount; absence or null does not mean zero.
         """
         return self.__credit_note_amount
 
@@ -117,7 +128,7 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
     @property
     def credit_note_currency(self):
         """
-        The currency of creditNoteAmount as a three-letter ISO 4217 code.
+        The three-letter ISO 4217 subscription currency shared by all Credit Notes issued by this update, without currency conversion. Returned as a non-null value with creditNoteAmount and has no independent default.
         """
         return self.__credit_note_currency
 
@@ -156,6 +167,8 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
             params['prorationInvoiceCurrency'] = self.proration_invoice_currency
         if hasattr(self, "credit_note_id") and self.credit_note_id is not None:
             params['creditNoteId'] = self.credit_note_id
+        if hasattr(self, "credit_note_ids") and self.credit_note_ids is not None:
+            params['creditNoteIds'] = self.credit_note_ids
         if hasattr(self, "credit_note_amount") and self.credit_note_amount is not None:
             params['creditNoteAmount'] = self.credit_note_amount
         if hasattr(self, "credit_note_currency") and self.credit_note_currency is not None:
@@ -188,6 +201,8 @@ class AlipayBillingSubscriptionUpdateResponse(AlipayResponse):
             self.__proration_invoice_currency = response_body['prorationInvoiceCurrency']
         if 'creditNoteId' in response_body:
             self.__credit_note_id = response_body['creditNoteId']
+        if 'creditNoteIds' in response_body:
+            self.__credit_note_ids = response_body['creditNoteIds']
         if 'creditNoteAmount' in response_body:
             self.__credit_note_amount = response_body['creditNoteAmount']
         if 'creditNoteCurrency' in response_body:
