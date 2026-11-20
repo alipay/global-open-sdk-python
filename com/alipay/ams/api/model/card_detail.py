@@ -1,5 +1,5 @@
 import json
-from com.alipay.ams.api.model.card_inquiry_authorization_control import CardInquiryAuthorizationControl
+from com.alipay.ams.api.model.authorization_control import AuthorizationControl
 from com.alipay.ams.api.model.cardholder_info import CardholderInfo
 
 
@@ -18,7 +18,7 @@ class CardDetail:
         self.__purpose = None  # type: str
         self.__note = None  # type: str
         self.__metadata = None  # type: {str: (str,)}
-        self.__authorization_control = None  # type: CardInquiryAuthorizationControl
+        self.__authorization_control = None  # type: AuthorizationControl
         self.__cardholderinfo = None  # type: CardholderInfo
         
 
@@ -199,7 +199,7 @@ class CardDetail:
         if 'metadata' in response_body:
             self.__metadata = response_body['metadata']
         if 'authorizationControl' in response_body:
-            self.__authorization_control = CardInquiryAuthorizationControl()
+            self.__authorization_control = AuthorizationControl()
             self.__authorization_control.parse_rsp_body(response_body['authorizationControl'])
         if 'cardholderinfo' in response_body:
             self.__cardholderinfo = CardholderInfo()
