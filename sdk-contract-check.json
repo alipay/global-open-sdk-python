@@ -1,0 +1,16 @@
+{
+  "schema_version": "sdk-contract-check-v1",
+  "command": [
+    "python3",
+    "tests/api_delta_contract/check_contract.py"
+  ],
+  "native_test_scope": {
+    "config": "tests/api_delta_contract/pytest-delta.cfg",
+    "integration_examples_not_applicable": [
+      "example/entry_code_payment_request_test.py::EntryCodePaymentRequestTest::test_entry_code",
+      "example/order_code_payment_request_test.py::OrderCodePaymentRequestTest::test_order_code",
+      "example/user_presented_code_payment_test.py::UserPresentedCodePaymentRequestTest::test_upcp"
+    ],
+    "reason": "Unchanged live-payment examples are not authorized or needed for offline SDK generation; native contract probes and the selected offline unit tests execute normally."
+  }
+}
