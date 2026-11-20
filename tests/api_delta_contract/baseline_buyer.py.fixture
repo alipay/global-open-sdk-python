@@ -1,4 +1,3 @@
-from com.alipay.ams.api.model.buyer import Buyer
 import json
 from com.alipay.ams.api.model.user_name import UserName
 from com.alipay.ams.api.model.amount import Amount
@@ -8,10 +7,9 @@ from com.alipay.ams.api.model.address import Address
 
 
 
-class ConsultBuyer(Buyer):
+class Buyer:
     def __init__(self):
         
-        self.__buyer_access_group_flag = None  # type: str
         self.__preferred_locales = None  # type: [str]
         self.__business_name = None  # type: str
         self.__buyer_type = None  # type: str
@@ -30,16 +28,6 @@ class ConsultBuyer(Buyer):
         self.__business_address = None  # type: Address
         
 
-    @property
-    def buyer_access_group_flag(self):
-        """
-        Kwai-Bettr hidden-link buyer access-group flag (maximum 16 characters): &quot;true&quot; means inside the current group and &quot;false&quot; means outside it. Kwai supplies this string with referenceBuyerId when buyer is present; non-Kwai merchants omit it.
-        """
-        return self.__buyer_access_group_flag
-
-    @buyer_access_group_flag.setter
-    def buyer_access_group_flag(self, value):
-        self.__buyer_access_group_flag = value
     @property
     def preferred_locales(self):
         """
@@ -82,7 +70,7 @@ class ConsultBuyer(Buyer):
         self.__reference_buyer_id = value
     @property
     def buyer_name(self):
-        """Gets the buyer_name of this ConsultBuyer.
+        """Gets the buyer_name of this Buyer.
         
         """
         return self.__buyer_name
@@ -113,7 +101,7 @@ class ConsultBuyer(Buyer):
     @property
     def buyer_registration_time(self):
         """
-        The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.    More information:  Maximum length: 64 characters The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;. 
+        The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.    More information:  Maximum length: 64 characters The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;. 
         """
         return self.__buyer_registration_time
 
@@ -122,7 +110,7 @@ class ConsultBuyer(Buyer):
         self.__buyer_registration_time = value
     @property
     def is_account_verified(self):
-        """Gets the is_account_verified of this ConsultBuyer.
+        """Gets the is_account_verified of this Buyer.
         
         """
         return self.__is_account_verified
@@ -132,7 +120,7 @@ class ConsultBuyer(Buyer):
         self.__is_account_verified = value
     @property
     def successful_order_count(self):
-        """Gets the successful_order_count of this ConsultBuyer.
+        """Gets the successful_order_count of this Buyer.
         
         """
         return self.__successful_order_count
@@ -152,7 +140,7 @@ class ConsultBuyer(Buyer):
         self.__buyer_phone_no_contry_code = value
     @property
     def successful_order_amount(self):
-        """Gets the successful_order_amount of this ConsultBuyer.
+        """Gets the successful_order_amount of this Buyer.
         
         """
         return self.__successful_order_amount
@@ -163,7 +151,7 @@ class ConsultBuyer(Buyer):
     @property
     def date_of_last_paid_purchase(self):
         """
-        The date and time of the buyer&#39;s last paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time of the buyer&#39;s last paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__date_of_last_paid_purchase
 
@@ -173,7 +161,7 @@ class ConsultBuyer(Buyer):
     @property
     def date_of_first_paid_purchase(self):
         """
-        The date and time of the buyer&#39;s first paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, &quot;2019-11-27T12:01:01+08:00&quot;.
+        The date and time of the buyer&#39;s first paid purchase. When using KLARNA for an e-commerce merchant, this field is required. The value follows the ISO 8601 standard format. For example, \&quot;2019-11-27T12:01:01+08:00\&quot;.
         """
         return self.__date_of_first_paid_purchase
 
@@ -192,7 +180,7 @@ class ConsultBuyer(Buyer):
         self.__tax_ids = value
     @property
     def business_address(self):
-        """Gets the business_address of this ConsultBuyer.
+        """Gets the business_address of this Buyer.
         
         """
         return self.__business_address
@@ -206,8 +194,6 @@ class ConsultBuyer(Buyer):
 
     def to_ams_dict(self):
         params = dict()
-        if hasattr(self, "buyer_access_group_flag") and self.buyer_access_group_flag is not None:
-            params['buyerAccessGroupFlag'] = self.buyer_access_group_flag
         if hasattr(self, "preferred_locales") and self.preferred_locales is not None:
             params['preferredLocales'] = self.preferred_locales
         if hasattr(self, "business_name") and self.business_name is not None:
@@ -246,8 +232,6 @@ class ConsultBuyer(Buyer):
     def parse_rsp_body(self, response_body):
         if isinstance(response_body, str): 
             response_body = json.loads(response_body)
-        if 'buyerAccessGroupFlag' in response_body:
-            self.__buyer_access_group_flag = response_body['buyerAccessGroupFlag']
         if 'preferredLocales' in response_body:
             self.__preferred_locales = response_body['preferredLocales']
         if 'businessName' in response_body:

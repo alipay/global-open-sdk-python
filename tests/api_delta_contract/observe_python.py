@@ -57,7 +57,7 @@ def sample(typ):
 
 
 def wire(obj):
-    return json.loads(json.dumps(obj.to_ams_dict(), default=lambda value: value.to_ams_dict()))
+    return json.loads(obj.to_ams_json()) if not hasattr(obj, 'to_ams_dict') else json.loads(json.dumps(obj.to_ams_dict(), default=lambda value: value.to_ams_dict()))
 
 
 req = json.load(sys.stdin)
@@ -80,9 +80,25 @@ for target in req['models']:
 
 
 evidence = []
-if 'ConsultBuyer' in catalog:
+namespace={};exec((Path(__file__).parent/'baseline_buyer.py.fixture').read_text(),namespace)
+old_buyer=namespace['Buyer']();shared=make('Buyer')
+assert wire(old_buyer)==wire(shared)
+old_types={k:v.strip() for k,v in re.findall(r'self\.__(\w+)\s*=.*?# type:\s*([^\n]+)',(Path(__file__).parent/'baseline_buyer.py.fixture').read_text())}
+for attr,typ in old_types.items():
+    value=sample(typ);setattr(old_buyer,attr,value);setattr(shared,attr,value)
+assert wire(old_buyer)==wire(shared), 'baseline populated Buyer JSON'
+count=0
+for name,path in catalog.items():
+    if not name.endswith('Request') or '# type: Buyer' not in path.read_text(): continue
+    q=make(name);q.buyer=shared
+    assert q.buyer is shared and wire(q)['buyer']==wire(old_buyer)
+    assert 'buyerAccessGroupFlag' not in wire(q)['buyer'];count+=1
+assert count>1
+assert inspect.signature(namespace['Buyer'])==inspect.signature(cls('Buyer'))
+evidence.append(f'Pinned baseline empty/populated JSON, constructor and old properties retained; unset field omitted in {count} shared Buyer requests')
+if 'Buyer' in catalog:
     for value in ('true', 'false'):
-        buyer = make('ConsultBuyer')
+        buyer = make('Buyer')
         buyer.buyer_access_group_flag = value
         assert wire(buyer)['buyerAccessGroupFlag'] == value
         assert isinstance(wire(buyer)['buyerAccessGroupFlag'], str)
@@ -91,7 +107,6 @@ if 'ConsultBuyer' in catalog:
         assert wire(request)['buyer']['buyerAccessGroupFlag'] == value
     buyer.buyer_access_group_flag = None
     assert 'buyerAccessGroupFlag' not in wire(buyer)
-    assert isinstance(make('ConsultBuyer'), cls('Buyer'))
     legacy=make('Buyer');legacy.reference_buyer_id='legacy_buyer'
     legacy_request=make('AlipayPayConsultRequest');legacy_request.buyer=legacy
     assert wire(legacy_request)['buyer']['referenceBuyerId']=='legacy_buyer'

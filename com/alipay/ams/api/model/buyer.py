@@ -26,6 +26,7 @@ class Buyer:
         self.__date_of_first_paid_purchase = None  # type: str
         self.__tax_ids = None  # type: [BuyerTaxId]
         self.__business_address = None  # type: Address
+        self.__buyer_access_group_flag = None  # type: str
         
 
     @property
@@ -192,6 +193,15 @@ class Buyer:
 
     
 
+    @property
+    def buyer_access_group_flag(self):
+        """Optional Kwai-Bettr consult-only string "true"/"false" flag; omit for other uses."""
+        return self.__buyer_access_group_flag
+
+    @buyer_access_group_flag.setter
+    def buyer_access_group_flag(self, value):
+        self.__buyer_access_group_flag = value
+
     def to_ams_dict(self):
         params = dict()
         if hasattr(self, "preferred_locales") and self.preferred_locales is not None:
@@ -226,6 +236,8 @@ class Buyer:
             params['taxIds'] = self.tax_ids
         if hasattr(self, "business_address") and self.business_address is not None:
             params['businessAddress'] = self.business_address
+        if self.buyer_access_group_flag is not None:
+            params['buyerAccessGroupFlag'] = self.buyer_access_group_flag
         return params
 
 
@@ -268,6 +280,8 @@ class Buyer:
                 obj = BuyerTaxId()
                 obj.parse_rsp_body(item)
                 self.__tax_ids.append(obj)
+        if 'buyerAccessGroupFlag' in response_body:
+            self.__buyer_access_group_flag = response_body['buyerAccessGroupFlag']
         if 'businessAddress' in response_body:
             self.__business_address = Address()
             self.__business_address.parse_rsp_body(response_body['businessAddress'])
