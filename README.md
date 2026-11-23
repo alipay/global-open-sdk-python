@@ -1,6 +1,6 @@
 # Antom SDK for Python
 
-Latest release: **1.7.3**
+Latest release: **1.7.4**
 
 ## Installation
 
