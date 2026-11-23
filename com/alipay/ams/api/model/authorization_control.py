@@ -1,4 +1,5 @@
 import json
+from com.alipay.ams.api.model.payment_preference import PaymentPreference
 from com.alipay.ams.api.model.card_limit_detail import CardLimitDetail
 from com.alipay.ams.api.model.card_limit_info import CardLimitInfo
 from com.alipay.ams.api.model.refund_preference import RefundPreference
@@ -14,8 +15,7 @@ class AuthorizationControl:
         self.__allowed_merchant_category_list = None  # type: [str]
         self.__allowed_auth_times = None  # type: int
         self.__allowed_currencies = None  # type: [str]
-        self.__payment_preference_currencies = None  # type: [str]
-        self.__same_currency_preference = None  # type: bool
+        self.__payment_preference = None  # type: PaymentPreference
         self.__three_ds_mode = None  # type: str
         self.__phone_no = None  # type: str
         self.__email = None  # type: str
@@ -75,25 +75,15 @@ class AuthorizationControl:
     def allowed_currencies(self, value):
         self.__allowed_currencies = value
     @property
-    def payment_preference_currencies(self):
+    def payment_preference(self):
+        """Gets the payment_preference of this AuthorizationControl.
+        
         """
-        An ordered list of ISO 4217 currency codes that defines the card-level balance-consumption priority. Only applyCard accepts this field in a request; do not send it to updateCard. For applyCard, the list must not contain duplicates and every currency must be supported by Antom. Omission, null, or an empty list configures no card-level preference. The field participates in requestId idempotency, and invalid values, more than 9 entries, duplicates, or capability-disabled use return PARAM_ILLEGAL. For inquireCardDetail, a configured list is returned in stored order; an enabled merchant without a card-level preference receives null, and a disabled merchant does not receive the field. For inquireCardSensitiveInfo, the current contract exposes authorizationControl at the response top level for whitelisted merchants. The legacy cardDetail property remains in the SDK for compatibility, without automatic copying between the two locations. The order field is subject to its existing capability and visibility rules; an absent order field must not be interpreted as proof that no stored order exists. The initially supported currencies are USD, EUR, GBP, HKD, AUD, CAD, CNH, JPY, and NZD; the supported set is configuration-driven and can change without an API contract change.
-        """
-        return self.__payment_preference_currencies
+        return self.__payment_preference
 
-    @payment_preference_currencies.setter
-    def payment_preference_currencies(self, value):
-        self.__payment_preference_currencies = value
-    @property
-    def same_currency_preference(self):
-        """
-        Whether to prioritize the transaction currency balance. Accepted only by applyCard and immutable after creation; do not send to updateCard. True enables same-currency-first deduction; false skips it and follows paymentPreferenceCurrencies when configured, otherwise the account-level setting. Omission preserves the server default behavior (same-currency-first); SDKs must not supply a default and must preserve explicit false. An omitted, null, or empty currency order is accepted. Returned by inquireCardDetail and the top-level authorizationControl of inquireCardSensitiveInfo when a standing is stored; otherwise omitted. Sensitive-info enrichment requires the existing merchant whitelist. Availability is controlled by WorldFirst; an ignored preference is not stored. Applicable to eligible Z18 merchants in CN/HK. Each payment is funded in full from one currency; balances are never split across currencies. A configured card-level currency order is exclusive: the account-level order is not consulted, and the payment fails if no eligible currency can fund it in full. On inquiry, an absent paymentPreferenceCurrencies field can mean the order is hidden or unavailable; it must not be interpreted as proof that no order is configured. Retain endpoint and capability context when interpreting returned fields.
-        """
-        return self.__same_currency_preference
-
-    @same_currency_preference.setter
-    def same_currency_preference(self, value):
-        self.__same_currency_preference = value
+    @payment_preference.setter
+    def payment_preference(self, value):
+        self.__payment_preference = value
     @property
     def three_ds_mode(self):
         """
@@ -170,10 +160,8 @@ class AuthorizationControl:
             params['allowedAuthTimes'] = self.allowed_auth_times
         if hasattr(self, "allowed_currencies") and self.allowed_currencies is not None:
             params['allowedCurrencies'] = self.allowed_currencies
-        if hasattr(self, "payment_preference_currencies") and self.payment_preference_currencies is not None:
-            params['paymentPreferenceCurrencies'] = self.payment_preference_currencies
-        if hasattr(self, "same_currency_preference") and self.same_currency_preference is not None:
-            params['sameCurrencyPreference'] = self.same_currency_preference
+        if hasattr(self, "payment_preference") and self.payment_preference is not None:
+            params['paymentPreference'] = self.payment_preference
         if hasattr(self, "three_ds_mode") and self.three_ds_mode is not None:
             params['threeDSMode'] = self.three_ds_mode
         if hasattr(self, "phone_no") and self.phone_no is not None:
@@ -202,10 +190,9 @@ class AuthorizationControl:
             self.__allowed_auth_times = response_body['allowedAuthTimes']
         if 'allowedCurrencies' in response_body:
             self.__allowed_currencies = response_body['allowedCurrencies']
-        if 'paymentPreferenceCurrencies' in response_body:
-            self.__payment_preference_currencies = response_body['paymentPreferenceCurrencies']
-        if 'sameCurrencyPreference' in response_body:
-            self.__same_currency_preference = response_body['sameCurrencyPreference']
+        if 'paymentPreference' in response_body:
+            self.__payment_preference = PaymentPreference()
+            self.__payment_preference.parse_rsp_body(response_body['paymentPreference'])
         if 'threeDSMode' in response_body:
             self.__three_ds_mode = response_body['threeDSMode']
         if 'phoneNo' in response_body:
