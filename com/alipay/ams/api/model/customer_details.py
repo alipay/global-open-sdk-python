@@ -1,0 +1,138 @@
+import json
+from com.alipay.ams.api.model.customer_address import CustomerAddress
+from com.alipay.ams.api.model.customer_address import CustomerAddress
+from com.alipay.ams.api.model.customer_address import CustomerAddress
+from com.alipay.ams.api.model.customer_tax_id import CustomerTaxId
+
+
+
+
+class CustomerDetails:
+    def __init__(self):
+        
+        self.__full_name = None  # type: str
+        self.__billing_address = None  # type: CustomerAddress
+        self.__shipping_address = None  # type: CustomerAddress
+        self.__customer_type = None  # type: str
+        self.__business_name = None  # type: str
+        self.__business_address = None  # type: CustomerAddress
+        self.__tax_ids = None  # type: [CustomerTaxId]
+        
+
+    @property
+    def full_name(self):
+        """
+        The customer name for the profile and invoices. A nonblank value is trimmed before saving. Omission, null, or blank preserves the saved name.
+        """
+        return self.__full_name
+
+    @full_name.setter
+    def full_name(self, value):
+        self.__full_name = value
+    @property
+    def billing_address(self):
+        """Gets the billing_address of this CustomerDetails.
+        
+        """
+        return self.__billing_address
+
+    @billing_address.setter
+    def billing_address(self, value):
+        self.__billing_address = value
+    @property
+    def shipping_address(self):
+        """Gets the shipping_address of this CustomerDetails.
+        
+        """
+        return self.__shipping_address
+
+    @shipping_address.setter
+    def shipping_address(self, value):
+        self.__shipping_address = value
+    @property
+    def customer_type(self):
+        """
+        The profile classification: C for consumer or B for business. New customers start as C. Omission or null preserves the stored type. Initial invoice classification depends on businessAddress.
+        """
+        return self.__customer_type
+
+    @customer_type.setter
+    def customer_type(self, value):
+        self.__customer_type = value
+    @property
+    def business_name(self):
+        """
+        The business name for the profile and invoices. Omission or null preserves it. Type B needs a nonblank name when none is saved. A supplied blank name is invalid for type B.
+        """
+        return self.__business_name
+
+    @business_name.setter
+    def business_name(self, value):
+        self.__business_name = value
+    @property
+    def business_address(self):
+        """Gets the business_address of this CustomerDetails.
+        
+        """
+        return self.__business_address
+
+    @business_address.setter
+    def business_address(self, value):
+        self.__business_address = value
+    @property
+    def tax_ids(self):
+        """
+        Business tax registrations for the Billing profile and eligible B2B invoices. A supplied list replaces saved IDs. An empty list clears them. Omission or null preserves them. Unused for initial B2C.
+        """
+        return self.__tax_ids
+
+    @tax_ids.setter
+    def tax_ids(self, value):
+        self.__tax_ids = value
+
+
+    
+
+    def to_ams_dict(self):
+        params = dict()
+        if hasattr(self, "full_name") and self.full_name is not None:
+            params['fullName'] = self.full_name
+        if hasattr(self, "billing_address") and self.billing_address is not None:
+            params['billingAddress'] = self.billing_address
+        if hasattr(self, "shipping_address") and self.shipping_address is not None:
+            params['shippingAddress'] = self.shipping_address
+        if hasattr(self, "customer_type") and self.customer_type is not None:
+            params['customerType'] = self.customer_type
+        if hasattr(self, "business_name") and self.business_name is not None:
+            params['businessName'] = self.business_name
+        if hasattr(self, "business_address") and self.business_address is not None:
+            params['businessAddress'] = self.business_address
+        if hasattr(self, "tax_ids") and self.tax_ids is not None:
+            params['taxIds'] = self.tax_ids
+        return params
+
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str): 
+            response_body = json.loads(response_body)
+        if 'fullName' in response_body:
+            self.__full_name = response_body['fullName']
+        if 'billingAddress' in response_body:
+            self.__billing_address = CustomerAddress()
+            self.__billing_address.parse_rsp_body(response_body['billingAddress'])
+        if 'shippingAddress' in response_body:
+            self.__shipping_address = CustomerAddress()
+            self.__shipping_address.parse_rsp_body(response_body['shippingAddress'])
+        if 'customerType' in response_body:
+            self.__customer_type = response_body['customerType']
+        if 'businessName' in response_body:
+            self.__business_name = response_body['businessName']
+        if 'businessAddress' in response_body:
+            self.__business_address = CustomerAddress()
+            self.__business_address.parse_rsp_body(response_body['businessAddress'])
+        if 'taxIds' in response_body:
+            self.__tax_ids = []
+            for item in response_body['taxIds']:
+                obj = CustomerTaxId()
+                obj.parse_rsp_body(item)
+                self.__tax_ids.append(obj)
