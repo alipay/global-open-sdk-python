@@ -17,6 +17,7 @@ class AlipayPaymentSessionResponse(AlipayResponse):
         self.__url = None  # type: str
         self.__subscription_id = None  # type: str
         self.__invoice_id = None  # type: str
+        self.__customer_id = None  # type: str
         self.parse_rsp_body(rsp_body) 
 
 
@@ -100,6 +101,16 @@ class AlipayPaymentSessionResponse(AlipayResponse):
     @invoice_id.setter
     def invoice_id(self, value):
         self.__invoice_id = value
+    @property
+    def customer_id(self):
+        """
+        Billing customer ID linked to the subscription. Returned after successful creation or reuse for all trial modes, independently of invoiceId and tax.
+        """
+        return self.__customer_id
+
+    @customer_id.setter
+    def customer_id(self, value):
+        self.__customer_id = value
 
 
     
@@ -122,6 +133,8 @@ class AlipayPaymentSessionResponse(AlipayResponse):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "invoice_id") and self.invoice_id is not None:
             params['invoiceId'] = self.invoice_id
+        if hasattr(self, "customer_id") and self.customer_id is not None:
+            params['customerId'] = self.customer_id
         return params
 
 
@@ -144,3 +157,5 @@ class AlipayPaymentSessionResponse(AlipayResponse):
             self.__subscription_id = response_body['subscriptionId']
         if 'invoiceId' in response_body:
             self.__invoice_id = response_body['invoiceId']
+        if 'customerId' in response_body:
+            self.__customer_id = response_body['customerId']
