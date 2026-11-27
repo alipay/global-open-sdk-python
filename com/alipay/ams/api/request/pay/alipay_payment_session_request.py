@@ -20,6 +20,7 @@ from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.available_payment_method import AvailablePaymentMethod
 from com.alipay.ams.api.model.billing_subscription import BillingSubscription
 from com.alipay.ams.api.model.automatic_tax import AutomaticTax
+from com.alipay.ams.api.model.payment_session_invoice_creation import PaymentSessionInvoiceCreation
 
 
 
@@ -64,6 +65,7 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         self.__payment_expiry_time = None  # type: str
         self.__subscription = None  # type: BillingSubscription
         self.__automatic_tax = None  # type: AutomaticTax
+        self.__invoice_creation = None  # type: PaymentSessionInvoiceCreation
         
 
     @property
@@ -416,6 +418,16 @@ class AlipayPaymentSessionRequest(AlipayRequest):
     @automatic_tax.setter
     def automatic_tax(self, value):
         self.__automatic_tax = value
+    @property
+    def invoice_creation(self):
+        """Gets the invoice_creation of this AlipayPaymentSessionRequest.
+        
+        """
+        return self.__invoice_creation
+
+    @invoice_creation.setter
+    def invoice_creation(self, value):
+        self.__invoice_creation = value
 
 
     def to_ams_json(self): 
@@ -495,6 +507,8 @@ class AlipayPaymentSessionRequest(AlipayRequest):
             params['subscription'] = self.subscription
         if hasattr(self, "automatic_tax") and self.automatic_tax is not None:
             params['automaticTax'] = self.automatic_tax
+        if hasattr(self, "invoice_creation") and self.invoice_creation is not None:
+            params['invoiceCreation'] = self.invoice_creation
         return params
 
 
@@ -595,3 +609,6 @@ class AlipayPaymentSessionRequest(AlipayRequest):
         if 'automaticTax' in response_body:
             self.__automatic_tax = AutomaticTax()
             self.__automatic_tax.parse_rsp_body(response_body['automaticTax'])
+        if 'invoiceCreation' in response_body:
+            self.__invoice_creation = PaymentSessionInvoiceCreation()
+            self.__invoice_creation.parse_rsp_body(response_body['invoiceCreation'])

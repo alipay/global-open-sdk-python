@@ -16,6 +16,7 @@ from com.alipay.ams.api.model.env import Env
 from com.alipay.ams.api.model.payment_method import PaymentMethod
 from com.alipay.ams.api.model.merchant import Merchant
 from com.alipay.ams.api.model.payment_verification_data import PaymentVerificationData
+from com.alipay.ams.api.model.pay_invoice_creation import PayInvoiceCreation
 
 
 
@@ -56,6 +57,7 @@ class AlipayPayRequest(AlipayRequest):
         self.__dual_offline_payment = None  # type: bool
         self.__subscription_id = None  # type: str
         self.__locale = None  # type: str
+        self.__invoice_creation = None  # type: PayInvoiceCreation
         
 
     @property
@@ -368,6 +370,16 @@ class AlipayPayRequest(AlipayRequest):
     @locale.setter
     def locale(self, value):
         self.__locale = value
+    @property
+    def invoice_creation(self):
+        """Gets the invoice_creation of this AlipayPayRequest.
+        
+        """
+        return self.__invoice_creation
+
+    @invoice_creation.setter
+    def invoice_creation(self, value):
+        self.__invoice_creation = value
 
 
     def to_ams_json(self): 
@@ -439,6 +451,8 @@ class AlipayPayRequest(AlipayRequest):
             params['subscriptionId'] = self.subscription_id
         if hasattr(self, "locale") and self.locale is not None:
             params['locale'] = self.locale
+        if hasattr(self, "invoice_creation") and self.invoice_creation is not None:
+            params['invoiceCreation'] = self.invoice_creation
         return params
 
 
@@ -524,3 +538,6 @@ class AlipayPayRequest(AlipayRequest):
             self.__subscription_id = response_body['subscriptionId']
         if 'locale' in response_body:
             self.__locale = response_body['locale']
+        if 'invoiceCreation' in response_body:
+            self.__invoice_creation = PayInvoiceCreation()
+            self.__invoice_creation.parse_rsp_body(response_body['invoiceCreation'])
