@@ -1,6 +1,7 @@
 import json
 from com.alipay.ams.api.model.billing_trial_settings import BillingTrialSettings
 from com.alipay.ams.api.model.billing_discount import BillingDiscount
+from com.alipay.ams.api.model.billing_customer_details import BillingCustomerDetails
 
 
 
@@ -20,12 +21,14 @@ class BillingSubscription:
         self.__default_payment_method = None  # type: str
         self.__allow_promotion_code = None  # type: bool
         self.__subscription_notify_url = None  # type: str
+        self.__customer_email = None  # type: str
+        self.__customer_details = None  # type: BillingCustomerDetails
         
 
     @property
     def customer_id(self):
         """
-        The customer ID.
+        The active customer ID under your merchant account. Omit, send null, or leave blank to look up by email. A supplied email must match the saved email.
         """
         return self.__customer_id
 
@@ -142,6 +145,26 @@ class BillingSubscription:
     @subscription_notify_url.setter
     def subscription_notify_url(self, value):
         self.__subscription_notify_url = value
+    @property
+    def customer_email(self):
+        """
+        Email to find or create a customer. Omitted, null, or blank falls back to order.buyer.buyerEmail. With customerId, it must match the saved email.
+        """
+        return self.__customer_email
+
+    @customer_email.setter
+    def customer_email(self, value):
+        self.__customer_email = value
+    @property
+    def customer_details(self):
+        """Gets the customer_details of this BillingSubscription.
+        
+        """
+        return self.__customer_details
+
+    @customer_details.setter
+    def customer_details(self, value):
+        self.__customer_details = value
 
 
     
@@ -172,6 +195,10 @@ class BillingSubscription:
             params['allowPromotionCode'] = self.allow_promotion_code
         if hasattr(self, "subscription_notify_url") and self.subscription_notify_url is not None:
             params['subscriptionNotifyUrl'] = self.subscription_notify_url
+        if hasattr(self, "customer_email") and self.customer_email is not None:
+            params['customerEmail'] = self.customer_email
+        if hasattr(self, "customer_details") and self.customer_details is not None:
+            params['customerDetails'] = self.customer_details
         return params
 
 
@@ -207,3 +234,8 @@ class BillingSubscription:
             self.__allow_promotion_code = response_body['allowPromotionCode']
         if 'subscriptionNotifyUrl' in response_body:
             self.__subscription_notify_url = response_body['subscriptionNotifyUrl']
+        if 'customerEmail' in response_body:
+            self.__customer_email = response_body['customerEmail']
+        if 'customerDetails' in response_body:
+            self.__customer_details = BillingCustomerDetails()
+            self.__customer_details.parse_rsp_body(response_body['customerDetails'])
