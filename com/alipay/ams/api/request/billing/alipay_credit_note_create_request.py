@@ -171,7 +171,7 @@ class AlipayCreditNoteCreateRequest(AlipayRequest):
     @property
     def credit_note_notify_url(self):
         """
-        The URL that receives credit note notifications. Maximum length: 2048 characters.
+        The HTTPS URL for credit note notifications, up to 2048 characters. Omission or null sends no notifications. You are responsible for URL format and reachability.
         """
         return self.__credit_note_notify_url
 

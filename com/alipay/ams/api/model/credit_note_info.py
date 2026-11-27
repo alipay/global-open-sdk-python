@@ -1,8 +1,11 @@
+import json
+
 from com.alipay.ams.api.model.amount import Amount
-from com.alipay.ams.api.model.line_item import LineItem
+from com.alipay.ams.api.model.credit_note_item import CreditNoteItem
 
 
 class CreditNoteInfo:
+    """Notification projection without detail-only merchant metadata."""
     def __init__(self):
 
         self.__credit_note_id = None  # type: str
@@ -21,7 +24,7 @@ class CreditNoteInfo:
         self.__refunded_at = None  # type: str
         self.__voided_at = None  # type: str
         self.__created_at = None  # type: str
-        self.__items = None  # type: [LineItem]
+        self.__items = None  # type: [CreditNoteNotificationLineItem]
 
 
     @property
@@ -62,7 +65,10 @@ class CreditNoteInfo:
 
     @property
     def refund_amount(self):
-        """The refund amount to the original payment method."""
+        """Optional planned original-method refund for refund-bearing POST_PAYMENT.
+
+        Absent/null for note-only POST_PAYMENT and PRE_PAYMENT; not proof of completion.
+        """
         return self.__refund_amount
 
     @refund_amount.setter
@@ -71,7 +77,10 @@ class CreditNoteInfo:
 
     @property
     def refund_status(self):
-        """The refund tracking status."""
+        """Optional REFUND_INITIATED, REFUND_SUCCEEDED or REFUND_FAILED progress.
+
+        Absent/null before progress or for note-only notes; PRE_PAYMENT may use NOT_APPLICABLE.
+        """
         return self.__refund_status
 
     @refund_status.setter
@@ -80,7 +89,10 @@ class CreditNoteInfo:
 
     @property
     def refund_id(self):
-        """The refund transaction ID in the payment system."""
+        """Optional payment-system reference when obtained; alone does not prove success.
+
+        Absent/null beforehand, for note-only POST_PAYMENT and PRE_PAYMENT.
+        """
         return self.__refund_id
 
     @refund_id.setter
@@ -89,7 +101,7 @@ class CreditNoteInfo:
 
     @property
     def refund_destination(self):
-        """The refund destination. Valid values: REFUND, CREDIT_BALANCE."""
+        """Optional REFUND routing supplied at creation; null when omitted."""
         return self.__refund_destination
 
     @refund_destination.setter
@@ -170,9 +182,80 @@ class CreditNoteInfo:
 
     @property
     def items(self):
-        """The line items. Maximum 100 elements."""
+        """Optional notification line items, at most 100; service returns [] when absent."""
         return self.__items
 
     @items.setter
     def items(self, value):
         self.__items = value
+
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        fields = {
+            'creditNoteId': 'credit_note_id',
+            'type': 'type',
+            'status': 'status',
+            'refundStatus': 'refund_status',
+            'refundId': 'refund_id',
+            'refundDestination': 'refund_destination',
+            'reason': 'reason',
+            'reasonDescription': 'reason_description',
+            'memo': 'memo',
+            'effectiveDate': 'effective_date',
+            'issuedAt': 'issued_at',
+            'refundedAt': 'refunded_at',
+            'voidedAt': 'voided_at',
+            'createdAt': 'created_at',
+        }
+        for wire_name, attribute in fields.items():
+            if wire_name in response_body:
+                setattr(self, attribute, response_body[wire_name])
+        for wire_name, attribute in [('totalAmount', 'total_amount'), ('refundAmount', 'refund_amount')]:
+            if wire_name in response_body:
+                amount = None
+                if response_body[wire_name] is not None:
+                    amount = Amount()
+                    amount.parse_rsp_body(response_body[wire_name])
+                setattr(self, attribute, amount)
+        if 'items' in response_body:
+            self.items = None
+            if response_body['items'] is not None:
+                self.items = []
+                for item_body in response_body['items']:
+                    item = CreditNoteNotificationLineItem()
+                    item.parse_rsp_body(item_body)
+                    self.items.append(item)
+
+
+class CreditNoteNotificationLineItem(CreditNoteItem):
+    """Notification projection reusing compatible item fields, without detail-only metadata."""
+
+    def __init__(self):
+        super(CreditNoteNotificationLineItem, self).__init__()
+        self.__direction = None  # type: str
+
+    @property
+    def direction(self):
+        """Required open C (credit) or D (debit); D itemAmount subtracts from credit total."""
+        return self.__direction
+
+    @direction.setter
+    def direction(self, value):
+        self.__direction = value
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        # Optional null amounts must not be passed to the shared Amount parser.
+        fields = {key: value for key, value in response_body.items() if value is not None}
+        super(CreditNoteNotificationLineItem, self).parse_rsp_body(fields)
+        if 'direction' in response_body:
+            self.direction = response_body['direction']
+
+    def to_ams_dict(self):
+        params = super(CreditNoteNotificationLineItem, self).to_ams_dict()
+        if self.direction is not None:
+            params['direction'] = self.direction
+        return params

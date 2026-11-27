@@ -1,3 +1,5 @@
+import json
+
 from com.alipay.ams.api.model.amount import Amount
 
 
@@ -32,7 +34,7 @@ class NotifyInvoiceInfo:
 
     @property
     def original_amount(self):
-        """The original invoice total amount before any credit notes."""
+        """Immutable original invoice total at finalization."""
         return self.__original_amount
 
     @original_amount.setter
@@ -41,7 +43,7 @@ class NotifyInvoiceInfo:
 
     @property
     def pre_payment_credit_notes_amount(self):
-        """The cumulative amount of all PRE_PAYMENT credit notes applied."""
+        """Cumulative non-voided PRE_PAYMENT amount; reduces invoice total. Zero when none."""
         return self.__pre_payment_credit_notes_amount
 
     @pre_payment_credit_notes_amount.setter
@@ -50,7 +52,10 @@ class NotifyInvoiceInfo:
 
     @property
     def post_payment_credit_notes_amount(self):
-        """The cumulative refunded amount of all POST_PAYMENT credit notes."""
+        """Cumulative non-voided POST_PAYMENT amount, including processing/failed refunds until void.
+
+        Does not change invoice total and is not the successfully-refunded amount.
+        """
         return self.__post_payment_credit_notes_amount
 
     @post_payment_credit_notes_amount.setter
@@ -59,9 +64,34 @@ class NotifyInvoiceInfo:
 
     @property
     def adjusted_amount(self):
-        """The current invoice total after all PRE_PAYMENT adjustments."""
+        """Current totalAmount after PRE_PAYMENT reductions; POST_PAYMENT refunds do not change it.
+
+        Zero may transition the invoice to PAID.
+        """
         return self.__adjusted_amount
 
     @adjusted_amount.setter
     def adjusted_amount(self, value):
         self.__adjusted_amount = value
+
+
+    def parse_rsp_body(self, response_body):
+        if isinstance(response_body, str):
+            response_body = json.loads(response_body)
+        if 'invoiceId' in response_body:
+            self.invoice_id = response_body['invoiceId']
+        if 'invoiceStatus' in response_body:
+            self.invoice_status = response_body['invoiceStatus']
+        fields = {
+            'originalAmount': 'original_amount',
+            'prePaymentCreditNotesAmount': 'pre_payment_credit_notes_amount',
+            'postPaymentCreditNotesAmount': 'post_payment_credit_notes_amount',
+            'adjustedAmount': 'adjusted_amount',
+        }
+        for wire_name, attribute in fields.items():
+            if wire_name in response_body:
+                amount = None
+                if response_body[wire_name] is not None:
+                    amount = Amount()
+                    amount.parse_rsp_body(response_body[wire_name])
+                setattr(self, attribute, amount)
