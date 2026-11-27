@@ -12,7 +12,7 @@ class AutomaticTax:
     @property
     def enabled(self):
         """
-        Whether automatic tax is enabled. createPaymentSession requires an explicit value when automaticTax is supplied. For invoice/create, omission defaults to false; tax is calculated at OPEN issuance or DRAFT finalization, not DRAFT creation.
+        Whether automatic tax is enabled. For Billing Checkout, omission or null defaults to false. For invoice/create, omission defaults to false; tax is calculated at OPEN issuance or DRAFT finalization, not DRAFT creation.
         """
         return self.__enabled
 
